@@ -16,7 +16,8 @@ namespace PLCSIM_Adv_CoSimulation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainInterface());
+            //Application.Run(new CoSimInterface());
         }
     }
 }

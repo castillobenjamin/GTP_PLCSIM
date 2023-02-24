@@ -1,0 +1,1165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AlphaBotSystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Alpen2.0">
+	<CellCommunication>
+		<IsCellConnectedPulse>
+			<Tag>plc Tag Name</Tag>
+			<Address></Address>
+			<Value>2</Value>
+		</IsCellConnectedPulse>
+		<ResetFromCell>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>2</Value>
+		</ResetFromCell>
+		<SystemIsStartingUp>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>0</Value>
+		</SystemIsStartingUp>
+		<CanSystemStartUp>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>0</Value>
+		</CanSystemStartUp>
+		<IsPlcConnectedPulse>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>2</Value>
+		</IsPlcConnectedPulse>
+		<IsPlcAutoMode>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>0</Value>
+		</IsPlcAutoMode>
+		<IsPlcEmergencyMode>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>0</Value>
+		</IsPlcEmergencyMode>
+		<PlcHasError>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>0</Value>
+		</PlcHasError>
+	</CellCommunication>
+	<Panels>
+		<DwsPanel>
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</ResetBtn>
+			<RedLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</RedLed>
+			<BlueLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</BlueLed>
+			<YellowLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</YellowLed>
+			<GreenLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</WhiteLed>
+		</DwsPanel>
+		<SouthPanel>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</ResetBtn>
+			<RedLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</RedLed>
+			<BlueLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</BlueLed>
+			<YellowLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</YellowLed>
+			<GreenLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</WhiteLed>
+		</SouthPanel>
+		<NorthPanel>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</ResetBtn>
+			<RedLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</RedLed>
+			<BlueLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</BlueLed>
+			<YellowLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</YellowLed>
+			<GreenLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</WhiteLed>
+		</NorthPanel>
+	</Panels>
+	<MaintenanceArea>
+		<Scaffold>
+			<Tag>plc Tag Name</Tag>
+			<Address>%I999.9</Address>
+			<Value>false</Value>
+		</Scaffold>
+	</MaintenanceArea>
+	<EvacuationArea>
+		<OperationBox>
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</ResetBtn>
+			<RequestBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</RequestBtn>
+			<ZoningStatusLed>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</ZoningStatusLed>
+		</OperationBox>
+		<Door>
+			<IsDoorLockedKeySwitch>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsDoorLockedKeySwitch>
+			<IsDoorClosedSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsDoorClosedSensor>
+		</Door>
+	</EvacuationArea>
+	<Aisles>
+		<Aisle Name="Aisle1" Label="Aisle 1">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>true</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle1">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle1">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>2</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle1">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle1">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>2</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle1">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle1">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Aisle>
+		<Aisle Name="Aisle2" Label="Aisle 2">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle2">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle2">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>2</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle2">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle2">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>2</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle2">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle2">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Aisle>
+		<Aisle Name="Aisle3" Label="Aisle 3">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle3">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle3">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>2</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle3">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle3">
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>false</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>plc Tag Name</Tag>
+						<Address>%I999.9</Address>
+						<Value>2</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle3">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle3">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Aisle>
+	</Aisles>
+	<Decks>
+		<Deck Name="Deck1" Label="Deck 1">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch Name="KeySwitch_Deck1">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor Name="DoorSensor_Deck1">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Scaffold>
+				<Tag>Test</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</Scaffold>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Deck>
+		<Deck Name="Deck2" Label="Deck 2">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch Name="KeySwitch_Deck2">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor Name="DoorSensor_Deck2">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Scaffold>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</Scaffold>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Deck>
+		<Deck Name="Deck3" Label="Deck 3">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch Name="KeySwitch_Deck3">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor Name="DoorSensor_Deck3">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Scaffold>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</Scaffold>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Deck>
+	</Decks>
+	<DynamicWorkStations>
+		<DynamicWorkStation Name="DWS1" Label="DWS 1">
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+			<Contactor>
+				<ContactorOutput Name="ContactorNorthOut_DWS1">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ContactorOutput>
+				<ContactorFeedback Name="ContactorNorthOut_DWS1">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ContactorFeedback>
+				<ContactorOnOffCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ContactorOnOffCommand>
+			</Contactor>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</DynamicWorkStation>
+		<DynamicWorkStation Name="DWS2" Label="DWS 2">
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+			<Contactor>
+				<ContactorOutput Name="ContactorNorthOut_DWS2">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ContactorOutput>
+				<ContactorFeedback Name="ContactorNorthOut_DWS2">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ContactorFeedback>
+				<ContactorOnOffCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ContactorOnOffCommand>
+			</Contactor>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</DynamicWorkStation>
+		<DynamicWorkStation Name="DWS3" Label="DWS 3">
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+			<Contactor>
+				<ContactorOutput Name="ContactorNorthOut_DWS3">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ContactorOutput>
+				<ContactorFeedback Name="ContactorNorthOut_DWS3">
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>false</Value>
+				</ContactorFeedback>
+				<ContactorOnOffCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ContactorOnOffCommand>
+			</Contactor>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+					<Address>%I999.9</Address>
+					<Value>2</Value>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</DynamicWorkStation>
+	</DynamicWorkStations>
+	<StaticWorkStations>
+		<StaticWorkStation Name="SWS1">
+			<EmergencyBtn Name="EmergencyBtn_SWS1">
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+		</StaticWorkStation>
+		<StaticWorkStation Name="SWS2">
+			<EmergencyBtn Name="EmergencyBtn_SWS2">
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+		</StaticWorkStation>
+		<StaticWorkStation Name="SWS3">
+			<EmergencyBtn Name="EmergencyBtn_SWS3">
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</EmergencyBtn>
+		</StaticWorkStation>
+	</StaticWorkStations>
+	<Stoppers>
+		<Stopper Name="Stopper_Aisle1_Deck1" Label="Stopper Aisle 1, Deck 1">
+			<PlcOpenOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsClosedSensor>
+			<OpenCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
+		<Stopper Name="Stopper_MaintenanceArea" Label="Stopper Maintenance area">
+			<PlcOpenOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsClosedSensor>
+			<OpenCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
+	</Stoppers>
+	<FirePreventionShutters>
+		<FirePreventionShutter Name="Shutter_Aisle5Deck3" Label="Shutter Aisle5 Deck3">
+			<PlcOpenOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsClosedSensor>
+			<OpenCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsClosedStatusToCell>
+		</FirePreventionShutter>
+		<FirePreventionShutter Name="Shutter_Aisle5Deck4" Label="Shutter Aisle5 Deck4">
+			<PlcOpenOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>false</Value>
+			</IsClosedSensor>
+			<OpenCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>plc Tag Name</Tag>
+				<Address>%I999.9</Address>
+				<Value>2</Value>
+			</IsClosedStatusToCell>
+		</FirePreventionShutter>
+	</FirePreventionShutters>
+</AlphaBotSystem>

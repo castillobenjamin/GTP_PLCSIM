@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<configData>
+	<system name="Alpen2.0" hasMaintenanceArea="true" hasEvacuationArea="true">
+		<!--TODO - make numOfx elements system attributes?-->
+		<!--TODO - numOfx elements probably not needed. Need to confirm iteration of child elemens of <elem></elem> is possible-->
+		<!--TODO - Validate the XML file against a SCHEMA-->
+		<numOfAisles>#aisles</numOfAisles>
+		<numOfDecks>#decks</numOfDecks>
+		<numOfDws>#dws</numOfDws>
+		<numOfStoppers>#stoppers</numOfStoppers>
+
+		<cellCommunication>
+			<fromCell>
+				<isConnectedPulse>
+					<tag>plc tag name</tag>
+				</isConnectedPulse>
+				<resetFromCell>
+					<tag>plc tag name</tag>
+				</resetFromCell>
+				<startUp>
+					<systemIsStartingUp>
+						<tag>plc tag name</tag>
+					</systemIsStartingUp>
+					<canSystemStartUp>
+						<tag>plc tag name</tag>
+					</canSystemStartUp>
+				</startUp>	
+			</fromCell>
+			<fromPlc>
+				<isConnectedPulse>
+					<tag>plc tag name</tag>
+				</isConnectedPulse>
+				<isAutoMode>
+					<tag>plc tag name</tag>
+				</isAutoMode>
+				<isEmergencyMode>
+					<tag>plc tag name</tag>
+				</isEmergencyMode>
+			</fromPlc>
+		</cellCommunication>
+		
+		<panels>
+			<dwsPanel>
+				<emergencyBtn name="EmergencyBtn_DwsPanel">
+					<tag>plc tag name</tag>
+				</emergencyBtn>
+				<resetBtn name="ResetBtn_DwsPanel">
+					<tag>plc tag name</tag>
+				</resetBtn>
+				<ledTower name="LedTower_DwsPanel">
+					<redLed>
+						<tag>plc tag name</tag>
+					</redLed>
+					<blueLed>
+						<tag>plc tag name</tag>
+					</blueLed>
+					<yellowLed>
+						<tag>plc tag name</tag>
+					</yellowLed>
+					<greenLed>
+						<tag>plc tag name</tag>
+					</greenLed>
+					<whiteLed>
+						<tag>plc tag name</tag>
+					</whiteLed>
+				</ledTower>
+			</dwsPanel>
+			<southPanel>
+				<resetBtn name="ResetBtn_SouthPanel">
+					<tag>plc tag name</tag>
+				</resetBtn>
+				<ledTower name="LedTower_SouthPanel">
+					<redLed>
+						<tag>plc tag name</tag>
+					</redLed>
+					<blueLed>
+						<tag>plc tag name</tag>
+					</blueLed>
+					<yellowLed>
+						<tag>plc tag name</tag>
+					</yellowLed>
+					<greenLed>
+						<tag>plc tag name</tag>
+					</greenLed>
+					<whiteLed>
+						<tag>plc tag name</tag>
+					</whiteLed>
+				</ledTower>
+			</southPanel>
+			<northPanel>
+				<resetBtn name="ResetBtn_NorthPanel">
+					<tag>plc tag name</tag>
+				</resetBtn>
+				<ledTower name="LedTower_NorthPanel">
+					<redLed>
+						<tag>plc tag name</tag>
+					</redLed>
+					<blueLed>
+						<tag>plc tag name</tag>
+					</blueLed>
+					<yellowLed>
+						<tag>plc tag name</tag>
+					</yellowLed>
+					<greenLed>
+						<tag>plc tag name</tag>
+					</greenLed>
+					<whiteLed>
+						<tag>plc tag name</tag>
+					</whiteLed>
+				</ledTower>
+			</northPanel>
+		</panels>
+
+		<otherZones>
+			<maintenanceArea>
+				<scaffold name="Scaffold_MaintenanceArea">
+					<tag>plc tag name</tag>
+				</scaffold>
+			</maintenanceArea>
+			<evacuationArea>
+				<opBox>
+					<emergencyBtn name="EmergencyBtn_EvacuationArea">
+						<tag>plc tag name</tag>
+					</emergencyBtn>
+					<resetBtn name="ResetBtn_EvacuationArea">
+						<tag>plc tag name</tag>
+					</resetBtn>
+					<requestBtn name="RequestBtn_EvacuationArea">
+						<tag>plc tag name</tag>
+					</requestBtn>
+					<zoningStatusLed name="Led_EvacuationArea">
+						<tag>plc tag name</tag>
+					</zoningStatusLed>
+				</opBox>
+				<door>
+					<isDoorLockedKeySwitch name="keySwitch_EvacuationArea">
+						<tag>plc tag name</tag>
+					</isDoorLockedKeySwitch>
+					<isDoorClosedSensor name="doorSensor_EvacuationArea">
+						<tag>plc tag name</tag>
+					</isDoorClosedSensor>
+				</door>
+			</evacuationArea>
+		</otherZones>
+
+		<aisles>			
+			<!--"name" attribute is used as the class instance's name, "label" attribute is used for displaying in interface -->
+			<aisle name="Aisle1" label="Aisle 1">
+				<opBox>
+					<emergencyBtn name="EmergencyBtn_Aisle1">
+						<tag>plc tag name</tag>
+					</emergencyBtn>
+					<resetBtn name="ResetBtn_Aisle1">
+						<tag>plc tag name</tag>
+					</resetBtn>
+					<requestBtn name="RequestBtn_Aisle1">
+						<tag>plc tag name</tag>
+					</requestBtn>
+					<zoningStatusLed name="Led_Aisle1">
+						<tag>plc tag name</tag>
+					</zoningStatusLed>
+				</opBox>
+				<door>
+					<isDoorLockedKeySwitch name="keySwitch_Aisle1">
+						<tag>plc tag name</tag>
+					</isDoorLockedKeySwitch>
+					<isDoorClosedSensor name="doorSensor_Aisle1">
+						<tag>plc tag name</tag>
+					</isDoorClosedSensor>
+				</door>
+				<contactors>
+					<contactor>					
+						<contactorOutput name="contactorNorthOut_Aisle1">
+							<tag>plc tag name</tag>
+						</contactorOutput>					
+						<contactorFeedback name="contactorNorthIn_Aisle1">
+							<tag>plc tag name</tag>
+						</contactorFeedback>			
+					</contactor>
+					<contactor name="contactorSouth_Aisle1">						
+						<contactorOutput name="contactorSouthOut_Aisle1">
+							<tag>plc tag name</tag>
+						</contactorOutput>						
+						<contactorFeedback name="contactorSouthIn_Aisle1">
+							<tag>plc tag name</tag>
+						</contactorFeedback>						
+					</contactor>					
+				</contactors>
+				<scaffolds>
+					<scaffold name="Scaffold_North_Aisle1">
+						<tag>plc tag name</tag>
+					</scaffold>
+					<scaffold name="Scaffold_South_Aisle1">
+						<tag>plc tag name</tag>
+					</scaffold>
+				</scaffolds>
+				<scaffold name="Scaffold_Aisle1">
+					<tag>plc tag name</tag>
+				</scaffold>
+				<zoning>
+					<cellCommand>
+						<tag>plc tag name</tag>
+					</cellCommand>
+					<zoningStatus>
+						<tag>plc tag name</tag>
+					</zoningStatus>
+				</zoning>
+				<emergencyStopZone>
+					<fromCell>
+						<isCompleteFlag>
+							<tag>plc tag name</tag>
+						</isCompleteFlag>
+					</fromCell>
+					<fromPlc>
+						<stopRequest>
+							<tag>plc tag name</tag>
+						</stopRequest>
+						<isStopStatus>
+							<tag>plc tag name</tag>
+						</isStopStatus>
+						<currentStep>
+							<tag>plc tag name</tag>
+						</currentStep>
+					</fromPlc>	
+				</emergencyStopZone>
+			</aisle>
+
+			<aisle name="aisle2" label="Aisle 2">
+				////info of next aisle
+			</aisle>
+
+		</aisles>
+		
+		<decks>
+			<aisle name="Deck1" label="Deck 1">
+				<opBox>
+					<emergencyBtn name="EmergencyBtn_Deck1">
+						<tag>plc tag name</tag>
+					</emergencyBtn>
+					<resetBtn name="ResetBtn_Deck1">
+						<tag>plc tag name</tag>
+					</resetBtn>
+					<requestBtn name="RequestBtn_Deck1">
+						<tag>plc tag name</tag>
+					</requestBtn>
+					<zoningStatusLed name="Led_Deck1">
+						<tag>plc tag name</tag>
+					</zoningStatusLed>
+				</opBox>
+				<door>
+					<isDoorLockedKeySwitch name="keySwitch_Deck1">
+						<tag>plc tag name</tag>
+					</isDoorLockedKeySwitch>
+					<isDoorClosedSensor name="doorSensor_Deck1">
+						<tag>plc tag name</tag>
+					</isDoorClosedSensor>
+				</door>
+				<zoning>
+					<cellCommand>
+						<tag>plc tag name</tag>
+					</cellCommand>
+					<zoningStatus>
+						<tag>plc tag name</tag>
+					</zoningStatus>
+				</zoning>
+				<emergencyStopZone>
+					<fromCell>
+						<isCompleteFlag>
+							<tag>plc tag name</tag>
+						</isCompleteFlag>
+					</fromCell>
+					<fromPlc>
+						<stopRequest>
+							<tag>plc tag name</tag>
+						</stopRequest>
+						<isStopStatus>
+							<tag>plc tag name</tag>
+						</isStopStatus>
+						<currentStep>
+							<tag>plc tag name</tag>
+						</currentStep>
+					</fromPlc>
+				</emergencyStopZone>
+			</aisle>
+
+			<deck name="deck2" label="Deck 2">
+				////info of next deck
+			</deck>
+		</decks>
+		
+		<dynamicWorkStations>
+			<dynamicWorkStation name="DWS1" label="DWS 1">
+				<contactor>
+					<contactorOutput name="contactorNorthOut_DWS1">
+						<tag>plc tag name</tag>
+					</contactorOutput>
+					<contactorFeedback name="contactorNorthOut_DWS1">
+						<tag>plc tag name</tag>
+					</contactorFeedback>
+				</contactor>
+				<zoning>
+					<cellCommand>
+						<tag>plc tag name</tag>
+					</cellCommand>
+					<zoningStatus>
+						<tag>plc tag name</tag>
+					</zoningStatus>
+				</zoning>
+				<emergencyStopZone>
+					<fromCell>
+						<isCompleteFlag>
+							<tag>plc tag name</tag>
+						</isCompleteFlag>
+					</fromCell>
+					<fromPlc>
+						<stopRequest>
+							<tag>plc tag name</tag>
+						</stopRequest>
+						<isStopStatus>
+							<tag>plc tag name</tag>
+						</isStopStatus>
+						<currentStep>
+							<tag>plc tag name</tag>
+						</currentStep>
+					</fromPlc>
+				</emergencyStopZone>
+			</dynamicWorkStation>
+			
+			<dynamicWorkStation name="DWS2" label="DWS 2">
+				////////////next DWS info
+			</dynamicWorkStation>
+		</dynamicWorkStations>
+		
+		<staticWorkStations>
+			<staticWorkStation name="SWS1">
+				<emergencyBtn name="EmergencyBtn_SWS1">
+					<tag>plc tag name</tag>
+				</emergencyBtn>
+			</staticWorkStation>
+			<staticWorkStation name="SWS2">
+				<emergencyBtn name="EmergencyBtn_SWS2">
+					<tag>plc tag name</tag>
+				</emergencyBtn>
+			</staticWorkStation>
+			<staticWorkStation name="SWS3">
+				<emergencyBtn name="EmergencyBtn_SWS3">
+					<tag>plc tag name</tag>
+				</emergencyBtn>
+			</staticWorkStation>
+		</staticWorkStations>
+		
+		<stoppers>
+			<stopper name="Stopper_Aisle1_Deck1">
+				<openOut>
+					<tag>plc tag name</tag>
+				</openOut>
+				<closeOut>
+					<tag>plc tag name</tag>
+				</closeOut>
+				<isOpenSensor>
+					<tag>plc tag name</tag>
+				</isOpenSensor>
+				<isClosedSensor>
+					<tag>plc tag name</tag>
+				</isClosedSensor>
+				<errorSignalToCell>
+					<tag>plc tag name</tag>
+				</errorSignalToCell>
+				<timeOverSignalToCell>
+					<tag>plc tag name</tag>
+				</timeOverSignalToCell>
+			</stopper>
+			<stopper name="Stopper_MaintenanceArea">
+				////info of next stopper
+			</stopper>
+		</stoppers>
+
+	</system>
+</configData>

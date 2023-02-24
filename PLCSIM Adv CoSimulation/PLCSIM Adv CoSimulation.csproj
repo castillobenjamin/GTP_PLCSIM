@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EasyModbus">
+      <HintPath>References\EasyModbus.dll</HintPath>
+    </Reference>
     <Reference Include="Siemens.Simatic.Simulation.Runtime.Api.x86">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Common Files\Siemens\PLCSIMADV\API\3.0\Siemens.Simatic.Simulation.Runtime.Api.x86.dll</HintPath>
     </Reference>
@@ -49,16 +67,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="CoSimInterface.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="CoSimInterface.Designer.cs">
+      <DependentUpon>CoSimInterface.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainInterface.Designer.cs">
+      <DependentUpon>MainInterface.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Configuration\Aisle.cs" />
+    <Compile Include="Models\Configuration\CellCommunication.cs" />
+    <Compile Include="Models\Configuration\FireAlarm.cs" />
+    <Compile Include="Models\Configuration\FirePreventionShutter.cs" />
+    <Compile Include="Models\Configuration\Contactor.cs" />
+    <Compile Include="Models\Configuration\Door.cs" />
+    <Compile Include="Models\Configuration\EmergencyStop.cs" />
+    <Compile Include="Models\Configuration\EvacuationAndMaintenanceArea.cs" />
+    <Compile Include="Models\Configuration\OperationBox.cs" />
+    <Compile Include="Models\Configuration\Panel.cs" />
+    <Compile Include="Models\Configuration\PanelSection.cs" />
+    <Compile Include="Models\Configuration\PlcInput.cs" />
+    <Compile Include="Models\Configuration\PlcOutput.cs" />
+    <Compile Include="Models\Configuration\ModbusRegister.cs" />
+    <Compile Include="Models\Configuration\RegisterFromPlc.cs" />
+    <Compile Include="Models\Configuration\RegisterToPlc.cs" />
+    <Compile Include="Models\Configuration\StaticWorkStation.cs" />
+    <Compile Include="Models\Configuration\AlphaBotSystem.cs" />
+    <Compile Include="Models\Configuration\Zoning.cs" />
+    <Compile Include="Models\CoSimulation.cs" />
+    <Compile Include="Models\Configuration\Deck.cs" />
+    <Compile Include="Models\Configuration\Device.cs" />
+    <Compile Include="Models\Configuration\DynamicWorkStation.cs" />
+    <Compile Include="Models\Debugging\TestClass.cs" />
+    <Compile Include="Models\ModbusCommunication.cs" />
+    <Compile Include="Models\PLCInstance.cs" />
+    <Compile Include="Models\Configuration\Stopper.cs" />
+    <Compile Include="PLCSimMainFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="CoSimInterface.resx">
+      <DependentUpon>CoSimInterface.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainInterface.resx">
+      <DependentUpon>MainInterface.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -81,6 +136,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConfigData\SimGlobalConfig_ALPEN[OUTDATED].xml" />
+    <Content Include="ConfigData\SimGlobalConfig_MIYANO.xml" />
+    <Content Include="ConfigData\SimGlobalConfig_SCHEMA.xml" />
+    <Content Include="ConfigData\SimGlobalConfig_SCHEMA_v2.2.xml" />
+    <Content Include="ConfigData\SimGlobalConfig_SCHEMA_v2.1.xml" />
+    <Content Include="ConfigData\SimGlobalConfig_SCHEMA_v2.xml" />
+    <Content Include="ConfigData\TestXML.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Test StringAttribute="Stringsy">
+	<StringProperty>Another str</StringProperty>
+	<IntProperty>123</IntProperty>
+</Test>

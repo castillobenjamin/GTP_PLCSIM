@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AlphaBotSystem Name="Alpen2.0">
+	<CellCommunication>
+		<IsCellConnectedPulse>
+			<Tag>plc Tag Name</Tag>
+		</IsCellConnectedPulse>
+		<ResetFromCell>
+			<Tag>plc Tag Name</Tag>
+		</ResetFromCell>
+		<SystemIsStartingUp>
+			<Tag>plc Tag Name</Tag>
+		</SystemIsStartingUp>
+		<CanSystemStartUp>
+			<Tag>plc Tag Name</Tag>
+		</CanSystemStartUp>
+		<IsPlcConnectedPulse>
+			<Tag>plc Tag Name</Tag>
+		</IsPlcConnectedPulse>
+		<IsPlcAutoMode>
+			<Tag>plc Tag Name</Tag>
+		</IsPlcAutoMode>
+		<IsPlcEmergencyMode>
+			<Tag>plc Tag Name</Tag>
+		</IsPlcEmergencyMode>
+		<PlcHasError>
+			<Tag>plc Tag Name</Tag>
+		</PlcHasError>
+	</CellCommunication>
+
+	<Panels>
+		<DwsPanel>
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+			</ResetBtn>
+			<RedLed>
+				<Tag>plc Tag Name</Tag>
+			</RedLed>
+			<BlueLed>
+				<Tag>plc Tag Name</Tag>
+			</BlueLed>
+			<YellowLed>
+				<Tag>plc Tag Name</Tag>
+			</YellowLed>
+			<GreenLed>
+				<Tag>plc Tag Name</Tag>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>plc Tag Name</Tag>
+			</WhiteLed>
+		</DwsPanel>
+		<SouthPanel>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+			</ResetBtn>
+			<RedLed>
+				<Tag>plc Tag Name</Tag>
+			</RedLed>
+			<BlueLed>
+				<Tag>plc Tag Name</Tag>
+			</BlueLed>
+			<YellowLed>
+				<Tag>plc Tag Name</Tag>
+			</YellowLed>
+			<GreenLed>
+				<Tag>plc Tag Name</Tag>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>plc Tag Name</Tag>
+			</WhiteLed>
+		</SouthPanel>
+		<NorthPanel>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+			</ResetBtn>
+			<RedLed>
+				<Tag>plc Tag Name</Tag>
+			</RedLed>
+			<BlueLed>
+				<Tag>plc Tag Name</Tag>
+			</BlueLed>
+			<YellowLed>
+				<Tag>plc Tag Name</Tag>
+			</YellowLed>
+			<GreenLed>
+				<Tag>plc Tag Name</Tag>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>plc Tag Name</Tag>
+			</WhiteLed>
+		</NorthPanel>
+	</Panels>
+
+	<MaintenanceArea>
+		<Scaffold>
+			<Tag>plc Tag Name</Tag>
+		</Scaffold>
+	</MaintenanceArea>
+	<EvacuationArea>
+		<OperationBox>
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>plc Tag Name</Tag>
+			</ResetBtn>
+			<RequestBtn>
+				<Tag>plc Tag Name</Tag>
+			</RequestBtn>
+			<ZoningStatusLed>
+				<Tag>plc Tag Name</Tag>
+			</ZoningStatusLed>
+		</OperationBox>
+		<Door>
+			<IsDoorLockedKeySwitch>
+				<Tag>plc Tag Name</Tag>
+			</IsDoorLockedKeySwitch>
+			<IsDoorClosedSensor>
+				<Tag>plc Tag Name</Tag>
+			</IsDoorClosedSensor>
+		</Door>
+	</EvacuationArea>
+
+	<Aisles>
+		<!--"Name" attribute is used as the class instance's Name, "Label" attribute is used for displaying in interface -->
+		<Aisle Name="Aisle1" Label="Aisle 1">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>plc Tag Name</Tag>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor >
+					<Tag>plc Tag Name</Tag>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle1">
+						<Tag>plc Tag Name</Tag>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle1">
+						<Tag>plc Tag Name</Tag>
+					</ContactorFeedback>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle1">
+						<Tag>plc Tag Name</Tag>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle1">
+						<Tag>plc Tag Name</Tag>
+					</ContactorFeedback>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle1">
+					<Tag>plc Tag Name</Tag>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle1">
+					<Tag>plc Tag Name</Tag>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Aisle>
+		<Aisle Name="Aisle2" Label="Aisle 2">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>plc Tag Name</Tag>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor >
+					<Tag>plc Tag Name</Tag>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle2">
+						<Tag>plc Tag Name</Tag>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle2">
+						<Tag>plc Tag Name</Tag>
+					</ContactorFeedback>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle2">
+						<Tag>plc Tag Name</Tag>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle2">
+						<Tag>plc Tag Name</Tag>
+					</ContactorFeedback>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle2">
+					<Tag>plc Tag Name</Tag>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle2">
+					<Tag>plc Tag Name</Tag>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Aisle>
+	</Aisles>
+
+	<Decks>
+		<Deck Name="Deck1" Label="Deck 1">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch Name="KeySwitch_Deck1">
+					<Tag>plc Tag Name</Tag>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor Name="DoorSensor_Deck1">
+					<Tag>plc Tag Name</Tag>
+				</IsDoorClosedSensor>
+			</Door>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Deck>
+		<Deck Name="Deck2" Label="Deck 2">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>plc Tag Name</Tag>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>plc Tag Name</Tag>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>plc Tag Name</Tag>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch Name="KeySwitch_Deck2">
+					<Tag>plc Tag Name</Tag>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor Name="DoorSensor_Deck2">
+					<Tag>plc Tag Name</Tag>
+				</IsDoorClosedSensor>
+			</Door>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</Deck>
+	</Decks>
+
+	<DynamicWorkStations>
+		<DynamicWorkStation Name="DWS1" Label="DWS 1">
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+			<Contactor>
+				<ContactorOutput Name="ContactorNorthOut_DWS1">
+					<Tag>plc Tag Name</Tag>
+				</ContactorOutput>
+				<ContactorFeedback Name="ContactorNorthOut_DWS1">
+					<Tag>plc Tag Name</Tag>
+				</ContactorFeedback>
+			</Contactor>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</DynamicWorkStation>
+		<DynamicWorkStation Name="DWS2" Label="DWS 2">
+			<EmergencyBtn>
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+			<Contactor>
+				<ContactorOutput Name="ContactorNorthOut_DWS2">
+					<Tag>plc Tag Name</Tag>
+				</ContactorOutput>
+				<ContactorFeedback Name="ContactorNorthOut_DWS2">
+					<Tag>plc Tag Name</Tag>
+				</ContactorFeedback>
+			</Contactor>
+			<Zoning>
+				<CellCommand>
+					<Tag>plc Tag Name</Tag>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>plc Tag Name</Tag>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>plc Tag Name</Tag>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>plc Tag Name</Tag>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>plc Tag Name</Tag>
+				</PlcIsStopStatus>
+				<PlcCurrentStep>
+					<Tag>plc Tag Name</Tag>
+				</PlcCurrentStep>
+			</EmergencyStopZone>
+		</DynamicWorkStation>
+	</DynamicWorkStations>
+
+	<StaticWorkStations>
+		<StaticWorkStation Name="SWS1">
+			<EmergencyBtn Name="EmergencyBtn_SWS1">
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+		</StaticWorkStation>
+		<StaticWorkStation Name="SWS2">
+			<EmergencyBtn Name="EmergencyBtn_SWS2">
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+		</StaticWorkStation>
+		<StaticWorkStation Name="SWS3">
+			<EmergencyBtn Name="EmergencyBtn_SWS3">
+				<Tag>plc Tag Name</Tag>
+			</EmergencyBtn>
+		</StaticWorkStation>
+	</StaticWorkStations>
+
+	<Stoppers>
+		<Stopper Name="Stopper_Aisle1_Deck1" Label="Stopper Aisle 1, Deck 1">
+			<PlcOpenOut>
+				<Tag>plc Tag Name</Tag>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>plc Tag Name</Tag>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>plc Tag Name</Tag>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>plc Tag Name</Tag>
+			</IsClosedSensor>
+			<OpenCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>plc Tag Name</Tag>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>plc Tag Name</Tag>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>plc Tag Name</Tag>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>plc Tag Name</Tag>
+			</TimeOverSignalToCell>
+		</Stopper>
+		<Stopper Name="Stopper_MaintenanceArea" Label="Stopper Maintenance area">
+			<PlcOpenOut>
+				<Tag>plc Tag Name</Tag>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>plc Tag Name</Tag>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>plc Tag Name</Tag>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>plc Tag Name</Tag>
+			</IsClosedSensor>
+			<OpenCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>plc Tag Name</Tag>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>plc Tag Name</Tag>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>plc Tag Name</Tag>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>plc Tag Name</Tag>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>plc Tag Name</Tag>
+			</TimeOverSignalToCell>
+	</Stopper>
+	</Stoppers>
+</AlphaBotSystem>
