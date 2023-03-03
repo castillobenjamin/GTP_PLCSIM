@@ -875,7 +875,7 @@ namespace PLCSIM_Adv_CoSimulation
             this.Controls.Add(this.PLCgroup);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainInterface";
-            this.Text = "PLC interface";
+            this.Text = "Main Interface (CELL ONLY sim)";
             this.PLCgroup.ResumeLayout(false);
             this.PLCgroup.PerformLayout();
             this.groupBox2.ResumeLayout(false);

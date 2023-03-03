@@ -86,6 +86,7 @@
             this.Btn_Reset_Aisle = new System.Windows.Forms.Button();
             this.Btn_Request_Aisle = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.CheckBox_AutoStopper = new System.Windows.Forms.CheckBox();
             this.CheckBox_InvAlarm_Stopper = new System.Windows.Forms.CheckBox();
             this.ComboBox_Stoppers = new System.Windows.Forms.ComboBox();
             this.Label_TimeOverSignalToCell_Stopper = new System.Windows.Forms.Label();
@@ -224,7 +225,6 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
-            this.CheckBox_AutoStopper = new System.Windows.Forms.CheckBox();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1033,6 +1033,18 @@
             this.groupBox6.TabIndex = 15;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "ストッパー";
+            // 
+            // CheckBox_AutoStopper
+            // 
+            this.CheckBox_AutoStopper.AutoSize = true;
+            this.CheckBox_AutoStopper.Checked = true;
+            this.CheckBox_AutoStopper.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_AutoStopper.Location = new System.Drawing.Point(106, 105);
+            this.CheckBox_AutoStopper.Name = "CheckBox_AutoStopper";
+            this.CheckBox_AutoStopper.Size = new System.Drawing.Size(48, 16);
+            this.CheckBox_AutoStopper.TabIndex = 37;
+            this.CheckBox_AutoStopper.Text = "Auto";
+            this.CheckBox_AutoStopper.UseVisualStyleBackColor = true;
             // 
             // CheckBox_InvAlarm_Stopper
             // 
@@ -2773,18 +2785,6 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
-            // CheckBox_AutoStopper
-            // 
-            this.CheckBox_AutoStopper.AutoSize = true;
-            this.CheckBox_AutoStopper.Checked = true;
-            this.CheckBox_AutoStopper.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBox_AutoStopper.Location = new System.Drawing.Point(106, 105);
-            this.CheckBox_AutoStopper.Name = "CheckBox_AutoStopper";
-            this.CheckBox_AutoStopper.Size = new System.Drawing.Size(48, 16);
-            this.CheckBox_AutoStopper.TabIndex = 37;
-            this.CheckBox_AutoStopper.Text = "Auto";
-            this.CheckBox_AutoStopper.UseVisualStyleBackColor = true;
-            // 
             // CoSimInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2806,7 +2806,7 @@
             this.Controls.Add(this.groupBox6);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CoSimInterface";
-            this.Text = "Alphabot System Interface";
+            this.Text = "CELL ONLY simulation";
             this.groupBoxCELL.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
