@@ -383,7 +383,6 @@ namespace PLCSIM_Adv_CoSimulation
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void Btn_BrowseFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
