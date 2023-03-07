@@ -414,7 +414,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
             catch (SimulationRuntimeException plcSimException)
             {
                 MessageBox.Show(plcSimException.Message + " " + tag);
-
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
@@ -425,7 +424,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message + " " + tag);
             }
         }
-
         public bool ReadBool(string tag)
         {
             try
@@ -435,22 +433,22 @@ namespace PLCSIM_Adv_CoSimulation.Models
             }
             catch (SimulationInitializationException plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
                 return false;
             }
             catch (SimulationRuntimeException plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
                 return false;
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
                 return false;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + " " + tag);
+                // MessageBox.Show(e.Message + " " + tag);
                 return false;
             }
         }
@@ -468,7 +466,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
             catch (SimulationRuntimeException plcSimException)
             {
                 MessageBox.Show(plcSimException.Message + " " + tag);
-
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
@@ -489,23 +486,22 @@ namespace PLCSIM_Adv_CoSimulation.Models
             
             catch (SimulationInitializationException plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
                 return 0;
             }
             catch (SimulationRuntimeException plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
                 return 0;
-
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
                 return 0;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + " " + tag);
+                // MessageBox.Show(e.Message + " " + tag);
                 return 0;
             }
         }

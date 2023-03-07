@@ -419,11 +419,10 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 CellClient.Connect(TextBox_ModbusServerIP.Text, TextBox_ModbusPort.Text);
-                MessageBox.Show("Connected to ModBus server.");
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Unable to connect. " + ex.Message);
+                listBox_notifications.Items.Add("Unable to connect. " + ex.Message);
             }
         }
 
@@ -432,11 +431,11 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 CellClient.Disconnect();
-                MessageBox.Show("ModBus client diconnected.");
+                listBox_notifications.Items.Add("ModBus client diconnected.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                listBox_notifications.Items.Add(ex.Message);
             }
         }
         #endregion //Modbus
