@@ -754,6 +754,8 @@ namespace PLCSIM_Adv_CoSimulation
         {
             Update_Label_OpBoxLed_Aisle();
             Update_TextBox_ZoningStatus_Aisle();
+            Update_Label_PlcStopRequest_Aisle();
+            Update_Label_PlcIsStopStatus_Aisle();
             Update_Label_Scaffold_AisleNorth();
             Update_Label_Scaffold_AisleSouth();
             Update_Label_ContactorPlcOut_AisleNorth();
@@ -778,12 +780,41 @@ namespace PLCSIM_Adv_CoSimulation
             //Update label
             Label_OpBoxLed_Aisle.Text = "led " + ledStatus;
         }
-
         private void Update_TextBox_ZoningStatus_Aisle()
         {
             // TODO - mysterious bug appeared here. Fix
             byte status = GetLowerByte(currentAisle.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_Aisle.Text = ZoningStatuses[status];
+        }
+        private void Update_Label_PlcStopRequest_Aisle()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(currentAisle.EmergencyStopZone.PlcStopRequest);
+            if (flag)
+            {
+                Label_PlcStopRequest_Aisle.ForeColor = activeLabelColor;
+                Label_PlcStopRequest_Aisle.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcStopRequest_Aisle.ForeColor = inactiveLabelColor;
+                Label_PlcStopRequest_Aisle.Font = inactiveLabelFont;
+            }
+        }
+        private void Update_Label_PlcIsStopStatus_Aisle()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(currentAisle.EmergencyStopZone.PlcIsStopStatus);
+            if (flag)
+            {
+                Label_PlcIsStopStatus_Aisle.ForeColor = activeLabelColor;
+                Label_PlcIsStopStatus_Aisle.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcIsStopStatus_Aisle.ForeColor = inactiveLabelColor;
+                Label_PlcIsStopStatus_Aisle.Font = inactiveLabelFont;
+            }
         }
 
         #region Scaffolds
@@ -1208,6 +1239,8 @@ namespace PLCSIM_Adv_CoSimulation
             Update_Label_OpBoxLed_Deck();
             Update_TextBox_ZoningStatus_Deck();
             Update_Label_Scaffold_Deck();
+            Update_Label_PlcStopRequest_Deck();
+            Update_Label_PlcIsStopStatus_Deck();
         }
 
         private void Update_Label_OpBoxLed_Deck()
@@ -1229,13 +1262,11 @@ namespace PLCSIM_Adv_CoSimulation
             //Update label
             Label_OpBoxLed_Deck.Text = "led " + ledStatus;
         }
-
         private void Update_TextBox_ZoningStatus_Deck()
         {
             byte status = GetLowerByte(currentDeck.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_Deck.Text = ZoningStatuses[status];
         }
-
         private void Update_Label_Scaffold_Deck()
         {
             if (currentDeck.Scaffold != null)
@@ -1260,6 +1291,36 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 //Update label
                 Label_Scaffold_Deck.Text = "is " + status;
+            }
+        }
+        private void Update_Label_PlcStopRequest_Deck()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(currentDeck.EmergencyStopZone.PlcStopRequest);
+            if (flag)
+            {
+                Label_PlcStopRequest_Deck.ForeColor = activeLabelColor;
+                Label_PlcStopRequest_Deck.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcStopRequest_Deck.ForeColor = inactiveLabelColor;
+                Label_PlcStopRequest_Deck.Font = inactiveLabelFont;
+            }
+        }
+        private void Update_Label_PlcIsStopStatus_Deck()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(currentDeck.EmergencyStopZone.PlcIsStopStatus);
+            if (flag)
+            {
+                Label_PlcIsStopStatus_Deck.ForeColor = activeLabelColor;
+                Label_PlcIsStopStatus_Deck.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcIsStopStatus_Deck.ForeColor = inactiveLabelColor;
+                Label_PlcIsStopStatus_Deck.Font = inactiveLabelFont;
             }
         }
 
@@ -1497,6 +1558,8 @@ namespace PLCSIM_Adv_CoSimulation
         {
             Update_TextBox_ZoningStatus_DWS();
             Update_Label_ContactorPlcOut_DWS();
+            Update_Label_PlcStopRequest_DWS();
+            Update_Label_PlcIsStopStatus_DWS();
         }
 
         private void Update_TextBox_ZoningStatus_DWS()
@@ -1504,7 +1567,6 @@ namespace PLCSIM_Adv_CoSimulation
             byte status = GetLowerByte(currentDws.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_DWS.Text = ZoningStatuses[status];
         }
-
         private void Update_Label_ContactorPlcOut_DWS()
         {
             string status;
@@ -1528,6 +1590,36 @@ namespace PLCSIM_Adv_CoSimulation
             }
             //Update labels
             Label_ContactorPlcOut_DWS.Text = "Ctor " + status;
+        }
+        private void Update_Label_PlcStopRequest_DWS()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(currentDws.EmergencyStopZone.PlcStopRequest);
+            if (flag)
+            {
+                Label_PlcStopRequest_DWS.ForeColor = activeLabelColor;
+                Label_PlcStopRequest_DWS.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcStopRequest_DWS.ForeColor = inactiveLabelColor;
+                Label_PlcStopRequest_DWS.Font = inactiveLabelFont;
+            }
+        }
+        private void Update_Label_PlcIsStopStatus_DWS()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(currentDws.EmergencyStopZone.PlcIsStopStatus);
+            if (flag)
+            {
+                Label_PlcIsStopStatus_DWS.ForeColor = activeLabelColor;
+                Label_PlcIsStopStatus_DWS.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcIsStopStatus_DWS.ForeColor = inactiveLabelColor;
+                Label_PlcIsStopStatus_DWS.Font = inactiveLabelFont;
+            }
         }
         #endregion // Output
         #endregion // DWS
