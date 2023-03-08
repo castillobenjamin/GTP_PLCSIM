@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoSimInterface));
             this.groupBoxCELL = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RadioButton_SystemIsStartingUp = new System.Windows.Forms.RadioButton();
@@ -2804,9 +2805,10 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBoxCELL);
             this.Controls.Add(this.groupBox6);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CoSimInterface";
-            this.Text = "CELL ONLY simulation";
+            this.Text = "AlphaBotSIM - IO";
             this.groupBoxCELL.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

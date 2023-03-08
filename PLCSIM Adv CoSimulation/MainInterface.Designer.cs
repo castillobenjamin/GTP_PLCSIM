@@ -30,6 +30,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainInterface));
             this.btn_createPLC = new System.Windows.Forms.Button();
             this.textBox_PLC_name = new System.Windows.Forms.TextBox();
             this.textBox_PLC_IPaddress = new System.Windows.Forms.TextBox();
@@ -873,9 +874,10 @@ namespace PLCSIM_Adv_CoSimulation
             this.Controls.Add(this.label5);
             this.Controls.Add(this.listBox_notifications);
             this.Controls.Add(this.PLCgroup);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainInterface";
-            this.Text = "Main Interface (CELL ONLY sim)";
+            this.Text = "AlphaBotSIM - main interface";
             this.PLCgroup.ResumeLayout(false);
             this.PLCgroup.PerformLayout();
             this.groupBox2.ResumeLayout(false);
