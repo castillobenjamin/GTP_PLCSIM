@@ -204,7 +204,15 @@ namespace PLCSIM_Adv_CoSimulation
         #region Modbus
         private void Button_ConnectCell_Click(object sender, EventArgs e)
         {
-            ConnectModbusClient();
+            bool isConnected = ConnectModbusClient();
+            if (isConnected)
+            {
+                listBox_notifications.Items.Add("Connected to Modbus server.");
+            }
+            else
+            {
+                listBox_notifications.Items.Add("Connection failed.");
+            }
         }
 
         private void Button_DisconnectCell_Click(object sender, EventArgs e)
@@ -212,15 +220,25 @@ namespace PLCSIM_Adv_CoSimulation
             DisconnectModbusClient();
         }
 
-        private void ConnectModbusClient()
+        private bool ConnectModbusClient()
         {
             try
             {
                 CellClient.Connect(TextBox_ModbusServerIP.Text, TextBox_ModbusPort.Text);
+                // Check if connection was successful
+                if (CellClient.IsConnected())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch(Exception ex)
             {
                 listBox_notifications.Items.Add("Unable to connect. " + ex.Message);
+                return false;
             }
         }
 
