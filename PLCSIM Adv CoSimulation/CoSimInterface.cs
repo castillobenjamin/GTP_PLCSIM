@@ -114,7 +114,7 @@ namespace PLCSIM_Adv_CoSimulation
             HideControls();
             // Set initial state for interface controls
             // Initial control values are read from the XML file
-            // InitializeControls();
+            InitializeControls();
         }
 
         public void AddDictionaryValues()
