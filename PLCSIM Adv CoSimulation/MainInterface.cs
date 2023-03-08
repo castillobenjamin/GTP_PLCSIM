@@ -38,25 +38,12 @@ namespace PLCSIM_Adv_CoSimulation
         public static ModbusCommunication CellClient;
         // V1. Old PLCSIM Adv. API interface. Still used.
         private PLCSimMainFunctions plcSimMainFunction = new PLCSimMainFunctions();
-        // Boolean value for PLC communication interface
-        private bool isTCP = false;
-        // Check if an instance was created
-        private bool instanceWasCreated = false;
         #endregion // Fields
 
         #region Ctor
         public MainInterface()
         {
             InitializeComponent();
-            //Set default values for address area IO related combobox
-            comboBox_addressArea.Items.Add("Input");
-            comboBox_addressArea.Items.Add("Marker");
-            comboBox_addressArea.Items.Add("Output");
-            comboBox_addressArea.SelectedIndex= 0;
-            //Set default values for address type IO related combobox
-            comboBox_addressType.Items.Add("Bit");
-            comboBox_addressType.Items.Add("Byte");
-            comboBox_addressType.SelectedIndex = 0;
             //Add already created PLC instances
             UpdatePlcComboBox();
             // Modbus client
@@ -74,7 +61,6 @@ namespace PLCSIM_Adv_CoSimulation
             //Turning the PLC takes time, for now check if the object is null
             // TODO - add logic to wait for the PLC to turn on
             label_OpState.Text = plcSimMainFunction.getPlcOperatingState(comboBox_PLC_list.SelectedItem.ToString());
-            label_connectionType.Text = plcSimMainFunction.getConnectionType(comboBox_PLC_list.SelectedItem.ToString());
         }
         public void UpdatePlcComboBox()
         {
@@ -92,27 +78,13 @@ namespace PLCSIM_Adv_CoSimulation
         private void ComboBox_PLC_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateLabels();
-            UpdateInstance();
-
         }
         #endregion // Interface events
 
         #region PLC controls
-        private void Btn_createPLC_Click(object sender, EventArgs e)
+        private void Btn_updatePlcList_Click(object sender, EventArgs e)
         {
-            //Create PLC and return a status message - V2
-            CreatePLC();
-            comboBox_PLC_list.SelectedIndex = comboBox_PLC_list.FindStringExact(textBox_PLC_name.Text);
-            instanceWasCreated = true;
-        }
-        private void Btn_DeletePLC_Click(object sender, EventArgs e)
-        {
-            //Delete PLC and return a status message - V2
-            PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
-            PlcInstance.DeletePLC();
-            listBox_notifications.Items.Add("PLC instance has been deleted.");
             UpdatePlcComboBox();
-
         }
         private void Btn_PwrON_Click(object sender, EventArgs e)
         {
@@ -155,34 +127,6 @@ namespace PLCSIM_Adv_CoSimulation
             UpdateLabels();
         }
         #region helper methods
-        private void CreatePLC()
-        {
-            //If TCP/IP related fields are filled in, assumes Ethernet connection is wanted and sets flag.
-            if (textBox_PLC_IPaddress.Text.Length != 0 &&
-                textBox_SubnetMask.Text.Length != 0 &&
-                textBox_Gateway.Text.Length != 0)
-            {
-                isTCP = true;
-            }
-            //Create PLC instance
-            PlcInstance = new PLCInstance(textBox_PLC_name.Text,
-                isTCP,
-                textBox_PLC_IPaddress.Text,
-                textBox_SubnetMask.Text,
-                textBox_Gateway.Text);
-            //Update notificatino box
-            listBox_notifications.Items.Add("Instance has been created. " +
-                (isTCP ? "Connection over TCP" : "Connection over Softbus"));
-            //Update list of available PLC instances
-            UpdatePlcComboBox();
-        }
-        private void UpdateInstance()
-        {
-            if (!instanceWasCreated)
-            {
-                PlcInstance = new PLCInstance(comboBox_PLC_list.SelectedItem.ToString());
-            }
-        }
         #endregion // helper methods
 
         #endregion // PLC controls
@@ -201,147 +145,6 @@ namespace PLCSIM_Adv_CoSimulation
             UpdateLabels();
         }
         #endregion // PLC Communication
-
-        #region PLC virtual time
-        private void Btn_save_Click(object sender, EventArgs e)
-        {
-            //V1
-            //listBox_notifications.Items.Add(plcSimMainFunction.setVirtualTimeFactor(comboBox_PLC_list.SelectedItem.ToString(), textBox_timeScale.Text));
-            //V2
-            //TODO - decide where to do the convertion from String to Double of timescale value
-            PlcInstance.SetVirtualTimeFactor(textBox_timeScale.Text);
-            listBox_notifications.Items.Add("Virtual time has been modified.");
-        }
-
-        private void TrackBar_timeScale_Scroll(object sender, EventArgs e)
-        {
-            float virtualTimeScalingFactor;
-            if (trackBar_timeScale.Value <= 100) 
-            {
-                virtualTimeScalingFactor = trackBar_timeScale.Value / 100f;
-            } else
-            {
-                virtualTimeScalingFactor = trackBar_timeScale.Value - 99;
-            }
-            textBox_timeScale.Text = virtualTimeScalingFactor.ToString();
-        }
-        #endregion //PLC virtual time
-
-        #region Read/Write tag
-        private void Btn_readTag_Click(object sender, EventArgs e)
-        {
-            listBox_notifications.Items.Add(plcSimMainFunction.readPLCTags(comboBox_PLC_list.SelectedItem.ToString()));
-
-            //Display tag list in combo box
-            int tagListLength = PLCSimMainFunctions.currentTagList.Length;
-
-            comboBox_tagList.Items.Clear();
-            for (int i=0; i < tagListLength; i++)
-            {
-                comboBox_tagList.Items.Add(PLCSimMainFunctions.currentTagList.GetValue(i).ToString());
-            }
-        }
-
-        #region Set the tag area variable
-        private void CheckBox_IO_CheckedChanged(object sender, EventArgs e)
-        {
-            PLCSimMainFunctions.isIO = checkBox_IO.Checked;
-            checkBox_M.Checked = false;
-            checkBox_CTs.Checked = false;
-            checkBox_DBs.Checked = false;
-        }
-
-        private void CheckBox_M_CheckedChanged(object sender, EventArgs e)
-        {
-            PLCSimMainFunctions.isBitMem = checkBox_M.Checked;
-            checkBox_IO.Checked = false;
-            checkBox_CTs.Checked = false;
-            checkBox_DBs.Checked = false;
-        }
-
-        private void CheckBox_CTs_CheckedChanged(object sender, EventArgs e)
-        {
-            PLCSimMainFunctions.isCTs = checkBox_CTs.Checked;
-            checkBox_M.Checked = false;
-            checkBox_IO.Checked = false;
-            checkBox_DBs.Checked = false;
-        }
-
-        private void CheckBox_DBs_CheckedChanged(object sender, EventArgs e)
-        {
-            PLCSimMainFunctions.isDBs = checkBox_DBs.Checked;
-            checkBox_M.Checked = false;
-            checkBox_CTs.Checked = false;
-            checkBox_IO.Checked = false;
-        }
-        #endregion // Set the tag area variable
-
-        private void ComboBox_tagList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            listBox_notifications.Items.Add(plcSimMainFunction.readPLCTagValue(
-                comboBox_PLC_list.SelectedItem.ToString(), 
-                comboBox_tagList.SelectedItem.ToString()));
-
-            //Write tag value to text box
-            textBox_tagValue.Text = PLCSimMainFunctions.tagValue.ToString();
-        }
-
-        private void Btn_writeTag_Click(object sender, EventArgs e)
-        {
-            listBox_notifications.Items.Add(plcSimMainFunction.writePLCTagValue(
-                comboBox_PLC_list.SelectedItem.ToString(),
-                comboBox_tagList.SelectedItem.ToString(),
-                textBox_setTagValue.Text));
-            //Write tag value to text box
-            textBox_tagValue.Text = PLCSimMainFunctions.tagValue.ToString();
-        }
-        #endregion // Read/Write tag
-
-        #region Read/Write address
-        private void Btn_readFromAddress_Click(object sender, EventArgs e)
-        {
-            switch (comboBox_addressType.SelectedItem.ToString())
-            {
-                case "Bit":
-                    listBox_notifications.Items.Add(plcSimMainFunction.readBitfromPLC(
-                        comboBox_PLC_list.SelectedItem.ToString(),
-                        textBox_IOAddress.ToString(),
-                        comboBox_addressArea.SelectedItem.ToString(),
-                        textBox_addressBit.ToString()));
-                    textBox_addressValue.Text = PLCSimMainFunctions.addressValue;
-                    break;
-                case "Byte":
-                    listBox_notifications.Items.Add(plcSimMainFunction.readBytefromPLC(
-                        comboBox_PLC_list.SelectedItem.ToString(),
-                        textBox_IOAddress.ToString(),
-                        comboBox_addressArea.SelectedItem.ToString()));
-                    textBox_addressValue.Text = PLCSimMainFunctions.addressValue;
-                    break;
-            }
-        }
-
-        private void Btn_writeToAddess_Click(object sender, EventArgs e)
-        {
-            switch (comboBox_addressType.SelectedItem.ToString())
-            {
-                case "Bit":
-                    listBox_notifications.Items.Add(plcSimMainFunction.writeBitToPLC(
-                        comboBox_PLC_list.SelectedItem.ToString(),
-                        textBox_IOAddress.Text,
-                        comboBox_addressArea.SelectedItem.ToString(),
-                        textBox_addressBit.Text,
-                        textBox_addressValue.Text));
-                    break;
-                case "Byte":
-                    listBox_notifications.Items.Add(plcSimMainFunction.writeByteToPLC(
-                        comboBox_PLC_list.SelectedItem.ToString(),
-                        textBox_IOAddress.Text,
-                        comboBox_addressArea.SelectedItem.ToString(),
-                        textBox_addressValue.Text));
-                    break;
-            }
-        }
-        #endregion // Read/Write address
 
         #region CoSimulation
         private void Btn_StartSimulation_Click(object sender, EventArgs e)

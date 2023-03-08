@@ -409,19 +409,19 @@ namespace PLCSIM_Adv_CoSimulation.Models
             }
             catch (SimulationInitializationException plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                Console.WriteLine(plcSimException.Message);
             }
             catch (SimulationRuntimeException plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                Console.WriteLine(plcSimException.Message);
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                Console.WriteLine(plcSimException.Message);
             }
             catch (Exception e)
             {
-                // MessageBox.Show(e.Message + " " + tag);
+                Console.WriteLine(e.Message);
             }
         }
         public bool ReadBool(string tag)
@@ -433,22 +433,22 @@ namespace PLCSIM_Adv_CoSimulation.Models
             }
             catch (SimulationInitializationException plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                Console.WriteLine(plcSimException.Message);
                 return false;
             }
             catch (SimulationRuntimeException plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                Console.WriteLine(plcSimException.Message);
                 return false;
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                Console.WriteLine(plcSimException.Message);
                 return false;
             }
             catch (Exception e)
             {
-                // MessageBox.Show(e.Message + " " + tag);
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -486,22 +486,22 @@ namespace PLCSIM_Adv_CoSimulation.Models
             
             catch (SimulationInitializationException plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                MessageBox.Show(plcSimException.Message + " " + tag);
                 return 0;
             }
             catch (SimulationRuntimeException plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                MessageBox.Show(plcSimException.Message + " " + tag);
                 return 0;
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
-                // MessageBox.Show(plcSimException.Message + " " + tag);
+                MessageBox.Show(plcSimException.Message + " " + tag);
                 return 0;
             }
             catch (Exception e)
             {
-                // MessageBox.Show(e.Message + " " + tag);
+                MessageBox.Show(e.Message + " " + tag);
                 return 0;
             }
         }
