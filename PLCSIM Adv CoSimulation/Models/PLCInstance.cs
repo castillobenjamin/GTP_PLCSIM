@@ -12,7 +12,7 @@ namespace PLCSIM_Adv_CoSimulation.Models
     /// <summary>
     /// This class encapsulates the PLCSIM Advanced API functions.
     /// </summary>
-    public class PLCInstance
+    public class PLCInstance : PlcInstanceInterface
     {
         #region Properties and Fields
         /// <summary>
@@ -114,6 +114,11 @@ namespace PLCSIM_Adv_CoSimulation.Models
         #region Public Methods
 
         #region PLC config
+        public void UpdateInterface(string plcName)
+        {
+            currentPlcName = plcName;
+            Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
+        }
         public void SetCommunicationInterface()
         {
             try
@@ -170,7 +175,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 // NOTE - Only need access to IO and one DB.
                 string in_DataBlockFilterList = "\"013_MCSDataRaw\"";
                 Instance.UpdateTagList(ETagListDetails.IODB, false, in_DataBlockFilterList);
@@ -197,7 +201,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 return Instance.OperatingState.ToString();
             }
             catch (SimulationInitializationException plcSimException)
@@ -231,9 +234,7 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.PowerOn(60000);
-
                 //Sets the IP suite of the network interface of a virtual controller.
                 //the first argument is the ID of the network interface
                 Instance.SetIPSuite((uint)Instance.ID, instanceIP, true);
@@ -263,7 +264,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.PowerOff(6000);
             }
             catch (SimulationInitializationException plcSimException)
@@ -291,7 +291,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.Run(6000);
             }
             catch (SimulationInitializationException plcSimException)
@@ -319,7 +318,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.Stop(6000);
             }
             catch (SimulationInitializationException plcSimException)
@@ -347,7 +345,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.UnregisterInstance();
             }
             catch (SimulationInitializationException plcSimException)
@@ -376,7 +373,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.MemoryReset();
             }
             catch (SimulationInitializationException plcSimException)
@@ -404,7 +400,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.WriteBool(tag, value);
             }
             catch (SimulationInitializationException plcSimException)
@@ -428,7 +423,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 return Instance.ReadBool(tag);
             }
             catch (SimulationInitializationException plcSimException)
@@ -456,7 +450,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 Instance.WriteUInt8(tag, value);
             }
             catch (SimulationInitializationException plcSimException)
@@ -480,7 +473,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         {
             try
             {
-                Instance = SimulationRuntimeManager.CreateInterface(currentPlcName);
                 return Instance.ReadUInt8(tag);
             }
             

@@ -28,7 +28,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// - SignalToPlc 
         /// can update their values directly to the Plc instance
         /// </summary>
-        public static PLCInstance PlcInstance;
+        public static PlcInstanceInterface PlcInstance;
         // Private fields
         // Instace of the simulation interface
         private CoSimInterface simInterface;
@@ -78,6 +78,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void ComboBox_PLC_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateLabels();
+            PlcInstance = new PLCInstance(comboBox_PLC_list.SelectedItem.ToString());
         }
         #endregion // Interface events
 
@@ -89,7 +90,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_PwrON_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
+            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
             PlcInstance.PowerOnPLC();
             listBox_notifications.Items.Add("PLC instance has been turned ON.");
             UpdateLabels();
@@ -97,7 +98,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_PwrOFF_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
+            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
             PlcInstance.PowerOffPLC();
             listBox_notifications.Items.Add("PLC instance has been turned off.");
             UpdateLabels();
@@ -105,7 +106,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_Reboot_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
+            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
             PlcInstance.ResetPLC();
             listBox_notifications.Items.Add("PLC memory has been reset.");
             UpdateLabels();
@@ -113,7 +114,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_Run_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
+            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
             PlcInstance.RunPLC();
             listBox_notifications.Items.Add("PLC is in RUN mode.");
             UpdateLabels();
@@ -121,7 +122,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_Stop_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
+            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
             PlcInstance.StopPLC();
             listBox_notifications.Items.Add("PLC is in STOP mode.");
             UpdateLabels();
@@ -131,45 +132,39 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // PLC controls
 
-        #region PLC Communication
-        //TODO - Consider updating plc communication methods to be changeable after instance is created on V2 as well.
-        private void Btn_Local_Click(object sender, EventArgs e)
-        {
-            listBox_notifications.Items.Add(plcSimMainFunction.changeCommToLocal(comboBox_PLC_list.SelectedItem.ToString()));
-            UpdateLabels();
-        }
-
-        private void Btn_TCPIP_Click(object sender, EventArgs e)
-        {
-            listBox_notifications.Items.Add(plcSimMainFunction.changeCommToTCPIP(comboBox_PLC_list.SelectedItem.ToString()));
-            UpdateLabels();
-        }
-        #endregion // PLC Communication
-
         #region CoSimulation
         private void Btn_StartSimulation_Click(object sender, EventArgs e)
         {
             // TODO - work on error handling for opening and closing of the SimInterface window
             try
             {
-                if(comboBox_PLC_list.SelectedItem != null)
+                // Connect to Modbus server
+                if (!CellClient.IsConnected())
                 {
-                    // Connect to Modbus server
-                    if(! CellClient.IsConnected())
-                    {
-                        ConnectModbusClient();
-                    }
-                    PlcInstance.currentPlcName = comboBox_PLC_list.SelectedItem.ToString();
+                    ConnectModbusClient();
+                }
+                // If Cell only simulation is checked.
+                if(CheckBox_CellOnly.Checked)
+                {
+                    PlcInstance = new DummyPlcInstance("dummy");
+                    CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
+                    simInterface = new CoSimInterface(CoSimulationInstance, CheckBox_CellOnly.Checked);
+                    simInterface.Show();
+                    listBox_notifications.Items.Add("Simulation has started.");
+                }
+                else if (comboBox_PLC_list.SelectedItem != null)
+                {
                     // Make IO and ONLY required DB tags available
+                    PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
                     PlcInstance.UpdateTags();
                     CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
-                    simInterface = new CoSimInterface(CoSimulationInstance);
+                    simInterface = new CoSimInterface(CoSimulationInstance, CheckBox_CellOnly.Checked);
                     simInterface.Show();
                     listBox_notifications.Items.Add("Simulation has started.");
                 }
                 else
                 {
-                    MessageBox.Show("Please create/choose a PLC instance.");
+                    MessageBox.Show("Please choose a PLC instance or select 'CELL only'.");
                 }
             }
             catch(ArgumentException ex) 
@@ -178,7 +173,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (NullReferenceException ex)
             {
-                MessageBox.Show(ex.Message + " Please create/choose a PLC instance.");
+                MessageBox.Show(ex.Message + " Please cchoose a PLC instance.");
             }
 
             catch (Exception ex)

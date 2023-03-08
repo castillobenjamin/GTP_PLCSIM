@@ -40,7 +40,7 @@
             this.Label_CELLcomm_PlcStatus = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.CheckBox_AllAisles = new System.Windows.Forms.CheckBox();
-            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Door_Aisle = new System.Windows.Forms.GroupBox();
             this.groupBox_DoorReady_Aisle = new System.Windows.Forms.GroupBox();
             this.RadioButton_DoorReady_Aisle = new System.Windows.Forms.RadioButton();
             this.RadioButton_DoorNotReady_Aisle = new System.Windows.Forms.RadioButton();
@@ -55,7 +55,7 @@
             this.Label_PlcStopRequest_Aisle = new System.Windows.Forms.Label();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.CheckBox_CellIsCompleteFlag_Aisle = new System.Windows.Forms.CheckBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Scaffold_Aisle = new System.Windows.Forms.GroupBox();
             this.Label_Scaffold_AisleSouth = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.CheckBox_Scaffold_AisleNorth = new System.Windows.Forms.CheckBox();
@@ -81,7 +81,7 @@
             this.CheckBox_ContactorOnOff_AisleNorth = new System.Windows.Forms.CheckBox();
             this.Label_ContactorPlcOut_AisleNorth = new System.Windows.Forms.Label();
             this.ComboBox_Aisles = new System.Windows.Forms.ComboBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_OpBox_Aisle = new System.Windows.Forms.GroupBox();
             this.Label_OpBoxLed_Aisle = new System.Windows.Forms.Label();
             this.CheckBox_EstopBtn_Aisle = new System.Windows.Forms.CheckBox();
             this.Btn_Reset_Aisle = new System.Windows.Forms.Button();
@@ -91,12 +91,12 @@
             this.CheckBox_InvAlarm_Stopper = new System.Windows.Forms.CheckBox();
             this.ComboBox_Stoppers = new System.Windows.Forms.ComboBox();
             this.Label_TimeOverSignalToCell_Stopper = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Q_Stopper = new System.Windows.Forms.GroupBox();
             this.Label_PlcOpenOut_Stopper = new System.Windows.Forms.Label();
             this.Label_PlcCloseOut_Stopper = new System.Windows.Forms.Label();
             this.Label_ErrorSignalToCell_Stopper = new System.Windows.Forms.Label();
             this.Label_IsClosedStatusToCell_Stopper = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Sensor_Stopper = new System.Windows.Forms.GroupBox();
             this.CheckBox_IsClosedSensor_Stopper = new System.Windows.Forms.CheckBox();
             this.Label_IsOpenSensor_Stopper = new System.Windows.Forms.Label();
             this.CheckBox_IsOpenSensor_Stopper = new System.Windows.Forms.CheckBox();
@@ -106,10 +106,10 @@
             this.CheckBox_OpenCommandFromCell_Stopper = new System.Windows.Forms.CheckBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.CheckBox_AllDecks = new System.Windows.Forms.CheckBox();
-            this.groupBox_Scaffold_Deck = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Scaffold_Deck = new System.Windows.Forms.GroupBox();
             this.CheckBox_Scaffold_Deck = new System.Windows.Forms.CheckBox();
             this.Label_Scaffold_Deck = new System.Windows.Forms.Label();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Door_Deck = new System.Windows.Forms.GroupBox();
             this.groupBox_DoorReady_Deck = new System.Windows.Forms.GroupBox();
             this.RadioButton_DoorReady_Deck = new System.Windows.Forms.RadioButton();
             this.RadioButton_DoorNotReady_Deck = new System.Windows.Forms.RadioButton();
@@ -124,7 +124,7 @@
             this.Label_PlcStopRequest_Deck = new System.Windows.Forms.Label();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.CheckBox_CellIsCompleteFlag_Deck = new System.Windows.Forms.CheckBox();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_OpBox_Deck = new System.Windows.Forms.GroupBox();
             this.Label_OpBoxLed_Deck = new System.Windows.Forms.Label();
             this.CheckBox_EstopBtn_Deck = new System.Windows.Forms.CheckBox();
             this.Btn_Reset_Deck = new System.Windows.Forms.Button();
@@ -138,11 +138,11 @@
             this.RadioButton_Run_Deck = new System.Windows.Forms.RadioButton();
             this.RadioButton_None_Deck = new System.Windows.Forms.RadioButton();
             this.ComboBox_Decks = new System.Windows.Forms.ComboBox();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_SWS = new System.Windows.Forms.GroupBox();
             this.CheckBox_EstopBtn_SWS3 = new System.Windows.Forms.CheckBox();
             this.CheckBox_EstopBtn_SWS2 = new System.Windows.Forms.CheckBox();
             this.CheckBox_EstopBtn_SWS1 = new System.Windows.Forms.CheckBox();
-            this.groupBox_Scaffold_EvacMaintArea = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Scaffold_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.CheckBox_Scaffold_EvacMaintArea = new System.Windows.Forms.CheckBox();
             this.Label_Scaffold_EvacMaintArea = new System.Windows.Forms.Label();
@@ -186,9 +186,9 @@
             this.groupBox37 = new System.Windows.Forms.GroupBox();
             this.Btn_Reset_SouthPanel = new System.Windows.Forms.Button();
             this.Label_LedTower_SouthPanel = new System.Windows.Forms.Label();
-            this.groupBox_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
+            this.GroupBox_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
             this.CheckBox_EstopBtn_EvacMaintArea = new System.Windows.Forms.CheckBox();
-            this.groupBox46 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Door_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
             this.groupBox_DoorReady_EvacMaintArea = new System.Windows.Forms.GroupBox();
             this.RadioButton_DoorReady_MaintArea = new System.Windows.Forms.RadioButton();
             this.RadioButton_DoorNotReady_MaintArea = new System.Windows.Forms.RadioButton();
@@ -206,16 +206,16 @@
             this.Label_ContactorPlcOut_EvacMaintArea = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupBox39 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Panels = new System.Windows.Forms.GroupBox();
             this.ListBox_Log = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Group_FireShutter = new System.Windows.Forms.GroupBox();
             this.ComboBox_Shutters = new System.Windows.Forms.ComboBox();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Q_Shutter = new System.Windows.Forms.GroupBox();
             this.Label_PlcOpenOut_Shutter = new System.Windows.Forms.Label();
             this.Label_PlcCloseOut_Shutter = new System.Windows.Forms.Label();
             this.Label_IsShutterOpenToCell_Shutter = new System.Windows.Forms.Label();
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.GroupBox_Sensor_Shutter = new System.Windows.Forms.GroupBox();
             this.CheckBox_IsClosedSensor_Shutter = new System.Windows.Forms.CheckBox();
             this.Label_IsOpenSensor_Shutter = new System.Windows.Forms.Label();
             this.CheckBox_IsOpenSensor_Shutter = new System.Windows.Forms.CheckBox();
@@ -230,36 +230,36 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox21.SuspendLayout();
+            this.GroupBox_Door_Aisle.SuspendLayout();
             this.groupBox_DoorReady_Aisle.SuspendLayout();
             this.groupBox43.SuspendLayout();
             this.GroupDoorSensor.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
-            this.groupBox9.SuspendLayout();
+            this.GroupBox_Scaffold_Aisle.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox_Zoning_CellCommand_Aisle.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox40.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.GroupBox_OpBox_Aisle.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
+            this.GroupBox_Q_Stopper.SuspendLayout();
+            this.GroupBox_Sensor_Stopper.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            this.groupBox_Scaffold_Deck.SuspendLayout();
-            this.groupBox17.SuspendLayout();
+            this.GroupBox_Scaffold_Deck.SuspendLayout();
+            this.GroupBox_Door_Deck.SuspendLayout();
             this.groupBox_DoorReady_Deck.SuspendLayout();
             this.groupBox41.SuspendLayout();
             this.groupBox45.SuspendLayout();
             this.groupBox19.SuspendLayout();
             this.groupBox20.SuspendLayout();
-            this.groupBox18.SuspendLayout();
+            this.GroupBox_OpBox_Deck.SuspendLayout();
             this.groupBox_Zoning_Deck.SuspendLayout();
             this.groupBox_Zoning_CellCommand_Deck.SuspendLayout();
-            this.groupBox24.SuspendLayout();
-            this.groupBox_Scaffold_EvacMaintArea.SuspendLayout();
+            this.GroupBox_SWS.SuspendLayout();
+            this.GroupBox_Scaffold_EvacAndMaintArea.SuspendLayout();
             this.groupBox32.SuspendLayout();
             this.groupBox26.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -271,17 +271,17 @@
             this.groupBox35.SuspendLayout();
             this.groupBox36.SuspendLayout();
             this.groupBox37.SuspendLayout();
-            this.groupBox_EvacAndMaintArea.SuspendLayout();
-            this.groupBox46.SuspendLayout();
+            this.GroupBox_EvacAndMaintArea.SuspendLayout();
+            this.GroupBox_Door_EvacAndMaintArea.SuspendLayout();
             this.groupBox_DoorReady_EvacMaintArea.SuspendLayout();
             this.groupBox_DoorLock_EvacMaintArea.SuspendLayout();
             this.groupBox48.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox25.SuspendLayout();
-            this.groupBox39.SuspendLayout();
+            this.GroupBox_Panels.SuspendLayout();
             this.Group_FireShutter.SuspendLayout();
-            this.groupBox22.SuspendLayout();
-            this.groupBox23.SuspendLayout();
+            this.GroupBox_Q_Shutter.SuspendLayout();
+            this.GroupBox_Sensor_Shutter.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxCELL
@@ -393,13 +393,13 @@
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.CheckBox_AllAisles);
-            this.groupBox3.Controls.Add(this.groupBox21);
+            this.groupBox3.Controls.Add(this.GroupBox_Door_Aisle);
             this.groupBox3.Controls.Add(this.groupBox14);
-            this.groupBox3.Controls.Add(this.groupBox9);
+            this.groupBox3.Controls.Add(this.GroupBox_Scaffold_Aisle);
             this.groupBox3.Controls.Add(this.groupBox12);
             this.groupBox3.Controls.Add(this.groupBox5);
             this.groupBox3.Controls.Add(this.ComboBox_Aisles);
-            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.GroupBox_OpBox_Aisle);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox3.Location = new System.Drawing.Point(139, 10);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
@@ -423,19 +423,19 @@
             this.CheckBox_AllAisles.UseVisualStyleBackColor = true;
             this.CheckBox_AllAisles.CheckedChanged += new System.EventHandler(this.CheckBox_AllAisles_CheckedChanged);
             // 
-            // groupBox21
+            // GroupBox_Door_Aisle
             // 
-            this.groupBox21.Controls.Add(this.groupBox_DoorReady_Aisle);
-            this.groupBox21.Controls.Add(this.groupBox43);
-            this.groupBox21.Controls.Add(this.GroupDoorSensor);
-            this.groupBox21.Location = new System.Drawing.Point(4, 166);
-            this.groupBox21.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox21.Size = new System.Drawing.Size(98, 176);
-            this.groupBox21.TabIndex = 27;
-            this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "扉";
+            this.GroupBox_Door_Aisle.Controls.Add(this.groupBox_DoorReady_Aisle);
+            this.GroupBox_Door_Aisle.Controls.Add(this.groupBox43);
+            this.GroupBox_Door_Aisle.Controls.Add(this.GroupDoorSensor);
+            this.GroupBox_Door_Aisle.Location = new System.Drawing.Point(4, 166);
+            this.GroupBox_Door_Aisle.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Door_Aisle.Name = "GroupBox_Door_Aisle";
+            this.GroupBox_Door_Aisle.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Door_Aisle.Size = new System.Drawing.Size(98, 176);
+            this.GroupBox_Door_Aisle.TabIndex = 27;
+            this.GroupBox_Door_Aisle.TabStop = false;
+            this.GroupBox_Door_Aisle.Text = "扉";
             // 
             // groupBox_DoorReady_Aisle
             // 
@@ -613,19 +613,19 @@
             this.CheckBox_CellIsCompleteFlag_Aisle.UseVisualStyleBackColor = true;
             this.CheckBox_CellIsCompleteFlag_Aisle.CheckedChanged += new System.EventHandler(this.CheckBox_CellIsCompleteFlag_Aisle_CheckedChanged);
             // 
-            // groupBox9
+            // GroupBox_Scaffold_Aisle
             // 
-            this.groupBox9.Controls.Add(this.Label_Scaffold_AisleSouth);
-            this.groupBox9.Controls.Add(this.groupBox11);
-            this.groupBox9.Controls.Add(this.Label_Scaffold_AisleNorth);
-            this.groupBox9.Location = new System.Drawing.Point(106, 244);
-            this.groupBox9.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox9.Size = new System.Drawing.Size(110, 94);
-            this.groupBox9.TabIndex = 15;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "足場板";
+            this.GroupBox_Scaffold_Aisle.Controls.Add(this.Label_Scaffold_AisleSouth);
+            this.GroupBox_Scaffold_Aisle.Controls.Add(this.groupBox11);
+            this.GroupBox_Scaffold_Aisle.Controls.Add(this.Label_Scaffold_AisleNorth);
+            this.GroupBox_Scaffold_Aisle.Location = new System.Drawing.Point(106, 244);
+            this.GroupBox_Scaffold_Aisle.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Scaffold_Aisle.Name = "GroupBox_Scaffold_Aisle";
+            this.GroupBox_Scaffold_Aisle.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Scaffold_Aisle.Size = new System.Drawing.Size(110, 94);
+            this.GroupBox_Scaffold_Aisle.TabIndex = 15;
+            this.GroupBox_Scaffold_Aisle.TabStop = false;
+            this.GroupBox_Scaffold_Aisle.Text = "足場板";
             // 
             // Label_Scaffold_AisleSouth
             // 
@@ -948,20 +948,20 @@
             this.ComboBox_Aisles.TabIndex = 0;
             this.ComboBox_Aisles.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Aisles_SelectedIndexChanged);
             // 
-            // groupBox4
+            // GroupBox_OpBox_Aisle
             // 
-            this.groupBox4.Controls.Add(this.Label_OpBoxLed_Aisle);
-            this.groupBox4.Controls.Add(this.CheckBox_EstopBtn_Aisle);
-            this.groupBox4.Controls.Add(this.Btn_Reset_Aisle);
-            this.groupBox4.Controls.Add(this.Btn_Request_Aisle);
-            this.groupBox4.Location = new System.Drawing.Point(4, 40);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(98, 122);
-            this.groupBox4.TabIndex = 10;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "OpBox";
+            this.GroupBox_OpBox_Aisle.Controls.Add(this.Label_OpBoxLed_Aisle);
+            this.GroupBox_OpBox_Aisle.Controls.Add(this.CheckBox_EstopBtn_Aisle);
+            this.GroupBox_OpBox_Aisle.Controls.Add(this.Btn_Reset_Aisle);
+            this.GroupBox_OpBox_Aisle.Controls.Add(this.Btn_Request_Aisle);
+            this.GroupBox_OpBox_Aisle.Location = new System.Drawing.Point(4, 40);
+            this.GroupBox_OpBox_Aisle.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_OpBox_Aisle.Name = "GroupBox_OpBox_Aisle";
+            this.GroupBox_OpBox_Aisle.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_OpBox_Aisle.Size = new System.Drawing.Size(98, 122);
+            this.GroupBox_OpBox_Aisle.TabIndex = 10;
+            this.GroupBox_OpBox_Aisle.TabStop = false;
+            this.GroupBox_OpBox_Aisle.Text = "OpBox";
             // 
             // Label_OpBoxLed_Aisle
             // 
@@ -1019,10 +1019,10 @@
             this.groupBox6.Controls.Add(this.CheckBox_InvAlarm_Stopper);
             this.groupBox6.Controls.Add(this.ComboBox_Stoppers);
             this.groupBox6.Controls.Add(this.Label_TimeOverSignalToCell_Stopper);
-            this.groupBox6.Controls.Add(this.groupBox7);
+            this.groupBox6.Controls.Add(this.GroupBox_Q_Stopper);
             this.groupBox6.Controls.Add(this.Label_ErrorSignalToCell_Stopper);
             this.groupBox6.Controls.Add(this.Label_IsClosedStatusToCell_Stopper);
-            this.groupBox6.Controls.Add(this.groupBox8);
+            this.groupBox6.Controls.Add(this.GroupBox_Sensor_Stopper);
             this.groupBox6.Controls.Add(this.Label_IsOpenStatusToCell_Stopper);
             this.groupBox6.Controls.Add(this.CheckBox_CloseCommandFromCell_Stopper);
             this.groupBox6.Controls.Add(this.CheckBox_OpenCommandFromCell_Stopper);
@@ -1083,18 +1083,18 @@
             this.Label_TimeOverSignalToCell_Stopper.TabIndex = 14;
             this.Label_TimeOverSignalToCell_Stopper.Text = "T over";
             // 
-            // groupBox7
+            // GroupBox_Q_Stopper
             // 
-            this.groupBox7.Controls.Add(this.Label_PlcOpenOut_Stopper);
-            this.groupBox7.Controls.Add(this.Label_PlcCloseOut_Stopper);
-            this.groupBox7.Location = new System.Drawing.Point(107, 41);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Size = new System.Drawing.Size(27, 61);
-            this.groupBox7.TabIndex = 16;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Q";
+            this.GroupBox_Q_Stopper.Controls.Add(this.Label_PlcOpenOut_Stopper);
+            this.GroupBox_Q_Stopper.Controls.Add(this.Label_PlcCloseOut_Stopper);
+            this.GroupBox_Q_Stopper.Location = new System.Drawing.Point(107, 41);
+            this.GroupBox_Q_Stopper.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Q_Stopper.Name = "GroupBox_Q_Stopper";
+            this.GroupBox_Q_Stopper.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Q_Stopper.Size = new System.Drawing.Size(27, 61);
+            this.GroupBox_Q_Stopper.TabIndex = 16;
+            this.GroupBox_Q_Stopper.TabStop = false;
+            this.GroupBox_Q_Stopper.Text = "Q";
             // 
             // Label_PlcOpenOut_Stopper
             // 
@@ -1137,20 +1137,20 @@
             this.Label_IsClosedStatusToCell_Stopper.Text = "閉";
             this.Label_IsClosedStatusToCell_Stopper.ForeColorChanged += new System.EventHandler(this.Label_IsClosedStatusToCell_Stopper_ForeColorChanged);
             // 
-            // groupBox8
+            // GroupBox_Sensor_Stopper
             // 
-            this.groupBox8.Controls.Add(this.CheckBox_IsClosedSensor_Stopper);
-            this.groupBox8.Controls.Add(this.Label_IsOpenSensor_Stopper);
-            this.groupBox8.Controls.Add(this.CheckBox_IsOpenSensor_Stopper);
-            this.groupBox8.Controls.Add(this.Label_IsClosedSensor_Stopper);
-            this.groupBox8.Location = new System.Drawing.Point(138, 41);
-            this.groupBox8.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox8.Size = new System.Drawing.Size(55, 61);
-            this.groupBox8.TabIndex = 17;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Sensors";
+            this.GroupBox_Sensor_Stopper.Controls.Add(this.CheckBox_IsClosedSensor_Stopper);
+            this.GroupBox_Sensor_Stopper.Controls.Add(this.Label_IsOpenSensor_Stopper);
+            this.GroupBox_Sensor_Stopper.Controls.Add(this.CheckBox_IsOpenSensor_Stopper);
+            this.GroupBox_Sensor_Stopper.Controls.Add(this.Label_IsClosedSensor_Stopper);
+            this.GroupBox_Sensor_Stopper.Location = new System.Drawing.Point(138, 41);
+            this.GroupBox_Sensor_Stopper.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Sensor_Stopper.Name = "GroupBox_Sensor_Stopper";
+            this.GroupBox_Sensor_Stopper.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Sensor_Stopper.Size = new System.Drawing.Size(55, 61);
+            this.GroupBox_Sensor_Stopper.TabIndex = 17;
+            this.GroupBox_Sensor_Stopper.TabStop = false;
+            this.GroupBox_Sensor_Stopper.Text = "Sensors";
             // 
             // CheckBox_IsClosedSensor_Stopper
             // 
@@ -1250,10 +1250,10 @@
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.CheckBox_AllDecks);
-            this.groupBox16.Controls.Add(this.groupBox_Scaffold_Deck);
-            this.groupBox16.Controls.Add(this.groupBox17);
+            this.groupBox16.Controls.Add(this.GroupBox_Scaffold_Deck);
+            this.groupBox16.Controls.Add(this.GroupBox_Door_Deck);
             this.groupBox16.Controls.Add(this.groupBox19);
-            this.groupBox16.Controls.Add(this.groupBox18);
+            this.groupBox16.Controls.Add(this.GroupBox_OpBox_Deck);
             this.groupBox16.Controls.Add(this.groupBox_Zoning_Deck);
             this.groupBox16.Controls.Add(this.ComboBox_Decks);
             this.groupBox16.Location = new System.Drawing.Point(396, 10);
@@ -1278,18 +1278,18 @@
             this.CheckBox_AllDecks.UseVisualStyleBackColor = true;
             this.CheckBox_AllDecks.CheckedChanged += new System.EventHandler(this.CheckBox_AllDecks_CheckedChanged);
             // 
-            // groupBox_Scaffold_Deck
+            // GroupBox_Scaffold_Deck
             // 
-            this.groupBox_Scaffold_Deck.Controls.Add(this.CheckBox_Scaffold_Deck);
-            this.groupBox_Scaffold_Deck.Controls.Add(this.Label_Scaffold_Deck);
-            this.groupBox_Scaffold_Deck.Location = new System.Drawing.Point(106, 239);
-            this.groupBox_Scaffold_Deck.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox_Scaffold_Deck.Name = "groupBox_Scaffold_Deck";
-            this.groupBox_Scaffold_Deck.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Scaffold_Deck.Size = new System.Drawing.Size(125, 43);
-            this.groupBox_Scaffold_Deck.TabIndex = 18;
-            this.groupBox_Scaffold_Deck.TabStop = false;
-            this.groupBox_Scaffold_Deck.Text = "足場板";
+            this.GroupBox_Scaffold_Deck.Controls.Add(this.CheckBox_Scaffold_Deck);
+            this.GroupBox_Scaffold_Deck.Controls.Add(this.Label_Scaffold_Deck);
+            this.GroupBox_Scaffold_Deck.Location = new System.Drawing.Point(106, 239);
+            this.GroupBox_Scaffold_Deck.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Scaffold_Deck.Name = "GroupBox_Scaffold_Deck";
+            this.GroupBox_Scaffold_Deck.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Scaffold_Deck.Size = new System.Drawing.Size(125, 43);
+            this.GroupBox_Scaffold_Deck.TabIndex = 18;
+            this.GroupBox_Scaffold_Deck.TabStop = false;
+            this.GroupBox_Scaffold_Deck.Text = "足場板";
             // 
             // CheckBox_Scaffold_Deck
             // 
@@ -1317,19 +1317,19 @@
             this.Label_Scaffold_Deck.TabIndex = 10;
             this.Label_Scaffold_Deck.Text = "---";
             // 
-            // groupBox17
+            // GroupBox_Door_Deck
             // 
-            this.groupBox17.Controls.Add(this.groupBox_DoorReady_Deck);
-            this.groupBox17.Controls.Add(this.groupBox41);
-            this.groupBox17.Controls.Add(this.groupBox45);
-            this.groupBox17.Location = new System.Drawing.Point(4, 167);
-            this.groupBox17.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox17.Size = new System.Drawing.Size(98, 172);
-            this.groupBox17.TabIndex = 30;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "扉";
+            this.GroupBox_Door_Deck.Controls.Add(this.groupBox_DoorReady_Deck);
+            this.GroupBox_Door_Deck.Controls.Add(this.groupBox41);
+            this.GroupBox_Door_Deck.Controls.Add(this.groupBox45);
+            this.GroupBox_Door_Deck.Location = new System.Drawing.Point(4, 167);
+            this.GroupBox_Door_Deck.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Door_Deck.Name = "GroupBox_Door_Deck";
+            this.GroupBox_Door_Deck.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Door_Deck.Size = new System.Drawing.Size(98, 172);
+            this.GroupBox_Door_Deck.TabIndex = 30;
+            this.GroupBox_Door_Deck.TabStop = false;
+            this.GroupBox_Door_Deck.Text = "扉";
             // 
             // groupBox_DoorReady_Deck
             // 
@@ -1507,20 +1507,20 @@
             this.CheckBox_CellIsCompleteFlag_Deck.UseVisualStyleBackColor = true;
             this.CheckBox_CellIsCompleteFlag_Deck.CheckedChanged += new System.EventHandler(this.CheckBox_CellIsCompleteFlag_Deck_CheckedChanged);
             // 
-            // groupBox18
+            // GroupBox_OpBox_Deck
             // 
-            this.groupBox18.Controls.Add(this.Label_OpBoxLed_Deck);
-            this.groupBox18.Controls.Add(this.CheckBox_EstopBtn_Deck);
-            this.groupBox18.Controls.Add(this.Btn_Reset_Deck);
-            this.groupBox18.Controls.Add(this.Btn_Request_Deck);
-            this.groupBox18.Location = new System.Drawing.Point(4, 40);
-            this.groupBox18.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox18.Size = new System.Drawing.Size(98, 122);
-            this.groupBox18.TabIndex = 25;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "OpBox";
+            this.GroupBox_OpBox_Deck.Controls.Add(this.Label_OpBoxLed_Deck);
+            this.GroupBox_OpBox_Deck.Controls.Add(this.CheckBox_EstopBtn_Deck);
+            this.GroupBox_OpBox_Deck.Controls.Add(this.Btn_Reset_Deck);
+            this.GroupBox_OpBox_Deck.Controls.Add(this.Btn_Request_Deck);
+            this.GroupBox_OpBox_Deck.Location = new System.Drawing.Point(4, 40);
+            this.GroupBox_OpBox_Deck.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_OpBox_Deck.Name = "GroupBox_OpBox_Deck";
+            this.GroupBox_OpBox_Deck.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_OpBox_Deck.Size = new System.Drawing.Size(98, 122);
+            this.GroupBox_OpBox_Deck.TabIndex = 25;
+            this.GroupBox_OpBox_Deck.TabStop = false;
+            this.GroupBox_OpBox_Deck.Text = "OpBox";
             // 
             // Label_OpBoxLed_Deck
             // 
@@ -1681,19 +1681,19 @@
             this.ComboBox_Decks.TabIndex = 0;
             this.ComboBox_Decks.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Decks_SelectedIndexChanged);
             // 
-            // groupBox24
+            // GroupBox_SWS
             // 
-            this.groupBox24.Controls.Add(this.CheckBox_EstopBtn_SWS3);
-            this.groupBox24.Controls.Add(this.CheckBox_EstopBtn_SWS2);
-            this.groupBox24.Controls.Add(this.CheckBox_EstopBtn_SWS1);
-            this.groupBox24.Location = new System.Drawing.Point(9, 477);
-            this.groupBox24.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox24.Size = new System.Drawing.Size(81, 112);
-            this.groupBox24.TabIndex = 23;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "SWS";
+            this.GroupBox_SWS.Controls.Add(this.CheckBox_EstopBtn_SWS3);
+            this.GroupBox_SWS.Controls.Add(this.CheckBox_EstopBtn_SWS2);
+            this.GroupBox_SWS.Controls.Add(this.CheckBox_EstopBtn_SWS1);
+            this.GroupBox_SWS.Location = new System.Drawing.Point(9, 477);
+            this.GroupBox_SWS.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_SWS.Name = "GroupBox_SWS";
+            this.GroupBox_SWS.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_SWS.Size = new System.Drawing.Size(81, 112);
+            this.GroupBox_SWS.TabIndex = 23;
+            this.GroupBox_SWS.TabStop = false;
+            this.GroupBox_SWS.Text = "SWS";
             // 
             // CheckBox_EstopBtn_SWS3
             // 
@@ -1743,18 +1743,18 @@
             this.CheckBox_EstopBtn_SWS1.UseVisualStyleBackColor = true;
             this.CheckBox_EstopBtn_SWS1.CheckedChanged += new System.EventHandler(this.CheckBox_EstopBtn_SWS1_CheckedChanged);
             // 
-            // groupBox_Scaffold_EvacMaintArea
+            // GroupBox_Scaffold_EvacAndMaintArea
             // 
-            this.groupBox_Scaffold_EvacMaintArea.Controls.Add(this.groupBox32);
-            this.groupBox_Scaffold_EvacMaintArea.Controls.Add(this.Label_Scaffold_EvacMaintArea);
-            this.groupBox_Scaffold_EvacMaintArea.Location = new System.Drawing.Point(98, 60);
-            this.groupBox_Scaffold_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox_Scaffold_EvacMaintArea.Name = "groupBox_Scaffold_EvacMaintArea";
-            this.groupBox_Scaffold_EvacMaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_Scaffold_EvacMaintArea.Size = new System.Drawing.Size(75, 119);
-            this.groupBox_Scaffold_EvacMaintArea.TabIndex = 18;
-            this.groupBox_Scaffold_EvacMaintArea.TabStop = false;
-            this.groupBox_Scaffold_EvacMaintArea.Text = "足場板";
+            this.GroupBox_Scaffold_EvacAndMaintArea.Controls.Add(this.groupBox32);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Controls.Add(this.Label_Scaffold_EvacMaintArea);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Location = new System.Drawing.Point(98, 60);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Name = "GroupBox_Scaffold_EvacAndMaintArea";
+            this.GroupBox_Scaffold_EvacAndMaintArea.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Size = new System.Drawing.Size(75, 119);
+            this.GroupBox_Scaffold_EvacAndMaintArea.TabIndex = 18;
+            this.GroupBox_Scaffold_EvacAndMaintArea.TabStop = false;
+            this.GroupBox_Scaffold_EvacAndMaintArea.Text = "足場板";
             // 
             // groupBox32
             // 
@@ -2288,20 +2288,20 @@
             this.Label_LedTower_SouthPanel.TabIndex = 17;
             this.Label_LedTower_SouthPanel.Text = "---";
             // 
-            // groupBox_EvacAndMaintArea
+            // GroupBox_EvacAndMaintArea
             // 
-            this.groupBox_EvacAndMaintArea.Controls.Add(this.groupBox_Scaffold_EvacMaintArea);
-            this.groupBox_EvacAndMaintArea.Controls.Add(this.CheckBox_EstopBtn_EvacMaintArea);
-            this.groupBox_EvacAndMaintArea.Controls.Add(this.groupBox46);
-            this.groupBox_EvacAndMaintArea.Controls.Add(this.groupBox13);
-            this.groupBox_EvacAndMaintArea.Location = new System.Drawing.Point(646, 16);
-            this.groupBox_EvacAndMaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox_EvacAndMaintArea.Name = "groupBox_EvacAndMaintArea";
-            this.groupBox_EvacAndMaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_EvacAndMaintArea.Size = new System.Drawing.Size(198, 326);
-            this.groupBox_EvacAndMaintArea.TabIndex = 26;
-            this.groupBox_EvacAndMaintArea.TabStop = false;
-            this.groupBox_EvacAndMaintArea.Text = "退避エリア・メンテナンスエリア";
+            this.GroupBox_EvacAndMaintArea.Controls.Add(this.GroupBox_Scaffold_EvacAndMaintArea);
+            this.GroupBox_EvacAndMaintArea.Controls.Add(this.CheckBox_EstopBtn_EvacMaintArea);
+            this.GroupBox_EvacAndMaintArea.Controls.Add(this.GroupBox_Door_EvacAndMaintArea);
+            this.GroupBox_EvacAndMaintArea.Controls.Add(this.groupBox13);
+            this.GroupBox_EvacAndMaintArea.Location = new System.Drawing.Point(646, 16);
+            this.GroupBox_EvacAndMaintArea.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_EvacAndMaintArea.Name = "GroupBox_EvacAndMaintArea";
+            this.GroupBox_EvacAndMaintArea.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_EvacAndMaintArea.Size = new System.Drawing.Size(198, 326);
+            this.GroupBox_EvacAndMaintArea.TabIndex = 26;
+            this.GroupBox_EvacAndMaintArea.TabStop = false;
+            this.GroupBox_EvacAndMaintArea.Text = "退避エリア・メンテナンスエリア";
             // 
             // CheckBox_EstopBtn_EvacMaintArea
             // 
@@ -2320,19 +2320,19 @@
             this.CheckBox_EstopBtn_EvacMaintArea.CheckedChanged += new System.EventHandler(this.CheckBox_EstopBtn_EvacuationArea_CheckedChanged);
             this.CheckBox_EstopBtn_EvacMaintArea.MouseHover += new System.EventHandler(this.CheckBox_EstopBtn_EvacuationArea_MouseHover);
             // 
-            // groupBox46
+            // GroupBox_Door_EvacAndMaintArea
             // 
-            this.groupBox46.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
-            this.groupBox46.Controls.Add(this.groupBox_DoorLock_EvacMaintArea);
-            this.groupBox46.Controls.Add(this.groupBox48);
-            this.groupBox46.Location = new System.Drawing.Point(4, 183);
-            this.groupBox46.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox46.Name = "groupBox46";
-            this.groupBox46.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox46.Size = new System.Drawing.Size(169, 137);
-            this.groupBox46.TabIndex = 31;
-            this.groupBox46.TabStop = false;
-            this.groupBox46.Text = "扉";
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorLock_EvacMaintArea);
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox48);
+            this.GroupBox_Door_EvacAndMaintArea.Location = new System.Drawing.Point(4, 183);
+            this.GroupBox_Door_EvacAndMaintArea.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Door_EvacAndMaintArea.Name = "GroupBox_Door_EvacAndMaintArea";
+            this.GroupBox_Door_EvacAndMaintArea.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Door_EvacAndMaintArea.Size = new System.Drawing.Size(169, 137);
+            this.GroupBox_Door_EvacAndMaintArea.TabIndex = 31;
+            this.GroupBox_Door_EvacAndMaintArea.TabStop = false;
+            this.GroupBox_Door_EvacAndMaintArea.Text = "扉";
             // 
             // groupBox_DoorReady_EvacMaintArea
             // 
@@ -2546,19 +2546,19 @@
             this.label5.Size = new System.Drawing.Size(0, 12);
             this.label5.TabIndex = 10;
             // 
-            // groupBox39
+            // GroupBox_Panels
             // 
-            this.groupBox39.Controls.Add(this.groupBox35);
-            this.groupBox39.Controls.Add(this.groupBox36);
-            this.groupBox39.Controls.Add(this.groupBox37);
-            this.groupBox39.Location = new System.Drawing.Point(9, 193);
-            this.groupBox39.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox39.Name = "groupBox39";
-            this.groupBox39.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox39.Size = new System.Drawing.Size(99, 280);
-            this.groupBox39.TabIndex = 32;
-            this.groupBox39.TabStop = false;
-            this.groupBox39.Text = "PANELS";
+            this.GroupBox_Panels.Controls.Add(this.groupBox35);
+            this.GroupBox_Panels.Controls.Add(this.groupBox36);
+            this.GroupBox_Panels.Controls.Add(this.groupBox37);
+            this.GroupBox_Panels.Location = new System.Drawing.Point(9, 193);
+            this.GroupBox_Panels.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Panels.Name = "GroupBox_Panels";
+            this.GroupBox_Panels.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Panels.Size = new System.Drawing.Size(99, 280);
+            this.GroupBox_Panels.TabIndex = 32;
+            this.GroupBox_Panels.TabStop = false;
+            this.GroupBox_Panels.Text = "PANELS";
             // 
             // ListBox_Log
             // 
@@ -2583,9 +2583,9 @@
             // Group_FireShutter
             // 
             this.Group_FireShutter.Controls.Add(this.ComboBox_Shutters);
-            this.Group_FireShutter.Controls.Add(this.groupBox22);
+            this.Group_FireShutter.Controls.Add(this.GroupBox_Q_Shutter);
             this.Group_FireShutter.Controls.Add(this.Label_IsShutterOpenToCell_Shutter);
-            this.Group_FireShutter.Controls.Add(this.groupBox23);
+            this.Group_FireShutter.Controls.Add(this.GroupBox_Sensor_Shutter);
             this.Group_FireShutter.Controls.Add(this.Label_IsRailUpToCell_Shutter);
             this.Group_FireShutter.Controls.Add(this.CheckBox_CloseShutterCellCommand);
             this.Group_FireShutter.Controls.Add(this.CheckBox_OpenShutterCellCommand);
@@ -2608,18 +2608,18 @@
             this.ComboBox_Shutters.TabIndex = 22;
             this.ComboBox_Shutters.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Shutters_SelectedIndexChanged);
             // 
-            // groupBox22
+            // GroupBox_Q_Shutter
             // 
-            this.groupBox22.Controls.Add(this.Label_PlcOpenOut_Shutter);
-            this.groupBox22.Controls.Add(this.Label_PlcCloseOut_Shutter);
-            this.groupBox22.Location = new System.Drawing.Point(109, 41);
-            this.groupBox22.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox22.Size = new System.Drawing.Size(25, 61);
-            this.groupBox22.TabIndex = 16;
-            this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "Q";
+            this.GroupBox_Q_Shutter.Controls.Add(this.Label_PlcOpenOut_Shutter);
+            this.GroupBox_Q_Shutter.Controls.Add(this.Label_PlcCloseOut_Shutter);
+            this.GroupBox_Q_Shutter.Location = new System.Drawing.Point(109, 41);
+            this.GroupBox_Q_Shutter.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Q_Shutter.Name = "GroupBox_Q_Shutter";
+            this.GroupBox_Q_Shutter.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Q_Shutter.Size = new System.Drawing.Size(25, 61);
+            this.GroupBox_Q_Shutter.TabIndex = 16;
+            this.GroupBox_Q_Shutter.TabStop = false;
+            this.GroupBox_Q_Shutter.Text = "Q";
             // 
             // Label_PlcOpenOut_Shutter
             // 
@@ -2651,20 +2651,20 @@
             this.Label_IsShutterOpenToCell_Shutter.TabIndex = 12;
             this.Label_IsShutterOpenToCell_Shutter.Text = "シャッター開";
             // 
-            // groupBox23
+            // GroupBox_Sensor_Shutter
             // 
-            this.groupBox23.Controls.Add(this.CheckBox_IsClosedSensor_Shutter);
-            this.groupBox23.Controls.Add(this.Label_IsOpenSensor_Shutter);
-            this.groupBox23.Controls.Add(this.CheckBox_IsOpenSensor_Shutter);
-            this.groupBox23.Controls.Add(this.Label_IsClosedSensor_Shutter);
-            this.groupBox23.Location = new System.Drawing.Point(138, 41);
-            this.groupBox23.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox23.Size = new System.Drawing.Size(55, 61);
-            this.groupBox23.TabIndex = 17;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Sensors";
+            this.GroupBox_Sensor_Shutter.Controls.Add(this.CheckBox_IsClosedSensor_Shutter);
+            this.GroupBox_Sensor_Shutter.Controls.Add(this.Label_IsOpenSensor_Shutter);
+            this.GroupBox_Sensor_Shutter.Controls.Add(this.CheckBox_IsOpenSensor_Shutter);
+            this.GroupBox_Sensor_Shutter.Controls.Add(this.Label_IsClosedSensor_Shutter);
+            this.GroupBox_Sensor_Shutter.Location = new System.Drawing.Point(138, 41);
+            this.GroupBox_Sensor_Shutter.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Sensor_Shutter.Name = "GroupBox_Sensor_Shutter";
+            this.GroupBox_Sensor_Shutter.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_Sensor_Shutter.Size = new System.Drawing.Size(55, 61);
+            this.GroupBox_Sensor_Shutter.TabIndex = 17;
+            this.GroupBox_Sensor_Shutter.TabStop = false;
+            this.GroupBox_Sensor_Shutter.Text = "Sensors";
             // 
             // CheckBox_IsClosedSensor_Shutter
             // 
@@ -2790,17 +2790,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.GhostWhite;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(854, 631);
             this.Controls.Add(this.CheckBox_CylinderPressure);
             this.Controls.Add(this.CheckBox_FireAlarm);
             this.Controls.Add(this.Group_FireShutter);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ListBox_Log);
-            this.Controls.Add(this.groupBox39);
-            this.Controls.Add(this.groupBox_EvacAndMaintArea);
+            this.Controls.Add(this.GroupBox_Panels);
+            this.Controls.Add(this.GroupBox_EvacAndMaintArea);
             this.Controls.Add(this.groupBox26);
-            this.Controls.Add(this.groupBox24);
+            this.Controls.Add(this.GroupBox_SWS);
             this.Controls.Add(this.groupBox16);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBoxCELL);
@@ -2816,7 +2816,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox21.ResumeLayout(false);
+            this.GroupBox_Door_Aisle.ResumeLayout(false);
             this.groupBox_DoorReady_Aisle.ResumeLayout(false);
             this.groupBox_DoorReady_Aisle.PerformLayout();
             this.groupBox43.ResumeLayout(false);
@@ -2827,8 +2827,8 @@
             this.groupBox14.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
+            this.GroupBox_Scaffold_Aisle.ResumeLayout(false);
+            this.GroupBox_Scaffold_Aisle.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -2840,19 +2840,19 @@
             this.groupBox40.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.GroupBox_OpBox_Aisle.ResumeLayout(false);
+            this.GroupBox_OpBox_Aisle.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
+            this.GroupBox_Q_Stopper.ResumeLayout(false);
+            this.GroupBox_Q_Stopper.PerformLayout();
+            this.GroupBox_Sensor_Stopper.ResumeLayout(false);
+            this.GroupBox_Sensor_Stopper.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            this.groupBox_Scaffold_Deck.ResumeLayout(false);
-            this.groupBox_Scaffold_Deck.PerformLayout();
-            this.groupBox17.ResumeLayout(false);
+            this.GroupBox_Scaffold_Deck.ResumeLayout(false);
+            this.GroupBox_Scaffold_Deck.PerformLayout();
+            this.GroupBox_Door_Deck.ResumeLayout(false);
             this.groupBox_DoorReady_Deck.ResumeLayout(false);
             this.groupBox_DoorReady_Deck.PerformLayout();
             this.groupBox41.ResumeLayout(false);
@@ -2863,16 +2863,16 @@
             this.groupBox19.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox18.PerformLayout();
+            this.GroupBox_OpBox_Deck.ResumeLayout(false);
+            this.GroupBox_OpBox_Deck.PerformLayout();
             this.groupBox_Zoning_Deck.ResumeLayout(false);
             this.groupBox_Zoning_Deck.PerformLayout();
             this.groupBox_Zoning_CellCommand_Deck.ResumeLayout(false);
             this.groupBox_Zoning_CellCommand_Deck.PerformLayout();
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox24.PerformLayout();
-            this.groupBox_Scaffold_EvacMaintArea.ResumeLayout(false);
-            this.groupBox_Scaffold_EvacMaintArea.PerformLayout();
+            this.GroupBox_SWS.ResumeLayout(false);
+            this.GroupBox_SWS.PerformLayout();
+            this.GroupBox_Scaffold_EvacAndMaintArea.ResumeLayout(false);
+            this.GroupBox_Scaffold_EvacAndMaintArea.PerformLayout();
             this.groupBox32.ResumeLayout(false);
             this.groupBox32.PerformLayout();
             this.groupBox26.ResumeLayout(false);
@@ -2895,9 +2895,9 @@
             this.groupBox36.PerformLayout();
             this.groupBox37.ResumeLayout(false);
             this.groupBox37.PerformLayout();
-            this.groupBox_EvacAndMaintArea.ResumeLayout(false);
-            this.groupBox_EvacAndMaintArea.PerformLayout();
-            this.groupBox46.ResumeLayout(false);
+            this.GroupBox_EvacAndMaintArea.ResumeLayout(false);
+            this.GroupBox_EvacAndMaintArea.PerformLayout();
+            this.GroupBox_Door_EvacAndMaintArea.ResumeLayout(false);
             this.groupBox_DoorReady_EvacMaintArea.ResumeLayout(false);
             this.groupBox_DoorReady_EvacMaintArea.PerformLayout();
             this.groupBox_DoorLock_EvacMaintArea.ResumeLayout(false);
@@ -2908,13 +2908,13 @@
             this.groupBox13.PerformLayout();
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
-            this.groupBox39.ResumeLayout(false);
+            this.GroupBox_Panels.ResumeLayout(false);
             this.Group_FireShutter.ResumeLayout(false);
             this.Group_FireShutter.PerformLayout();
-            this.groupBox22.ResumeLayout(false);
-            this.groupBox22.PerformLayout();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
+            this.GroupBox_Q_Shutter.ResumeLayout(false);
+            this.GroupBox_Q_Shutter.PerformLayout();
+            this.GroupBox_Sensor_Shutter.ResumeLayout(false);
+            this.GroupBox_Sensor_Shutter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2936,7 +2936,7 @@
         private System.Windows.Forms.Label Label_ContactorPlcOut_AisleNorth;
         private System.Windows.Forms.CheckBox CheckBox_ContactorOnOff_AisleNorth;
         private System.Windows.Forms.ComboBox ComboBox_Aisles;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox GroupBox_OpBox_Aisle;
         private System.Windows.Forms.Label Label_OpBoxLed_Aisle;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_Aisle;
         private System.Windows.Forms.Button Btn_Reset_Aisle;
@@ -2952,9 +2952,9 @@
         private System.Windows.Forms.Label Label_PlcOpenOut_Stopper;
         private System.Windows.Forms.Label Label_IsClosedSensor_Stopper;
         private System.Windows.Forms.Label Label_IsOpenSensor_Stopper;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.GroupBox GroupBox_Q_Stopper;
+        private System.Windows.Forms.GroupBox GroupBox_Sensor_Stopper;
+        private System.Windows.Forms.GroupBox GroupBox_Scaffold_Aisle;
         private System.Windows.Forms.Label Label_Scaffold_AisleSouth;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.CheckBox CheckBox_Scaffold_AisleNorth;
@@ -2990,11 +2990,11 @@
         private System.Windows.Forms.RadioButton RadioButton_Permit_Deck;
         private System.Windows.Forms.RadioButton RadioButton_Run_Deck;
         private System.Windows.Forms.RadioButton RadioButton_None_Deck;
-        private System.Windows.Forms.GroupBox groupBox24;
+        private System.Windows.Forms.GroupBox GroupBox_SWS;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_SWS3;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_SWS2;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_SWS1;
-        private System.Windows.Forms.GroupBox groupBox_Scaffold_EvacMaintArea;
+        private System.Windows.Forms.GroupBox GroupBox_Scaffold_EvacAndMaintArea;
         private System.Windows.Forms.GroupBox groupBox32;
         private System.Windows.Forms.CheckBox CheckBox_Scaffold_EvacMaintArea;
         private System.Windows.Forms.Label Label_Scaffold_EvacMaintArea;
@@ -3026,8 +3026,8 @@
         private System.Windows.Forms.GroupBox groupBox37;
         private System.Windows.Forms.Button Btn_Reset_SouthPanel;
         private System.Windows.Forms.Label Label_LedTower_SouthPanel;
-        private System.Windows.Forms.GroupBox groupBox_EvacAndMaintArea;
-        private System.Windows.Forms.GroupBox groupBox21;
+        private System.Windows.Forms.GroupBox GroupBox_EvacAndMaintArea;
+        private System.Windows.Forms.GroupBox GroupBox_Door_Aisle;
         private System.Windows.Forms.RadioButton RadioButton_DoorClosed_Aisle;
         private System.Windows.Forms.RadioButton RadioButton_DoorOpen_Aisle;
         private System.Windows.Forms.RadioButton RadioButton_DoorLocked_Aisle;
@@ -3036,7 +3036,7 @@
         private System.Windows.Forms.Label Label_ContactorPlcIn_AisleSouth;
         private System.Windows.Forms.CheckBox CheckBox_ContactorOnOff_AisleSouth;
         private System.Windows.Forms.Label Label_ContactorPlcOut_AisleSouth;
-        private System.Windows.Forms.GroupBox groupBox18;
+        private System.Windows.Forms.GroupBox GroupBox_OpBox_Deck;
         private System.Windows.Forms.Label Label_OpBoxLed_Deck;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_Deck;
         private System.Windows.Forms.Button Btn_Reset_Deck;
@@ -3045,19 +3045,19 @@
         private System.Windows.Forms.Label Label_ContactorPlcIn_DWS;
         private System.Windows.Forms.CheckBox CheckBox_ContactorOnOff_DWS;
         private System.Windows.Forms.Label Label_ContactorPlcOut_DWS;
-        private System.Windows.Forms.GroupBox groupBox39;
+        private System.Windows.Forms.GroupBox GroupBox_Panels;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_DWS;
         private System.Windows.Forms.CheckBox CheckBox_EstopBtn_EvacMaintArea;
         private System.Windows.Forms.GroupBox groupBox43;
         private System.Windows.Forms.GroupBox GroupDoorSensor;
-        private System.Windows.Forms.GroupBox groupBox17;
+        private System.Windows.Forms.GroupBox GroupBox_Door_Deck;
         private System.Windows.Forms.GroupBox groupBox41;
         private System.Windows.Forms.RadioButton RadioButton_DoorLocked_Deck;
         private System.Windows.Forms.RadioButton RadioButton_DoorUnlocked_Deck;
         private System.Windows.Forms.GroupBox groupBox45;
         private System.Windows.Forms.RadioButton RadioButton_DoorClosed_Deck;
         private System.Windows.Forms.RadioButton RadioButton_DoorOpen_Deck;
-        private System.Windows.Forms.GroupBox groupBox46;
+        private System.Windows.Forms.GroupBox GroupBox_Door_EvacAndMaintArea;
         private System.Windows.Forms.GroupBox groupBox_DoorLock_EvacMaintArea;
         private System.Windows.Forms.RadioButton RadioButton_DoorLocked_EvacMaintArea;
         private System.Windows.Forms.RadioButton RadioButton_DoorUnlocked_EvacMaintArea;
@@ -3066,16 +3066,16 @@
         private System.Windows.Forms.RadioButton RadioButton_DoorOpen_EvacMaintArea;
         private System.Windows.Forms.ListBox ListBox_Log;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox_Scaffold_Deck;
+        private System.Windows.Forms.GroupBox GroupBox_Scaffold_Deck;
         private System.Windows.Forms.CheckBox CheckBox_Scaffold_Deck;
         private System.Windows.Forms.Label Label_Scaffold_Deck;
         private System.Windows.Forms.GroupBox Group_FireShutter;
         private System.Windows.Forms.ComboBox ComboBox_Shutters;
-        private System.Windows.Forms.GroupBox groupBox22;
+        private System.Windows.Forms.GroupBox GroupBox_Q_Shutter;
         private System.Windows.Forms.Label Label_PlcOpenOut_Shutter;
         private System.Windows.Forms.Label Label_PlcCloseOut_Shutter;
         private System.Windows.Forms.Label Label_IsShutterOpenToCell_Shutter;
-        private System.Windows.Forms.GroupBox groupBox23;
+        private System.Windows.Forms.GroupBox GroupBox_Sensor_Shutter;
         private System.Windows.Forms.Label Label_IsOpenSensor_Shutter;
         private System.Windows.Forms.Label Label_IsClosedSensor_Shutter;
         private System.Windows.Forms.Label Label_IsRailUpToCell_Shutter;

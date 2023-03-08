@@ -54,6 +54,7 @@ namespace PLCSIM_Adv_CoSimulation
             this.TextBox_ModbusPort = new System.Windows.Forms.TextBox();
             this.TextBox_ModbusServerIP = new System.Windows.Forms.TextBox();
             this.Button_ConnectCell = new System.Windows.Forms.Button();
+            this.CheckBox_CellOnly = new System.Windows.Forms.CheckBox();
             this.PLCgroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -199,17 +200,18 @@ namespace PLCSIM_Adv_CoSimulation
             // 
             // Btn_StartSimulation
             // 
-            this.Btn_StartSimulation.Location = new System.Drawing.Point(4, 80);
+            this.Btn_StartSimulation.Location = new System.Drawing.Point(7, 90);
             this.Btn_StartSimulation.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_StartSimulation.Name = "Btn_StartSimulation";
-            this.Btn_StartSimulation.Size = new System.Drawing.Size(74, 42);
+            this.Btn_StartSimulation.Size = new System.Drawing.Size(60, 29);
             this.Btn_StartSimulation.TabIndex = 18;
-            this.Btn_StartSimulation.Text = "Start Simulation";
+            this.Btn_StartSimulation.Text = "Launch";
             this.Btn_StartSimulation.UseVisualStyleBackColor = true;
             this.Btn_StartSimulation.Click += new System.EventHandler(this.Btn_StartSimulation_Click);
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.CheckBox_CellOnly);
             this.groupBox4.Controls.Add(this.Btn_StopSimulation);
             this.groupBox4.Controls.Add(this.textBox_ConfigFilePath);
             this.groupBox4.Controls.Add(this.label11);
@@ -226,12 +228,12 @@ namespace PLCSIM_Adv_CoSimulation
             // 
             // Btn_StopSimulation
             // 
-            this.Btn_StopSimulation.Location = new System.Drawing.Point(82, 80);
+            this.Btn_StopSimulation.Location = new System.Drawing.Point(71, 90);
             this.Btn_StopSimulation.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_StopSimulation.Name = "Btn_StopSimulation";
-            this.Btn_StopSimulation.Size = new System.Drawing.Size(74, 42);
+            this.Btn_StopSimulation.Size = new System.Drawing.Size(58, 29);
             this.Btn_StopSimulation.TabIndex = 23;
-            this.Btn_StopSimulation.Text = "Stop Simulation";
+            this.Btn_StopSimulation.Text = "Stop";
             this.Btn_StopSimulation.UseVisualStyleBackColor = true;
             this.Btn_StopSimulation.Click += new System.EventHandler(this.Btn_StopSimulation_Click);
             // 
@@ -315,6 +317,16 @@ namespace PLCSIM_Adv_CoSimulation
             this.Button_ConnectCell.UseVisualStyleBackColor = true;
             this.Button_ConnectCell.Click += new System.EventHandler(this.Button_ConnectCell_Click);
             // 
+            // CheckBox_CellOnly
+            // 
+            this.CheckBox_CellOnly.AutoSize = true;
+            this.CheckBox_CellOnly.Location = new System.Drawing.Point(71, 58);
+            this.CheckBox_CellOnly.Name = "CheckBox_CellOnly";
+            this.CheckBox_CellOnly.Size = new System.Drawing.Size(78, 16);
+            this.CheckBox_CellOnly.TabIndex = 24;
+            this.CheckBox_CellOnly.Text = "CELL Only";
+            this.CheckBox_CellOnly.UseVisualStyleBackColor = true;
+            // 
             // MainInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -366,6 +378,7 @@ namespace PLCSIM_Adv_CoSimulation
         private System.Windows.Forms.TextBox TextBox_ModbusServerIP;
         private System.Windows.Forms.Button Button_ConnectCell;
         private System.Windows.Forms.Button Button_DisconnectCell;
+        private System.Windows.Forms.CheckBox CheckBox_CellOnly;
     }
 }
 

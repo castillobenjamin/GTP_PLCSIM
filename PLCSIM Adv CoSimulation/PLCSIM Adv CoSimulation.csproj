@@ -103,9 +103,11 @@
     <Compile Include="Models\Configuration\Device.cs" />
     <Compile Include="Models\Configuration\DynamicWorkStation.cs" />
     <Compile Include="Models\Debugging\TestClass.cs" />
+    <Compile Include="Models\DummyPlcInstance.cs" />
     <Compile Include="Models\ModbusCommunication.cs" />
     <Compile Include="Models\PLCInstance.cs" />
     <Compile Include="Models\Configuration\Stopper.cs" />
+    <Compile Include="Models\PlcInstanceInterface.cs" />
     <Compile Include="PLCSimMainFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

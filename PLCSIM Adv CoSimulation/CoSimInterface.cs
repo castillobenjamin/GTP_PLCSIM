@@ -23,6 +23,8 @@ namespace PLCSIM_Adv_CoSimulation
         private DynamicWorkStation currentDws;
         private Stopper currentStopper;
         private FirePreventionShutter currentShutter;
+        // flag for "CELL only" simulation
+        private bool isCellOnlySim = false;
         // TODO - Iterate with timer for optimal value
         readonly private int timerInterval = 200;
         // The timer is public so that the main interface can stop it when the simulation is stopped.
@@ -94,7 +96,7 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Fields
 
         #region Initialization
-        public CoSimInterface(CoSimulation coSimulationInstance)
+        public CoSimInterface(CoSimulation coSimulationInstance, bool isCellOnlySim)
         {
             InitializeComponent();
             // Add dictionary values
@@ -111,10 +113,12 @@ namespace PLCSIM_Adv_CoSimulation
             IOUpdateTimer.Start();
             //Hide unnecessary controls
             // This method has to be CALLED AFTER InitializeFields().
-            HideControls();
+            HideControls(isCellOnlySim);
             // Set initial state for interface controls
             // Initial control values are read from the XML file
             InitializeControls();
+            // Assign local field
+            this.isCellOnlySim = isCellOnlySim;
         }
 
         public void AddDictionaryValues()
@@ -263,7 +267,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // TODO - the application still crashes when updates are being downloaded from TIA Portal. FIX
             //Check if the PLC is in RUN mode to prevent errors when trying to read Outputs
-            if (MainInterface.PlcInstance.OperatingState().Equals("Run"))
+            if (MainInterface.PlcInstance.OperatingState().Equals("Run") || isCellOnlySim)
             {
                 UpdateAisleOutputs();
                 UpdateDeckOutputs();
@@ -286,21 +290,21 @@ namespace PLCSIM_Adv_CoSimulation
         /// Hides scaffold controls when the Scaffold property in Deck[n] is not present in system.
         /// Hides maintenance area controls when not present in system.
         /// </summary>
-        private void HideControls()
+        private void HideControls(bool isCellOnlySim)
         {
             // Assume the configuration of all decks in a given system is the same, so we only need to check for one of them
             if (!currentDeck.ScaffoldSpecified)
             {
-                groupBox_Scaffold_Deck.Hide();
+                GroupBox_Scaffold_Deck.Hide();
             }
             // Hide evacuation/maintenance area controls
             if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintAreaSpecified)
             {
-                groupBox_EvacAndMaintArea.Hide();
+                GroupBox_EvacAndMaintArea.Hide();
             }
             if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.ScaffoldSpecified)
             {
-                groupBox_Scaffold_EvacMaintArea.Hide();
+                GroupBox_Scaffold_EvacAndMaintArea.Hide();
             }
             // Hide Fire prevention shutter controls
             if (!CoSimulationInstance.AlphaBotSystem.FirePreventionShuttersSpecified)
@@ -334,6 +338,43 @@ namespace PLCSIM_Adv_CoSimulation
             if (!currentDws.CoversSpecified)
             {
                 CheckBox_DWSCovers.Hide();
+            }
+            // Hide IO controls when "CELL Only" option is checked
+            if (isCellOnlySim)
+            {
+                // Aisle
+                GroupBox_OpBox_Aisle.Hide();
+                GroupBox_Door_Aisle.Hide();
+                GroupBox_Scaffold_Aisle.Hide();
+                Label_ContactorPlcOut_AisleNorth.Hide();
+                Label_ContactorPlcIn_AisleNorth.Hide();
+                CheckBox_ContactorPlcIn_AisleNorth.Hide();
+                Label_ContactorPlcOut_AisleSouth.Hide();
+                Label_ContactorPlcIn_AisleSouth.Hide();
+                CheckBox_ContactorPlcIn_AisleSouth.Hide();
+                // Deck
+                GroupBox_OpBox_Deck.Hide();
+                GroupBox_Door_Deck.Hide();
+                GroupBox_Scaffold_Deck.Hide();
+                // DWS
+                CheckBox_EstopBtn_DWS.Hide();
+                CheckBox_DWSCovers.Hide();
+                Label_ContactorPlcOut_DWS.Hide();
+                Label_ContactorPlcIn_DWS.Hide();
+                CheckBox_ContactorPlcIn_DWS.Hide();
+                // Other areas
+                GroupBox_Panels.Hide();
+                GroupBox_SWS.Hide();
+                GroupBox_Door_EvacAndMaintArea.Hide();
+                GroupBox_Scaffold_EvacAndMaintArea.Hide();
+                GroupBox_Sensor_Shutter.Hide();
+                GroupBox_Q_Shutter.Hide();
+                GroupBox_Sensor_Stopper.Hide();
+                GroupBox_Q_Stopper.Hide();
+                CheckBox_EstopBtn_EvacMaintArea.Hide();
+                Label_ContactorPlcOut_EvacMaintArea.Hide();
+                Label_ContactorPlcIn_EvacMaintArea.Hide();
+                CheckBox_ContactorPlcIn_EvacMaintArea.Hide();
             }
         }
 
