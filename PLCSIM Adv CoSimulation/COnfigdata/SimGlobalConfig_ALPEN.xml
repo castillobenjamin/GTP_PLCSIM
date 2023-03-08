@@ -296,13 +296,13 @@
 					<Tag>NoTag</Tag>
 					<Address>89</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>89</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -416,13 +416,13 @@
 					<Tag>NoTag</Tag>
 					<Address>90</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>90</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -536,13 +536,13 @@
 					<Tag>NoTag</Tag>
 					<Address>91</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>91</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -656,13 +656,13 @@
 					<Tag>NoTag</Tag>
 					<Address>92</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>92</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -776,13 +776,13 @@
 					<Tag>NoTag</Tag>
 					<Address>93</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>93</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -896,13 +896,13 @@
 					<Tag>NoTag</Tag>
 					<Address>94</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>94</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -1016,13 +1016,13 @@
 					<Tag>NoTag</Tag>
 					<Address>95</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>95</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -1136,13 +1136,13 @@
 					<Tag>NoTag</Tag>
 					<Address>96</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>96</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -1256,13 +1256,13 @@
 					<Tag>NoTag</Tag>
 					<Address>97</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>97</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -1376,13 +1376,13 @@
 					<Tag>NoTag</Tag>
 					<Address>98</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>98</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Aisle>
@@ -1453,13 +1453,13 @@
 					<Tag>NoTag</Tag>
 					<Address>105</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>105</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Deck>
@@ -1528,13 +1528,13 @@
 					<Tag>NoTag</Tag>
 					<Address>106</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>106</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Deck>
@@ -1603,13 +1603,13 @@
 					<Tag>NoTag</Tag>
 					<Address>107</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>107</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Deck>
@@ -1678,13 +1678,13 @@
 					<Tag>NoTag</Tag>
 					<Address>108</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>108</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</Deck>
@@ -1771,13 +1771,13 @@
 					<Tag>NoTag</Tag>
 					<Address>114</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>114</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
@@ -1862,13 +1862,13 @@
 					<Tag>NoTag</Tag>
 					<Address>115</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>115</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
@@ -1953,13 +1953,13 @@
 					<Tag>NoTag</Tag>
 					<Address>116</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>116</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
@@ -2044,13 +2044,13 @@
 					<Tag>NoTag</Tag>
 					<Address>117</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>117</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
@@ -2135,13 +2135,13 @@
 					<Tag>NoTag</Tag>
 					<Address>118</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>118</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
@@ -2226,13 +2226,13 @@
 					<Tag>NoTag</Tag>
 					<Address>119</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>119</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
@@ -2317,13 +2317,13 @@
 					<Tag>NoTag</Tag>
 					<Address>120</Address>
 					<BitPosition>13</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcStopRequest>
 				<PlcIsStopStatus>
 					<Tag>NoTag</Tag>
 					<Address>120</Address>
 					<BitPosition>12</BitPosition>
-					<Value>2</Value>
+					<Value>0</Value>
 				</PlcIsStopStatus>
 			</EmergencyStopZone>
 		</DynamicWorkStation>
