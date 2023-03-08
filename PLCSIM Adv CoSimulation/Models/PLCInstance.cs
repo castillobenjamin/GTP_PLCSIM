@@ -409,19 +409,19 @@ namespace PLCSIM_Adv_CoSimulation.Models
             }
             catch (SimulationInitializationException plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
             }
             catch (SimulationRuntimeException plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
             }
             catch (SimulationRuntimeWarning plcSimException)
             {
-                MessageBox.Show(plcSimException.Message + " " + tag);
+                // MessageBox.Show(plcSimException.Message + " " + tag);
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + " " + tag);
+                // MessageBox.Show(e.Message + " " + tag);
             }
         }
         public bool ReadBool(string tag)
