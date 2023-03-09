@@ -120,7 +120,6 @@ namespace PLCSIM_Adv_CoSimulation
             // Assign local field
             this.isCellOnlySim = isCellOnlySim;
         }
-
         public void AddDictionaryValues()
         {
             // Zoning
@@ -189,7 +188,6 @@ namespace PLCSIM_Adv_CoSimulation
                 ComboBox_Shutters.SelectedIndex = 0;
             }
         }
-
         private void InitializeControls()
         {
             // Set text boxes as read only
@@ -199,7 +197,6 @@ namespace PLCSIM_Adv_CoSimulation
             // Shutter cylinders check box
             CheckBox_CylinderPressure.Checked = true;
         }
-
         private void InitializeFields()
         {
             currentAisle = CoSimulationInstance.AlphaBotSystem.Aisles[ComboBox_Aisles.SelectedIndex];
@@ -215,7 +212,6 @@ namespace PLCSIM_Adv_CoSimulation
                 InitializeEvacMaintArea();
             }
         }
-
         private void InitializeEvacMaintArea()
         {
             RadioButton_DoorClosed_EvacMaintArea.Checked = 
@@ -234,61 +230,8 @@ namespace PLCSIM_Adv_CoSimulation
                     CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInput.Value;
             }
         }
-        #endregion // Initialization
-
-        #region Destructor
-        ~CoSimInterface()
-        {
-            // Stop timer when interface is closed.
-            IOUpdateTimer.Stop();
-            stopperTimer.Stop();
-            shutterTimer.Stop();
-        }
-        #endregion // Destructor
-
-        #region Timer
-        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
-        {
-            IOUpdateTimer.Stop();
-            // Restarts the timer.
-            IOUpdateTimer.Enabled = true;
-            // Console.WriteLine("Update Output.");
-            // Update outputs
-            UpdateCurrentPlcOutputs();
-            // Simulate CELL pulse
-            SimulateIsCellConnectedPulse();
-        }
-        #endregion // Timer
-
         /// <summary>
-        /// updates the PC outputs for the current interface config
-        /// </summary>
-        public void UpdateCurrentPlcOutputs()
-        {
-            // TODO - the application still crashes when updates are being downloaded from TIA Portal. FIX
-            //Check if the PLC is in RUN mode to prevent errors when trying to read Outputs
-            if (MainInterface.PlcInstance.OperatingState().Equals("Run") || isCellOnlySim)
-            {
-                UpdateAisleOutputs();
-                UpdateDeckOutputs();
-                UpdateDwsOutputs();
-                UpdateStopperOutputs();
-                UpdateShutterOutputs();
-                UpdateEvacAndMaintAreaOutputs();
-                // Unique controls
-                Update_Label_CELLcomm_PlcStatus();
-                Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
-                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.NorthPanel, Label_LedTower_NorthPanel);
-                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel, Label_LedTower_SouthPanel);
-                Update_Label_Scaffold_MaintArea();
-                // Cuurrently unhandled IO
-                UpdateUnhandledIO();
-            }
-        }
-
-        /// <summary>
-        /// Hides scaffold controls when the Scaffold property in Deck[n] is not present in system.
-        /// Hides maintenance area controls when not present in system.
+        /// Hides controls that are not used for the current configuration
         /// </summary>
         private void HideControls(bool isCellOnlySim)
         {
@@ -377,6 +320,59 @@ namespace PLCSIM_Adv_CoSimulation
                 CheckBox_ContactorPlcIn_EvacMaintArea.Hide();
             }
         }
+        #endregion // Initialization
+
+        #region Destructor
+        ~CoSimInterface()
+        {
+            // Stop timer when interface is closed.
+            IOUpdateTimer.Stop();
+            stopperTimer.Stop();
+            shutterTimer.Stop();
+        }
+        #endregion // Destructor
+
+        #region Timer
+        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+        {
+            IOUpdateTimer.Stop();
+            // Restarts the timer.
+            IOUpdateTimer.Enabled = true;
+            // Console.WriteLine("Update Output.");
+            // Update outputs
+            UpdateCurrentPlcOutputs();
+            // Simulate CELL pulse
+            SimulateIsCellConnectedPulse();
+        }
+        #endregion // Timer
+
+        #region System Outputs
+        /// <summary>
+        /// updates the PC outputs for the current interface config
+        /// </summary>
+        public void UpdateCurrentPlcOutputs()
+        {
+            // TODO - the application still crashes when updates are being downloaded from TIA Portal. FIX
+            //Check if the PLC is in RUN mode to prevent errors when trying to read Outputs
+            if (MainInterface.PlcInstance.OperatingState().Equals("Run") || isCellOnlySim)
+            {
+                UpdateAisleOutputs();
+                UpdateDeckOutputs();
+                UpdateDwsOutputs();
+                UpdateStopperOutputs();
+                UpdateShutterOutputs();
+                UpdateEvacAndMaintAreaOutputs();
+                // Unique controls
+                Update_Label_CELLcomm_PlcStatus();
+                Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
+                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.NorthPanel, Label_LedTower_NorthPanel);
+                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel, Label_LedTower_SouthPanel);
+                Update_Label_Scaffold_MaintArea();
+                // Cuurrently unhandled IO
+                UpdateUnhandledIO();
+            }
+        }
+        #endregion // System Outputs
 
         #region Aisle
 

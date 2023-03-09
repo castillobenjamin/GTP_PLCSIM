@@ -127,9 +127,6 @@ namespace PLCSIM_Adv_CoSimulation
             listBox_notifications.Items.Add("PLC is in STOP mode.");
             UpdateLabels();
         }
-        #region helper methods
-        #endregion // helper methods
-
         #endregion // PLC controls
 
         #region CoSimulation
