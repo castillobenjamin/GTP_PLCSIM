@@ -40,7 +40,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         ~CoSimulation()
         {
             //Saves a copy of the current AlphaBotSystem instance when the CoSimulation instance is destroyed
-            //TODO - Change file path
             CreateXML("SerializedSimulationData.xml", AlphaBotSystem);
         }
         #endregion // Destructor
@@ -57,8 +56,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         /// <param name="obj"></param>
         private void LoopThroughObject<T> (T obj)
         {
-            //TODO - Need to validate tag and value before API call
-            //TODO - Delete Console prints
             // First, test for unprocessable input
             if (obj == null)
             {
@@ -74,25 +71,21 @@ namespace PLCSIM_Adv_CoSimulation.Models
             // Need to add Write and Read instructions
             else if (objType == typeof(PlcInput))
             {
-                // TODO - add validation here?
                 // Console.WriteLine(obj.ToString() + " is an input.");
                 return;
             }
             else if (objType == typeof(PlcOutput)) 
             {
-                // TODO - add validation here?
                 // Console.WriteLine(obj.ToString() + " is an output.");
                 return;
             }
             else if (objType == typeof(RegisterToPlc))
             {
-                // TODO - add validation here?
                 // Console.WriteLine(obj.ToString() + " is a RegisterToPlc.");
                 return;
             }
             else if (objType == typeof(RegisterFromPlc))
             {
-                // TODO - add validation here?
                 // Console.WriteLine(obj.ToString() + " is a RegisterFromPlc.");
                 return;
             }
@@ -105,31 +98,25 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 foreach (PropertyInfo property in objType.GetProperties()) 
                 {
                     Type propType = property.PropertyType;
-
                     // Test for base cases
-                        //TODO - Need to validate tag and value data before API call (write/read)
                     if (propType == typeof(PlcInput))
                     {
                         PlcInput tempInput = (PlcInput)property.GetValue(obj);
-                        // TODO - add validation here?
                         // Console.WriteLine(property.Name + " is an input.");
                     }
                     else if (propType == typeof(PlcOutput))
                     {
                         PlcOutput tempOutput = (PlcOutput)property.GetValue(obj);
-                        // TODO - add validation here?
                         // Console.WriteLine(property.Name + " is an output.");
                     }
                     else if (propType == typeof(RegisterToPlc))
                     {
                         RegisterToPlc tempSignal = (RegisterToPlc)property.GetValue(obj);
-                        // TODO - add validation here?
                         // Console.WriteLine(property.Name + " is a SignalToPlc.");
                     }
                     else if (propType == typeof(RegisterFromPlc))
                     {
                         RegisterFromPlc tempSignal = (RegisterFromPlc)property.GetValue(obj);
-                        // TODO - add validation here?
                         // Console.WriteLine(property.Name + " is a SignalFromPlc.");
                     }
                     // Finally, recursion!

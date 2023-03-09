@@ -51,7 +51,6 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         [XmlArray("Stoppers")]
         [XmlArrayItem("Stopper")]
         public List<Stopper> Stoppers { get; set; }
-        // TODO - Aparently no more issues. Need more testing
         // Fire prevention shutters
         // Only present in Miyano configuration
         // [XmlElement(IsNullable = true)]

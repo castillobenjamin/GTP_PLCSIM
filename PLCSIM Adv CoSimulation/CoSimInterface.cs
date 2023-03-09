@@ -34,7 +34,6 @@ namespace PLCSIM_Adv_CoSimulation
         /// <summary>
         /// Signals used to simulate the behaviour of the stopper sensors
         /// </summary>
-        // NOTE - Currently unused
         private bool StopperOpenSensorSignal = false;
         private bool StopperCloseSensorSignal = false;
         private bool StopperOpenOutputIsOn = false;
@@ -390,7 +389,6 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_EstopBtn_Aisle.Checked = !currentAisle.OperationBox.EmergencyBtn.Value;
 
             // Zoning
-            // TODO - Need to change to ushort type
             switch (currentAisle.Zoning.CellCommand.Value)
             {
                 case (byte)CellCommandValues.None:
@@ -819,7 +817,6 @@ namespace PLCSIM_Adv_CoSimulation
         }
         private void Update_TextBox_ZoningStatus_Aisle()
         {
-            // TODO - mysterious bug appeared here. Fix
             byte status = GetLowerByte(currentAisle.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_Aisle.Text = ZoningStatuses[status];
         }
@@ -903,7 +900,6 @@ namespace PLCSIM_Adv_CoSimulation
             // Read Plc output
             if (currentAisle.Contactors[0].ContactorOutput.Value == true)
             {
-                // TODO - make sure this logic is ok with the PLC
                 status = "ON";
                 Label_ContactorPlcOut_AisleNorth.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_AisleNorth.Font = activeLabelFont;
@@ -927,7 +923,6 @@ namespace PLCSIM_Adv_CoSimulation
             // Read PLC output
             if (currentAisle.Contactors[1].ContactorOutput.Value == true) 
             {
-                // TODO - make sure this logic is ok with the PLC
                 status = "ON";
                 Label_ContactorPlcOut_AisleSouth.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_AisleSouth.Font = activeLabelFont;
@@ -1610,7 +1605,6 @@ namespace PLCSIM_Adv_CoSimulation
             // Read Plc output
             if (currentDws.Contactor.ContactorOutput.Value == true)
             {
-                // TODO - make sure this logic is ok with the PLC
                 status = "ON";
                 Label_ContactorPlcOut_DWS.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_DWS.Font = activeLabelFont;
@@ -2122,7 +2116,6 @@ namespace PLCSIM_Adv_CoSimulation
         }
 
         #region Stopper operation simulation
-        // TODO - This section need to be tested.
         private void Update_Label_PlcOpenOut_Stopper()
         {
             //Auto mode. Check if the auto check box is checked
@@ -2206,7 +2199,6 @@ namespace PLCSIM_Adv_CoSimulation
         private void ComboBox_Shutters_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Assume the index of the Combo Box is the same as the one of the Stoppers List.
-            // TODO - 
             currentShutter = CoSimulationInstance.AlphaBotSystem.FirePreventionShutters[ComboBox_Shutters.SelectedIndex];
             // When the selected shutter changes, update shutter interface with the new shutter data
             UpdateShutterInterface();
@@ -2515,7 +2507,6 @@ namespace PLCSIM_Adv_CoSimulation
             // Read Plc output
             if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Contactor.ContactorOutput.Value == true)
             {
-                // TODO - make sure this logic is ok with the PLC
                 status = "ON";
                 Label_ContactorPlcOut_EvacMaintArea.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_EvacMaintArea.Font = activeLabelFont;
@@ -2795,11 +2786,6 @@ namespace PLCSIM_Adv_CoSimulation
             MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS2_L", true);
             MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS2_R", true);
         }
-
         #endregion // Unhandled IO
-
-        // TODO - update the rest of the buttons to use the common method
-        // TODO - refactor/abstract the rest of the interface (radio buttons, etc)
-
     }
 }

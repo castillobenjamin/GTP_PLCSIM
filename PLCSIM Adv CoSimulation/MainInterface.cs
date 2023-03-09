@@ -14,7 +14,6 @@ using EasyModbus;
 
 namespace PLCSIM_Adv_CoSimulation
 {
-    //TODO - Delete all V1 method references after validating V2 test with PLCSIM working license
     public partial class MainInterface : Form
     {
         #region Fields
@@ -59,7 +58,6 @@ namespace PLCSIM_Adv_CoSimulation
         private void UpdateLabels()
         {
             //Turning the PLC takes time, for now check if the object is null
-            // TODO - add logic to wait for the PLC to turn on
             label_OpState.Text = plcSimMainFunction.getPlcOperatingState(comboBox_PLC_list.SelectedItem.ToString());
         }
         public void UpdatePlcComboBox()
@@ -132,7 +130,6 @@ namespace PLCSIM_Adv_CoSimulation
         #region CoSimulation
         private void Btn_StartSimulation_Click(object sender, EventArgs e)
         {
-            // TODO - work on error handling for opening and closing of the SimInterface window
             try
             {
                 // Connect to Modbus server
