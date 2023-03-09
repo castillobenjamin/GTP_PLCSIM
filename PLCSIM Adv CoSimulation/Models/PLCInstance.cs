@@ -67,13 +67,11 @@ namespace PLCSIM_Adv_CoSimulation.Models
             SetCommunicationInterface();
             currentPlcName = instanceName;
         }
-
         public PLCInstance(string plcName)
         {
             currentPlcName = plcName;
             // Instance.RegisterOnConfigurationChangingEvent();
         }
-
         #endregion // Ctor
 
         #region Events
@@ -227,9 +225,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
         #endregion // PLC config
 
         #region PLC controls
-        /// <summary>
-        /// Power On PLCSIM Adv. Instance, set IPSuite of instance
-        /// </summary>
         public void PowerOnPLC()
         {
             try
@@ -256,10 +251,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message);
             }
         }
-
-        /// <summary>
-        /// Power Off PLCSIM Adv. Instance
-        /// </summary>
         public void PowerOffPLC()
         {
             try
@@ -283,10 +274,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message);
             }
         }
-
-        /// <summary>
-        /// Run PLCSIM Adv. Instance
-        /// </summary>>
         public void RunPLC()
         {
             try
@@ -310,10 +297,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message);
             }
         }
-
-        /// <summary>
-        /// Stop PLCSIM Adv. Instance
-        /// </summary>
         public void StopPLC()
         {
             try
@@ -337,10 +320,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message);
             }
         }
-
-        /// <summary>
-        /// Delete PLCSIM Adv. Instance
-        /// </summary>
         public void DeletePLC()
         {
             try
@@ -365,10 +344,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message);
             }
         }
-
-        /// <summary>
-        /// Memory Reset PLCSIM Adv. Instance
-        /// </summary>
         public void ResetPLC()
         {
             try
@@ -497,7 +472,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 return 0;
             }
         }
-
         #endregion // Read/Write
 
         #endregion // Public Methods

@@ -19,8 +19,6 @@ namespace PLCSIM_Adv_CoSimulation.Models
     public class CoSimulation
     {
         #region Constants and fields
-
-        //public PLCInstance PlcInstance; Use public static instance instead
         #endregion
 
         #region Properties
