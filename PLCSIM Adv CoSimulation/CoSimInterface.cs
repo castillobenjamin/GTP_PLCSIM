@@ -282,7 +282,7 @@ namespace PLCSIM_Adv_CoSimulation
                 CheckBox_DWSCovers.Hide();
             }
             // Hide E-stop Section on Maint area
-            if(!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EstopSpecified)
+            if(!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
             {
                 GroupBox_EstopMaintArea.Hide();
             }

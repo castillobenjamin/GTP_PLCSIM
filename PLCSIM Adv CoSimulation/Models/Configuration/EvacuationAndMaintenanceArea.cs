@@ -29,7 +29,7 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         [XmlElement(IsNullable = true)]
         public EmergencyStop EmergencyStopZone { get; set; }
         [XmlIgnore()]
-        public bool EstopSpecified { get { return EstopSerializes; } set { EstopSerializes = value;  } }
+        public bool EmergencyStopZoneSpecified { get { return EstopSerializes; } set { EstopSerializes = value;  } }
         #endregion // Properties
     }
 }
