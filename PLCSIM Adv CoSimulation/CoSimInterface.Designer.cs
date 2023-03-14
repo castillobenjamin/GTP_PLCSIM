@@ -189,6 +189,10 @@
             this.GroupBox_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
             this.CheckBox_EstopBtn_EvacMaintArea = new System.Windows.Forms.CheckBox();
             this.GroupBox_Door_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
+            this.GroupBox_EstopMaintArea = new System.Windows.Forms.GroupBox();
+            this.CheckBox_CellIsCompleteFlag_Maint = new System.Windows.Forms.CheckBox();
+            this.Label_PlcIsStopStatus_Maint = new System.Windows.Forms.Label();
+            this.Label_PlcStopRequest_Maint = new System.Windows.Forms.Label();
             this.groupBox_DoorReady_EvacMaintArea = new System.Windows.Forms.GroupBox();
             this.RadioButton_DoorReady_MaintArea = new System.Windows.Forms.RadioButton();
             this.RadioButton_DoorNotReady_MaintArea = new System.Windows.Forms.RadioButton();
@@ -226,10 +230,6 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
-            this.GroupBox_EstopMaintArea = new System.Windows.Forms.GroupBox();
-            this.Label_PlcIsStopStatus_Maint = new System.Windows.Forms.Label();
-            this.Label_PlcStopRequest_Maint = new System.Windows.Forms.Label();
-            this.CheckBox_CellIsCompleteFlag_Maint = new System.Windows.Forms.CheckBox();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -277,6 +277,7 @@
             this.groupBox37.SuspendLayout();
             this.GroupBox_EvacAndMaintArea.SuspendLayout();
             this.GroupBox_Door_EvacAndMaintArea.SuspendLayout();
+            this.GroupBox_EstopMaintArea.SuspendLayout();
             this.groupBox_DoorReady_EvacMaintArea.SuspendLayout();
             this.groupBox_DoorLock_EvacMaintArea.SuspendLayout();
             this.groupBox48.SuspendLayout();
@@ -286,7 +287,6 @@
             this.Group_FireShutter.SuspendLayout();
             this.GroupBox_Q_Shutter.SuspendLayout();
             this.GroupBox_Sensor_Shutter.SuspendLayout();
-            this.GroupBox_EstopMaintArea.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxCELL
@@ -1752,11 +1752,11 @@
             // 
             this.GroupBox_Scaffold_EvacAndMaintArea.Controls.Add(this.groupBox32);
             this.GroupBox_Scaffold_EvacAndMaintArea.Controls.Add(this.Label_Scaffold_EvacMaintArea);
-            this.GroupBox_Scaffold_EvacAndMaintArea.Location = new System.Drawing.Point(98, 60);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Location = new System.Drawing.Point(98, 88);
             this.GroupBox_Scaffold_EvacAndMaintArea.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_Scaffold_EvacAndMaintArea.Name = "GroupBox_Scaffold_EvacAndMaintArea";
             this.GroupBox_Scaffold_EvacAndMaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_Scaffold_EvacAndMaintArea.Size = new System.Drawing.Size(75, 119);
+            this.GroupBox_Scaffold_EvacAndMaintArea.Size = new System.Drawing.Size(75, 91);
             this.GroupBox_Scaffold_EvacAndMaintArea.TabIndex = 18;
             this.GroupBox_Scaffold_EvacAndMaintArea.TabStop = false;
             this.GroupBox_Scaffold_EvacAndMaintArea.Text = "足場板";
@@ -1764,11 +1764,11 @@
             // groupBox32
             // 
             this.groupBox32.Controls.Add(this.CheckBox_Scaffold_EvacMaintArea);
-            this.groupBox32.Location = new System.Drawing.Point(4, 17);
+            this.groupBox32.Location = new System.Drawing.Point(5, 17);
             this.groupBox32.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox32.Size = new System.Drawing.Size(61, 50);
+            this.groupBox32.Size = new System.Drawing.Size(61, 45);
             this.groupBox32.TabIndex = 17;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Sensor";
@@ -1792,7 +1792,7 @@
             // Label_Scaffold_EvacMaintArea
             // 
             this.Label_Scaffold_EvacMaintArea.AutoSize = true;
-            this.Label_Scaffold_EvacMaintArea.Location = new System.Drawing.Point(14, 70);
+            this.Label_Scaffold_EvacMaintArea.Location = new System.Drawing.Point(13, 64);
             this.Label_Scaffold_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_Scaffold_EvacMaintArea.Name = "Label_Scaffold_EvacMaintArea";
             this.Label_Scaffold_EvacMaintArea.Size = new System.Drawing.Size(23, 12);
@@ -2295,6 +2295,7 @@
             // 
             // GroupBox_EvacAndMaintArea
             // 
+            this.GroupBox_EvacAndMaintArea.Controls.Add(this.GroupBox_EstopMaintArea);
             this.GroupBox_EvacAndMaintArea.Controls.Add(this.GroupBox_Scaffold_EvacAndMaintArea);
             this.GroupBox_EvacAndMaintArea.Controls.Add(this.CheckBox_EstopBtn_EvacMaintArea);
             this.GroupBox_EvacAndMaintArea.Controls.Add(this.GroupBox_Door_EvacAndMaintArea);
@@ -2327,7 +2328,6 @@
             // 
             // GroupBox_Door_EvacAndMaintArea
             // 
-            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.GroupBox_EstopMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorLock_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox48);
@@ -2339,6 +2339,56 @@
             this.GroupBox_Door_EvacAndMaintArea.TabIndex = 31;
             this.GroupBox_Door_EvacAndMaintArea.TabStop = false;
             this.GroupBox_Door_EvacAndMaintArea.Text = "扉";
+            // 
+            // GroupBox_EstopMaintArea
+            // 
+            this.GroupBox_EstopMaintArea.Controls.Add(this.CheckBox_CellIsCompleteFlag_Maint);
+            this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcIsStopStatus_Maint);
+            this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcStopRequest_Maint);
+            this.GroupBox_EstopMaintArea.Location = new System.Drawing.Point(103, 24);
+            this.GroupBox_EstopMaintArea.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_EstopMaintArea.Name = "GroupBox_EstopMaintArea";
+            this.GroupBox_EstopMaintArea.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_EstopMaintArea.Size = new System.Drawing.Size(87, 60);
+            this.GroupBox_EstopMaintArea.TabIndex = 24;
+            this.GroupBox_EstopMaintArea.TabStop = false;
+            this.GroupBox_EstopMaintArea.Text = "非常停止";
+            // 
+            // CheckBox_CellIsCompleteFlag_Maint
+            // 
+            this.CheckBox_CellIsCompleteFlag_Maint.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_CellIsCompleteFlag_Maint.AutoSize = true;
+            this.CheckBox_CellIsCompleteFlag_Maint.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CellIsCompleteFlag_Maint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_CellIsCompleteFlag_Maint.Location = new System.Drawing.Point(4, 29);
+            this.CheckBox_CellIsCompleteFlag_Maint.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_CellIsCompleteFlag_Maint.Name = "CheckBox_CellIsCompleteFlag_Maint";
+            this.CheckBox_CellIsCompleteFlag_Maint.Size = new System.Drawing.Size(39, 22);
+            this.CheckBox_CellIsCompleteFlag_Maint.TabIndex = 10;
+            this.CheckBox_CellIsCompleteFlag_Maint.Text = "完了";
+            this.CheckBox_CellIsCompleteFlag_Maint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CellIsCompleteFlag_Maint.UseVisualStyleBackColor = true;
+            this.CheckBox_CellIsCompleteFlag_Maint.CheckedChanged += new System.EventHandler(this.CheckBox_CellIsCompleteFlag_Maint_CheckedChanged);
+            // 
+            // Label_PlcIsStopStatus_Maint
+            // 
+            this.Label_PlcIsStopStatus_Maint.AutoSize = true;
+            this.Label_PlcIsStopStatus_Maint.Location = new System.Drawing.Point(47, 42);
+            this.Label_PlcIsStopStatus_Maint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_PlcIsStopStatus_Maint.Name = "Label_PlcIsStopStatus_Maint";
+            this.Label_PlcIsStopStatus_Maint.Size = new System.Drawing.Size(29, 12);
+            this.Label_PlcIsStopStatus_Maint.TabIndex = 20;
+            this.Label_PlcIsStopStatus_Maint.Text = "状態";
+            // 
+            // Label_PlcStopRequest_Maint
+            // 
+            this.Label_PlcStopRequest_Maint.AutoSize = true;
+            this.Label_PlcStopRequest_Maint.Location = new System.Drawing.Point(47, 22);
+            this.Label_PlcStopRequest_Maint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_PlcStopRequest_Maint.Name = "Label_PlcStopRequest_Maint";
+            this.Label_PlcStopRequest_Maint.Size = new System.Drawing.Size(29, 12);
+            this.Label_PlcStopRequest_Maint.TabIndex = 18;
+            this.Label_PlcStopRequest_Maint.Text = "要求";
             // 
             // groupBox_DoorReady_EvacMaintArea
             // 
@@ -2792,56 +2842,6 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
-            // GroupBox_EstopMaintArea
-            // 
-            this.GroupBox_EstopMaintArea.Controls.Add(this.CheckBox_CellIsCompleteFlag_Maint);
-            this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcIsStopStatus_Maint);
-            this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcStopRequest_Maint);
-            this.GroupBox_EstopMaintArea.Location = new System.Drawing.Point(78, 61);
-            this.GroupBox_EstopMaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.GroupBox_EstopMaintArea.Name = "GroupBox_EstopMaintArea";
-            this.GroupBox_EstopMaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_EstopMaintArea.Size = new System.Drawing.Size(82, 72);
-            this.GroupBox_EstopMaintArea.TabIndex = 24;
-            this.GroupBox_EstopMaintArea.TabStop = false;
-            this.GroupBox_EstopMaintArea.Text = "非常停止";
-            // 
-            // Label_PlcIsStopStatus_Maint
-            // 
-            this.Label_PlcIsStopStatus_Maint.AutoSize = true;
-            this.Label_PlcIsStopStatus_Maint.Location = new System.Drawing.Point(47, 42);
-            this.Label_PlcIsStopStatus_Maint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_PlcIsStopStatus_Maint.Name = "Label_PlcIsStopStatus_Maint";
-            this.Label_PlcIsStopStatus_Maint.Size = new System.Drawing.Size(29, 12);
-            this.Label_PlcIsStopStatus_Maint.TabIndex = 20;
-            this.Label_PlcIsStopStatus_Maint.Text = "状態";
-            // 
-            // Label_PlcStopRequest_Maint
-            // 
-            this.Label_PlcStopRequest_Maint.AutoSize = true;
-            this.Label_PlcStopRequest_Maint.Location = new System.Drawing.Point(47, 22);
-            this.Label_PlcStopRequest_Maint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_PlcStopRequest_Maint.Name = "Label_PlcStopRequest_Maint";
-            this.Label_PlcStopRequest_Maint.Size = new System.Drawing.Size(29, 12);
-            this.Label_PlcStopRequest_Maint.TabIndex = 18;
-            this.Label_PlcStopRequest_Maint.Text = "要求";
-            // 
-            // CheckBox_CellIsCompleteFlag_Maint
-            // 
-            this.CheckBox_CellIsCompleteFlag_Maint.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_CellIsCompleteFlag_Maint.AutoSize = true;
-            this.CheckBox_CellIsCompleteFlag_Maint.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_CellIsCompleteFlag_Maint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_CellIsCompleteFlag_Maint.Location = new System.Drawing.Point(4, 29);
-            this.CheckBox_CellIsCompleteFlag_Maint.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_CellIsCompleteFlag_Maint.Name = "CheckBox_CellIsCompleteFlag_Maint";
-            this.CheckBox_CellIsCompleteFlag_Maint.Size = new System.Drawing.Size(39, 22);
-            this.CheckBox_CellIsCompleteFlag_Maint.TabIndex = 10;
-            this.CheckBox_CellIsCompleteFlag_Maint.Text = "完了";
-            this.CheckBox_CellIsCompleteFlag_Maint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_CellIsCompleteFlag_Maint.UseVisualStyleBackColor = true;
-            this.CheckBox_CellIsCompleteFlag_Maint.CheckedChanged += new System.EventHandler(this.CheckBox_CellIsCompleteFlag_Maint_CheckedChanged);
-            // 
             // CoSimInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2954,6 +2954,8 @@
             this.GroupBox_EvacAndMaintArea.ResumeLayout(false);
             this.GroupBox_EvacAndMaintArea.PerformLayout();
             this.GroupBox_Door_EvacAndMaintArea.ResumeLayout(false);
+            this.GroupBox_EstopMaintArea.ResumeLayout(false);
+            this.GroupBox_EstopMaintArea.PerformLayout();
             this.groupBox_DoorReady_EvacMaintArea.ResumeLayout(false);
             this.groupBox_DoorReady_EvacMaintArea.PerformLayout();
             this.groupBox_DoorLock_EvacMaintArea.ResumeLayout(false);
@@ -2971,8 +2973,6 @@
             this.GroupBox_Q_Shutter.PerformLayout();
             this.GroupBox_Sensor_Shutter.ResumeLayout(false);
             this.GroupBox_Sensor_Shutter.PerformLayout();
-            this.GroupBox_EstopMaintArea.ResumeLayout(false);
-            this.GroupBox_EstopMaintArea.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
