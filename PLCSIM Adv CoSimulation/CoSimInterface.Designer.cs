@@ -226,6 +226,10 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
+            this.GroupBox_EstopMaintArea = new System.Windows.Forms.GroupBox();
+            this.Label_PlcIsStopStatus_Maint = new System.Windows.Forms.Label();
+            this.Label_PlcStopRequest_Maint = new System.Windows.Forms.Label();
+            this.CheckBox_CellIsCompleteFlag_Maint = new System.Windows.Forms.CheckBox();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -282,6 +286,7 @@
             this.Group_FireShutter.SuspendLayout();
             this.GroupBox_Q_Shutter.SuspendLayout();
             this.GroupBox_Sensor_Shutter.SuspendLayout();
+            this.GroupBox_EstopMaintArea.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxCELL
@@ -592,10 +597,10 @@
             this.groupBox15.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox15.Size = new System.Drawing.Size(70, 52);
+            this.groupBox15.Size = new System.Drawing.Size(53, 52);
             this.groupBox15.TabIndex = 17;
             this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "CELL 指示";
+            this.groupBox15.Text = "CELL";
             // 
             // CheckBox_CellIsCompleteFlag_Aisle
             // 
@@ -1486,10 +1491,10 @@
             this.groupBox20.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox20.Size = new System.Drawing.Size(70, 52);
+            this.groupBox20.Size = new System.Drawing.Size(53, 52);
             this.groupBox20.TabIndex = 17;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "CELL 指示";
+            this.groupBox20.Text = "CELL";
             // 
             // CheckBox_CellIsCompleteFlag_Deck
             // 
@@ -1893,10 +1898,10 @@
             this.groupBox28.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox28.Size = new System.Drawing.Size(70, 52);
+            this.groupBox28.Size = new System.Drawing.Size(59, 52);
             this.groupBox28.TabIndex = 17;
             this.groupBox28.TabStop = false;
-            this.groupBox28.Text = "CELL 指示";
+            this.groupBox28.Text = "CELL";
             // 
             // CheckBox_CellIsCompleteFlag_DWS
             // 
@@ -2322,6 +2327,7 @@
             // 
             // GroupBox_Door_EvacAndMaintArea
             // 
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.GroupBox_EstopMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorLock_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox48);
@@ -2380,7 +2386,7 @@
             this.groupBox_DoorLock_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_DoorLock_EvacMaintArea.Name = "groupBox_DoorLock_EvacMaintArea";
             this.groupBox_DoorLock_EvacMaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox_DoorLock_EvacMaintArea.Size = new System.Drawing.Size(82, 62);
+            this.groupBox_DoorLock_EvacMaintArea.Size = new System.Drawing.Size(70, 62);
             this.groupBox_DoorLock_EvacMaintArea.TabIndex = 28;
             this.groupBox_DoorLock_EvacMaintArea.TabStop = false;
             this.groupBox_DoorLock_EvacMaintArea.Text = "Lock/Req";
@@ -2786,12 +2792,62 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
+            // GroupBox_EstopMaintArea
+            // 
+            this.GroupBox_EstopMaintArea.Controls.Add(this.CheckBox_CellIsCompleteFlag_Maint);
+            this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcIsStopStatus_Maint);
+            this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcStopRequest_Maint);
+            this.GroupBox_EstopMaintArea.Location = new System.Drawing.Point(78, 61);
+            this.GroupBox_EstopMaintArea.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_EstopMaintArea.Name = "GroupBox_EstopMaintArea";
+            this.GroupBox_EstopMaintArea.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_EstopMaintArea.Size = new System.Drawing.Size(82, 72);
+            this.GroupBox_EstopMaintArea.TabIndex = 24;
+            this.GroupBox_EstopMaintArea.TabStop = false;
+            this.GroupBox_EstopMaintArea.Text = "非常停止";
+            // 
+            // Label_PlcIsStopStatus_Maint
+            // 
+            this.Label_PlcIsStopStatus_Maint.AutoSize = true;
+            this.Label_PlcIsStopStatus_Maint.Location = new System.Drawing.Point(47, 42);
+            this.Label_PlcIsStopStatus_Maint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_PlcIsStopStatus_Maint.Name = "Label_PlcIsStopStatus_Maint";
+            this.Label_PlcIsStopStatus_Maint.Size = new System.Drawing.Size(29, 12);
+            this.Label_PlcIsStopStatus_Maint.TabIndex = 20;
+            this.Label_PlcIsStopStatus_Maint.Text = "状態";
+            // 
+            // Label_PlcStopRequest_Maint
+            // 
+            this.Label_PlcStopRequest_Maint.AutoSize = true;
+            this.Label_PlcStopRequest_Maint.Location = new System.Drawing.Point(47, 22);
+            this.Label_PlcStopRequest_Maint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_PlcStopRequest_Maint.Name = "Label_PlcStopRequest_Maint";
+            this.Label_PlcStopRequest_Maint.Size = new System.Drawing.Size(29, 12);
+            this.Label_PlcStopRequest_Maint.TabIndex = 18;
+            this.Label_PlcStopRequest_Maint.Text = "要求";
+            // 
+            // CheckBox_CellIsCompleteFlag_Maint
+            // 
+            this.CheckBox_CellIsCompleteFlag_Maint.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_CellIsCompleteFlag_Maint.AutoSize = true;
+            this.CheckBox_CellIsCompleteFlag_Maint.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CellIsCompleteFlag_Maint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_CellIsCompleteFlag_Maint.Location = new System.Drawing.Point(4, 29);
+            this.CheckBox_CellIsCompleteFlag_Maint.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_CellIsCompleteFlag_Maint.Name = "CheckBox_CellIsCompleteFlag_Maint";
+            this.CheckBox_CellIsCompleteFlag_Maint.Size = new System.Drawing.Size(39, 22);
+            this.CheckBox_CellIsCompleteFlag_Maint.TabIndex = 10;
+            this.CheckBox_CellIsCompleteFlag_Maint.Text = "完了";
+            this.CheckBox_CellIsCompleteFlag_Maint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CellIsCompleteFlag_Maint.UseVisualStyleBackColor = true;
+            this.CheckBox_CellIsCompleteFlag_Maint.CheckedChanged += new System.EventHandler(this.CheckBox_CellIsCompleteFlag_Maint_CheckedChanged);
+            // 
             // CoSimInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(854, 631);
+            this.ClientSize = new System.Drawing.Size(853, 631);
             this.Controls.Add(this.CheckBox_CylinderPressure);
             this.Controls.Add(this.CheckBox_FireAlarm);
             this.Controls.Add(this.Group_FireShutter);
@@ -2915,6 +2971,8 @@
             this.GroupBox_Q_Shutter.PerformLayout();
             this.GroupBox_Sensor_Shutter.ResumeLayout(false);
             this.GroupBox_Sensor_Shutter.PerformLayout();
+            this.GroupBox_EstopMaintArea.ResumeLayout(false);
+            this.GroupBox_EstopMaintArea.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3118,5 +3176,9 @@
         private System.Windows.Forms.CheckBox CheckBox_AllDecks;
         private System.Windows.Forms.CheckBox CheckBox_AllDWS;
         private System.Windows.Forms.CheckBox CheckBox_AutoStopper;
+        private System.Windows.Forms.GroupBox GroupBox_EstopMaintArea;
+        private System.Windows.Forms.CheckBox CheckBox_CellIsCompleteFlag_Maint;
+        private System.Windows.Forms.Label Label_PlcIsStopStatus_Maint;
+        private System.Windows.Forms.Label Label_PlcStopRequest_Maint;
     }
 }

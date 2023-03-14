@@ -188,6 +188,26 @@
 				<Value>0</Value>
 			</ContactorOnOffCommand>
 		</Contactor>
+		<EmergencyStopZone>
+			<CellIsCompleteFlag>
+				<Tag>NoTag</Tag>
+				<Address>313</Address>
+				<BitPosition>13</BitPosition>
+				<Value>0</Value>
+			</CellIsCompleteFlag>
+			<PlcStopRequest>
+				<Tag>NoTag</Tag>
+				<Address>133</Address>
+				<BitPosition>13</BitPosition>
+				<Value>0</Value>
+			</PlcStopRequest>
+			<PlcIsStopStatus>
+				<Tag>NoTag</Tag>
+				<Address>133</Address>
+				<BitPosition>12</BitPosition>
+				<Value>0</Value>
+			</PlcIsStopStatus>
+		</EmergencyStopZone>
 		<!--
 		<Scaffold Name="Scaffold_MaintenanceArea">
 			<Tag></Tag>

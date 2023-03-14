@@ -13,6 +13,7 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
     {
         #region fields
         private bool ScaffoldSerializes;
+        private bool EstopSerializes;
         #endregion // fields
 
         #region Properties
@@ -24,6 +25,11 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public PlcInput Scaffold { get; set; }
         [XmlIgnore()]
         public bool ScaffoldSpecified { get { return ScaffoldSerializes; } set { ScaffoldSerializes = value; } }
+        //Emergency stop
+        [XmlElement(IsNullable = true)]
+        public EmergencyStop EmergencyStopZone { get; set; }
+        [XmlIgnore()]
+        public bool EstopSpecified { get { return EstopSerializes; } set { EstopSerializes = value;  } }
         #endregion // Properties
     }
 }

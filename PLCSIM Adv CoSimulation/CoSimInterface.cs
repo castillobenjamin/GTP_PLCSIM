@@ -281,6 +281,11 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 CheckBox_DWSCovers.Hide();
             }
+            // Hide E-stop Section on Maint area
+            if(!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EstopSpecified)
+            {
+                GroupBox_EstopMaintArea.Hide();
+            }
             // Hide IO controls when "CELL Only" option is checked
             if (isCellOnlySim)
             {
@@ -2490,6 +2495,19 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Contactor
 
+        #region Emergency stop
+        private void CheckBox_CellIsCompleteFlag_Maint_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterToPlc currentRegister = CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.CellIsCompleteFlag;
+            currentRegister.Value =
+                UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Maint.Checked);
+            // Log action
+            string isComplete = CheckBox_CellIsCompleteFlag_Maint.Checked ? "complete" : " incomplete";
+            ListBox_Log.Items.Add("Maint. area Cell flag is marked as " + isComplete);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+        #endregion // Emergency stop
+
         #endregion // Input
 
         #region Output
@@ -2498,6 +2516,8 @@ namespace PLCSIM_Adv_CoSimulation
         {
             Update_Label_ContactorPlcOut_EvacMaintArea();
             Update_Label_Scaffold_EvacMaintArea();
+            Update_Label_PlcStopRequest_Maint();
+            Update_Label_PlcIsStopStatus_Maint();
         }
 
         #region Contactor
@@ -2550,6 +2570,41 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
         #endregion // Scaffold
+
+        #region Emergency stop
+
+        private void Update_Label_PlcStopRequest_Maint()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcStopRequest);
+            if (flag)
+            {
+                Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
+                Label_PlcStopRequest_Maint.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcStopRequest_Maint.ForeColor = inactiveLabelColor;
+                Label_PlcStopRequest_Maint.Font = inactiveLabelFont;
+            }
+        }
+        private void Update_Label_PlcIsStopStatus_Maint()
+        {
+            // Read Plc output
+            bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcIsStopStatus);
+            if (flag)
+            {
+                Label_PlcIsStopStatus_Maint.ForeColor = activeLabelColor;
+                Label_PlcIsStopStatus_Maint.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_PlcIsStopStatus_Maint.ForeColor = inactiveLabelColor;
+                Label_PlcIsStopStatus_Maint.Font = inactiveLabelFont;
+            }
+        }
+
+        #endregion // Emergency stop
 
         #endregion // Output
 
@@ -2787,5 +2842,6 @@ namespace PLCSIM_Adv_CoSimulation
             MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS2_R", true);
         }
         #endregion // Unhandled IO
+
     }
 }
