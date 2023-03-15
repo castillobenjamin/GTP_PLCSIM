@@ -1408,7 +1408,7 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_CellIsCompleteFlag_DWS.Checked = flag;
 
             // Contactor
-            bool flagOnOff = ReadRegisterBit(currentAisle.Contactors[0].ContactorOnOffCommand);
+            bool flagOnOff = ReadRegisterBit(currentDws.Contactor.ContactorOnOffCommand);
             CheckBox_ContactorOnOff_DWS.Checked = flagOnOff;
             CheckBox_ContactorPlcIn_DWS.Checked = currentDws.Contactor.ContactorFeedback.Value;
 
