@@ -167,7 +167,7 @@
 			</RequestBtn>
 			<ZoningStatusLed>
 				<Tag>OP-BOX_LED_MAINT</Tag>
-				<Address>%Q14.4</Address>
+				<Address></Address>
 				<Value>false</Value>
 			</ZoningStatusLed>
 		</OperationBox>

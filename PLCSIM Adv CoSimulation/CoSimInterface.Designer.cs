@@ -186,6 +186,7 @@
             this.Btn_Reset_SouthPanel = new System.Windows.Forms.Button();
             this.Label_LedTower_SouthPanel = new System.Windows.Forms.Label();
             this.GroupBox_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
+            this.Label_BotHPtoCell = new System.Windows.Forms.Label();
             this.CheckBox_BOT_HP = new System.Windows.Forms.CheckBox();
             this.Label_OpBoxLed_Maint = new System.Windows.Forms.Label();
             this.Btn_Reset_Maint = new System.Windows.Forms.Button();
@@ -232,7 +233,6 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
-            this.Label_BotHPtoCell = new System.Windows.Forms.Label();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -2303,6 +2303,16 @@
             this.GroupBox_EvacAndMaintArea.TabStop = false;
             this.GroupBox_EvacAndMaintArea.Text = "退避エリア・メンテナンスエリア";
             // 
+            // Label_BotHPtoCell
+            // 
+            this.Label_BotHPtoCell.AutoSize = true;
+            this.Label_BotHPtoCell.Location = new System.Drawing.Point(151, 101);
+            this.Label_BotHPtoCell.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_BotHPtoCell.Name = "Label_BotHPtoCell";
+            this.Label_BotHPtoCell.Size = new System.Drawing.Size(20, 12);
+            this.Label_BotHPtoCell.TabIndex = 21;
+            this.Label_BotHPtoCell.Text = "HP";
+            // 
             // CheckBox_BOT_HP
             // 
             this.CheckBox_BOT_HP.Appearance = System.Windows.Forms.Appearance.Button;
@@ -2346,7 +2356,7 @@
             this.Btn_Request_Maint.Location = new System.Drawing.Point(57, 50);
             this.Btn_Request_Maint.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_Request_Maint.Name = "Btn_Request_Maint";
-            this.Btn_Request_Maint.Size = new System.Drawing.Size(59, 24);
+            this.Btn_Request_Maint.Size = new System.Drawing.Size(68, 24);
             this.Btn_Request_Maint.TabIndex = 34;
             this.Btn_Request_Maint.Text = "Req/Run";
             this.Btn_Request_Maint.UseVisualStyleBackColor = true;
@@ -2874,16 +2884,6 @@
             this.CheckBox_CylinderPressure.Text = "Cylinder Pressure";
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
-            // 
-            // Label_BotHPtoCell
-            // 
-            this.Label_BotHPtoCell.AutoSize = true;
-            this.Label_BotHPtoCell.Location = new System.Drawing.Point(151, 101);
-            this.Label_BotHPtoCell.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_BotHPtoCell.Name = "Label_BotHPtoCell";
-            this.Label_BotHPtoCell.Size = new System.Drawing.Size(20, 12);
-            this.Label_BotHPtoCell.TabIndex = 21;
-            this.Label_BotHPtoCell.Text = "HP";
             // 
             // CoSimInterface
             // 

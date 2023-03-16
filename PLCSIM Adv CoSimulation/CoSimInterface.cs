@@ -2557,18 +2557,18 @@ namespace PLCSIM_Adv_CoSimulation
             // Read Plc output
             if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ZoningStatusLed.Value == true)
             {
-                Label_OpBoxLed_Aisle.ForeColor = activeLabelColor;
-                Label_OpBoxLed_Aisle.Font = activeLabelFont;
+                Label_OpBoxLed_Maint.ForeColor = activeLabelColor;
+                Label_OpBoxLed_Maint.Font = activeLabelFont;
                 ledStatus = "ON";
             }
             else
             {
-                Label_OpBoxLed_Aisle.ForeColor = inactiveLabelColor;
-                Label_OpBoxLed_Aisle.Font = inactiveLabelFont;
+                Label_OpBoxLed_Maint.ForeColor = inactiveLabelColor;
+                Label_OpBoxLed_Maint.Font = inactiveLabelFont;
                 ledStatus = "OFF";
             }
             //Update label
-            Label_OpBoxLed_Aisle.Text = ledStatus;
+            Label_OpBoxLed_Maint.Text = ledStatus;
         }
         #endregion // OpBox
 
@@ -2633,13 +2633,13 @@ namespace PLCSIM_Adv_CoSimulation
                 bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHPtoCell);
                 if (flag)
                 {
-                    Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
-                    Label_PlcStopRequest_Maint.Font = activeLabelFont;
+                    Label_BotHPtoCell.ForeColor = activeLabelColor;
+                    Label_BotHPtoCell.Font = activeLabelFont;
                 }
                 else
                 {
-                    Label_PlcStopRequest_Maint.ForeColor = inactiveLabelColor;
-                    Label_PlcStopRequest_Maint.Font = inactiveLabelFont;
+                    Label_BotHPtoCell.ForeColor = inactiveLabelColor;
+                    Label_BotHPtoCell.Font = inactiveLabelFont;
                 }
             }
         }
