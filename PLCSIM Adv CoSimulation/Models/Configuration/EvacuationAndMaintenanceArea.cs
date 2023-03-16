@@ -17,7 +17,9 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         #endregion // fields
 
         #region Properties
-        public PlcInput EmergencyBtn { get; set; }
+        public OperationBox OperationBox { get; set; }
+        public PlcInput BotHP { get; set; } // BOT sensor
+        public RegisterFromPlc BotHPtoCell { get; set; } // BOT HP register to CELL
         public Door Door { get; set; }
         public Contactor Contactor { get; set; }
         // Only in Alpen? configuration, conditional deserialization

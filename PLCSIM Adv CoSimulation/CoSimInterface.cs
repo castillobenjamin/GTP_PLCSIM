@@ -24,7 +24,7 @@ namespace PLCSIM_Adv_CoSimulation
         private Stopper currentStopper;
         private FirePreventionShutter currentShutter;
         // flag for "CELL only" simulation
-        private bool isCellOnlySim = false;
+        private readonly bool isCellOnlySim = false;
         // TODO - Iterate with timer for optimal value
         readonly private int timerInterval = 200;
         // The timer is public so that the main interface can stop it when the simulation is stopped.
@@ -371,8 +371,7 @@ namespace PLCSIM_Adv_CoSimulation
                 Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
                 Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.NorthPanel, Label_LedTower_NorthPanel);
                 Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel, Label_LedTower_SouthPanel);
-                Update_Label_Scaffold_MaintArea();
-                // Cuurrently unhandled IO
+                // Currently unhandled IO
                 UpdateUnhandledIO();
             }
         }
@@ -1902,23 +1901,23 @@ namespace PLCSIM_Adv_CoSimulation
             string ledString = "";
             if (panel.RedLed.Value)
             {
-                ledString = ledString + "Rd ";
+                ledString += "Rd ";
             }
             if (panel.BlueLed.Value)
             {
-                ledString = ledString + "Bl ";
+                ledString += "Bl ";
             }
             if (panel.YellowLed.Value)
             {
-                ledString = ledString + "Yl ";
+                ledString += "Yl ";
             }
             if (panel.GreenLed.Value)
             {
-                ledString = ledString + "Gn ";
+                ledString += "Gn ";
             }
             if (panel.WhiteLed.Value)
             {
-                ledString = ledString + "Wh";
+                ledString += "Wh";
             }
 
             // Update label
@@ -2388,13 +2387,51 @@ namespace PLCSIM_Adv_CoSimulation
         #region Evacuation and Maintenance area
 
         #region Input
+
+        #region OpBox
         private void CheckBox_EstopBtn_EvacuationArea_CheckedChanged(object sender, EventArgs e)
         {
             EstopButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyBtn,
+                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.EmergencyBtn,
                 CheckBox_EstopBtn_EvacMaintArea,
                 "Evac. Area");
         }
+
+        #region Reset btn
+        private void Btn_Reset_Maint_MouseDown(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ResetBtn,
+                true,
+                "Maint area Reset");
+        }
+        private void Btn_Reset_Maint_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ResetBtn,
+                false,
+                "Maint area Reset");
+        }
+        #endregion // Reset btn
+
+        #region Request btn
+        private void Btn_Request_Maint_MouseDown(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.RequestBtn,
+                true,
+                "Maint area Request");
+        }
+        private void Btn_Request_Maint_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.RequestBtn,
+                false,
+                "Maint area Request");
+        }
+        #endregion // Request btn
+
+        #endregion // Opbox
 
         #region Scaffold
         private void CheckBox_Scaffold_MaintArea_CheckedChanged(object sender, EventArgs e)
@@ -2411,31 +2448,22 @@ namespace PLCSIM_Adv_CoSimulation
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        private void Update_Label_Scaffold_MaintArea()
+        #endregion // Scaffold
+
+        #region Bot HP
+        private void CheckBox_BOT_HP_CheckedChanged(object sender, EventArgs e)
         {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null 
-                & CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold != null)
+            // Prevent Null exceptions when Maintenance area is not present.
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
             {
-                // Read PLC input
-                string status;
-                if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold.Value)
-                {
-                    status = "ON";
-                    Label_Scaffold_EvacMaintArea.ForeColor = activeLabelColor;
-                    Label_Scaffold_EvacMaintArea.Font = activeLabelFont;
-                }
-                else
-                {
-                    status = "OFF";
-                    Label_Scaffold_EvacMaintArea.ForeColor = inactiveLabelColor;
-                    Label_Scaffold_EvacMaintArea.Font = inactiveLabelFont;
-                }
-                //Update label
-                Label_Scaffold_EvacMaintArea.Text = "is " + status;
+                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHP.Value = CheckBox_BOT_HP.Checked;
+                // Log action
+                string isOn = CheckBox_BOT_HP.Checked ? "not present." : "present.";
+                ListBox_Log.Items.Add("BOT in HP " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-
-        #endregion // Scaffold
+        #endregion // Bot HP
 
         #region Door
         private void RadioButton_DoorClosed_EvacuationArea_CheckedChanged(object sender, EventArgs e)
@@ -2514,11 +2542,35 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void UpdateEvacAndMaintAreaOutputs()
         {
+            Update_Label_OpBoxLed_Maint();
             Update_Label_ContactorPlcOut_EvacMaintArea();
             Update_Label_Scaffold_EvacMaintArea();
+            Update_Label_BotHPtoCell();
             Update_Label_PlcStopRequest_Maint();
             Update_Label_PlcIsStopStatus_Maint();
         }
+
+        #region OpBox
+        private void Update_Label_OpBoxLed_Maint()
+        {
+            string ledStatus;
+            // Read Plc output
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ZoningStatusLed.Value == true)
+            {
+                Label_OpBoxLed_Aisle.ForeColor = activeLabelColor;
+                Label_OpBoxLed_Aisle.Font = activeLabelFont;
+                ledStatus = "ON";
+            }
+            else
+            {
+                Label_OpBoxLed_Aisle.ForeColor = inactiveLabelColor;
+                Label_OpBoxLed_Aisle.Font = inactiveLabelFont;
+                ledStatus = "OFF";
+            }
+            //Update label
+            Label_OpBoxLed_Aisle.Text = ledStatus;
+        }
+        #endregion // OpBox
 
         #region Contactor
         private void Update_Label_ContactorPlcOut_EvacMaintArea()
@@ -2549,7 +2601,8 @@ namespace PLCSIM_Adv_CoSimulation
         #region Scaffold
         private void Update_Label_Scaffold_EvacMaintArea()
         {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold != null)
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null
+                & CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold != null)
             {
                 // Read PLC input
                 string status;
@@ -2571,8 +2624,28 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Scaffold
 
-        #region Emergency stop
+        #region Bot HP
+        private void Update_Label_BotHPtoCell()
+        {
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
+            {
+                // Read Plc output
+                bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHPtoCell);
+                if (flag)
+                {
+                    Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
+                    Label_PlcStopRequest_Maint.Font = activeLabelFont;
+                }
+                else
+                {
+                    Label_PlcStopRequest_Maint.ForeColor = inactiveLabelColor;
+                    Label_PlcStopRequest_Maint.Font = inactiveLabelFont;
+                }
+            }
+        }
+        #endregion // Bot HP
 
+        #region Emergency stop
         private void Update_Label_PlcStopRequest_Maint()
         {
             // Read Plc output
@@ -2603,7 +2676,6 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_PlcIsStopStatus_Maint.Font = inactiveLabelFont;
             }
         }
-
         #endregion // Emergency stop
 
         #endregion // Output
@@ -2842,6 +2914,5 @@ namespace PLCSIM_Adv_CoSimulation
             MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS2_R", true);
         }
         #endregion // Unhandled IO
-
     }
 }

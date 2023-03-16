@@ -148,11 +148,39 @@
 		</NorthPanel>
 	</Panels>
 	<EvacuationAndMaintenanceArea>
-		<EmergencyBtn> 
-			<Tag>E-STOP_ESCAPE_AREA</Tag>
-			<Address />
+		<OperationBox>
+			<EmergencyBtn>
+				<Tag>E-STOP_ESCAPE_AREA</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>Reset_Escape_Area</Tag>
+				<Address />
+				<Value>false</Value>
+			</ResetBtn>
+			<RequestBtn>
+				<Tag>Entry_Request_Escape_Area</Tag> 
+				<Address />
+				<Value>false</Value>
+			</RequestBtn>
+			<ZoningStatusLed>
+				<Tag>OP-BOX_LED_Escape_Area</Tag>
+				<Address />
+				<Value>false</Value>
+			</ZoningStatusLed>
+		</OperationBox>
+		<BotHP>
+			<Tag>Maint-HP_isle8</Tag>
+			<Address></Address>
 			<Value>true</Value>
-		</EmergencyBtn>
+		</BotHP>
+		<BotHPtoCell>
+			<Tag>noTag</Tag>
+			<Address>197</Address>
+			<BitPosition>12</BitPosition>
+			<Value>1</Value>
+		</BotHPtoCell>
 		<Door>
 			<IsDoorLockedKeySwitch>
 				<Tag>DOOR_LOCK_ESCAPE_AREA</Tag>
@@ -6633,6 +6661,70 @@
 				<Tag>NoTag</Tag>
 				<Address>176</Address>
 				<BitPosition>15</BitPosition>
+				<Value>0</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
+		<Stopper Name="STOPPER_MAINT" Label="Stopper Maint Area">
+			<!-- This stopper is manually actuated? Only sensor signals. Using non-existing tag for unused IO-->
+			<PlcOpenOut>
+				<Tag>noTag</Tag>
+				<Address></Address>
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>noTag</Tag>
+				<Address></Address>
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>Maint-Stopper_Open_isle8</Tag>
+				<Address></Address>
+				<Value>true</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>MAINT-STOPPER_CLOSE_ISLE8</Tag>
+				<Address></Address>
+				<Value>false</Value>
+			</IsClosedSensor>
+			<InvAlarm>
+				<Tag>noTag</Tag>
+				<Address></Address>
+				<Value>true</Value>
+			</InvAlarm>
+			<OpenCommandFromCell>
+				<Tag>NoTag</Tag>
+				<Address>197</Address>
+				<BitPosition>11</BitPosition>
+				<Value>0</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>NoTag</Tag>
+				<Address>197</Address>
+				<BitPosition>11</BitPosition>
+				<Value>0</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>197</Address>
+				<BitPosition>13</BitPosition>
+				<Value>0</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>197</Address>
+				<BitPosition>14</BitPosition>
+				<Value>0</Value>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address>197</Address>
+				<BitPosition>11</BitPosition>
+				<Value>0</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address>197</Address>
+				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
