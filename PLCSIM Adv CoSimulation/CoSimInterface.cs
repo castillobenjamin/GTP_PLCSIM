@@ -2526,13 +2526,16 @@ namespace PLCSIM_Adv_CoSimulation
         #region Emergency stop
         private void CheckBox_CellIsCompleteFlag_Maint_CheckedChanged(object sender, EventArgs e)
         {
-            RegisterToPlc currentRegister = CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.CellIsCompleteFlag;
-            currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Maint.Checked);
-            // Log action
-            string isComplete = CheckBox_CellIsCompleteFlag_Maint.Checked ? "complete" : " incomplete";
-            ListBox_Log.Items.Add("Maint. area Cell flag is marked as " + isComplete);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
+            {
+                RegisterToPlc currentRegister = CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.CellIsCompleteFlag;
+                currentRegister.Value =
+                    UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Maint.Checked);
+                // Log action
+                string isComplete = CheckBox_CellIsCompleteFlag_Maint.Checked ? "complete" : " incomplete";
+                ListBox_Log.Items.Add("Maint. area Cell flag is marked as " + isComplete);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
         }
         #endregion // Emergency stop
 
@@ -2648,32 +2651,38 @@ namespace PLCSIM_Adv_CoSimulation
         #region Emergency stop
         private void Update_Label_PlcStopRequest_Maint()
         {
-            // Read Plc output
-            bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcStopRequest);
-            if (flag)
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
             {
-                Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
-                Label_PlcStopRequest_Maint.Font = activeLabelFont;
-            }
-            else
-            {
-                Label_PlcStopRequest_Maint.ForeColor = inactiveLabelColor;
-                Label_PlcStopRequest_Maint.Font = inactiveLabelFont;
+                // Read Plc output
+                bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcStopRequest);
+                if (flag)
+                {
+                    Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
+                    Label_PlcStopRequest_Maint.Font = activeLabelFont;
+                }
+                else
+                {
+                    Label_PlcStopRequest_Maint.ForeColor = inactiveLabelColor;
+                    Label_PlcStopRequest_Maint.Font = inactiveLabelFont;
+                }
             }
         }
         private void Update_Label_PlcIsStopStatus_Maint()
         {
-            // Read Plc output
-            bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcIsStopStatus);
-            if (flag)
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
             {
-                Label_PlcIsStopStatus_Maint.ForeColor = activeLabelColor;
-                Label_PlcIsStopStatus_Maint.Font = activeLabelFont;
-            }
-            else
-            {
-                Label_PlcIsStopStatus_Maint.ForeColor = inactiveLabelColor;
-                Label_PlcIsStopStatus_Maint.Font = inactiveLabelFont;
+                // Read Plc output
+                bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcIsStopStatus);
+                if (flag)
+                {
+                    Label_PlcIsStopStatus_Maint.ForeColor = activeLabelColor;
+                    Label_PlcIsStopStatus_Maint.Font = activeLabelFont;
+                }
+                else
+                {
+                    Label_PlcIsStopStatus_Maint.ForeColor = inactiveLabelColor;
+                    Label_PlcIsStopStatus_Maint.Font = inactiveLabelFont;
+                }
             }
         }
         #endregion // Emergency stop
