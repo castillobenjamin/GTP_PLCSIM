@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigData\SimGlobalConfig_ALPEN[OUTDATED].xml" />
+    <Content Include="ConfigData\SimGlobalConfig_DEMOLINE.xml" />
     <Content Include="ConfigData\SimGlobalConfig_MIYANO.xml" />
     <Content Include="ConfigData\SimGlobalConfig_SCHEMA.xml" />
     <Content Include="ConfigData\SimGlobalConfig_SCHEMA_v2.2.xml" />

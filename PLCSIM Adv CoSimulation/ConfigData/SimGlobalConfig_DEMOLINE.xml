@@ -1,0 +1,1021 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AlphaBotSystem Name="Demo Line">
+	<CellCommunication>
+		<IsCellConnectedPulse>
+			<Tag>NoTag</Tag>
+			<Address>200</Address>
+			<BitPosition>0</BitPosition>
+			<Value>0</Value>
+		</IsCellConnectedPulse>
+		<ResetFromCell>
+			<Tag>NoTag</Tag>
+			<Address>201</Address>
+			<BitPosition>0</BitPosition>
+			<Value>0</Value>
+		</ResetFromCell>
+		<SystemIsStartingUp>
+			<Tag>NoTag</Tag>
+			<Address>202</Address>
+			<BitPosition>1</BitPosition>
+			<Value>0</Value>
+		</SystemIsStartingUp>
+		<CanSystemStartUp>
+			<Tag>NoTag</Tag>
+			<Address>202</Address>
+			<BitPosition>0</BitPosition>
+			<Value>0</Value>
+		</CanSystemStartUp>
+		<IsPlcAutoMode>
+			<Tag>NoTag</Tag>
+			<Address>1</Address>
+			<BitPosition>0</BitPosition>
+			<Value>0</Value>
+		</IsPlcAutoMode>
+		<IsPlcWarningMode>
+			<Tag>NoTag</Tag>
+			<Address>1</Address>
+			<BitPosition>1</BitPosition>
+			<Value>0</Value>
+		</IsPlcWarningMode>
+		<PlcHasError>
+			<Tag>NoTag</Tag>
+			<Address>2</Address>
+			<BitPosition>0</BitPosition>
+			<Value>0</Value>
+		</PlcHasError>
+	</CellCommunication>
+	<Panels>
+		<DwsPanel>
+			<EmergencyBtn>
+				<Tag>E-STOP_EC_DWS</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>Reset_on_DWS</Tag>
+				<Address />
+				<Value>false</Value>
+			</ResetBtn>
+			<RedLed>
+				<Tag>EC-NA-LT-RED-X-DW-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</RedLed>
+			<BlueLed>
+				<Tag>EC-NA-LT-BLU-X-DW-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</BlueLed>
+			<YellowLed>
+				<Tag>EC-NA-LT-ORG-X-DW-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</YellowLed>
+			<GreenLed>
+				<Tag>EC-NA-LT-GRN-X-DW-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>EC-NA-LT-WHT-X-DW-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</WhiteLed>
+		</DwsPanel>
+		<SouthPanel>
+			<ResetBtn>
+				<Tag>Reset_On_DWS</Tag>
+				<Address />
+				<Value>false</Value>
+			</ResetBtn>
+			<RedLed>
+				<Tag>EC-NA-LT-RED-X-S2-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</RedLed>
+			<BlueLed>
+				<Tag>EC-NA-LT-BLU-X-S2-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</BlueLed>
+			<YellowLed>
+				<Tag>EC-NA-LT-ORG-X-S2-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</YellowLed>
+			<GreenLed>
+				<Tag>EC-NA-LT-GRN-X-S2-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>EC-NA-LT-WHT-X-S2-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</WhiteLed>
+		</SouthPanel>
+		<NorthPanel>
+			<ResetBtn>
+				<Tag>Reset_On_DWS</Tag>
+				<Address />
+				<Value>false</Value>
+			</ResetBtn>
+			<RedLed>
+				<Tag>EC-NA-LT-RED-X-S1-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</RedLed>
+			<BlueLed>
+				<Tag>EC-NA-LT-BLU-X-S1-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</BlueLed>
+			<YellowLed>
+				<Tag>EC-NA-LT-ORG-X-S1-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</YellowLed>
+			<GreenLed>
+				<Tag>EC-NA-LT-GRN-X-S1-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</GreenLed>
+			<WhiteLed>
+				<Tag>EC-NA-LT-WHT-X-S1-Z</Tag>
+				<Address />
+				<Value>false</Value>
+			</WhiteLed>
+		</NorthPanel>
+	</Panels>
+	<EvacuationAndMaintenanceArea>
+		<OperationBox>
+			<EmergencyBtn>
+				<Tag>E-STOP_ESCAPE_AREA</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+			<ResetBtn>
+				<Tag>Reset_Escape_Area</Tag>
+				<Address />
+				<Value>false</Value>
+			</ResetBtn>
+			<RequestBtn>
+				<Tag>Entry_Request_Escape_Area</Tag>
+				<Address />
+				<Value>false</Value>
+			</RequestBtn>
+			<ZoningStatusLed>
+				<Tag>OP-BOX_LED_Escape_Area</Tag>
+				<Address />
+				<Value>false</Value>
+			</ZoningStatusLed>
+		</OperationBox>
+		<BotHP>
+			<Tag>Maint-HP_isle8</Tag>
+			<Address></Address>
+			<Value>true</Value>
+		</BotHP>
+		<BotHPtoCell>
+			<Tag>noTag</Tag>
+			<Address>197</Address>
+			<BitPosition>12</BitPosition>
+			<Value>1</Value>
+		</BotHPtoCell>
+		<Door>
+			<IsDoorLockedKeySwitch>
+				<Tag>DOOR_LOCK_ESCAPE_AREA</Tag>
+				<Address />
+				<Value>false</Value>
+			</IsDoorLockedKeySwitch>
+			<IsDoorClosedSensor>
+				<Tag>DOOR_CLOSE_ESCAPE_AREA</Tag>
+				<Address />
+				<Value>true</Value>
+			</IsDoorClosedSensor>
+		</Door>
+		<Contactor>
+			<!-- Using contactor from Aisle 8-->
+			<ContactorOutput Name="ContactorOut_MAINT">
+				<Tag>Trolley-MC_On_North_Isle8</Tag>
+				<Address />
+				<Value>false</Value>
+			</ContactorOutput>
+			<ContactorFeedback Name="ContactorIn_MAINT">
+				<Tag>Trolley-MC_On_FB_North_Isle8</Tag>
+				<Address />
+				<Value>true</Value>
+			</ContactorFeedback>
+			<ContactorOnOffCommand>
+				<Tag>NoTag</Tag>
+				<Address>196</Address>
+				<!-- No command from CELL for this contactor-->
+				<BitPosition>0</BitPosition>
+				<Value>0</Value>
+			</ContactorOnOffCommand>
+		</Contactor>
+	</EvacuationAndMaintenanceArea>
+	<Aisles>
+		<Aisle Name="Aisle1" Label="Aisle 1">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_LED_ISLE1_F1_Nomal</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_isle1</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_isle1</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_isle1</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Close_isle1</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>Door_Close_isle1</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle1">
+						<Tag>TROLLEY-MC_ON1_North_Aisle1</Tag>
+						<Address />
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle1">
+						<Tag>TROLLEY-MC_ON_FB_North_Aisle1</Tag>
+						<Address />
+						<Value>true</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>NoTag</Tag>
+						<Address>258</Address>
+						<BitPosition>0</BitPosition>
+						<Value>0</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle1">
+						<Tag>TROLLEY-MC_ON1_South_Aisle1</Tag>
+						<Address />
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle1">
+						<Tag>TROLLEY-MC_ON_FB_South_Aisle1</Tag>
+						<Address />
+						<Value>true</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>NoTag</Tag>
+						<Address>260</Address>
+						<BitPosition>0</BitPosition>
+						<Value>0</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle1">
+					<Tag>VS_QBAD_LOD_com_North_Aisle1</Tag>
+					<Address />
+					<Value>true</Value>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle1">
+					<Tag>VS_QBAD_LOD_com_South_Aisle1</Tag>
+					<Address />
+					<Value>true</Value>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>269</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>89</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>269</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>89</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>89</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Aisle>
+		<Aisle Name="Aisle2" Label="Aisle 2">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_ISLE2_F1</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_isle2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_isle2</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_isle2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Close_isle2</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>Door_Close_isle2</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle2">
+						<Tag>TROLLEY-MC_ON1_North_Aisle2</Tag>
+						<Address />
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle2">
+						<Tag>TROLLEY-MC_ON_FB_North_Aisle2</Tag>
+						<Address />
+						<Value>true</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>NoTag</Tag>
+						<Address>258</Address>
+						<BitPosition>1</BitPosition>
+						<Value>0</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle2">
+						<Tag>TROLLEY-MC_ON1_South_Aisle2</Tag>
+						<Address />
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle2">
+						<Tag>TROLLEY-MC_ON_FB_South_Aisle2</Tag>
+						<Address />
+						<Value>true</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>NoTag</Tag>
+						<Address>260</Address>
+						<BitPosition>1</BitPosition>
+						<Value>0</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle2">
+					<Tag>VS_QBAD_LOD_com_South_Aisle2</Tag>
+					<Address />
+					<Value>true</Value>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle2">
+					<Tag>VS_QBAD_LOD_com_South_Aisle2</Tag>
+					<Address />
+					<Value>true</Value>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>270</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>90</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>270</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>90</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>90</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Aisle>
+		<Aisle Name="Aisle3" Label="Aisle 3">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_ISLE3_F1</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_isle3</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_isle3</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_isle3</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Lock_isle3</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>DOOR_CLOSE_AISLE1</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Contactors>
+				<Contactor>
+					<ContactorOutput Name="ContactorNorthOut_Aisle3">
+						<Tag>TROLLEY-MC_ON1_North_Aisle3</Tag>
+						<Address />
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorNorthIn_Aisle3">
+						<Tag>TROLLEY-MC_ON_FB_North_Aisle3</Tag>
+						<Address />
+						<Value>true</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>NoTag</Tag>
+						<Address>258</Address>
+						<BitPosition>2</BitPosition>
+						<Value>0</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+				<Contactor>
+					<ContactorOutput Name="ContactorSouthOut_Aisle3">
+						<Tag>TROLLEY-MC_ON1_South_Aisle3</Tag>
+						<Address />
+						<Value>false</Value>
+					</ContactorOutput>
+					<ContactorFeedback Name="ContactorSouthIn_Aisle3">
+						<Tag>TROLLEY-MC_ON_FB_South_Aisle3</Tag>
+						<Address />
+						<Value>true</Value>
+					</ContactorFeedback>
+					<ContactorOnOffCommand>
+						<Tag>NoTag</Tag>
+						<Address>260</Address>
+						<BitPosition>2</BitPosition>
+						<Value>0</Value>
+					</ContactorOnOffCommand>
+				</Contactor>
+			</Contactors>
+			<Scaffolds>
+				<Scaffold Name="Scaffold_North_Aisle3">
+					<Tag>VS_QBAD_LOD_com_South_Aisle3</Tag>
+					<Address />
+					<Value>true</Value>
+				</Scaffold>
+				<Scaffold Name="Scaffold_South_Aisle3">
+					<Tag>VS_QBAD_LOD_com_South_Aisle3</Tag>
+					<Address />
+					<Value>true</Value>
+				</Scaffold>
+			</Scaffolds>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>271</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>91</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>271</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>91</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>91</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Aisle>
+	</Aisles>
+	<Decks>
+		<Deck Name="Deck1" Label="Deck 1">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_Deck1_N</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_Deck1</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_Deck1</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_Deck1</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Lock_DECK1</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>Door_Lock_DECK1_No</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>285</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>105</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>285</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>105</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>105</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Deck>
+		<Deck Name="Deck2" Label="Deck 2">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_Deck2</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Lock_DECK2</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>Door_Lock_DECK2</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>286</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>106</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>286</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>106</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>106</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Deck>
+		<Deck Name="Deck3" Label="Deck 3">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_Deck2</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Lock_DECK3</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>Door_Lock_DECK3</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>287</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>107</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>287</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>107</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>107</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Deck>
+		<Deck Name="Deck4" Label="Deck 4">
+			<OperationBox>
+				<EmergencyBtn>
+					<Tag>E-STOP_Deck2</Tag>
+					<Address />
+					<Value>true</Value>
+				</EmergencyBtn>
+				<ResetBtn>
+					<Tag>Reset_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ResetBtn>
+				<RequestBtn>
+					<Tag>Entry_Request_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</RequestBtn>
+				<ZoningStatusLed>
+					<Tag>OP-BOX_LED_Deck2</Tag>
+					<Address />
+					<Value>false</Value>
+				</ZoningStatusLed>
+			</OperationBox>
+			<Door>
+				<IsDoorLockedKeySwitch>
+					<Tag>Door_Lock_DECK4</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorLockedKeySwitch>
+				<IsDoorClosedSensor>
+					<Tag>Door_Lock_DECK4</Tag>
+					<Address />
+					<Value>true</Value>
+				</IsDoorClosedSensor>
+			</Door>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>288</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>108</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>288</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>108</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>108</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</Deck>
+	</Decks>
+	<DynamicWorkStations>
+		<DynamicWorkStation Name="DWS1" Label="DWS 1">
+			<EmergencyBtn>
+				<Tag>E-STOP_DWS1</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+			<Contactor>
+				<ContactorOutput Name="ContactorOut_DWS1">
+					<Tag>TROLLEY-MC_ON1_DWS1</Tag>
+					<Address />
+					<Value>false</Value>
+				</ContactorOutput>
+				<ContactorFeedback Name="ContactorIn_DWS1">
+					<Tag>TROLLEY-MC_ON_FB_DWS1</Tag>
+					<Address />
+					<Value>true</Value>
+				</ContactorFeedback>
+				<ContactorElbTrip1>
+					<Tag>VS_QBAD_LOD_com_DWS1</Tag>
+					<Address />
+					<Value>true</Value>
+				</ContactorElbTrip1>
+				<ContactorElbTrip2>
+					<Tag>VS_QBAD_LOD_com_DWS1</Tag>
+					<Address />
+					<Value>true</Value>
+				</ContactorElbTrip2>
+				<ContactorOnOffCommand>
+					<Tag>NoTag</Tag>
+					<Address>264</Address>
+					<BitPosition>0</BitPosition>
+					<Value>0</Value>
+				</ContactorOnOffCommand>
+			</Contactor>
+			<Zoning>
+				<CellCommand>
+					<Tag>NoTag</Tag>
+					<Address>294</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</CellCommand>
+				<ZoningStatus>
+					<Tag>NoTag</Tag>
+					<Address>114</Address>
+					<BitPosition>0</BitPosition>
+					<Value>2</Value>
+				</ZoningStatus>
+			</Zoning>
+			<EmergencyStopZone>
+				<CellIsCompleteFlag>
+					<Tag>NoTag</Tag>
+					<Address>294</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</CellIsCompleteFlag>
+				<PlcStopRequest>
+					<Tag>NoTag</Tag>
+					<Address>114</Address>
+					<BitPosition>13</BitPosition>
+					<Value>0</Value>
+				</PlcStopRequest>
+				<PlcIsStopStatus>
+					<Tag>NoTag</Tag>
+					<Address>114</Address>
+					<BitPosition>12</BitPosition>
+					<Value>0</Value>
+				</PlcIsStopStatus>
+			</EmergencyStopZone>
+		</DynamicWorkStation>
+	</DynamicWorkStations>
+	<StaticWorkStations>
+		<StaticWorkStation Name="SWS1">
+			<EmergencyBtn Name="EmergencyBtn_SWS1">
+				<Tag>E-STOP_LED_ISLE1_F1_Nomal_2</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+		</StaticWorkStation>
+		<StaticWorkStation Name="SWS2">
+			<EmergencyBtn Name="EmergencyBtn_SWS2">
+				<Tag>E-STOP_Deck1_N(1)</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+		</StaticWorkStation>
+		<StaticWorkStation Name="SWS3">
+			<EmergencyBtn Name="EmergencyBtn_SWS3">
+				<Tag>E-STOP_EC_DWS</Tag>
+				<Address />
+				<Value>true</Value>
+			</EmergencyBtn>
+		</StaticWorkStation>
+	</StaticWorkStations>
+	<Stoppers>
+		<Stopper Name="STOPPER_AISLE3_DECK1" Label="Stopper Aisle3 DECK1">
+			<PlcOpenOut>
+				<Tag>INV_STF_ON_Isle3_DECK1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>INV_STR_ON_Isle3_DECK1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>Stopper_open_Isle3_DECK1</Tag>
+				<Address />
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>Stopper_Close_Isle3_DECK1</Tag>
+				<Address />
+				<Value>true</Value>
+			</IsClosedSensor>
+			<InvAlarm>
+				<Tag>INV_ALM_Isle3_DECK1</Tag>
+				<Address />
+				<Value>true</Value>
+			</InvAlarm>
+			<OpenCommandFromCell>
+				<Tag>NoTag</Tag>
+				<Address>314</Address>
+				<BitPosition>8</BitPosition>
+				<Value>0</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>NoTag</Tag>
+				<Address>314</Address>
+				<BitPosition>9</BitPosition>
+				<Value>0</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>8</BitPosition>
+				<Value>0</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>9</BitPosition>
+				<Value>0</Value>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>10</BitPosition>
+				<Value>0</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>11</BitPosition>
+				<Value>0</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
+	</Stoppers>
+	<IsStopperSensorInverted>false</IsStopperSensorInverted>
+</AlphaBotSystem>
