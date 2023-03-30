@@ -3857,37 +3857,37 @@
 			</InvAlarm>
 			<OpenCommandFromCell>
 				<Tag>NoTag</Tag>
-				<Address>336</Address>
+				<Address>327</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</OpenCommandFromCell>
 			<CloseCommandFromCell>
 				<Tag>NoTag</Tag>
-				<Address>336</Address>
+				<Address>327</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</CloseCommandFromCell>
 			<IsOpenStatusToCell>
 				<Tag>NoTag</Tag>
-				<Address>156</Address>
+				<Address>147</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</IsOpenStatusToCell>
 			<IsClosedStatusToCell>
 				<Tag>NoTag</Tag>
-				<Address>156</Address>
+				<Address>147</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</IsClosedStatusToCell>
 			<ErrorSignalToCell>
 				<Tag>NoTag</Tag>
-				<Address>156</Address>
+				<Address>147</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</ErrorSignalToCell>
 			<TimeOverSignalToCell>
 				<Tag>NoTag</Tag>
-				<Address>156</Address>
+				<Address>147</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</TimeOverSignalToCell>
