@@ -1062,7 +1062,7 @@
 					<Value>true</Value>
 				</EmergencyBtn>
 				<ResetBtn>
-					<Tag>Reset_On_DWS</Tag>
+					<Tag>Reset_Escape_Area</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
