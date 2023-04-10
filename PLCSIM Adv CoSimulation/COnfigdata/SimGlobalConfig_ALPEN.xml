@@ -1062,7 +1062,7 @@
 					<Value>true</Value>
 				</EmergencyBtn>
 				<ResetBtn>
-					<Tag>Reset_Escape_Area</Tag>
+					<Tag>RESET_ISLE8</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
