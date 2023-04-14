@@ -309,6 +309,7 @@
             this.groupBox1.Controls.Add(this.RadioButton_CanSystemStartUp);
             this.groupBox1.Controls.Add(this.CheckBox_IsCellConnectedPulse);
             this.groupBox1.Controls.Add(this.Btn_ResetFromCell);
+            this.groupBox1.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox1.Location = new System.Drawing.Point(4, 17);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
@@ -349,7 +350,7 @@
             this.CheckBox_IsCellConnectedPulse.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_IsCellConnectedPulse.AutoSize = true;
             this.CheckBox_IsCellConnectedPulse.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_IsCellConnectedPulse.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckBox_IsCellConnectedPulse.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_IsCellConnectedPulse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_IsCellConnectedPulse.Location = new System.Drawing.Point(4, 17);
             this.CheckBox_IsCellConnectedPulse.Margin = new System.Windows.Forms.Padding(2);
@@ -376,6 +377,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.Label_CELLcomm_PlcStatus);
+            this.groupBox2.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox2.Location = new System.Drawing.Point(4, 136);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
@@ -562,6 +564,7 @@
             this.groupBox14.Controls.Add(this.Label_PlcIsStopStatus_Aisle);
             this.groupBox14.Controls.Add(this.Label_PlcStopRequest_Aisle);
             this.groupBox14.Controls.Add(this.groupBox15);
+            this.groupBox14.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox14.Location = new System.Drawing.Point(106, 166);
             this.groupBox14.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox14.Name = "groupBox14";
@@ -594,6 +597,7 @@
             // groupBox15
             // 
             this.groupBox15.Controls.Add(this.CheckBox_CellIsCompleteFlag_Aisle);
+            this.groupBox15.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox15.Location = new System.Drawing.Point(4, 17);
             this.groupBox15.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox15.Name = "groupBox15";
@@ -703,6 +707,7 @@
             this.groupBox12.Controls.Add(this.TextBox_ZoningStatus_Aisle);
             this.groupBox12.Controls.Add(this.label19);
             this.groupBox12.Controls.Add(this.groupBox_Zoning_CellCommand_Aisle);
+            this.groupBox12.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox12.Location = new System.Drawing.Point(106, 40);
             this.groupBox12.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox12.Name = "groupBox12";
@@ -736,6 +741,7 @@
             this.groupBox_Zoning_CellCommand_Aisle.Controls.Add(this.RadioButton_Permit_Aisle);
             this.groupBox_Zoning_CellCommand_Aisle.Controls.Add(this.RadioButton_Run_Aisle);
             this.groupBox_Zoning_CellCommand_Aisle.Controls.Add(this.RadioButton_None_Aisle);
+            this.groupBox_Zoning_CellCommand_Aisle.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox_Zoning_CellCommand_Aisle.Location = new System.Drawing.Point(4, 17);
             this.groupBox_Zoning_CellCommand_Aisle.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Zoning_CellCommand_Aisle.Name = "groupBox_Zoning_CellCommand_Aisle";
@@ -856,6 +862,7 @@
             this.CheckBox_ContactorOnOff_AisleSouth.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_ContactorOnOff_AisleSouth.AutoSize = true;
             this.CheckBox_ContactorOnOff_AisleSouth.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorOnOff_AisleSouth.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_ContactorOnOff_AisleSouth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_ContactorOnOff_AisleSouth.Location = new System.Drawing.Point(4, 17);
             this.CheckBox_ContactorOnOff_AisleSouth.Margin = new System.Windows.Forms.Padding(2);
@@ -923,6 +930,7 @@
             this.CheckBox_ContactorOnOff_AisleNorth.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_ContactorOnOff_AisleNorth.AutoSize = true;
             this.CheckBox_ContactorOnOff_AisleNorth.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorOnOff_AisleNorth.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_ContactorOnOff_AisleNorth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_ContactorOnOff_AisleNorth.Location = new System.Drawing.Point(4, 17);
             this.CheckBox_ContactorOnOff_AisleNorth.Margin = new System.Windows.Forms.Padding(2);
@@ -1082,6 +1090,7 @@
             // Label_TimeOverSignalToCell_Stopper
             // 
             this.Label_TimeOverSignalToCell_Stopper.AutoSize = true;
+            this.Label_TimeOverSignalToCell_Stopper.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_TimeOverSignalToCell_Stopper.Location = new System.Drawing.Point(65, 76);
             this.Label_TimeOverSignalToCell_Stopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_TimeOverSignalToCell_Stopper.Name = "Label_TimeOverSignalToCell_Stopper";
@@ -1125,6 +1134,7 @@
             // Label_ErrorSignalToCell_Stopper
             // 
             this.Label_ErrorSignalToCell_Stopper.AutoSize = true;
+            this.Label_ErrorSignalToCell_Stopper.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_ErrorSignalToCell_Stopper.Location = new System.Drawing.Point(65, 51);
             this.Label_ErrorSignalToCell_Stopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_ErrorSignalToCell_Stopper.Name = "Label_ErrorSignalToCell_Stopper";
@@ -1135,6 +1145,7 @@
             // Label_IsClosedStatusToCell_Stopper
             // 
             this.Label_IsClosedStatusToCell_Stopper.AutoSize = true;
+            this.Label_IsClosedStatusToCell_Stopper.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_IsClosedStatusToCell_Stopper.Location = new System.Drawing.Point(38, 76);
             this.Label_IsClosedStatusToCell_Stopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_IsClosedStatusToCell_Stopper.Name = "Label_IsClosedStatusToCell_Stopper";
@@ -1213,6 +1224,7 @@
             // Label_IsOpenStatusToCell_Stopper
             // 
             this.Label_IsOpenStatusToCell_Stopper.AutoSize = true;
+            this.Label_IsOpenStatusToCell_Stopper.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_IsOpenStatusToCell_Stopper.Location = new System.Drawing.Point(38, 51);
             this.Label_IsOpenStatusToCell_Stopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_IsOpenStatusToCell_Stopper.Name = "Label_IsOpenStatusToCell_Stopper";
@@ -1226,6 +1238,7 @@
             this.CheckBox_CloseCommandFromCell_Stopper.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_CloseCommandFromCell_Stopper.AutoSize = true;
             this.CheckBox_CloseCommandFromCell_Stopper.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CloseCommandFromCell_Stopper.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_CloseCommandFromCell_Stopper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_CloseCommandFromCell_Stopper.Location = new System.Drawing.Point(4, 72);
             this.CheckBox_CloseCommandFromCell_Stopper.Margin = new System.Windows.Forms.Padding(2);
@@ -1242,6 +1255,7 @@
             this.CheckBox_OpenCommandFromCell_Stopper.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_OpenCommandFromCell_Stopper.AutoSize = true;
             this.CheckBox_OpenCommandFromCell_Stopper.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_OpenCommandFromCell_Stopper.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_OpenCommandFromCell_Stopper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_OpenCommandFromCell_Stopper.Location = new System.Drawing.Point(4, 47);
             this.CheckBox_OpenCommandFromCell_Stopper.Margin = new System.Windows.Forms.Padding(2);
@@ -1456,6 +1470,7 @@
             this.groupBox19.Controls.Add(this.Label_PlcIsStopStatus_Deck);
             this.groupBox19.Controls.Add(this.Label_PlcStopRequest_Deck);
             this.groupBox19.Controls.Add(this.groupBox20);
+            this.groupBox19.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox19.Location = new System.Drawing.Point(106, 160);
             this.groupBox19.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox19.Name = "groupBox19";
@@ -1488,6 +1503,7 @@
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.CheckBox_CellIsCompleteFlag_Deck);
+            this.groupBox20.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox20.Location = new System.Drawing.Point(4, 17);
             this.groupBox20.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox20.Name = "groupBox20";
@@ -1583,6 +1599,7 @@
             this.groupBox_Zoning_Deck.Controls.Add(this.TextBox_ZoningStatus_Deck);
             this.groupBox_Zoning_Deck.Controls.Add(this.label26);
             this.groupBox_Zoning_Deck.Controls.Add(this.groupBox_Zoning_CellCommand_Deck);
+            this.groupBox_Zoning_Deck.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox_Zoning_Deck.Location = new System.Drawing.Point(106, 40);
             this.groupBox_Zoning_Deck.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Zoning_Deck.Name = "groupBox_Zoning_Deck";
@@ -1616,6 +1633,7 @@
             this.groupBox_Zoning_CellCommand_Deck.Controls.Add(this.RadioButton_Permit_Deck);
             this.groupBox_Zoning_CellCommand_Deck.Controls.Add(this.RadioButton_Run_Deck);
             this.groupBox_Zoning_CellCommand_Deck.Controls.Add(this.RadioButton_None_Deck);
+            this.groupBox_Zoning_CellCommand_Deck.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox_Zoning_CellCommand_Deck.Location = new System.Drawing.Point(4, 17);
             this.groupBox_Zoning_CellCommand_Deck.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Zoning_CellCommand_Deck.Name = "groupBox_Zoning_CellCommand_Deck";
@@ -1851,6 +1869,7 @@
             this.groupBox27.Controls.Add(this.Label_PlcIsStopStatus_DWS);
             this.groupBox27.Controls.Add(this.Label_PlcStopRequest_DWS);
             this.groupBox27.Controls.Add(this.groupBox28);
+            this.groupBox27.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox27.Location = new System.Drawing.Point(100, 160);
             this.groupBox27.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox27.Name = "groupBox27";
@@ -1883,6 +1902,7 @@
             // groupBox28
             // 
             this.groupBox28.Controls.Add(this.CheckBox_CellIsCompleteFlag_DWS);
+            this.groupBox28.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox28.Location = new System.Drawing.Point(4, 17);
             this.groupBox28.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox28.Name = "groupBox28";
@@ -1913,6 +1933,7 @@
             this.groupBox_Zoning_Dws.Controls.Add(this.TextBox_ZoningStatus_DWS);
             this.groupBox_Zoning_Dws.Controls.Add(this.label29);
             this.groupBox_Zoning_Dws.Controls.Add(this.groupBox_Zoning_CellCommand_DWS);
+            this.groupBox_Zoning_Dws.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox_Zoning_Dws.Location = new System.Drawing.Point(100, 40);
             this.groupBox_Zoning_Dws.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Zoning_Dws.Name = "groupBox_Zoning_Dws";
@@ -1946,6 +1967,7 @@
             this.groupBox_Zoning_CellCommand_DWS.Controls.Add(this.RadioButton_Permit_DWS);
             this.groupBox_Zoning_CellCommand_DWS.Controls.Add(this.RadioButton_Run_DWS);
             this.groupBox_Zoning_CellCommand_DWS.Controls.Add(this.RadioButton_None_DWS);
+            this.groupBox_Zoning_CellCommand_DWS.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.groupBox_Zoning_CellCommand_DWS.Location = new System.Drawing.Point(5, 17);
             this.groupBox_Zoning_CellCommand_DWS.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox_Zoning_CellCommand_DWS.Name = "groupBox_Zoning_CellCommand_DWS";
@@ -2066,6 +2088,7 @@
             this.CheckBox_ContactorOnOff_DWS.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_ContactorOnOff_DWS.AutoSize = true;
             this.CheckBox_ContactorOnOff_DWS.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorOnOff_DWS.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_ContactorOnOff_DWS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_ContactorOnOff_DWS.Location = new System.Drawing.Point(4, 17);
             this.CheckBox_ContactorOnOff_DWS.Margin = new System.Windows.Forms.Padding(2);
@@ -2306,6 +2329,7 @@
             // Label_BotHPtoCell
             // 
             this.Label_BotHPtoCell.AutoSize = true;
+            this.Label_BotHPtoCell.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_BotHPtoCell.Location = new System.Drawing.Point(151, 101);
             this.Label_BotHPtoCell.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_BotHPtoCell.Name = "Label_BotHPtoCell";
@@ -2368,6 +2392,7 @@
             this.GroupBox_EstopMaintArea.Controls.Add(this.CheckBox_CellIsCompleteFlag_Maint);
             this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcIsStopStatus_Maint);
             this.GroupBox_EstopMaintArea.Controls.Add(this.Label_PlcStopRequest_Maint);
+            this.GroupBox_EstopMaintArea.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.GroupBox_EstopMaintArea.Location = new System.Drawing.Point(90, 122);
             this.GroupBox_EstopMaintArea.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_EstopMaintArea.Name = "GroupBox_EstopMaintArea";
@@ -2625,6 +2650,7 @@
             this.CheckBox_ContactorOnOff_EvacMaintArea.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_ContactorOnOff_EvacMaintArea.AutoSize = true;
             this.CheckBox_ContactorOnOff_EvacMaintArea.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorOnOff_EvacMaintArea.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_ContactorOnOff_EvacMaintArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_ContactorOnOff_EvacMaintArea.Location = new System.Drawing.Point(5, 16);
             this.CheckBox_ContactorOnOff_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2);
@@ -2743,6 +2769,7 @@
             // Label_IsShutterOpenToCell_Shutter
             // 
             this.Label_IsShutterOpenToCell_Shutter.AutoSize = true;
+            this.Label_IsShutterOpenToCell_Shutter.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_IsShutterOpenToCell_Shutter.Location = new System.Drawing.Point(38, 76);
             this.Label_IsShutterOpenToCell_Shutter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_IsShutterOpenToCell_Shutter.Name = "Label_IsShutterOpenToCell_Shutter";
@@ -2820,6 +2847,7 @@
             // Label_IsRailUpToCell_Shutter
             // 
             this.Label_IsRailUpToCell_Shutter.AutoSize = true;
+            this.Label_IsRailUpToCell_Shutter.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.Label_IsRailUpToCell_Shutter.Location = new System.Drawing.Point(38, 51);
             this.Label_IsRailUpToCell_Shutter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_IsRailUpToCell_Shutter.Name = "Label_IsRailUpToCell_Shutter";
@@ -2832,6 +2860,7 @@
             this.CheckBox_CloseShutterCellCommand.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_CloseShutterCellCommand.AutoSize = true;
             this.CheckBox_CloseShutterCellCommand.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CloseShutterCellCommand.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_CloseShutterCellCommand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_CloseShutterCellCommand.Location = new System.Drawing.Point(4, 72);
             this.CheckBox_CloseShutterCellCommand.Margin = new System.Windows.Forms.Padding(2);
@@ -2848,6 +2877,7 @@
             this.CheckBox_OpenShutterCellCommand.Appearance = System.Windows.Forms.Appearance.Button;
             this.CheckBox_OpenShutterCellCommand.AutoSize = true;
             this.CheckBox_OpenShutterCellCommand.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_OpenShutterCellCommand.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.CheckBox_OpenShutterCellCommand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.CheckBox_OpenShutterCellCommand.Location = new System.Drawing.Point(4, 47);
             this.CheckBox_OpenShutterCellCommand.Margin = new System.Windows.Forms.Padding(2);
