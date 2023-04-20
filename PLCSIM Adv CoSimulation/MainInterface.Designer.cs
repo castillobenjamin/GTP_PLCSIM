@@ -45,6 +45,7 @@ namespace PLCSIM_Adv_CoSimulation
             this.label5 = new System.Windows.Forms.Label();
             this.Btn_StartSimulation = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.CheckBox_CellOnly = new System.Windows.Forms.CheckBox();
             this.Btn_StopSimulation = new System.Windows.Forms.Button();
             this.textBox_ConfigFilePath = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -54,11 +55,13 @@ namespace PLCSIM_Adv_CoSimulation
             this.TextBox_ModbusPort = new System.Windows.Forms.TextBox();
             this.TextBox_ModbusServerIP = new System.Windows.Forms.TextBox();
             this.Button_ConnectCell = new System.Windows.Forms.Button();
-            this.CheckBox_CellOnly = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Btn_TestingLaunch = new System.Windows.Forms.Button();
             this.PLCgroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Btn_updatePlcList
@@ -182,16 +185,16 @@ namespace PLCSIM_Adv_CoSimulation
             // 
             this.listBox_notifications.FormattingEnabled = true;
             this.listBox_notifications.ItemHeight = 12;
-            this.listBox_notifications.Location = new System.Drawing.Point(11, 246);
+            this.listBox_notifications.Location = new System.Drawing.Point(11, 279);
             this.listBox_notifications.Margin = new System.Windows.Forms.Padding(2);
             this.listBox_notifications.Name = "listBox_notifications";
-            this.listBox_notifications.Size = new System.Drawing.Size(303, 100);
+            this.listBox_notifications.Size = new System.Drawing.Size(304, 100);
             this.listBox_notifications.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 232);
+            this.label5.Location = new System.Drawing.Point(13, 263);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(23, 12);
@@ -225,6 +228,16 @@ namespace PLCSIM_Adv_CoSimulation
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Simulation";
+            // 
+            // CheckBox_CellOnly
+            // 
+            this.CheckBox_CellOnly.AutoSize = true;
+            this.CheckBox_CellOnly.Location = new System.Drawing.Point(71, 58);
+            this.CheckBox_CellOnly.Name = "CheckBox_CellOnly";
+            this.CheckBox_CellOnly.Size = new System.Drawing.Size(78, 16);
+            this.CheckBox_CellOnly.TabIndex = 24;
+            this.CheckBox_CellOnly.Text = "CELL Only";
+            this.CheckBox_CellOnly.UseVisualStyleBackColor = true;
             // 
             // Btn_StopSimulation
             // 
@@ -317,21 +330,35 @@ namespace PLCSIM_Adv_CoSimulation
             this.Button_ConnectCell.UseVisualStyleBackColor = true;
             this.Button_ConnectCell.Click += new System.EventHandler(this.Button_ConnectCell_Click);
             // 
-            // CheckBox_CellOnly
+            // groupBox2
             // 
-            this.CheckBox_CellOnly.AutoSize = true;
-            this.CheckBox_CellOnly.Location = new System.Drawing.Point(71, 58);
-            this.CheckBox_CellOnly.Name = "CheckBox_CellOnly";
-            this.CheckBox_CellOnly.Size = new System.Drawing.Size(78, 16);
-            this.CheckBox_CellOnly.TabIndex = 24;
-            this.CheckBox_CellOnly.Text = "CELL Only";
-            this.CheckBox_CellOnly.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.Btn_TestingLaunch);
+            this.groupBox2.Location = new System.Drawing.Point(148, 222);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(167, 53);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Testing";
+            // 
+            // Btn_TestingLaunch
+            // 
+            this.Btn_TestingLaunch.Location = new System.Drawing.Point(4, 16);
+            this.Btn_TestingLaunch.Margin = new System.Windows.Forms.Padding(2);
+            this.Btn_TestingLaunch.Name = "Btn_TestingLaunch";
+            this.Btn_TestingLaunch.Size = new System.Drawing.Size(60, 29);
+            this.Btn_TestingLaunch.TabIndex = 18;
+            this.Btn_TestingLaunch.Text = "Launch";
+            this.Btn_TestingLaunch.UseVisualStyleBackColor = true;
+            this.Btn_TestingLaunch.Click += new System.EventHandler(this.Btn_TestingLaunch_Click);
             // 
             // MainInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 356);
+            this.ClientSize = new System.Drawing.Size(329, 392);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label5);
@@ -348,6 +375,7 @@ namespace PLCSIM_Adv_CoSimulation
             this.groupBox4.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -379,6 +407,8 @@ namespace PLCSIM_Adv_CoSimulation
         private System.Windows.Forms.Button Button_ConnectCell;
         private System.Windows.Forms.Button Button_DisconnectCell;
         private System.Windows.Forms.CheckBox CheckBox_CellOnly;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button Btn_TestingLaunch;
     }
 }
 

@@ -242,5 +242,53 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion //Modbus
 
         #endregion // CoSimulation
+
+        private void Btn_TestingLaunch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Connect to Modbus server
+                if (!CellClient.IsConnected())
+                {
+                    ConnectModbusClient();
+                }
+                // If Cell only simulation is checked.
+                if (CheckBox_CellOnly.Checked)
+                {
+                    PlcInstance = new DummyPlcInstance("dummy");
+                    CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
+                    simInterface = new CoSimInterface(CoSimulationInstance, CheckBox_CellOnly.Checked);
+                    simInterface.Show();
+                    listBox_notifications.Items.Add("Simulation has started.");
+                }
+                else if (comboBox_PLC_list.SelectedItem != null)
+                {
+                    // Make IO and ONLY required DB tags available
+                    PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+                    PlcInstance.UpdateTags();
+                    CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
+                    simInterface = new CoSimInterface(CoSimulationInstance, CheckBox_CellOnly.Checked);
+                    simInterface.Show();
+                    listBox_notifications.Items.Add("Simulation has started.");
+                }
+                else
+                {
+                    MessageBox.Show("Please choose a PLC instance or select 'CELL only'.");
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message + " Please choose a configuration file.");
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message + " Please cchoose a PLC instance.");
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
