@@ -255,11 +255,7 @@ namespace PLCSIM_Adv_CoSimulation
                 // If Cell only simulation is checked.
                 if (CheckBox_CellOnly.Checked)
                 {
-                    PlcInstance = new DummyPlcInstance("dummy");
-                    CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
-                    simInterface = new CoSimInterface(CoSimulationInstance, CheckBox_CellOnly.Checked);
-                    simInterface.Show();
-                    listBox_notifications.Items.Add("Simulation has started.");
+                    // Can't run test
                 }
                 else if (comboBox_PLC_list.SelectedItem != null)
                 {
@@ -267,13 +263,14 @@ namespace PLCSIM_Adv_CoSimulation
                     PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
                     PlcInstance.UpdateTags();
                     CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
-                    simInterface = new CoSimInterface(CoSimulationInstance, CheckBox_CellOnly.Checked);
-                    simInterface.Show();
-                    listBox_notifications.Items.Add("Simulation has started.");
+                    // TODO - Create testing class instance here
+                    // testingInterface = new TestingInterface(CoSimulationInstance);
+                    // testingInterface.Show();
+                    listBox_notifications.Items.Add("Testing interface started.");
                 }
                 else
                 {
-                    MessageBox.Show("Please choose a PLC instance or select 'CELL only'.");
+                    MessageBox.Show("Please choose a PLC instance.");
                 }
             }
             catch (ArgumentException ex)
@@ -284,7 +281,6 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 MessageBox.Show(ex.Message + " Please cchoose a PLC instance.");
             }
-
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
