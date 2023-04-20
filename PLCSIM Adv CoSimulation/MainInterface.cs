@@ -243,6 +243,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // CoSimulation
 
+        #region Testing
         private void Btn_TestingLaunch_Click(object sender, EventArgs e)
         {
             try
@@ -286,5 +287,6 @@ namespace PLCSIM_Adv_CoSimulation
                 MessageBox.Show(ex.Message);
             }
         }
+        #endregion // Testing
     }
 }
