@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using PLCSIM_Adv_CoSimulation.Models;
 using PLCSIM_Adv_CoSimulation.Models.Configuration;
+using PLCSIM_Adv_CoSimulation.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,11 +70,6 @@ namespace PLCSIM_Adv_CoSimulation
         }
 
         /// <summary>
-        /// Dictionary containing the value of all single bit permutations in a ushort/word variable
-        /// The key is the bit position. Range [0 - 15]
-        /// </summary>
-        private readonly Dictionary<ushort, ushort> SingleBitInWordValues = new Dictionary<ushort, ushort>();
-        /// <summary>
         /// Zoning status dictionary.
         /// </summary>
         private readonly Dictionary<int, string> ZoningStatuses = new Dictionary<int, string>();
@@ -131,23 +127,6 @@ namespace PLCSIM_Adv_CoSimulation
             CurrentStep.Add(1, "Timer On");
             CurrentStep.Add(2, "Timer Out");
             CurrentStep.Add(3, "Cell Execution OK");
-            // Bit-wise operations 
-            SingleBitInWordValues.Add(0, 0b_0000_0000_0000_0001); //bit 0
-            SingleBitInWordValues.Add(1, 0b_0000_0000_0000_0010); //bit 1
-            SingleBitInWordValues.Add(2, 0b_0000_0000_0000_0100); //bit 2
-            SingleBitInWordValues.Add(3, 0b_0000_0000_0000_1000); //bit 3
-            SingleBitInWordValues.Add(4, 0b_0000_0000_0001_0000); //bit 4
-            SingleBitInWordValues.Add(5, 0b_0000_0000_0010_0000); //bit 5
-            SingleBitInWordValues.Add(6, 0b_0000_0000_0100_0000); //bit 6
-            SingleBitInWordValues.Add(7, 0b_0000_0000_1000_0000); //bit 7
-            SingleBitInWordValues.Add(8, 0b_0000_0001_0000_0000); //bit 8
-            SingleBitInWordValues.Add(9, 0b_0000_0010_0000_0000); //bit 9
-            SingleBitInWordValues.Add(10, 0b_0000_0100_0000_0000); //bit 10
-            SingleBitInWordValues.Add(11, 0b_0000_1000_0000_0000); //bit 11
-            SingleBitInWordValues.Add(12, 0b_0001_0000_0000_0000); //bit 12
-            SingleBitInWordValues.Add(13, 0b_0010_0000_0000_0000); //bit 13
-            SingleBitInWordValues.Add(14, 0b_0100_0000_0000_0000); //bit 14
-            SingleBitInWordValues.Add(15, 0b_1000_0000_0000_0000); //bit 15
         }
         public void InitializeComboBoxes()
         {
@@ -425,7 +404,7 @@ namespace PLCSIM_Adv_CoSimulation
 
             // Emergency stop
             // bool flag = currentAisle.EmergencyStopZone.CellIsCompleteFlag.Value == (byte)BooleanSignal.True;
-            bool flag = ReadRegisterBit(currentAisle.EmergencyStopZone.CellIsCompleteFlag);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentAisle.EmergencyStopZone.CellIsCompleteFlag);
             CheckBox_CellIsCompleteFlag_Aisle.Checked = flag;
 
             // Scaffolds
@@ -434,9 +413,9 @@ namespace PLCSIM_Adv_CoSimulation
 
             // Contactors
             // flagOnOff = currentAisle.Contactors[1].ContactorOnOffCommand.Value == (byte)BooleanSignal.True;
-            bool flagOnOff = ReadRegisterBit(currentAisle.Contactors[0].ContactorOnOffCommand);
+            bool flagOnOff = BitWiseOperations.ReadRegisterBit(currentAisle.Contactors[0].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_AisleNorth.Checked = flagOnOff;
-            flagOnOff = ReadRegisterBit(currentAisle.Contactors[1].ContactorOnOffCommand);
+            flagOnOff = BitWiseOperations.ReadRegisterBit(currentAisle.Contactors[1].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_AisleSouth.Checked = flagOnOff;
             CheckBox_ContactorPlcIn_AisleNorth.Checked = currentAisle.Contactors[0].ContactorFeedback.Value;
             CheckBox_ContactorPlcIn_AisleSouth.Checked = currentAisle.Contactors[1].ContactorFeedback.Value;
@@ -674,7 +653,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Write byte
             RegisterToPlc currentRegister = currentAisle.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Aisle.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Aisle.Checked);
             // Log action
             string isComplete = CheckBox_CellIsCompleteFlag_Aisle.Checked ? "complete" : " incomplete";
             ListBox_Log.Items.Add(currentAisle.Label + " Cell flag is marked as " + isComplete);
@@ -739,7 +718,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Assume Northern contactor has index 0 and Southern contactor has index 1.
             RegisterToPlc currentRegister = currentAisle.Contactors[0].ContactorOnOffCommand;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleNorth.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleNorth.Checked);
             // Log action
             string isOn = CheckBox_ContactorOnOff_AisleNorth.Checked ? "ON." : "OFF.";
             ListBox_Log.Items.Add(currentAisle.Label + " North contactor " + isOn);
@@ -750,7 +729,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Assume Northern contactor has index 0 and Southern contactor has index 1.
             RegisterToPlc currentRegister = currentAisle.Contactors[1].ContactorOnOffCommand;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleSouth.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleSouth.Checked);
             // Log action
             string isOn = CheckBox_ContactorOnOff_AisleSouth.Checked ? "ON." : "OFF.";
             ListBox_Log.Items.Add(currentAisle.Label + " South contactor " + isOn);
@@ -821,13 +800,13 @@ namespace PLCSIM_Adv_CoSimulation
         }
         private void Update_TextBox_ZoningStatus_Aisle()
         {
-            byte status = GetLowerByte(currentAisle.Zoning.ZoningStatus.Value);
+            byte status = BitWiseOperations.GetLowerByte(currentAisle.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_Aisle.Text = ZoningStatuses[status];
         }
         private void Update_Label_PlcStopRequest_Aisle()
         {
             // Read Plc output
-            bool flag = ReadRegisterBit(currentAisle.EmergencyStopZone.PlcStopRequest);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentAisle.EmergencyStopZone.PlcStopRequest);
             if (flag)
             {
                 Label_PlcStopRequest_Aisle.ForeColor = activeLabelColor;
@@ -842,7 +821,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_PlcIsStopStatus_Aisle()
         {
             // Read Plc output
-            bool flag = ReadRegisterBit(currentAisle.EmergencyStopZone.PlcIsStopStatus);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentAisle.EmergencyStopZone.PlcIsStopStatus);
             if (flag)
             {
                 Label_PlcIsStopStatus_Aisle.ForeColor = activeLabelColor;
@@ -993,7 +972,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
 
             // Emergency stop
-            bool flag = ReadRegisterBit(currentDeck.EmergencyStopZone.CellIsCompleteFlag);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentDeck.EmergencyStopZone.CellIsCompleteFlag);
             CheckBox_CellIsCompleteFlag_Deck.Checked = flag;
 
             // Scaffold
@@ -1259,7 +1238,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             RegisterToPlc currentRegister = currentDeck.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Deck.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Deck.Checked);
             // Log action
             string isComplete = CheckBox_CellIsCompleteFlag_Deck.Checked ? "complete" : " incomplete";
             ListBox_Log.Items.Add(currentDeck.Label + " Cell flag is marked as " + isComplete);
@@ -1300,7 +1279,7 @@ namespace PLCSIM_Adv_CoSimulation
         }
         private void Update_TextBox_ZoningStatus_Deck()
         {
-            byte status = GetLowerByte(currentDeck.Zoning.ZoningStatus.Value);
+            byte status = BitWiseOperations.GetLowerByte(currentDeck.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_Deck.Text = ZoningStatuses[status];
         }
         private void Update_Label_Scaffold_Deck()
@@ -1332,7 +1311,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_PlcStopRequest_Deck()
         {
             // Read Plc output
-            bool flag = ReadRegisterBit(currentDeck.EmergencyStopZone.PlcStopRequest);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentDeck.EmergencyStopZone.PlcStopRequest);
             if (flag)
             {
                 Label_PlcStopRequest_Deck.ForeColor = activeLabelColor;
@@ -1347,7 +1326,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_PlcIsStopStatus_Deck()
         {
             // Read Plc output
-            bool flag = ReadRegisterBit(currentDeck.EmergencyStopZone.PlcIsStopStatus);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentDeck.EmergencyStopZone.PlcIsStopStatus);
             if (flag)
             {
                 Label_PlcIsStopStatus_Deck.ForeColor = activeLabelColor;
@@ -1403,11 +1382,11 @@ namespace PLCSIM_Adv_CoSimulation
             }
 
             // Emergency stop
-            bool flag = ReadRegisterBit(currentDws.EmergencyStopZone.CellIsCompleteFlag);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentDws.EmergencyStopZone.CellIsCompleteFlag);
             CheckBox_CellIsCompleteFlag_DWS.Checked = flag;
 
             // Contactor
-            bool flagOnOff = ReadRegisterBit(currentDws.Contactor.ContactorOnOffCommand);
+            bool flagOnOff = BitWiseOperations.ReadRegisterBit(currentDws.Contactor.ContactorOnOffCommand);
             CheckBox_ContactorOnOff_DWS.Checked = flagOnOff;
             CheckBox_ContactorPlcIn_DWS.Checked = currentDws.Contactor.ContactorFeedback.Value;
 
@@ -1552,7 +1531,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             RegisterToPlc currentRegister = currentDws.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_DWS.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_DWS.Checked);
             // Log action
             string isComplete = CheckBox_CellIsCompleteFlag_DWS.Checked ? "complete" : " incomplete";
             ListBox_Log.Items.Add(currentDws.Label + " Cell flag is marked as " + isComplete);
@@ -1565,7 +1544,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             RegisterToPlc currentRegister = currentDws.Contactor.ContactorOnOffCommand;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_ContactorOnOff_DWS.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_DWS.Checked);
             // Log action
             string isOn = CheckBox_ContactorOnOff_DWS.Checked ? "ON." : "OFF.";
             ListBox_Log.Items.Add(currentDws.Label + " contactor " + isOn);
@@ -1600,7 +1579,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void Update_TextBox_ZoningStatus_DWS()
         {
-            byte status = GetLowerByte(currentDws.Zoning.ZoningStatus.Value);
+            byte status = BitWiseOperations.GetLowerByte(currentDws.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_DWS.Text = ZoningStatuses[status];
         }
         private void Update_Label_ContactorPlcOut_DWS()
@@ -1629,7 +1608,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_PlcStopRequest_DWS()
         {
             // Read Plc output
-            bool flag = ReadRegisterBit(currentDws.EmergencyStopZone.PlcStopRequest);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentDws.EmergencyStopZone.PlcStopRequest);
             if (flag)
             {
                 Label_PlcStopRequest_DWS.ForeColor = activeLabelColor;
@@ -1644,7 +1623,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_PlcIsStopStatus_DWS()
         {
             // Read Plc output
-            bool flag = ReadRegisterBit(currentDws.EmergencyStopZone.PlcIsStopStatus);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentDws.EmergencyStopZone.PlcIsStopStatus);
             if (flag)
             {
                 Label_PlcIsStopStatus_DWS.ForeColor = activeLabelColor;
@@ -1693,7 +1672,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_ResetFromCell_MouseDown(object sender, MouseEventArgs e)
         {
             ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.ResetFromCell.BitPosition;
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.ResetFromCell.Value = SingleBitInWordValues[bitPos];
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.ResetFromCell.Value = BitWiseOperations.SingleBitInWordValues[bitPos];
             ListBox_Log.Items.Add("CELL command: Reset button pressed.");
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
@@ -1710,7 +1689,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
             CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.Value =
-                (ushort)(RadioButton_CanSystemStartUp.Checked ? SingleBitInWordValues[bitPos] : 0);
+                (ushort)(RadioButton_CanSystemStartUp.Checked ? BitWiseOperations.SingleBitInWordValues[bitPos] : 0);
             string canStartUp = RadioButton_CanSystemStartUp.Checked ? "can start." : "is booting up.";
             ListBox_Log.Items.Add("CELL command: System " + canStartUp);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
@@ -1722,7 +1701,7 @@ namespace PLCSIM_Adv_CoSimulation
             // No logging needed here. 
             ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
             CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.Value =
-                (ushort)(RadioButton_SystemIsStartingUp.Checked ? SingleBitInWordValues[bitPos] : 0);
+                (ushort)(RadioButton_SystemIsStartingUp.Checked ? BitWiseOperations.SingleBitInWordValues[bitPos] : 0);
         }
         #endregion // Radio buttons
         #endregion // CELL side
@@ -1750,25 +1729,25 @@ namespace PLCSIM_Adv_CoSimulation
             // Console.WriteLine("autoModeBitPos " + autoModeBitPos);
 
             // If the error signal is active
-            if ((currentErrorStatus & SingleBitInWordValues[errorBitPos]) != 0)
+            if ((currentErrorStatus & BitWiseOperations.SingleBitInWordValues[errorBitPos]) != 0)
             {
                 plcStatus = "Error";
                 Label_CELLcomm_PlcStatus.ForeColor = errorLabelColor;
                 Label_CELLcomm_PlcStatus.Font = errorLabelFont;
             }
-            else if ((currentMode & SingleBitInWordValues[modeBitPos]) != 0)
+            else if ((currentMode & BitWiseOperations.SingleBitInWordValues[modeBitPos]) != 0)
             {
                 plcStatus = "Warning";
                 Label_CELLcomm_PlcStatus.ForeColor = emergencyLabelColor;
                 Label_CELLcomm_PlcStatus.Font = emergencyLabelFont;
             }
-            else if ((currentMode & SingleBitInWordValues[autoModeBitPos]) != 0)
+            else if ((currentMode & BitWiseOperations.SingleBitInWordValues[autoModeBitPos]) != 0)
             {
                 plcStatus = "Auto";
                 Label_CELLcomm_PlcStatus.ForeColor = activeLabelColor;
                 Label_CELLcomm_PlcStatus.Font = activeLabelFont;
             }
-            else if ((currentMode & SingleBitInWordValues[autoModeBitPos]) == 0)
+            else if ((currentMode & BitWiseOperations.SingleBitInWordValues[autoModeBitPos]) == 0)
             {
                 plcStatus = "Manual";
                 Label_CELLcomm_PlcStatus.ForeColor = activeLabelColor;
@@ -1934,9 +1913,9 @@ namespace PLCSIM_Adv_CoSimulation
         private void UpdateStopperInterface()
         {
             #region Inputs
-            bool flag = ReadRegisterBit(currentStopper.OpenCommandFromCell);
+            bool flag = BitWiseOperations.ReadRegisterBit(currentStopper.OpenCommandFromCell);
             CheckBox_OpenCommandFromCell_Stopper.Checked = flag;
-            flag = ReadRegisterBit(currentStopper.CloseCommandFromCell);
+            flag =  BitWiseOperations.ReadRegisterBit(currentStopper.CloseCommandFromCell);
             CheckBox_CloseCommandFromCell_Stopper.Checked = flag;
 
             // Sensors
@@ -1974,7 +1953,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Update value
             RegisterToPlc currentRegister = currentStopper.OpenCommandFromCell;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_OpenCommandFromCell_Stopper.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_OpenCommandFromCell_Stopper.Checked);
             // Log action
             string btnStatus = CheckBox_OpenCommandFromCell_Stopper.Checked ? "pressed." : "released.";
             ListBox_Log.Items.Add(currentStopper.Label + " Open command " + btnStatus);
@@ -1988,7 +1967,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Update value
             RegisterToPlc currentRegister = currentStopper.CloseCommandFromCell;
             currentRegister.Value =
-                UpdateRegister(currentRegister, CheckBox_CloseCommandFromCell_Stopper.Checked);
+                BitWiseOperations.UpdateRegister(currentRegister, CheckBox_CloseCommandFromCell_Stopper.Checked);
             // Log action
             string btnStatus = CheckBox_CloseCommandFromCell_Stopper.Checked ? "pressed." : "released.";
             ListBox_Log.Items.Add(currentStopper.Label + " Close command " + btnStatus);
@@ -2530,7 +2509,7 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 RegisterToPlc currentRegister = CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.CellIsCompleteFlag;
                 currentRegister.Value =
-                    UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Maint.Checked);
+                    BitWiseOperations.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Maint.Checked);
                 // Log action
                 string isComplete = CheckBox_CellIsCompleteFlag_Maint.Checked ? "complete" : " incomplete";
                 ListBox_Log.Items.Add("Maint. area Cell flag is marked as " + isComplete);
@@ -2633,7 +2612,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
             {
                 // Read Plc output
-                bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHPtoCell);
+                bool flag = BitWiseOperations.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHPtoCell);
                 if (flag)
                 {
                     Label_BotHPtoCell.ForeColor = activeLabelColor;
@@ -2654,7 +2633,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
             {
                 // Read Plc output
-                bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcStopRequest);
+                bool flag = BitWiseOperations.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcStopRequest);
                 if (flag)
                 {
                     Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
@@ -2672,7 +2651,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
             {
                 // Read Plc output
-                bool flag = ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcIsStopStatus);
+                bool flag = BitWiseOperations.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcIsStopStatus);
                 if (flag)
                 {
                     Label_PlcIsStopStatus_Maint.ForeColor = activeLabelColor;
@@ -2756,7 +2735,7 @@ namespace PLCSIM_Adv_CoSimulation
             ushort currentValue = register.Value;
             ushort bitPos = register.BitPosition;
             // Check if the bit is ON.
-            if ((currentValue & SingleBitInWordValues[bitPos]) == SingleBitInWordValues[bitPos])
+            if ((currentValue & BitWiseOperations.SingleBitInWordValues[bitPos]) == BitWiseOperations.SingleBitInWordValues[bitPos])
             {
                 if (!isError)
                 {
@@ -2836,80 +2815,6 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // nothing to do here.
         }
-
-        #region Registers and Bit-wise operations
-        /// <summary>
-        /// If isTrue, the relevant bit in the the provided register is changed to 1, else it is 0.
-        /// </summary>
-        /// <param name="register">Modbus register address of the signal to update</param>
-        /// <param name="isTrue">Boolean control associated with the signal to update</param>
-        /// <returns></returns>
-        private ushort UpdateRegister(RegisterToPlc register, bool isTrue)
-        {
-            // Save current values
-            ushort currentValue = register.Value;
-            ushort bitPos = register.BitPosition;
-            if (isTrue) // If the current interface control is true
-            {
-                // Bitwise OR makes sure the signal is true, independent of the previous state.
-                currentValue = (ushort)(currentValue | SingleBitInWordValues[bitPos]);
-            }
-            else // If the current interface control is false
-            {
-                // If the boolean signal to be modified was true
-                if ((currentValue & SingleBitInWordValues[bitPos]) == SingleBitInWordValues[bitPos])
-                {
-                    // Use an XOR to make it false
-                    currentValue = (ushort)(currentValue ^ SingleBitInWordValues[bitPos]);
-                }
-                // If the signal is false, there is no need to modify the variable.
-            }
-            return currentValue;
-        }
-
-        /// <summary>
-        /// Returns the bit (boolean) value associated to the current signal.
-        /// </summary>
-        /// <param name="register">Relevant Modbus register</param>
-        /// <returns>Bit's boolean value</returns>
-        private bool ReadRegisterBit(RegisterToPlc register)
-        {
-            ushort currentValue = register.Value;
-            ushort bitPos = register.BitPosition;
-            // Check if the bit is ON.
-            if ((currentValue & SingleBitInWordValues[bitPos]) == SingleBitInWordValues[bitPos])
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        // Overload method for "RegisterFromPlc" objects
-        private bool ReadRegisterBit(RegisterFromPlc register)
-        {
-            ushort currentValue = register.Value;
-            ushort bitPos = register.BitPosition;
-            // Check if the bit is ON.
-            if ((currentValue & SingleBitInWordValues[bitPos]) == SingleBitInWordValues[bitPos])
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private byte GetLowerByte(ushort registerValue)
-        {
-            // Get only the least significant byte
-            //byte upper = (byte)(number >> 8);
-            return (byte)(registerValue & 0xff);
-        }
-
-        #endregion // Registers and Bit-wise operations
 
         #endregion // Common methods
 
