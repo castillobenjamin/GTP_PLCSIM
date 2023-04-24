@@ -337,7 +337,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // TODO - the application still crashes when updates are being downloaded from TIA Portal. FIX
             //Check if the PLC is in RUN mode to prevent errors when trying to read Outputs
-            if (MainInterface.PlcInstance.OperatingState().Equals("Run") || isCellOnlySim)
+            if (MainInterface.PlcInstance.GetOperatingState().Equals("Run") || isCellOnlySim)
             {
                 UpdateAisleOutputs();
                 UpdateDeckOutputs();
