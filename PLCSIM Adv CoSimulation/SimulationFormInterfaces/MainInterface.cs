@@ -35,8 +35,6 @@ namespace PLCSIM_Adv_CoSimulation
         private CoSimulation CoSimulationInstance;
         //Modbus connection
         public static ModbusCommunication CellClient;
-        // V1. Old PLCSIM Adv. API interface. Still used.
-        private PLCSimMainFunctions plcSimMainFunction = new PLCSimMainFunctions();
         #endregion // Fields
 
         #region Ctor
