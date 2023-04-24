@@ -73,8 +73,8 @@ namespace PLCSIM_Adv_CoSimulation
         }
         private void ComboBox_PLC_list_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateLabels();
             PlcInstance = new PLCInstance(comboBox_PLC_list.SelectedItem.ToString());
+            //UpdateLabels();
         }
         #endregion // Interface events
 
