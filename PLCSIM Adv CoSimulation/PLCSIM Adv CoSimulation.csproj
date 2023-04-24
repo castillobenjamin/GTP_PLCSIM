@@ -108,7 +108,6 @@
     <Compile Include="Models\PLCInstance.cs" />
     <Compile Include="Models\Configuration\Stopper.cs" />
     <Compile Include="Models\PlcInstanceInterface.cs" />
-    <Compile Include="PLCSimMainFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulationFormInterfaces\TestingInterface.cs">

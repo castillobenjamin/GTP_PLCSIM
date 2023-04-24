@@ -1,5 +1,6 @@
 ﻿using PLCSIM_Adv_CoSimulation.Models;
 using PLCSIM_Adv_CoSimulation.Models.Configuration;
+using PLCSIM_Adv_CoSimulation.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -81,12 +82,17 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Subsystems
 
         #region Common methods
-        // Common for all buttons. Including E-stop, Reset, Request.
-        private bool TurnInputOn(PlcInput button) 
+        #region Update input
+        /// <summary>
+        /// Updates the input signal value.
+        /// </summary>
+        /// <param name="button"></param>
+        /// <returns>True if the input was successfully updated. False if the method failed.</returns>
+        private bool UpdateInput(PlcInput input, bool updateValue)
         {
             try
             {
-                button.Value = true;
+                input.Value = updateValue;
                 return true;
             }
             catch (Exception)
@@ -95,11 +101,11 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
-        private bool TurnInputOff(PlcInput button)
+        private bool UpdateInput(RegisterToPlc register, ushort updateValue)
         {
             try
             {
-                button.Value = false;
+                register.Value = updateValue;
                 return true;
             }
             catch (Exception)
@@ -107,48 +113,47 @@ namespace PLCSIM_Adv_CoSimulation
                 return false;
             }
         }
-        #endregion // Common methods
-
         #endregion // Update input
 
         #region Check output
-
-        #endregion // Check output
-
         /// <summary>
-        /// Returns the value of the PLC output.
+        /// Checks the output signal value.
         /// </summary>
         /// <param name="output"></param>
-        /// <returns>The value of the PLC output. Returns false if the method failed to retrieve the value.</returns>
-        private bool CheckOutput(PlcOutput output) 
-        { 
+        /// <returns>True if the output had the expected value. False if the value is different or the method fails.</returns>
+        private bool CheckOutput(PlcOutput output, bool expectedValue)
+        {
             try
             {
-                return output.Value;
-
+                if (output.Value == expectedValue) return true;
+                else return false;
             }
-            catch (Exception) 
+            catch (Exception)
             {
                 return false;
             }
         }
 
         /// <summary>
-        /// Returns the value of the Modbus register.
+        /// Checks the value of a single bit in a register.
         /// </summary>
         /// <param name="register"></param>
-        /// <returns>Returns an unsigned 16bit integer. Returns ? if the method failed to retrieve the value.</returns>
-        private ushort CheckOutRegister(RegisterFromPlc register)
+        /// <returns>True if the bit had the expected value. False if the value is different or the method fails.</returns>
+        private bool CheckOutput(RegisterFromPlc register, bool expectedValue)
         {
             try
             {
-                return register.Value;
+                if (BitWiseOperations.ReadRegisterBit(register) == expectedValue) return true;
+                else return false;
             }
-            catch(Exception)
+            catch (Exception)
             {
-                return 0;
+                return false;
             }
         }
+        #endregion // Check output
+
+        #endregion // Common methods
 
         #endregion // Methods
     }
