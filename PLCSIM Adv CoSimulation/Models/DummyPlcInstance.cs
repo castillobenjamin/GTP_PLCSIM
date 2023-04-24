@@ -33,7 +33,7 @@ namespace PLCSIM_Adv_CoSimulation.Models
         public void UpdateTags()
         {
         }
-        public string OperatingState()
+        public string GetOperatingState()
         {
             return "Dummy string";
         }

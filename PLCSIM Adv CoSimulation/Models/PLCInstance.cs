@@ -195,7 +195,7 @@ namespace PLCSIM_Adv_CoSimulation.Models
                 MessageBox.Show(e.Message);
             }
         }
-        public string OperatingState()
+        public string GetOperatingState()
         {
             try
             {

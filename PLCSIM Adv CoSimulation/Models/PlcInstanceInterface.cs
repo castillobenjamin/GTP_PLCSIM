@@ -15,7 +15,7 @@ namespace PLCSIM_Adv_CoSimulation.Models
         #region PLC config
         void UpdateInterface(string plcName);
         void UpdateTags();
-        string OperatingState();
+        string GetOperatingState();
         #endregion // PLC config
 
         #region PLC controls
