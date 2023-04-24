@@ -11,7 +11,6 @@ using PLCSIM_Adv_CoSimulation.Models;
 using Siemens.Simatic.Simulation.Runtime;
 using EasyModbus;
 
-
 namespace PLCSIM_Adv_CoSimulation
 {
     public partial class MainInterface : Form
@@ -69,12 +68,15 @@ namespace PLCSIM_Adv_CoSimulation
                 {
                     comboBox_PLC_list.Items.Add(createdPlcInfo[i].Name);
                 }
+                comboBox_PLC_list.SelectedIndex = 0; // Select the first item in the updated list.
             }
         }
         private void ComboBox_PLC_list_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             PlcInstance = new PLCInstance(comboBox_PLC_list.SelectedItem.ToString());
-            //UpdateLabels();
+            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+            UpdateLabels();
         }
         #endregion // Interface events
 
@@ -86,42 +88,77 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_PwrON_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
-            PlcInstance.PowerOnPLC();
-            listBox_notifications.Items.Add("PLC instance has been turned ON.");
-            UpdateLabels();
+            try
+            {
+                PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+                PlcInstance.PowerOnPLC();
+                listBox_notifications.Items.Add("PLC instance has been turned ON.");
+                UpdateLabels();
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message + " Please choose a PLC instance.");
+            }
         }
         private void Btn_PwrOFF_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
-            PlcInstance.PowerOffPLC();
-            listBox_notifications.Items.Add("PLC instance has been turned off.");
-            UpdateLabels();
+            try
+            {
+                PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+                PlcInstance.PowerOffPLC();
+                listBox_notifications.Items.Add("PLC instance has been turned off.");
+                UpdateLabels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Please choose a PLC instance.");
+            }
         }
         private void Btn_Reboot_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
-            PlcInstance.ResetPLC();
-            listBox_notifications.Items.Add("PLC memory has been reset.");
-            UpdateLabels();
+            try
+            {
+                PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+                PlcInstance.ResetPLC();
+                listBox_notifications.Items.Add("PLC memory has been reset.");
+                UpdateLabels();
+            }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message + " Please choose a PLC instance."); 
+            }
         }
         private void Btn_Run_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
-            PlcInstance.RunPLC();
-            listBox_notifications.Items.Add("PLC is in RUN mode.");
-            UpdateLabels();
+            try
+            {
+                PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+                PlcInstance.RunPLC();
+                listBox_notifications.Items.Add("PLC is in RUN mode.");
+                UpdateLabels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Please choose a PLC instance.");
+            }
         }
         private void Btn_Stop_Click(object sender, EventArgs e)
         {
             //V2
-            PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
-            PlcInstance.StopPLC();
-            listBox_notifications.Items.Add("PLC is in STOP mode.");
-            UpdateLabels();
+            try
+            {
+                PlcInstance.UpdateInterface(comboBox_PLC_list.SelectedItem.ToString());
+                PlcInstance.StopPLC();
+                listBox_notifications.Items.Add("PLC is in STOP mode.");
+                UpdateLabels();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Please choose a PLC instance.");
+            }
         }
         #endregion // PLC controls
 
@@ -165,7 +202,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (NullReferenceException ex)
             {
-                MessageBox.Show(ex.Message + " Please cchoose a PLC instance.");
+                MessageBox.Show(ex.Message + " Please choose a PLC instance.");
             }
 
             catch (Exception ex)
