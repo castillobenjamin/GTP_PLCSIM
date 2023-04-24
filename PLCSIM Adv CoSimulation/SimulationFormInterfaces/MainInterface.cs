@@ -58,7 +58,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void UpdateLabels()
         {
             //Turning the PLC takes time, for now check if the object is null
-            label_OpState.Text = plcSimMainFunction.getPlcOperatingState(comboBox_PLC_list.SelectedItem.ToString());
+            label_OpState.Text = PlcInstance.GetOperatingState();
         }
         public void UpdatePlcComboBox()
         {
