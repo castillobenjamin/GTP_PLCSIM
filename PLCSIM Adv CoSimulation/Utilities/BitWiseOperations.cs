@@ -40,22 +40,22 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
 
         #region Methods
         /// <summary>
-        /// The input register is updated with the input value.
+        /// If isTrue, the relevant bit in the the provided register is changed to 1, else it is 0.
         /// </summary>
         /// <param name="register">Modbus register address of the signal to update</param>
         /// <param name="isTrue">Boolean control associated with the signal to update</param>
         /// <returns></returns>
-        internal static ushort UpdateRegister(RegisterToPlc register, bool value)
+        internal static ushort UpdateRegister(RegisterToPlc register, bool isTrue)
         {
             // Save current values
             ushort currentValue = register.Value;
             ushort bitPos = register.BitPosition;
-            if (value) // If the new value is true
+            if (isTrue) // If the current interface control is true
             {
                 // Bitwise OR makes sure the signal is true, independent of the previous state.
                 currentValue = (ushort)(currentValue | SingleBitInWordValues[bitPos]);
             }
-            else // If the new value is false
+            else // If the current interface control is false
             {
                 // If the boolean signal to be modified was true
                 if ((currentValue & SingleBitInWordValues[bitPos]) == SingleBitInWordValues[bitPos])
@@ -68,10 +68,10 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
             return currentValue;
         }
         /// <summary>
-        /// Returns the boolean value associated to the input signal.
+        /// Returns the bit (boolean) value associated to the current signal.
         /// </summary>
         /// <param name="register">Relevant Modbus register</param>
-        /// <returns>Bool</returns>
+        /// <returns>Bit's boolean value</returns>
         internal static bool ReadRegisterBit(RegisterToPlc register)
         {
             ushort currentValue = register.Value;
@@ -86,11 +86,7 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
                 return false;
             }
         }
-        /// <summary>
-        /// Returns the boolean value associated to the input signal.
-        /// </summary>
-        /// <param name="register"></param>
-        /// <returns>Bool</returns>
+        // Overload method for "RegisterFromPlc" objects
         internal static bool ReadRegisterBit(RegisterFromPlc register)
         {
             ushort currentValue = register.Value;
@@ -105,11 +101,6 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
                 return false;
             }
         }
-        /// <summary>
-        /// Returns the lower byte of a ushort variable.
-        /// </summary>
-        /// <param name="registerValue"></param>
-        /// <returns></returns>
         internal static byte GetLowerByte(ushort registerValue)
         {
             // Get only the least significant byte
