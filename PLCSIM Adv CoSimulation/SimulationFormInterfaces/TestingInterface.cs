@@ -17,7 +17,6 @@ namespace PLCSIM_Adv_CoSimulation
     {
         #region Fields
         private readonly CoSimulation CoSimulationInstance;
-
         #endregion // Fields
 
         #region Initialization
@@ -98,6 +97,30 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
+        /// <summary>
+        /// Updates one bit of the input register.
+        /// </summary>
+        /// <param name="register"></param>
+        /// <param name="updateValue"></param>
+        /// <returns>True if the input was successfully updated. False if the method failed.</returns>
+        private bool UpdateInput(RegisterToPlc register, bool updateValue)
+        {
+            try
+            {
+                register.Value = BitWiseOperations.UpdateRegister(register, updateValue);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Updates the complete input register.
+        /// </summary>
+        /// <param name="register"></param>
+        /// <param name="updateValue"></param>
+        /// <returns>True if the input was successfully updated. False if the method failed.</returns>
         private bool UpdateInput(RegisterToPlc register, ushort updateValue)
         {
             try
@@ -144,6 +167,19 @@ namespace PLCSIM_Adv_CoSimulation
                 else return false;
             }
             catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private bool CheckOutput(RegisterFromPlc register, byte expectedValue)
+        {
+            try
+            {
+                if(BitWiseOperations.GetLowerByte(register.Value) == expectedValue) return true;
+                else return false;
+            }
+            catch
             {
                 return false;
             }
