@@ -25,6 +25,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             InitializeComponent();
             CoSimulationInstance = coSimulationInstance;
+            
         }
 
         #endregion // Initialization
@@ -113,6 +114,41 @@ namespace PLCSIM_Adv_CoSimulation
         #region Check output
 
         #endregion // Check output
+
+        /// <summary>
+        /// Returns the value of the PLC output.
+        /// </summary>
+        /// <param name="output"></param>
+        /// <returns>The value of the PLC output. Returns false if the method failed to retrieve the value.</returns>
+        private bool CheckOutput(PlcOutput output) 
+        { 
+            try
+            {
+                return output.Value;
+
+            }
+            catch (Exception) 
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the value of the Modbus register.
+        /// </summary>
+        /// <param name="register"></param>
+        /// <returns>Returns an unsigned 16bit integer. Returns ? if the method failed to retrieve the value.</returns>
+        private ushort CheckOutRegister(RegisterFromPlc register)
+        {
+            try
+            {
+                return register.Value;
+            }
+            catch(Exception)
+            {
+                return 0;
+            }
+        }
 
         #endregion // Methods
     }
