@@ -63,12 +63,6 @@ namespace PLCSIM_Adv_CoSimulation
             Cancel = 3
         }
 
-        private enum BooleanSignal : Byte
-        {
-            False = 0,
-            True = 1,
-        }
-
         /// <summary>
         /// Zoning status dictionary.
         /// </summary>
