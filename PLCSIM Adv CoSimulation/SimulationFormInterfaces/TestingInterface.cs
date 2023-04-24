@@ -26,7 +26,6 @@ namespace PLCSIM_Adv_CoSimulation
         {
             InitializeComponent();
             CoSimulationInstance = coSimulationInstance;
-            
         }
 
         #endregion // Initialization
@@ -42,8 +41,6 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Methods
 
-        #region Update input
-
         #region CELL
 
         #endregion // CELL
@@ -52,9 +49,9 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Aisles
 
-        private void PressAisleEstopButton(int aisleNum) 
+        private void PressAisleEstopButton(int aisleNum)
         {
-            bool isPressSuccess = TurnInputOn(CoSimulationInstance.AlphaBotSystem.Aisles[aisleNum].OperationBox.EmergencyBtn);
+            bool isPressSuccess = UpdateInput(CoSimulationInstance.AlphaBotSystem.Aisles[aisleNum].OperationBox.EmergencyBtn, true);
         }
 
         #endregion // Aisles
