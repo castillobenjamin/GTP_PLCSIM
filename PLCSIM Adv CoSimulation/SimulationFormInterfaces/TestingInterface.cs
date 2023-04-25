@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,13 @@ namespace PLCSIM_Adv_CoSimulation
     {
         #region Fields
         private readonly CoSimulation CoSimulationInstance;
+
+        // Timer
+        private Timer HeartBeatTimer = new Timer();
+        // Interval
+        readonly private int TimerInterval = 500;
+        // Counter to simulate the CELL pulse.
+        private byte HeartBeatCounter = 0;
         #endregion // Fields
 
         #region Initialization
@@ -25,9 +33,24 @@ namespace PLCSIM_Adv_CoSimulation
         {
             InitializeComponent();
             CoSimulationInstance = coSimulationInstance;
+            // Initialize timer
+            HeartBeatTimer.Tick += new EventHandler(TimerEventProcessor);
+            HeartBeatTimer.Interval = TimerInterval;
         }
 
         #endregion // Initialization
+
+        #region Timer
+        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+        {
+            HeartBeatTimer.Stop();
+            // Restarts the timer.
+            HeartBeatTimer.Enabled = true;
+            // Simulate CELL pulse
+            HeartBeatCounter = Utils.CountByteUp(HeartBeatCounter);
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = HeartBeatCounter;
+        }
+        #endregion // Timer
 
         #region Configuration
 
@@ -39,8 +62,18 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Configuration
 
         #region Methods
-
+        // TODO - add a method for every input.
         #region CELL
+        private void TurnOnCell()
+        {
+            HeartBeatTimer.Start();
+        }
+
+        private void TurnOffCell()
+        {
+            HeartBeatTimer.Stop();
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = 0;
+        }
 
         #endregion // CELL
 
@@ -50,7 +83,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void PressAisleEstopButton(int aisleNum)
         {
-            bool isPressSuccess = UpdateInput(CoSimulationInstance.AlphaBotSystem.Aisles[aisleNum].OperationBox.EmergencyBtn, true);
+            bool isPressSuccessful = UpdateInput(CoSimulationInstance.AlphaBotSystem.Aisles[aisleNum].OperationBox.EmergencyBtn, true);
         }
 
         #endregion // Aisles
@@ -107,7 +140,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                register.Value = BitWiseOperations.UpdateRegister(register, updateValue);
+                register.Value = Utils.UpdateRegister(register, updateValue);
                 return true;
             }
             catch (Exception)
@@ -153,7 +186,6 @@ namespace PLCSIM_Adv_CoSimulation
                 return false;
             }
         }
-
         /// <summary>
         /// Checks the value of a single bit in a register.
         /// </summary>
@@ -163,7 +195,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                if (BitWiseOperations.ReadRegisterBit(register) == expectedValue) return true;
+                if (Utils.ReadRegisterBit(register) == expectedValue) return true;
                 else return false;
             }
             catch (Exception)
@@ -171,12 +203,17 @@ namespace PLCSIM_Adv_CoSimulation
                 return false;
             }
         }
-
+        /// <summary>
+        /// Checks the value of a byte in a register.
+        /// </summary>
+        /// <param name="register"></param>
+        /// <param name="expectedValue"></param>
+        /// <returns>True if the bit had the expected value. False if the value is different or the method fails.</returns>
         private bool CheckOutput(RegisterFromPlc register, byte expectedValue)
         {
             try
             {
-                if(BitWiseOperations.GetLowerByte(register.Value) == expectedValue) return true;
+                if(Utils.GetLowerByte(register.Value) == expectedValue) return true;
                 else return false;
             }
             catch

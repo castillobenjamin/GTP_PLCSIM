@@ -31,7 +31,7 @@ namespace PLCSIM_Adv_CoSimulation
         // The timer is public so that the main interface can stop it when the simulation is stopped.
         public Timer IOUpdateTimer = new Timer();
         // Counter to simulate the CELL pulse.
-        private byte counter = 0;
+        private byte HeartBeatCounter = 0;
         /// <summary>
         /// Signals used to simulate the behaviour of the stopper sensors
         /// </summary>
@@ -284,7 +284,11 @@ namespace PLCSIM_Adv_CoSimulation
             // Update outputs
             UpdateCurrentPlcOutputs();
             // Simulate CELL pulse
-            SimulateIsCellConnectedPulse();
+            if (CheckBox_IsCellConnectedPulse.Checked)
+            {
+                HeartBeatCounter = Utils.CountByteUp(HeartBeatCounter);
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = HeartBeatCounter;
+            }
         }
         #endregion // Timer
 
@@ -1615,18 +1619,7 @@ namespace PLCSIM_Adv_CoSimulation
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        private void SimulateIsCellConnectedPulse()
-        {
-            if (CheckBox_IsCellConnectedPulse.Checked)
-            {
-                if (counter == byte.MaxValue)
-                    counter = byte.MinValue;
-                else
-                    counter += 1;
-                // Console.WriteLine("Cell pulse: " + counter);
-                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = counter;
-            }
-        }
+
         #region Reset btn
         private void Btn_ResetFromCell_MouseDown(object sender, MouseEventArgs e)
         {

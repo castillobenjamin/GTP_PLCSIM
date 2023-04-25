@@ -58,10 +58,21 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
         #endregion // Fields
 
         #region Methods
-        //
-        #region CELL heartbeat
-
-        #endregion // CELL heartbeat
+        #region Counter
+        /// <summary>
+        /// Updates a byte type counter variable.
+        /// </summary>
+        /// <param name="counter">The current value of the counter</param>
+        /// <returns>Updated counter value</returns>
+        internal static byte CountByteUp(byte counter)
+        {
+            if (counter == byte.MaxValue)
+                counter = byte.MinValue;
+            else
+                counter += 1;
+            return counter;
+        }
+        #endregion // Counter
         /// <summary>
         /// Contains bitwise operation methods used for updating and reading ModBus registers.
         /// </summary>
