@@ -8,11 +8,30 @@ using System.Threading.Tasks;
 namespace PLCSIM_Adv_CoSimulation.Utilities
 {
     /// <summary>
-    /// Contains bitwise operation methods used for updating and reading ModBus registers.
+    /// Contains useful constants and methods.
     /// </summary>
-    internal static class BitWiseOperations
+    internal static class Utils
     {
         #region Fields
+        internal enum CellCommandValues : byte
+        {
+            None = 0,
+            Run = 1,
+            Permit = 2,
+            Cancel = 3
+        }
+
+        /// <summary>
+        /// Zoning statuses dictionary.
+        /// </summary>
+        internal static readonly Dictionary<int, string> ZoningStatuses = new Dictionary<int, string>
+        {
+            {0, "Stop"},
+            {1, "Waiting"},
+            {2, "Requesting"},
+            {3, "Canceling"},
+            {4, "Permit"},
+        };
         /// <summary>
         /// Dictionary containing the value of all single bit permutations in a ushort/word variable
         /// The key is the bit position. Range [0 - 15]
@@ -39,6 +58,14 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
         #endregion // Fields
 
         #region Methods
+        //
+        #region CELL heartbeat
+
+        #endregion // CELL heartbeat
+        /// <summary>
+        /// Contains bitwise operation methods used for updating and reading ModBus registers.
+        /// </summary>
+        #region BitWiseOperations
         /// <summary>
         /// The input register is updated with the input value.
         /// </summary>
@@ -116,6 +143,7 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
             //byte upper = (byte)(number >> 8);
             return (byte)(registerValue & 0xff);
         }
+        #endregion // BitWiseOperations
         #endregion // Methods
     }
 }

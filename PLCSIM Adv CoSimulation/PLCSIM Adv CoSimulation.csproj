@@ -116,8 +116,7 @@
     <Compile Include="SimulationFormInterfaces\TestingInterface.Designer.cs">
       <DependentUpon>TestingInterface.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\BitWiseOperations.cs" />
-    <Compile Include="Utilities\GlobalConstants.cs" />
+    <Compile Include="Utilities\Utils.cs" />
     <EmbeddedResource Include="SimulationFormInterfaces\CoSimInterface.resx">
       <DependentUpon>CoSimInterface.cs</DependentUpon>
     </EmbeddedResource>
