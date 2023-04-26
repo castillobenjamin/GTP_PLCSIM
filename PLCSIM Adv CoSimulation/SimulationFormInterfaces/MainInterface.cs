@@ -32,6 +32,8 @@ namespace PLCSIM_Adv_CoSimulation
         private CoSimInterface simInterface;
         //Cosimulation instance
         private CoSimulation CoSimulationInstance;
+        // Instance of Testing interface
+        private TestingInterface testingInterface;
         //Modbus connection
         public static ModbusCommunication CellClient;
         #endregion // Fields
@@ -292,6 +294,7 @@ namespace PLCSIM_Adv_CoSimulation
                 if (CheckBox_CellOnly.Checked)
                 {
                     // Can't run test
+                    MessageBox.Show("Can't open test interface on 'CELL Only' mode. Please uncheck.");
                 }
                 else if (comboBox_PLC_list.SelectedItem != null)
                 {
@@ -300,8 +303,8 @@ namespace PLCSIM_Adv_CoSimulation
                     PlcInstance.UpdateTags();
                     CoSimulationInstance = new CoSimulation(textBox_ConfigFilePath.Text);
                     // TODO - Create testing class instance here
-                    // testingInterface = new TestingInterface(CoSimulationInstance);
-                    // testingInterface.Show();
+                    testingInterface = new TestingInterface(CoSimulationInstance);
+                    testingInterface.Show();
                     listBox_notifications.Items.Add("Testing interface started.");
                 }
                 else

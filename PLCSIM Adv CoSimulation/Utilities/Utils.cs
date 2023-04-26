@@ -1,5 +1,6 @@
 ﻿using PLCSIM_Adv_CoSimulation.Models.Configuration;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -155,6 +156,37 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
             return (byte)(registerValue & 0xff);
         }
         #endregion // BitWiseOperations
+
+        #region File processing
+        /// <summary>
+        /// XML file processing. 
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        internal static List<string> ConvertXml2List(string file)
+        {
+            // TODO - process XML file and return a list of strings. Each string is one instruction.
+            // Return dummy string
+            return (new List<string>
+            {
+                "TurnOnCell",
+                "StartCellOperation",
+                "StopCellOperation",
+                "TurnOffCell"
+            });
+        }
+
+        /// <summary>
+        /// Text file processing.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        internal static string[] ConvertTextFile2List(string path)
+        {
+            string[] lines = File.ReadAllLines(path);
+            return lines;
+        }
+        #endregion // File processing
         #endregion // Methods
     }
 }

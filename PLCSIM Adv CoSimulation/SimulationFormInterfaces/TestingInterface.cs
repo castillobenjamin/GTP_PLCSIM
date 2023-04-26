@@ -11,6 +11,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using static System.Windows.Forms.LinkLabel;
 
 namespace PLCSIM_Adv_CoSimulation
 {
@@ -18,7 +20,7 @@ namespace PLCSIM_Adv_CoSimulation
     {
         #region Fields
         private readonly CoSimulation CoSimulationInstance;
-
+        private readonly int InstructionWaitTime = 500; 
         // Timer
         private Timer HeartBeatTimer = new Timer();
         // Interval
@@ -28,7 +30,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Fields
 
         #region Initialization
-
         public TestingInterface(CoSimulation coSimulationInstance)
         {
             InitializeComponent();
@@ -37,7 +38,6 @@ namespace PLCSIM_Adv_CoSimulation
             HeartBeatTimer.Tick += new EventHandler(TimerEventProcessor);
             HeartBeatTimer.Interval = TimerInterval;
         }
-
         #endregion // Initialization
 
         #region Timer
@@ -73,6 +73,22 @@ namespace PLCSIM_Adv_CoSimulation
         {
             HeartBeatTimer.Stop();
             CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = 0;
+        }
+
+        private void StartCellOperation()
+        {
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.Value = 0;
+            ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.Value =
+                Utils.SingleBitInWordValues[bitPos];
+        }
+
+        private void StopCellOperation()
+        {
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.Value = 0;
+            ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
+            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.Value =
+                Utils.SingleBitInWordValues[bitPos];
         }
 
         #endregion // CELL
@@ -213,7 +229,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                if(Utils.GetLowerByte(register.Value) == expectedValue) return true;
+                if (Utils.GetLowerByte(register.Value) == expectedValue) return true;
                 else return false;
             }
             catch
@@ -224,6 +240,95 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Check output
 
         #endregion // Common methods
+
+        #region Interface
+        private void Btn_StartTest_Click(object sender, EventArgs e)
+        {
+
+            // Local Fields
+            string[] instructions;
+            string testResults;
+
+            // TODO - Implementation test loop
+
+            //Read file with test instructions
+            try
+            {
+                instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
+                // Execute test instructions
+                testResults = ExecuteTestInstructions(instructions);
+                ListBox_Log.Items.Add(testResults);
+                // TODO - output test results to a file.
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message + " Please choose a test file.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void Btn_BrowseFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string filepath = openFileDialog.FileName;
+                TextBox_TestFilePath.Text = filepath;
+                ListBox_Log.Items.Add("File path has been selected.");
+            }
+        }
+        #endregion // Interface
+
+        #region Test execution
+        /// <summary>
+        /// Runs the instructions specified on the Test file.
+        /// </summary>
+        /// <param name="instructions">String array </param>
+        /// <returns></returns>
+        private string ExecuteTestInstructions(string[] instructions)
+        {
+            // TODO - Add a case for every possible instruction
+            // TODO - Add an execution confirmation check
+            // TODO - Think of how to loop list of instructions
+            // TODO - log action and results of each iteration.
+            // bool executionIsSuccessful = false;
+            foreach (string instruction in instructions)
+            {
+                ListBox_Log.Items.Add("Instruction: " + instruction);
+                switch (instruction)
+                {
+                    case "TurnOnCell":
+                        TurnOnCell();
+                        ListBox_Log.Items.Add("Turn on CELL.");
+                        break;
+                    case "StartCellOperation":
+                        StartCellOperation();
+                        ListBox_Log.Items.Add("Start CELL operation.");
+                        break;
+                    case "TurnOffCell":
+                        TurnOffCell();
+                        ListBox_Log.Items.Add("Turn off CELL.");
+                        break;
+                    case "StopCellOperation":
+                        StopCellOperation();
+                        ListBox_Log.Items.Add("Stop CELL operation.");
+                        break;
+                    default:
+                        // code block
+                        break;
+                }
+                // TODO - remove message box and add a delay here.
+                MessageBox.Show("Confirm Instruction.");
+            }
+            // TODO - return a string with the actual results of the test run.
+            return "These are the results: _____";
+        }
+
+        #endregion // Test execution
 
         #endregion // Methods
     }
