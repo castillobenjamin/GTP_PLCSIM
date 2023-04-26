@@ -52,15 +52,6 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Timer
 
-        #region Configuration
-
-        private void TextBox_ProgramVersion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion // Configuration
-
         #region Methods
         // TODO - add a method for every input.
         #region CELL

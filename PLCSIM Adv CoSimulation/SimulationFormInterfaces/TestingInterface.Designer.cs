@@ -70,7 +70,6 @@
             this.TextBox_ProgramVersion.Name = "TextBox_ProgramVersion";
             this.TextBox_ProgramVersion.Size = new System.Drawing.Size(216, 19);
             this.TextBox_ProgramVersion.TabIndex = 2;
-            this.TextBox_ProgramVersion.TextChanged += new System.EventHandler(this.TextBox_ProgramVersion_TextChanged);
             // 
             // label1
             // 
