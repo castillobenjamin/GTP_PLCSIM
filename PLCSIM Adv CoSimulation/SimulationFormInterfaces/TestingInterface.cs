@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static PLCSIM_Adv_CoSimulation.Utilities.Utils;
 using static System.Windows.Forms.LinkLabel;
 
 namespace PLCSIM_Adv_CoSimulation
@@ -19,7 +20,11 @@ namespace PLCSIM_Adv_CoSimulation
     public partial class TestingInterface : Form
     {
         #region Fields
+        // Alphabot System shortcuts
         private readonly CoSimulation CoSimulationInstance;
+        private CellCommunication Cell;
+        private List<Stopper> Stoppers;
+
         private readonly uint WaitTime = 500; 
         // Timer
         private Timer HeartBeatTimer = new Timer();
@@ -40,6 +45,9 @@ namespace PLCSIM_Adv_CoSimulation
             // Initialize timer
             HeartBeatTimer.Tick += new EventHandler(TimerEventProcessor);
             HeartBeatTimer.Interval = TimerInterval;
+            //Initialize instance shortcut variables
+            Cell = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance;
+            Stoppers = CoSimulationInstance.AlphaBotSystem.Stoppers;
         }
         #endregion // Initialization
 
@@ -53,13 +61,17 @@ namespace PLCSIM_Adv_CoSimulation
             HeartBeatTimer.Enabled = true;
             // Simulate CELL pulse
             HeartBeatCounter = Utils.CountByteUp(HeartBeatCounter);
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = HeartBeatCounter;
+            Cell.IsCellConnectedPulse.Value = HeartBeatCounter;
         }
         #endregion // Timer
 
         #region Simulation
         // TODO - add a method for every input.
         #region CELL
+        /// <summary>
+        /// Turn on CELL
+        /// </summary>
+        /// <returns>True if successful.</returns>
         private bool CellTurnOn()
         {
             try
@@ -74,13 +86,17 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
+        /// <summary>
+        /// Turn off CELL
+        /// </summary>
+        /// <returns>True if successful.</returns>
         private bool CellTurnOff()
         {
             try
             {
                 HeartBeatTimer.Stop();
                 return UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse, 
+                    Cell.IsCellConnectedPulse, 
                     0);
             }
             catch (Exception ex)
@@ -90,17 +106,21 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
+        /// <summary>
+        /// Start system operation
+        /// </summary>
+        /// <returns>True if successful.</returns>
         private bool CellStart()
         {
             try
             {
-                ushort bitPos = 
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
+                ushort bitPos =
+                    Cell.SystemIsStartingUp.BitPosition;
                 UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, 
+                    Cell.CanSystemStartUp, 
                     0);
                 return UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, 
+                    Cell.SystemIsStartingUp, 
                     Utils.SingleBitInWordValues[bitPos]);
             }
             catch (Exception ex)
@@ -110,17 +130,21 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
+        /// <summary>
+        /// Stop system operation
+        /// </summary>
+        /// <returns>True if successful</returns>
         private bool CellStop()
         {
             try
             {
                 ushort bitPos = 
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
+                    Cell.CanSystemStartUp.BitPosition;
                 UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, 
+                    Cell.SystemIsStartingUp, 
                     0);
                 return UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, 
+                    Cell.CanSystemStartUp, 
                     Utils.SingleBitInWordValues[bitPos]);
             }
             catch (Exception ex)
@@ -132,7 +156,136 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // CELL
 
-        #region Subsystems
+        #region Zoning
+        /// <summary>
+        /// Send a zoning command to the corresponding area.
+        /// </summary>
+        /// <param name="areaZoning">the "zoning" instance of </param>
+        /// <param name="command">Zoning command to be sent. Accepted values are defined in 'Utils/CellCommandValues'</param>
+        /// <returns>True if successful.</returns>
+        private bool ZoningSendCommand(Zoning areaZoning, byte command)
+        {
+            bool updateSuccess;
+            try
+            {
+                updateSuccess = UpdateInput(areaZoning.CellCommand, command);
+                // Log
+                return updateSuccess;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Read the zoning status of the corresponding area.
+        /// </summary>
+        /// <param name="areaZoning"></param>
+        /// <param name="expectedStatus">Accepted status values are defined in 'Utils/ZoningStatuses'</param>
+        /// <returns></returns>
+        private bool ZoningReadStatus(Zoning areaZoning, byte expectedStatus)
+        {
+            bool readSuccess;
+            try
+            {
+                readSuccess = ReadOutput(areaZoning.ZoningStatus, expectedStatus);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Executes zoning request routine for specified Aisle.
+        /// </summary>
+        /// <param name="aisle"></param>
+        /// <returns>True if routine is executed successfully.</returns>
+        private bool ZoningRequestRoutine(Aisle aisle)
+        {
+            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
+            try
+            {
+                stepOk &= UpdateInput(aisle.OperationBox.RequestBtn, true); // Press request button
+                // TODO - need to wait 2 seconds here
+                stepOk &= UpdateInput(aisle.OperationBox.RequestBtn, true); // Release request button after specified time
+                stepOk &= ZoningReadStatus(aisle.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                stepOk &= StopperActuateRoutine(aisle.Name, "close"); // Close all stoppers for the specified area
+                stepOk &= ZoningSendCommand(aisle.Zoning, zoningCommand); // Send "Permit" command
+                stepOk &= ZoningReadStatus(aisle.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                return stepOk;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Executes zoning request routine for specified Deck.
+        /// </summary>
+        /// <param name="aisle"></param>
+        /// <returns>True if routine is executed successfully.</returns>
+        private bool ZoningRequestRoutine(Deck deck)
+        {
+            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
+            try
+            {
+                stepOk &= UpdateInput(deck.OperationBox.RequestBtn, true); // Press request button
+                // TODO - need to wait 2 seconds here
+                // TODO - add wait time between each step? Probably necessary to wait for PLC to update.
+                stepOk &= UpdateInput(deck.OperationBox.RequestBtn, true); // Release request button after specified time
+                stepOk &= ZoningReadStatus(deck.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                stepOk &= StopperActuateRoutine(deck.Name, "close"); // Close all stoppers for the specified area
+                stepOk &= ZoningSendCommand(deck.Zoning, zoningCommand); // Send "Permit" command
+                stepOk &= ZoningReadStatus(deck.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                return stepOk;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Executes zoning request routine for specified DWS.
+        /// NOTE: Because the DWS controls are on the HMI, this routine needs user interaction
+        /// </summary>
+        /// <param name="aisle"></param>
+        /// <returns>True if routine is executed successfully.</returns>
+        private bool ZoningRequestRoutine(DynamicWorkStation dws)
+        {
+            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
+            try
+            {
+                MessageBox.Show("Press Request button of " + dws.Label + " on HMI."); // Press request button
+                stepOk &= ZoningReadStatus(dws.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                stepOk &= StopperActuateRoutine(dws.Name, "close"); // Close all stoppers for the specified area
+                stepOk &= ZoningSendCommand(dws.Zoning, zoningCommand); // Send "Permit" command
+                stepOk &= ZoningReadStatus(dws.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                return stepOk;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+        #endregion // Zoning
 
         #region Panels
 
@@ -185,7 +338,119 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Dynamic Work Stations
 
         #region Stoppers
+        /// <summary>
+        ///  Open or close the stoppers of the specified area.
+        /// </summary>
+        /// <param name="areaName">Name of the area related to stoppers to be actuated</param>
+        /// <param name="action">"close" or "open"</param>
+        /// <returns></returns>
+        private bool StopperActuateRoutine(string areaName, string action)
+        {
+            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            try
+            {
+                // Loop through stoppers
+                Stoppers.ForEach(stopper =>
+                {
+                    // Check if the name of the current stopper includes the name of the current area.
+                    if (stopper.Name.Contains(areaName))
+                    {
+                        // Call the corresponding function depending on the "action" parameter
+                        if (action == "close")
+                        {
+                            stepOk = stepOk & StopperClose(stopper);
+                        }
+                        else if (action == "open")
+                        {
+                            stepOk = stepOk & StopperOpen(stopper);
+                        }
+                        else
+                        {
+                            // TODO - add code here.
+                        }
+                    }
+                });
+                return stepOk;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
 
+        /// <summary>
+        /// Close a stopper.
+        /// </summary>
+        /// <param name="stopper">Stopper to be closed</param>
+        /// <returns></returns>
+        private bool StopperClose(Stopper stopper)
+        {
+            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            try
+            {
+                // If the stopper is already closed, return true.
+                if (ReadOutput(stopper.IsClosedStatusToCell, true))
+                {
+                    stepOk = true;
+                }
+                // Check if the stopper is open.
+                else if (ReadOutput(stopper.IsOpenStatusToCell, true))
+                {
+                    stepOk &= UpdateInput(stopper.CloseCommandFromCell, true); // Send close command
+                    stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
+                }
+                else
+                {
+                    stepOk = false;
+                }
+                return stepOk;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///  Open a stopper.
+        /// </summary>
+        /// <param name="stopper">Stopper to be open</param>
+        /// <returns></returns>
+        private bool StopperOpen(Stopper stopper)
+        {
+            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            try
+            {
+                // If the stopper is already open, return true.
+                if (ReadOutput(stopper.IsOpenStatusToCell, true))
+                {
+                    stepOk = true;
+                }
+                // Check if the stopper is closed.
+                else if (ReadOutput(stopper.IsClosedStatusToCell, true))
+                {
+                    stepOk &= UpdateInput(stopper.OpenCommandFromCell, true); // Send open command
+                    stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
+                }
+                else
+                {
+                    stepOk = false;
+                }
+                return stepOk;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        private bool StopperChangeClosed
         #endregion // Stoppers
 
         #region Evacuation rails
@@ -196,9 +461,8 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // Fire shutter
 
-        #endregion // Subsystems
-
         #region Common methods
+        // TODO - add delay inside the common methods to wait for the PLC to take care of its business.
         #region Update input
         /// <summary>
         /// Updates the input signal value.
@@ -259,13 +523,13 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Update input
 
-        #region Check output
+        #region Read output
         /// <summary>
         /// Checks the output signal value.
         /// </summary>
         /// <param name="output"></param>
         /// <returns>True if the output had the expected value. False if the value is different or the method fails.</returns>
-        private bool CheckOutput(PlcOutput output, bool expectedValue)
+        private bool ReadOutput(PlcOutput output, bool expectedValue)
         {
             try
             {
@@ -282,7 +546,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         /// <param name="register"></param>
         /// <returns>True if the bit had the expected value. False if the value is different or the method fails.</returns>
-        private bool CheckOutput(RegisterFromPlc register, bool expectedValue)
+        private bool ReadOutput(RegisterFromPlc register, bool expectedValue)
         {
             try
             {
@@ -299,8 +563,8 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         /// <param name="register"></param>
         /// <param name="expectedValue"></param>
-        /// <returns>True if the bit had the expected value. False if the value is different or the method fails.</returns>
-        private bool CheckOutput(RegisterFromPlc register, byte expectedValue)
+        /// <returns>True if the byte had the expected value. False if the value is different or the method fails.</returns>
+        private bool ReadOutput(RegisterFromPlc register, byte expectedValue)
         {
             try
             {
@@ -312,7 +576,7 @@ namespace PLCSIM_Adv_CoSimulation
                 return false;
             }
         }
-        #endregion // Check output
+        #endregion // Read output
 
         #endregion // Common methods
 
