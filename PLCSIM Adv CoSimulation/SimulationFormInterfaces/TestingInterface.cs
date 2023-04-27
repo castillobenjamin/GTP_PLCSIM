@@ -79,7 +79,9 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 HeartBeatTimer.Stop();
-                return UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse, 0);
+                return UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse, 
+                    0);
             }
             catch (Exception ex)
             {
@@ -92,9 +94,14 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
-                UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, 0);
-                return UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, Utils.SingleBitInWordValues[bitPos]);
+                ushort bitPos = 
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
+                UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, 
+                    0);
+                return UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, 
+                    Utils.SingleBitInWordValues[bitPos]);
             }
             catch (Exception ex)
             {
@@ -107,9 +114,14 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
-                UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, 0);
-                return UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, Utils.SingleBitInWordValues[bitPos]);
+                ushort bitPos = 
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
+                UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, 
+                    0);
+                return UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, 
+                    Utils.SingleBitInWordValues[bitPos]);
             }
             catch (Exception ex)
             {
@@ -128,7 +140,9 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                return UpdateInput(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn, true);
+                return UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn,
+                    true);
             }
             catch (Exception ex)
             {
@@ -141,7 +155,9 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                return UpdateInput(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn, false);
+                return UpdateInput(
+                    CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn, 
+                    false);
             }
             catch (Exception ex)
             {
@@ -412,7 +428,9 @@ namespace PLCSIM_Adv_CoSimulation
                     }
                 }
                 // Log execution results
-                executionMessage = instruction + " - Execution " + (executionIsSuccessful ? "complete." : "failed.");
+                executionMessage = instruction 
+                    + " - Execution " 
+                    + (executionIsSuccessful ? "complete." : "failed.");
                 ListBox_Log.Items.Add(executionMessage);
                 results[i] = executionMessage;
                 // TODO - Replace pop up window with a delay here?
