@@ -450,7 +450,10 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
-        private bool StopperChangeClosed
+        private bool StopperChangeClosed(Stopper stopper)
+        {
+            return true;
+        }
         #endregion // Stoppers
 
         #region Evacuation rails
