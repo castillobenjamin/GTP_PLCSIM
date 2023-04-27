@@ -122,6 +122,35 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Subsystems
 
+        #region Panels
+
+        private bool DwsPanelResetPress()
+        {
+            try
+            {
+                return UpdateInput(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        private bool DwsPanelResetRelease()
+        {
+            try
+            {
+                return UpdateInput(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn, false);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+        #endregion // Panels
+
         #region Aisles
 
         private void PressAisleEstopButton(int aisleNum)
@@ -353,13 +382,43 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                     }
                 }
-                // TODO - Add a delay here?
+                else if (instruction.Contains("DwsPanel"))
+                {
+                    switch (instruction)
+                    {
+                        case "DwsPanelResetPress":
+                            executionIsSuccessful = DwsPanelResetPress();
+                            break;
+                        case "DwsPanelResetRelease":
+                            executionIsSuccessful = DwsPanelResetRelease();
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            // code block
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (instruction)
+                    {
+                        case "DummyInstruction":
+                            executionIsSuccessful = false;
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            // code block
+                            break;
+                    }
+                }
                 // Log execution results
                 executionMessage = instruction + " - Execution " + (executionIsSuccessful ? "complete." : "failed.");
                 ListBox_Log.Items.Add(executionMessage);
                 results[i] = executionMessage;
+                // TODO - Replace pop up window with a delay here?
+                MessageBox.Show("Confirm execution.");
             }
-            // TODO - return a string with the actual results of the test run.
+            // Return a string with the results of the test run.
             return results;
         }
 
