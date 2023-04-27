@@ -20,13 +20,16 @@ namespace PLCSIM_Adv_CoSimulation
     {
         #region Fields
         private readonly CoSimulation CoSimulationInstance;
-        private readonly int InstructionWaitTime = 500; 
+        private readonly uint WaitTime = 500; 
         // Timer
         private Timer HeartBeatTimer = new Timer();
         // Interval
         readonly private int TimerInterval = 500;
         // Counter to simulate the CELL pulse.
         private byte HeartBeatCounter = 0;
+        // Output file name
+        // TODO - Assign file name dynamically
+        private readonly string fileName = "TestResults_TestName_ProgramVersion_Date_Time";
         #endregion // Fields
 
         #region Initialization
@@ -40,6 +43,8 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Initialization
 
+        #region Methods
+
         #region Timer
         private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
         {
@@ -52,34 +57,65 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Timer
 
-        #region Methods
+        #region Simulation
         // TODO - add a method for every input.
         #region CELL
-        private void TurnOnCell()
+        private bool CellTurnOn()
         {
-            HeartBeatTimer.Start();
+            try
+            {
+                HeartBeatTimer.Start();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
-        private void TurnOffCell()
+        private bool CellTurnOff()
         {
-            HeartBeatTimer.Stop();
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = 0;
+            try
+            {
+                HeartBeatTimer.Stop();
+                return UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse, 0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
-        private void StartCellOperation()
+        private bool CellStart()
         {
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.Value = 0;
-            ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.Value =
-                Utils.SingleBitInWordValues[bitPos];
+            try
+            {
+                ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.BitPosition;
+                UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, 0);
+                return UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, Utils.SingleBitInWordValues[bitPos]);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
-        private void StopCellOperation()
+        private bool CellStop()
         {
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp.Value = 0;
-            ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
-            CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.Value =
-                Utils.SingleBitInWordValues[bitPos];
+            try
+            {
+                ushort bitPos = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp.BitPosition;
+                UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp, 0);
+                return UpdateInput(CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.CanSystemStartUp, Utils.SingleBitInWordValues[bitPos]);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
 
         #endregion // CELL
@@ -131,8 +167,9 @@ namespace PLCSIM_Adv_CoSimulation
                 input.Value = updateValue;
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return false;
             }
         }
@@ -150,8 +187,9 @@ namespace PLCSIM_Adv_CoSimulation
                 register.Value = Utils.UpdateRegister(register, updateValue);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return false;
             }
         }
@@ -168,9 +206,10 @@ namespace PLCSIM_Adv_CoSimulation
                 register.Value = updateValue;
                 return true;
             }
-            catch (Exception)
-            {
-                return false;
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message); 
+                return false; 
             }
         }
         #endregion // Update input
@@ -232,24 +271,25 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // Common methods
 
+        #endregion // Simulation
+
         #region Interface
         private void Btn_StartTest_Click(object sender, EventArgs e)
         {
-
             // Local Fields
             string[] instructions;
-            string testResults;
-
-            // TODO - Implementation test loop
-
+            string[] testResults;
+            bool OutputOk;
             //Read file with test instructions
             try
             {
+                // Get test instructions
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
                 testResults = ExecuteTestInstructions(instructions);
                 ListBox_Log.Items.Add(testResults);
                 // TODO - output test results to a file.
+                OutputOk = Utils.ConvertList2File(testResults, fileName);
             }
             catch (ArgumentException ex)
             {
@@ -260,7 +300,6 @@ namespace PLCSIM_Adv_CoSimulation
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void Btn_BrowseFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -279,44 +318,49 @@ namespace PLCSIM_Adv_CoSimulation
         /// Runs the instructions specified on the Test file.
         /// </summary>
         /// <param name="instructions">String array </param>
-        /// <returns></returns>
-        private string ExecuteTestInstructions(string[] instructions)
+        /// <returns>string array with the execution results</returns>
+        private string[] ExecuteTestInstructions(string[] instructions)
         {
             // TODO - Add a case for every possible instruction
-            // TODO - Add an execution confirmation check
-            // TODO - Think of how to loop list of instructions
             // TODO - log action and results of each iteration.
-            // bool executionIsSuccessful = false;
-            foreach (string instruction in instructions)
+            bool executionIsSuccessful;
+            string executionMessage;
+            string[] results = new string[instructions.Length];
+            string instruction;
+            for(int i=0; i<instructions.Length; i++)
             {
-                ListBox_Log.Items.Add("Instruction: " + instruction);
-                switch (instruction)
+                instruction = instructions[i];
+                executionIsSuccessful = false;
+                if (instruction.Contains("Cell"))
                 {
-                    case "TurnOnCell":
-                        TurnOnCell();
-                        ListBox_Log.Items.Add("Turn on CELL.");
-                        break;
-                    case "StartCellOperation":
-                        StartCellOperation();
-                        ListBox_Log.Items.Add("Start CELL operation.");
-                        break;
-                    case "TurnOffCell":
-                        TurnOffCell();
-                        ListBox_Log.Items.Add("Turn off CELL.");
-                        break;
-                    case "StopCellOperation":
-                        StopCellOperation();
-                        ListBox_Log.Items.Add("Stop CELL operation.");
-                        break;
-                    default:
-                        // code block
-                        break;
+                    switch (instruction)
+                    {
+                        case "CellTurnOn":
+                            executionIsSuccessful = CellTurnOn();
+                            break;
+                        case "CellStart":
+                            executionIsSuccessful = CellStart();
+                            break;
+                        case "CellTurnOff":
+                            executionIsSuccessful = CellTurnOff();
+                            break;
+                        case "CellStop":
+                            executionIsSuccessful = CellStop();
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            // code block
+                            break;
+                    }
                 }
-                // TODO - remove message box and add a delay here.
-                MessageBox.Show("Confirm Instruction.");
+                // TODO - Add a delay here?
+                // Log execution results
+                executionMessage = instruction + " - Execution " + (executionIsSuccessful ? "complete." : "failed.");
+                ListBox_Log.Items.Add(executionMessage);
+                results[i] = executionMessage;
             }
             // TODO - return a string with the actual results of the test run.
-            return "These are the results: _____";
+            return results;
         }
 
         #endregion // Test execution

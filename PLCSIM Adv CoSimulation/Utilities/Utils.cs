@@ -186,6 +186,25 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
             string[] lines = File.ReadAllLines(path);
             return lines;
         }
+
+        /// <summary>
+        /// Converts a string array to a text file.
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="path"></param>
+        /// <returns>True if successful.</returns>
+        internal static bool ConvertList2File(string[] lines, string path)
+        {
+            try
+            {
+                File.WriteAllLines(path, lines);
+                return true;
+            }
+            catch 
+            { 
+                return false; 
+            } 
+        }
         #endregion // File processing
         #endregion // Methods
     }
