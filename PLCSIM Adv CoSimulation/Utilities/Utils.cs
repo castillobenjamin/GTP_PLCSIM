@@ -25,13 +25,24 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
         /// <summary>
         /// Zoning statuses dictionary.
         /// </summary>
-        internal static readonly Dictionary<int, string> ZoningStatuses = new Dictionary<int, string>
+        internal static readonly Dictionary<byte, string> ZoningStatuses = new Dictionary<byte, string>
         {
             {0, "Stop"},
             {1, "Waiting"},
             {2, "Requesting"},
             {3, "Canceling"},
             {4, "Permit"},
+        };
+        /// <summary>
+        /// Zoning statuses reverse dictionary
+        /// </summary>
+        internal static readonly Dictionary<string, byte> ZoningStatusBytes = new Dictionary<string, byte>
+        {
+            {"Stop", 0},
+            {"Waiting", 1},
+            {"Requesting", 2},
+            {"Canceling", 3},
+            {"Permit", 4},
         };
         /// <summary>
         /// Dictionary containing the value of all single bit permutations in a ushort/word variable
