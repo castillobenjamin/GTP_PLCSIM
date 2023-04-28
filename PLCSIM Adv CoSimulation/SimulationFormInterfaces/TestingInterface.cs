@@ -271,27 +271,19 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 parsedStatus = ZoningStatusBytes[expectedStatus];
                 parsedArea = ConvertStringToArea(area);
-                // TODO - delete after debugging
-                MessageBox.Show("Parsed area: " + parsedArea.GetType());
                 // TODO - need to make sure this conditions work
                 if (parsedArea is Aisle)
                 {
-                    // TODO - delete after debugging
-                    MessageBox.Show("In ZoningConfirmStatus Aisle");
                     aisle = (Aisle)parsedArea;
                     return ZoningConfirmStatus(aisle.Zoning, parsedStatus);
                 }
                 else if (parsedArea is Deck)
                 {
-                    // TODO - delete after debugging
-                    MessageBox.Show("In ZoningConfirmStatus deck");
                     deck = (Deck)parsedArea;
                     return ZoningConfirmStatus(deck.Zoning, parsedStatus);
                 }
                 else if (parsedArea is DynamicWorkStation)
                 {
-                    // TODO - delete after debugging
-                    MessageBox.Show("In ZoningConfirmStatus dws");
                     dws = (DynamicWorkStation)parsedArea;
                     return ZoningConfirmStatus(dws.Zoning, parsedStatus);
                 }
@@ -796,20 +788,14 @@ namespace PLCSIM_Adv_CoSimulation
                 index = int.Parse(FindDigitsInString(area).Value) - 1; // substract 1 from the index.
                 if (area.ToLower().Contains("aisle"))
                 {
-                    // TODO - delete after debugging
-                    MessageBox.Show("Converting string to aisle");
                     return AisleList[index];
                 }
                 else if (area.ToLower().Contains("deck"))
                 {
-                    // TODO - delete after debugging
-                    MessageBox.Show("Converting string to aisle");
                     return DeckList[index];
                 }
                 else if (area.ToLower().Contains("dws"))
                 {
-                    // TODO - delete after debugging
-                    MessageBox.Show("Converting string to aisle");
                     return DwsList[index];
                 }
                 else
