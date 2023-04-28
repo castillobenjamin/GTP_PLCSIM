@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PLCSIM_Adv_CoSimulation.Utilities
 {
@@ -21,6 +22,17 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
             Permit = 2,
             Cancel = 3
         }
+
+        /// <summary>
+        /// Dictionary of Cell commands. key = string, value = byte
+        /// </summary>
+        internal static readonly Dictionary<string, byte> CellCommandsDictionary = new Dictionary<string, byte>
+        {
+            {"None", 0},
+            {"Run", 1},
+            {"Permit", 2},
+            {"Cancel", 3},
+        };
 
         /// <summary>
         /// Zoning statuses dictionary.
