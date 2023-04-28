@@ -958,6 +958,7 @@ namespace PLCSIM_Adv_CoSimulation
                     + " - Execution " 
                     + (executionIsSuccessful ? "complete." : "failed.");
                 ListBox_Log.Items.Add(executionMessage);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 results[i] = executionMessage;
                 // TODO - Replace pop up window with a delay here?
                 MessageBox.Show("Confirm execution.");
