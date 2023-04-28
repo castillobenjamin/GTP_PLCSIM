@@ -3,12 +3,7 @@ using PLCSIM_Adv_CoSimulation.Models.Configuration;
 using PLCSIM_Adv_CoSimulation.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -24,17 +19,23 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly CoSimulation CoSimulationInstance;
         private CellCommunication Cell;
         private List<Stopper> Stoppers;
+        private List<Aisle> AisleList;
+        private List<Deck> DeckList;
+        private List<DynamicWorkStation> DwsList;
 
         private readonly uint WaitTime = 500; 
-        // Timer
+        // Timers
         private Timer HeartBeatTimer = new Timer();
-        // Interval
-        readonly private int TimerInterval = 500;
+        private Timer OutputTimer = new Timer();
+        // Interval used for all timers
+        readonly private int TimerInterval = 200;
         // Counter to simulate the CELL pulse.
         private byte HeartBeatCounter = 0;
         // Output file name
         // TODO - Assign file name dynamically
         private readonly string fileName = "TestResults_TestName_ProgramVersion_Date_Time";
+        // Constants
+        private readonly uint MAX_INSTRUCTION_PARAMS = 3;
         #endregion // Fields
 
         #region Initialization
@@ -42,9 +43,11 @@ namespace PLCSIM_Adv_CoSimulation
         {
             InitializeComponent();
             CoSimulationInstance = coSimulationInstance;
-            // Initialize timer
-            HeartBeatTimer.Tick += new EventHandler(TimerEventProcessor);
+            // Initialize timers
+            HeartBeatTimer.Tick += new EventHandler(HeartBeatEventProcessor);
             HeartBeatTimer.Interval = TimerInterval;
+            OutputTimer.Tick += new EventHandler(OutputEventProcessor);
+            OutputTimer.Interval = TimerInterval;
             //Initialize instance shortcut variables
             Cell = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance;
             Stoppers = CoSimulationInstance.AlphaBotSystem.Stoppers;
@@ -53,8 +56,13 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Methods
 
-        #region Timer
-        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+        #region Timers
+        /// <summary>
+        /// Timer used to simulate CELL heart beat signal.
+        /// </summary>
+        /// <param name="myObject"></param>
+        /// <param name="myEventArgs"></param>
+        private void HeartBeatEventProcessor(Object myObject, EventArgs myEventArgs)
         {
             HeartBeatTimer.Stop();
             // Restarts the timer.
@@ -63,7 +71,20 @@ namespace PLCSIM_Adv_CoSimulation
             HeartBeatCounter = Utils.CountByteUp(HeartBeatCounter);
             Cell.IsCellConnectedPulse.Value = HeartBeatCounter;
         }
-        #endregion // Timer
+
+        /// <summary>
+        /// Timer used to update plc output values.
+        /// </summary>
+        /// <param name="myObject"></param>
+        /// <param name="myEventArgs"></param>
+        private void OutputEventProcessor(Object myObject, EventArgs myEventArgs)
+        {
+            OutputTimer.Stop();
+            OutputTimer.Enabled = true;
+            // TODO - create method
+            // ReadPlcOutputs();
+        }
+        #endregion // Timers
 
         #region Simulation
         // TODO - add a method for every input.
@@ -158,9 +179,56 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Zoning
         /// <summary>
-        /// Send a zoning command to the corresponding area.
+        /// Send zoning command. Takes a string as the area input
         /// </summary>
-        /// <param name="areaZoning">the "zoning" instance of </param>
+        /// <param name="area">For example: "aisle1", "deck4", "dws5"</param>
+        /// <param name="command">Command in string form. See 'Utils/CellCommandValues' for accepted values</param>
+        /// <returns></returns>
+        private bool ZoningSendCommand(string area, string command)
+        {
+            // Local variables
+            object parsedArea;
+            Aisle aisle;
+            Deck deck;
+            DynamicWorkStation dws;
+            try
+            {
+                // Get index from area string
+                CellCommandValues.TryParse(command, out byte parsedCommand); // Parse string command to byte
+                parsedArea = ConvertStringToArea(area);
+                // TODO - need to make sure this conditions work
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return ZoningSendCommand(aisle.Zoning, parsedCommand);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return ZoningSendCommand(deck.Zoning, parsedCommand);
+                }
+                else if (parsedArea is DynamicWorkStation)
+                {
+                    dws = (DynamicWorkStation)parsedArea;
+                    return ZoningSendCommand(dws.Zoning, parsedCommand);
+                }
+                else
+                {
+                    MessageBox.Show(parsedArea.GetType().ToString() + " not a valid object.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Send a zoning command to the corresponding area. Takes a zoning object as input.
+        /// </summary>
+        /// <param name="areaZoning">the "zoning" instance of an area</param>
         /// <param name="command">Zoning command to be sent. Accepted values are defined in 'Utils/CellCommandValues'</param>
         /// <returns>True if successful.</returns>
         private bool ZoningSendCommand(Zoning areaZoning, byte command)
@@ -181,22 +249,111 @@ namespace PLCSIM_Adv_CoSimulation
         }
 
         /// <summary>
-        /// Read the zoning status of the corresponding area.
+        /// Read zoning status. Takes a string as area input.
         /// </summary>
-        /// <param name="areaZoning"></param>
+        /// <param name="area">For example: "aisle1", "deck4", "dws5"</param>
+        /// <param name="expectedStatus">See 'Utils/ZoningStatuses'</param>
+        /// <returns></returns>
+        private bool ZoningConfirmStatus(string area, string expectedStatus)
+        {
+            // Local variables
+            byte parsedStatus;
+            object parsedArea;
+            Aisle aisle;
+            Deck deck;
+            DynamicWorkStation dws;
+            try
+            {
+                parsedStatus = ZoningStatusBytes[expectedStatus];
+                parsedArea = ConvertStringToArea(area);
+                // TODO - need to make sure this conditions work
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return ZoningConfirmStatus(aisle.Zoning, parsedStatus);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return ZoningConfirmStatus(deck.Zoning, parsedStatus);
+                }
+                else if (parsedArea is DynamicWorkStation)
+                {
+                    dws= (DynamicWorkStation)parsedArea;
+                    return ZoningConfirmStatus(dws.Zoning, parsedStatus);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Read the zoning status of the corresponding area. Takes a zoning object as area input.
+        /// </summary>
+        /// <param name="areaZoning">the "zoning" instance of an area</param>
         /// <param name="expectedStatus">Accepted status values are defined in 'Utils/ZoningStatuses'</param>
         /// <returns></returns>
-        private bool ZoningReadStatus(Zoning areaZoning, byte expectedStatus)
+        private bool ZoningConfirmStatus(Zoning areaZoning, byte expectedStatus)
         {
             bool readSuccess;
             try
             {
                 readSuccess = ReadOutput(areaZoning.ZoningStatus, expectedStatus);
-                return true;
+                return readSuccess;
             }
             catch (Exception ex)
             {
                 // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Executes zoning request routine for specified area. Takes a string as area input.
+        /// </summary>
+        /// <param name="area"></param>
+        /// <returns>True if routine is executed successfully.</returns>
+        private bool ZoningRequestRoutine(string area)
+        {
+            // Local variables
+            object parsedArea;
+            Aisle aisle;
+            Deck deck;
+            DynamicWorkStation dws;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                // TODO - need to make sure this conditions work
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return ZoningRequestRoutine(aisle);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return ZoningRequestRoutine(deck);
+                }
+                else if (parsedArea is DynamicWorkStation)
+                {
+                    dws = (DynamicWorkStation)parsedArea;
+                    return ZoningRequestRoutine(dws);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -216,10 +373,10 @@ namespace PLCSIM_Adv_CoSimulation
                 stepOk &= UpdateInput(aisle.OperationBox.RequestBtn, true); // Press request button
                 // TODO - need to wait 2 seconds here
                 stepOk &= UpdateInput(aisle.OperationBox.RequestBtn, true); // Release request button after specified time
-                stepOk &= ZoningReadStatus(aisle.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                stepOk &= ZoningConfirmStatus(aisle.Zoning, Utils.ZoningStatusBytes["Requesting"]);
                 stepOk &= StopperActuateRoutine(aisle.Name, "close"); // Close all stoppers for the specified area
                 stepOk &= ZoningSendCommand(aisle.Zoning, zoningCommand); // Send "Permit" command
-                stepOk &= ZoningReadStatus(aisle.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                stepOk &= ZoningConfirmStatus(aisle.Zoning, Utils.ZoningStatusBytes["Permit"]);
                 return stepOk;
             }
             catch (Exception ex)
@@ -245,10 +402,10 @@ namespace PLCSIM_Adv_CoSimulation
                 // TODO - need to wait 2 seconds here
                 // TODO - add wait time between each step? Probably necessary to wait for PLC to update.
                 stepOk &= UpdateInput(deck.OperationBox.RequestBtn, true); // Release request button after specified time
-                stepOk &= ZoningReadStatus(deck.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                stepOk &= ZoningConfirmStatus(deck.Zoning, Utils.ZoningStatusBytes["Requesting"]);
                 stepOk &= StopperActuateRoutine(deck.Name, "close"); // Close all stoppers for the specified area
                 stepOk &= ZoningSendCommand(deck.Zoning, zoningCommand); // Send "Permit" command
-                stepOk &= ZoningReadStatus(deck.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                stepOk &= ZoningConfirmStatus(deck.Zoning, Utils.ZoningStatusBytes["Permit"]);
                 return stepOk;
             }
             catch (Exception ex)
@@ -272,10 +429,10 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 MessageBox.Show("Press Request button of " + dws.Label + " on HMI."); // Press request button
-                stepOk &= ZoningReadStatus(dws.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                stepOk &= ZoningConfirmStatus(dws.Zoning, Utils.ZoningStatusBytes["Requesting"]);
                 stepOk &= StopperActuateRoutine(dws.Name, "close"); // Close all stoppers for the specified area
                 stepOk &= ZoningSendCommand(dws.Zoning, zoningCommand); // Send "Permit" command
-                stepOk &= ZoningReadStatus(dws.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                stepOk &= ZoningConfirmStatus(dws.Zoning, Utils.ZoningStatusBytes["Permit"]);
                 return stepOk;
             }
             catch (Exception ex)
@@ -399,6 +556,9 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (ReadOutput(stopper.IsOpenStatusToCell, true))
                 {
                     stepOk &= UpdateInput(stopper.CloseCommandFromCell, true); // Send close command
+                    // TODO - need to wait here.
+                    // TODO - Add stopper actuation logic.
+                    // If using an auto stopper simulation, as soon as the output is turned on, the sensor logic is taken care of. 
                     stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
                 }
                 else
@@ -434,6 +594,9 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (ReadOutput(stopper.IsClosedStatusToCell, true))
                 {
                     stepOk &= UpdateInput(stopper.OpenCommandFromCell, true); // Send open command
+                    // TODO - need to wait here.
+                    // TODO - Add stopper actuation logic.
+                    // If using an auto stopper simulation, as soon as the output is turned on, the sensor logic is taken care of. 
                     stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
                 }
                 else
@@ -450,8 +613,15 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
-        private bool StopperChangeClosed(Stopper stopper)
+        /// <summary>
+        /// Manually update the sensor input values of a given stopper.
+        /// </summary>
+        /// <param name="stopper"></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        private bool StopperUpdateSensor(Stopper stopper, string sensor)
         {
+            // TODO - add code. Might not need this method.
             return true;
         }
         #endregion // Stoppers
@@ -581,6 +751,61 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Read output
 
+        #region RegEx
+        /// <summary>
+        /// Returns only one match of consecutive digits in the input string.
+        /// </summary>
+        /// <param name="inputString"></param>
+        /// <returns></returns>
+        private Match FindDigitsInString(String inputString)
+        {
+            // Use regex to find digits in the input string
+            Regex regex = new Regex(@"\d+");
+            // Check for one match of consecutive digits in inputString
+            Match match = regex.Match(inputString);
+            return match;
+        }
+
+        #endregion // RegEx
+
+        /// <summary>
+        /// Converts a string to a specific area.
+        /// </summary>
+        /// <param name="area">For example: "aisle1", "deck4", "dws5"</param>
+        /// <returns>Returns an object that can be of type Aisle, Deck or DynamicWorkStation. Returns null if failed.</returns>
+        private dynamic ConvertStringToArea(string area)
+        {
+            // Local variables
+            int index;
+            try
+            {
+                // Get index from area string
+                index = int.Parse(FindDigitsInString(area).Value) - 1; // substract 1 from the index.
+                if (area.ToLower().Contains("aisle"))
+                {
+                    return AisleList[index];
+                }
+                else if (area.ToLower().Contains("deck"))
+                {
+                    return DeckList[index];
+                }
+                else if (area.ToLower().Contains("dws"))
+                {
+                    return DwsList[index];
+                }
+                else
+                {
+                    MessageBox.Show(area + " not a valid area.");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
         #endregion // Common methods
 
         #endregion // Simulation
@@ -635,10 +860,14 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // TODO - Add a case for every possible instruction
             // TODO - log action and results of each iteration.
+            // Use else-if for each instruction category.
+            // Use a switch-case for individual instructions in each category.
             bool executionIsSuccessful;
             string executionMessage;
             string[] results = new string[instructions.Length];
             string instruction;
+            //Zoning intructions
+            string[] instructionSplit = new string[MAX_INSTRUCTION_PARAMS];
             for(int i=0; i<instructions.Length; i++)
             {
                 instruction = instructions[i];
@@ -679,6 +908,36 @@ namespace PLCSIM_Adv_CoSimulation
                             ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
                             // code block
                             break;
+                    }
+                }
+                // For zoning instructions
+                // Zoning instructinos syntax
+                // "Function ZoneN Command"
+                // E.g.: "ZoningConfirmStatus Aisle1 Waiting"
+                else if (instruction.Contains("Zoning"))
+                {
+                    instructionSplit = instruction.Split(' ');
+                    switch (instructionSplit[0])
+                    {
+                        case "ZoningSendCommand":
+                            executionIsSuccessful = ZoningSendCommand(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "ZoningConfirmStatus":
+                            executionIsSuccessful = ZoningConfirmStatus(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "ZoningRequestRoutine":
+                            executionIsSuccessful = ZoningRequestRoutine(instructionSplit[1]);
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            break;
+                    }
+                }
+                else if (instruction.Contains("Stopper"))
+                {
+                    switch (instruction)
+                    {
+
                     }
                 }
                 else
