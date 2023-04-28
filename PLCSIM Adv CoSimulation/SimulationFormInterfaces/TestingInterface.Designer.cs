@@ -30,12 +30,12 @@
         {
             this.ListBox_Log = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Btn_StartTest = new System.Windows.Forms.Button();
             this.TextBox_ProgramVersion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Btn_StartTest = new System.Windows.Forms.Button();
+            this.Btn_BrowseFile = new System.Windows.Forms.Button();
             this.TextBox_TestFilePath = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.Btn_BrowseFile = new System.Windows.Forms.Button();
             this.Label_Log = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -44,9 +44,9 @@
             // 
             this.ListBox_Log.FormattingEnabled = true;
             this.ListBox_Log.ItemHeight = 12;
-            this.ListBox_Log.Location = new System.Drawing.Point(12, 233);
+            this.ListBox_Log.Location = new System.Drawing.Point(251, 27);
             this.ListBox_Log.Name = "ListBox_Log";
-            this.ListBox_Log.Size = new System.Drawing.Size(233, 124);
+            this.ListBox_Log.Size = new System.Drawing.Size(463, 172);
             this.ListBox_Log.TabIndex = 0;
             // 
             // groupBox1
@@ -64,6 +64,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test Data";
             // 
+            // Btn_StartTest
+            // 
+            this.Btn_StartTest.Location = new System.Drawing.Point(6, 153);
+            this.Btn_StartTest.Name = "Btn_StartTest";
+            this.Btn_StartTest.Size = new System.Drawing.Size(88, 35);
+            this.Btn_StartTest.TabIndex = 2;
+            this.Btn_StartTest.Text = "Start Test";
+            this.Btn_StartTest.UseVisualStyleBackColor = true;
+            this.Btn_StartTest.Click += new System.EventHandler(this.Btn_StartTest_Click);
+            // 
             // TextBox_ProgramVersion
             // 
             this.TextBox_ProgramVersion.Location = new System.Drawing.Point(6, 30);
@@ -80,15 +90,16 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Program version";
             // 
-            // Btn_StartTest
+            // Btn_BrowseFile
             // 
-            this.Btn_StartTest.Location = new System.Drawing.Point(6, 153);
-            this.Btn_StartTest.Name = "Btn_StartTest";
-            this.Btn_StartTest.Size = new System.Drawing.Size(88, 35);
-            this.Btn_StartTest.TabIndex = 2;
-            this.Btn_StartTest.Text = "Start Test";
-            this.Btn_StartTest.UseVisualStyleBackColor = true;
-            this.Btn_StartTest.Click += new System.EventHandler(this.Btn_StartTest_Click);
+            this.Btn_BrowseFile.Location = new System.Drawing.Point(5, 94);
+            this.Btn_BrowseFile.Margin = new System.Windows.Forms.Padding(2);
+            this.Btn_BrowseFile.Name = "Btn_BrowseFile";
+            this.Btn_BrowseFile.Size = new System.Drawing.Size(58, 22);
+            this.Btn_BrowseFile.TabIndex = 18;
+            this.Btn_BrowseFile.Text = "Browse";
+            this.Btn_BrowseFile.UseVisualStyleBackColor = true;
+            this.Btn_BrowseFile.Click += new System.EventHandler(this.Btn_BrowseFile_Click);
             // 
             // TextBox_TestFilePath
             // 
@@ -108,21 +119,10 @@
             this.label11.TabIndex = 22;
             this.label11.Text = "Test file";
             // 
-            // Btn_BrowseFile
-            // 
-            this.Btn_BrowseFile.Location = new System.Drawing.Point(5, 94);
-            this.Btn_BrowseFile.Margin = new System.Windows.Forms.Padding(2);
-            this.Btn_BrowseFile.Name = "Btn_BrowseFile";
-            this.Btn_BrowseFile.Size = new System.Drawing.Size(58, 22);
-            this.Btn_BrowseFile.TabIndex = 18;
-            this.Btn_BrowseFile.Text = "Browse";
-            this.Btn_BrowseFile.UseVisualStyleBackColor = true;
-            this.Btn_BrowseFile.Click += new System.EventHandler(this.Btn_BrowseFile_Click);
-            // 
             // Label_Log
             // 
             this.Label_Log.AutoSize = true;
-            this.Label_Log.Location = new System.Drawing.Point(11, 218);
+            this.Label_Log.Location = new System.Drawing.Point(250, 12);
             this.Label_Log.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_Log.Name = "Label_Log";
             this.Label_Log.Size = new System.Drawing.Size(23, 12);
@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 373);
+            this.ClientSize = new System.Drawing.Size(726, 214);
             this.Controls.Add(this.Label_Log);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ListBox_Log);
