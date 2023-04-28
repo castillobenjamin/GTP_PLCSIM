@@ -26,7 +26,7 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
         /// <summary>
         /// Dictionary of Cell commands. key = string, value = byte
         /// </summary>
-        internal static readonly Dictionary<string, byte> CellCommandsDictionary = new Dictionary<string, byte>
+        internal static readonly Dictionary<string, byte> CellCommands = new Dictionary<string, byte>
         {
             {"None", 0},
             {"Run", 1},
