@@ -51,6 +51,9 @@ namespace PLCSIM_Adv_CoSimulation
             //Initialize instance shortcut variables
             Cell = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance;
             Stoppers = CoSimulationInstance.AlphaBotSystem.Stoppers;
+            AisleList = CoSimulationInstance.AlphaBotSystem.Aisles;
+            DeckList = CoSimulationInstance.AlphaBotSystem.Decks;
+            DwsList = CoSimulationInstance.AlphaBotSystem.DynamicWorkStations;
         }
         #endregion // Initialization
 
@@ -188,13 +191,15 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // Local variables
             object parsedArea;
+            byte parsedCommand;
             Aisle aisle;
             Deck deck;
             DynamicWorkStation dws;
             try
             {
                 // Get index from area string
-                CellCommandValues.TryParse(command, out byte parsedCommand); // Parse string command to byte
+                parsedCommand = CellCommands[command];
+                MessageBox.Show(command + " " + parsedCommand);
                 parsedArea = ConvertStringToArea(area);
                 // TODO - need to make sure this conditions work
                 if (parsedArea is Aisle)
@@ -220,7 +225,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ZoningSendCommand exception " + ex.Message);
                 return false;
             }
         }
@@ -266,20 +271,28 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 parsedStatus = ZoningStatusBytes[expectedStatus];
                 parsedArea = ConvertStringToArea(area);
+                // TODO - delete after debugging
+                MessageBox.Show("Parsed area: " + parsedArea.GetType());
                 // TODO - need to make sure this conditions work
                 if (parsedArea is Aisle)
                 {
+                    // TODO - delete after debugging
+                    MessageBox.Show("In ZoningConfirmStatus Aisle");
                     aisle = (Aisle)parsedArea;
                     return ZoningConfirmStatus(aisle.Zoning, parsedStatus);
                 }
                 else if (parsedArea is Deck)
                 {
+                    // TODO - delete after debugging
+                    MessageBox.Show("In ZoningConfirmStatus deck");
                     deck = (Deck)parsedArea;
                     return ZoningConfirmStatus(deck.Zoning, parsedStatus);
                 }
                 else if (parsedArea is DynamicWorkStation)
                 {
-                    dws= (DynamicWorkStation)parsedArea;
+                    // TODO - delete after debugging
+                    MessageBox.Show("In ZoningConfirmStatus dws");
+                    dws = (DynamicWorkStation)parsedArea;
                     return ZoningConfirmStatus(dws.Zoning, parsedStatus);
                 }
                 else
@@ -289,7 +302,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("ZoningConfirmStatus exception " + ex.Message);
                 return false;
             }
         }
@@ -783,14 +796,20 @@ namespace PLCSIM_Adv_CoSimulation
                 index = int.Parse(FindDigitsInString(area).Value) - 1; // substract 1 from the index.
                 if (area.ToLower().Contains("aisle"))
                 {
+                    // TODO - delete after debugging
+                    MessageBox.Show("Converting string to aisle");
                     return AisleList[index];
                 }
                 else if (area.ToLower().Contains("deck"))
                 {
+                    // TODO - delete after debugging
+                    MessageBox.Show("Converting string to aisle");
                     return DeckList[index];
                 }
                 else if (area.ToLower().Contains("dws"))
                 {
+                    // TODO - delete after debugging
+                    MessageBox.Show("Converting string to aisle");
                     return DwsList[index];
                 }
                 else
@@ -801,7 +820,8 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                // TODO - delete after debugging
+                MessageBox.Show("ConvertStringToArea exception " + ex.Message);
                 return null;
             }
         }
