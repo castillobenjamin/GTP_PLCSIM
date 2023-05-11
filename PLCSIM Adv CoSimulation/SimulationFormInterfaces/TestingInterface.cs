@@ -3,6 +3,7 @@ using PLCSIM_Adv_CoSimulation.Models.Configuration;
 using PLCSIM_Adv_CoSimulation.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,6 +30,9 @@ namespace PLCSIM_Adv_CoSimulation
         private Timer OutputTimer = new Timer();
         // Interval used for all timers
         readonly private int TimerInterval = 200;
+        // Stop watch
+        Stopwatch WaitForPlc; // Used to wait after the execution of every instruction.
+        int InstructionWaitTime = 250;
         // Counter to simulate the CELL pulse.
         private byte HeartBeatCounter = 0;
         // Output file name
@@ -53,7 +57,7 @@ namespace PLCSIM_Adv_CoSimulation
             HeartBeatTimer.Interval = TimerInterval;
             OutputTimer.Tick += new EventHandler(OutputEventProcessor);
             OutputTimer.Interval = TimerInterval;
-            //Initialize instance shortcut variables
+            // Initialize instance shortcut variables
             Cell = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance;
             Stoppers = CoSimulationInstance.AlphaBotSystem.Stoppers;
             AisleList = CoSimulationInstance.AlphaBotSystem.Aisles;
@@ -1086,8 +1090,12 @@ namespace PLCSIM_Adv_CoSimulation
                 ListBox_Log.Items.Add(executionMessage);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 results[i] = executionMessage;
-                // TODO - Replace pop up window with a delay here?
-                MessageBox.Show("Confirm execution.");
+                // Initialize stopwatch
+                WaitForPlc = Stopwatch.StartNew();
+                while (WaitForPlc.ElapsedMilliseconds < InstructionWaitTime)
+                {
+                    // Wait for the plc to do its thing.
+                }
             }
             // Return a string with the results of the test run.
             return results;
