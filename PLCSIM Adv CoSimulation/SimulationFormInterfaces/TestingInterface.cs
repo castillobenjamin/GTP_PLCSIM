@@ -45,6 +45,7 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly string UNHANDLED_EXCEPTION = "An unhandled exception has occured.";
         private readonly string FORMAT_EXCEPTION = "The format of one or more instruction parameters is incorrect.";
         private readonly string UNRECOGNIZED_INSTRUCTION = "Instruction was not recognized.";
+        private readonly string STRING_TO_AREA_CONVERSION = "Unable to convert string to valid area.";
         #endregion // Fields
 
         #region Initialization
@@ -821,8 +822,8 @@ namespace PLCSIM_Adv_CoSimulation
         /// Press/Release the Estop button of the specified zone.
         /// </summary>
         /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
-        /// <param name="action">"True" for Press. "False" for Release.</param>
-        /// <returns></returns>
+        /// <param name="action">"Press" and "Release"</param>
+        /// <returns>True if routine is executed successfully.</returns>
         private bool EstopBtnOperation(string area, string action)
         {
             // Local variables
@@ -834,7 +835,17 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 parsedArea = ConvertStringToArea(area);
-                parsedAction = Convert.ToBoolean(action);
+                /*
+                 * NOTE:
+                 * When the Estop is pressed, the PLC input is false.
+                 */
+                if (action == "Release") { parsedAction = true; }
+                else if (action == "Press") { parsedAction = false; }
+                else 
+                {
+                    MessageBox.Show(FORMAT_EXCEPTION + "Only 'Press' and 'Release' are accepted.");
+                    return false;
+                }
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
@@ -857,6 +868,110 @@ namespace PLCSIM_Adv_CoSimulation
                 }
             }
             catch(FormatException ex)
+            {
+                MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Press/Release the Reset button of the specified zone.
+        /// </summary>
+        /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
+        /// <param name="action">"Press" and "Release"</param>
+        /// <returns>True if routine is executed successfully.</returns>
+        private bool ResetBtnOperation(string area, string action)
+        {
+            // Local variables
+            object parsedArea;
+            bool parsedAction;
+            Aisle aisle;
+            Deck deck;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                if (action == "Release") { parsedAction = false; }
+                else if (action == "Press") { parsedAction = true; }
+                else
+                {
+                    MessageBox.Show(FORMAT_EXCEPTION + "Only 'Press' and 'Release' are accepted.");
+                    return false;
+                }
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return UpdateInput(aisle.OperationBox.ResetBtn, parsedAction);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return UpdateInput(deck.OperationBox.ResetBtn, parsedAction);
+                }
+                // No reset btn on DWS
+                else
+                {
+                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Press/Release the Request button of the specified zone.
+        /// </summary>
+        /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
+        /// <param name="action">"Press" and "Release"</param>
+        /// <returns>True if routine is executed successfully.</returns>
+        private bool RequestBtnOperation(string area, string action)
+        {
+            // Local variables
+            object parsedArea;
+            bool parsedAction;
+            Aisle aisle;
+            Deck deck;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                if (action == "Release") { parsedAction = false; }
+                else if (action == "Press") { parsedAction = true; }
+                else
+                {
+                    MessageBox.Show(FORMAT_EXCEPTION + "Only 'Press' and 'Release' are accepted.");
+                    return false;
+                }
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return UpdateInput(aisle.OperationBox.RequestBtn, parsedAction);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return UpdateInput(deck.OperationBox.RequestBtn, parsedAction);
+                }
+                // No reset btn on DWS
+                else
+                {
+                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch (FormatException ex)
             {
                 MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
                 return false;
@@ -913,14 +1028,14 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
-                    MessageBox.Show(area + " not a valid area.");
+                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + area);
                     return null;
                 }
             }
             catch (Exception ex)
             {
                 // TODO - delete after debugging
-                MessageBox.Show("ConvertStringToArea exception " + ex.Message);
+                MessageBox.Show(STRING_TO_AREA_CONVERSION + " " + ex.Message);
                 return null;
             }
         }
@@ -1018,7 +1133,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = CellConfirmPlcMode(instructionSplit[1]);
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
                             // code block
                             break;
                     }
@@ -1034,7 +1149,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = DwsPanelResetRelease();
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
                             // code block
                             break;
                     }
@@ -1057,13 +1172,27 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = ZoningRequestRoutine(instructionSplit[1]);
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
                             break;
                     }
                 }
-                else if (instruction.Contains("EstopBtnOperation"))
+                else if (instruction.Contains("Btn"))
                 {
-                    executionIsSuccessful= EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
+                    switch(instructionSplit[0])
+                    {
+                        case "EstopBtnOperation":
+                            executionIsSuccessful= EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "ResetBtnOperation":
+                            executionIsSuccessful = ResetBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "RequestBtnOperation":
+                            executionIsSuccessful = RequestBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
+                            break;
+                    }
                 }
                 else if (instruction.Contains("Stopper"))
                 {
@@ -1072,7 +1201,7 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (instruction.Contains("Wait"))
                 {
                     // Do nothing here.
-                    // Use this instruction in case extra time is needed.
+                    // Use this instruction in case extra time is needed (Requesting).
                     executionIsSuccessful = true;
                 }
                 else
