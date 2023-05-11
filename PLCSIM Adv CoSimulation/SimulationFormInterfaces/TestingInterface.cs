@@ -1069,6 +1069,12 @@ namespace PLCSIM_Adv_CoSimulation
                 {
                     // TODO - add code
                 }
+                else if (instruction.Contains("Wait"))
+                {
+                    // Do nothing here.
+                    // Use this instruction in case extra time is needed.
+                    executionIsSuccessful = true;
+                }
                 else
                 {
                     switch (instruction)
