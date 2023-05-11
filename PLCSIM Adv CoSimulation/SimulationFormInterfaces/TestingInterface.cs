@@ -36,6 +36,11 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly string fileName = "TestResults_TestName_ProgramVersion_Date_Time";
         // Constants
         private readonly uint MAX_INSTRUCTION_PARAMS = 3;
+        // Error messages
+        private readonly string AREA_NOT_RECOGNIZED = "Could not recognize the specified area.";
+        private readonly string UNHANDLED_EXCEPTION = "An unhandled exception has occured.";
+        private readonly string FORMAT_EXCEPTION = "The format of one or more instruction parameters is incorrect.";
+        private readonly string UNRECOGNIZED_INSTRUCTION = "Instruction was not recognized.";
         #endregion // Fields
 
         #region Initialization
@@ -178,6 +183,64 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
+        /// <summary>
+        /// Confirm the error status of the PLC
+        /// </summary>
+        /// <param name="errorIsExpected">"True" if Error status is expected. Else "False"</param>
+        /// <returns></returns>
+        private bool CellConfirmPlcErrorStatus(string errorIsExpected)
+        {
+
+            try
+            {
+                // TODO - add code
+                return true;
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Confirm the warning status of the PLC
+        /// </summary>
+        /// <param name="warningIsExpected">"True" if Warning status is expected. Else "False"</param>
+        /// <returns></returns>
+        private bool CellConfirmPlcWarningStatus(string warningIsExpected)
+        {
+            try
+            {
+                // TODO - add code
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Confirm the mode of the PLC
+        /// </summary>
+        /// <param name="expectedMode">"Manual" or "Auto".</param>
+        /// <returns></returns>
+        private bool CellConfirmPlcMode(string expectedMode)
+        {
+            try
+            {
+                // TODO - add code
+                return true;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
         #endregion // CELL
 
         #region Zoning
@@ -199,9 +262,7 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 // Get index from area string
                 parsedCommand = CellCommands[command];
-                MessageBox.Show(command + " " + parsedCommand);
                 parsedArea = ConvertStringToArea(area);
-                // TODO - need to make sure this conditions work
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
@@ -219,13 +280,13 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
-                    MessageBox.Show(parsedArea.GetType().ToString() + " not a valid object.");
+                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("ZoningSendCommand exception " + ex.Message);
+                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
                 return false;
             }
         }
@@ -483,11 +544,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Panels
 
         #region Aisles
-
-        private void PressAisleEstopButton(int aisleNum)
-        {
-            bool isPressSuccessful = UpdateInput(CoSimulationInstance.AlphaBotSystem.Aisles[aisleNum].OperationBox.EmergencyBtn, true);
-        }
 
         #endregion // Aisles
 
@@ -756,6 +812,59 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Read output
 
+        #region Buttons
+        /// <summary>
+        /// Press/Release the Estop button of the specified zone.
+        /// </summary>
+        /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
+        /// <param name="action">"True" for Press. "False" for Release.</param>
+        /// <returns></returns>
+        private bool EstopBtnOperation(string area, string action)
+        {
+            // Local variables
+            object parsedArea;
+            bool parsedAction;
+            Aisle aisle;
+            Deck deck;
+            DynamicWorkStation dws;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                parsedAction = Convert.ToBoolean(action);
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return UpdateInput(aisle.OperationBox.EmergencyBtn, parsedAction);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return UpdateInput(deck.OperationBox.EmergencyBtn, parsedAction);
+                }
+                else if (parsedArea is DynamicWorkStation)
+                {
+                    dws = (DynamicWorkStation)parsedArea;
+                    return UpdateInput(dws.EmergencyBtn, parsedAction);
+                }
+                else
+                {
+                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch(FormatException ex)
+            {
+                MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                return false;
+            }
+        }
+        #endregion // Buttons
+
         #region RegEx
         /// <summary>
         /// Returns only one match of consecutive digits in the input string.
@@ -877,10 +986,11 @@ namespace PLCSIM_Adv_CoSimulation
             for(int i=0; i<instructions.Length; i++)
             {
                 instruction = instructions[i];
+                instructionSplit = instruction.Split(' ');
                 executionIsSuccessful = false;
                 if (instruction.Contains("Cell"))
                 {
-                    switch (instruction)
+                    switch (instructionSplit[0])
                     {
                         case "CellTurnOn":
                             executionIsSuccessful = CellTurnOn();
@@ -893,6 +1003,15 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                         case "CellStop":
                             executionIsSuccessful = CellStop();
+                            break;
+                        case "CellConfirmPlcErrorStatus":
+                            executionIsSuccessful = CellConfirmPlcErrorStatus(instructionSplit[1]);
+                            break;
+                        case "CellConfirmPlcWarningStatus":
+                            executionIsSuccessful = CellConfirmPlcWarningStatus(instructionSplit[1]);
+                            break;
+                        case "CellConfirmPlcMode":
+                            executionIsSuccessful = CellConfirmPlcMode(instructionSplit[1]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
@@ -922,7 +1041,6 @@ namespace PLCSIM_Adv_CoSimulation
                 // E.g.: "ZoningConfirmStatus Aisle1 Waiting"
                 else if (instruction.Contains("Zoning"))
                 {
-                    instructionSplit = instruction.Split(' ');
                     switch (instructionSplit[0])
                     {
                         case "ZoningSendCommand":
@@ -939,22 +1057,24 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                     }
                 }
+                else if (instruction.Contains("EstopBtnOperation"))
+                {
+                    executionIsSuccessful= EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
+                }
                 else if (instruction.Contains("Stopper"))
                 {
-                    switch (instruction)
-                    {
-
-                    }
+                    // TODO - add code
                 }
                 else
                 {
                     switch (instruction)
                     {
+                        // TODO - delete case. Currently here for testing purposes.
                         case "DummyInstruction":
                             executionIsSuccessful = false;
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' instruction was not recognized.");
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
                             // code block
                             break;
                     }
