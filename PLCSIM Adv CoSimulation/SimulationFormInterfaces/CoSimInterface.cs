@@ -748,7 +748,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Read Plc output
             if (currentAisle.OperationBox.ZoningStatusLed.Value == true)
             {
-                Label_OpBoxLed_Aisle.ForeColor= activeLabelColor;
+                Label_OpBoxLed_Aisle.ForeColor = activeLabelColor;
                 Label_OpBoxLed_Aisle.Font = activeLabelFont;
                 ledStatus = "ON";
             }
@@ -2053,7 +2053,7 @@ namespace PLCSIM_Adv_CoSimulation
         #region Stopper operation simulation
         private void Update_Label_PlcOpenOut_Stopper()
         {
-            //Auto mode. Check if the auto check box is checked
+            // Auto mode. Check if the auto check box is checked
             // Check if the value of the PLC output has changed from false to true since the last reading
             // ie Current flag is false and current PLC output is true
             if (CheckBox_AutoStopper.Checked & !StopperOpenOutputIsOn & currentStopper.PlcOpenOut.Value)
