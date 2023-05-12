@@ -24,15 +24,16 @@ namespace PLCSIM_Adv_CoSimulation
         private List<Deck> DeckList;
         private List<DynamicWorkStation> DwsList;
 
-        private readonly uint WaitTime = 500; 
         // Timers
         private Timer HeartBeatTimer = new Timer();
         private Timer OutputTimer = new Timer();
         // Interval used for all timers
         readonly private int TimerInterval = 200;
         // Stop watch
-        Stopwatch WaitForPlc; // Used to wait after the execution of every instruction.
-        int InstructionWaitTime = 250;
+        private Stopwatch stopWatch; // Used to wait after the execution of every instruction.
+        private readonly int InstructionWaitTime = 250;
+        private readonly int RequestWaitTime = 2000; // Zoning request wait time.
+        private readonly int StopperMovingTime = 500; //
         // Counter to simulate the CELL pulse.
         private byte HeartBeatCounter = 0;
         // Output file name
@@ -41,11 +42,16 @@ namespace PLCSIM_Adv_CoSimulation
         // Constants
         private readonly uint MAX_INSTRUCTION_PARAMS = 3;
         // Error messages
-        private readonly string AREA_NOT_RECOGNIZED = "Could not recognize the specified area.";
-        private readonly string UNHANDLED_EXCEPTION = "An unhandled exception has occured.";
-        private readonly string FORMAT_EXCEPTION = "The format of one or more instruction parameters is incorrect.";
-        private readonly string UNRECOGNIZED_INSTRUCTION = "Instruction was not recognized.";
-        private readonly string STRING_TO_AREA_CONVERSION = "Unable to convert string to valid area.";
+        private readonly string AreaNotRecognized = "Could not recognize the specified area.";
+        private readonly string UnhandledException = "An unhandled exception has occured.";
+        private readonly string FormatException = "The format of one or more instruction parameters is incorrect.";
+        private readonly string UnrecognizedInstruction = "Instruction was not recognized.";
+        private readonly string StringToAreaConversion = "Unable to convert string to valid area.";
+        private readonly string StopperActuationException = "An exception occured while actuating a stopper.";
+        private readonly string StopperCloseException = "An exception occured while trying to close a stopper.";
+        private readonly string StopperOpenException = "An exception occured while trying to open a stopper.";
+        private readonly string StopperPositionUnknownToCell = "The position of the stopper is unknown.";
+        private readonly string DWSRequestButtonPrompt = "Press the Request button on the HMI for specified DWS.";
         #endregion // Fields
 
         #region Initialization
@@ -69,7 +75,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Methods
 
-        #region Timers
+        #region Timers and Stopwatches
         /// <summary>
         /// Timer used to simulate CELL heart beat signal.
         /// </summary>
@@ -97,7 +103,20 @@ namespace PLCSIM_Adv_CoSimulation
             // TODO - create method
             // ReadPlcOutputs();
         }
-        #endregion // Timers
+
+        /// <summary>
+        /// Wait for a set amount of time.
+        /// </summary>
+        /// <param name="waitTime">Time to wait (in milliseconds).</param>
+        private void WaitForPlc(int waitTime)
+        {
+            stopWatch = Stopwatch.StartNew();
+            while (stopWatch.ElapsedMilliseconds < waitTime)
+            {
+                // Now we just have to wait.
+            }
+        }
+        #endregion // Timers and Stopwatches
 
         #region Simulation
         // TODO - add a method for every input.
@@ -285,13 +304,13 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
-                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
                     return false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(UnhandledException + " " + ex.Message);
                 return false;
             }
         }
@@ -411,11 +430,13 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (parsedArea is Deck)
                 {
                     deck = (Deck)parsedArea;
+                    // TODO - update method call
                     return ZoningRequestRoutine(deck);
                 }
                 else if (parsedArea is DynamicWorkStation)
                 {
                     dws = (DynamicWorkStation)parsedArea;
+                    // TODO - update method call
                     return ZoningRequestRoutine(dws);
                 }
                 else
@@ -431,79 +452,46 @@ namespace PLCSIM_Adv_CoSimulation
         }
 
         /// <summary>
-        /// Executes zoning request routine for specified Aisle.
+        /// Executes zoning request routine for specified area.
         /// </summary>
-        /// <param name="aisle"></param>
+        /// <param name="area">An Aisle, Deck or DWS.</param>
         /// <returns>True if routine is executed successfully.</returns>
-        private bool ZoningRequestRoutine(Aisle aisle)
+        private bool ZoningRequestRoutine(dynamic area)
         {
+            // TODO - add logs!!!!!!!!
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
             try
             {
-                stepOk &= UpdateInput(aisle.OperationBox.RequestBtn, true); // Press request button
-                // TODO - need to wait 2 seconds here
-                stepOk &= UpdateInput(aisle.OperationBox.RequestBtn, true); // Release request button after specified time
-                stepOk &= ZoningConfirmStatus(aisle.Zoning, Utils.ZoningStatusBytes["Requesting"]);
-                stepOk &= StopperActuateRoutine(aisle.Name, "close"); // Close all stoppers for the specified area
-                stepOk &= ZoningSendCommand(aisle.Zoning, zoningCommand); // Send "Permit" command
-                stepOk &= ZoningConfirmStatus(aisle.Zoning, Utils.ZoningStatusBytes["Permit"]);
-                return stepOk;
-            }
-            catch (Exception ex)
-            {
-                // TODO - delete message box
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Executes zoning request routine for specified Deck.
-        /// </summary>
-        /// <param name="aisle"></param>
-        /// <returns>True if routine is executed successfully.</returns>
-        private bool ZoningRequestRoutine(Deck deck)
-        {
-            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
-            byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
-            try
-            {
-                stepOk &= UpdateInput(deck.OperationBox.RequestBtn, true); // Press request button
-                // TODO - need to wait 2 seconds here
-                // TODO - add wait time between each step? Probably necessary to wait for PLC to update.
-                stepOk &= UpdateInput(deck.OperationBox.RequestBtn, true); // Release request button after specified time
-                stepOk &= ZoningConfirmStatus(deck.Zoning, Utils.ZoningStatusBytes["Requesting"]);
-                stepOk &= StopperActuateRoutine(deck.Name, "close"); // Close all stoppers for the specified area
-                stepOk &= ZoningSendCommand(deck.Zoning, zoningCommand); // Send "Permit" command
-                stepOk &= ZoningConfirmStatus(deck.Zoning, Utils.ZoningStatusBytes["Permit"]);
-                return stepOk;
-            }
-            catch (Exception ex)
-            {
-                // TODO - delete message box
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Executes zoning request routine for specified DWS.
-        /// NOTE: Because the DWS controls are on the HMI, this routine needs user interaction
-        /// </summary>
-        /// <param name="aisle"></param>
-        /// <returns>True if routine is executed successfully.</returns>
-        private bool ZoningRequestRoutine(DynamicWorkStation dws)
-        {
-            bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
-            byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
-            try
-            {
-                MessageBox.Show("Press Request button of " + dws.Label + " on HMI."); // Press request button
-                stepOk &= ZoningConfirmStatus(dws.Zoning, Utils.ZoningStatusBytes["Requesting"]);
-                stepOk &= StopperActuateRoutine(dws.Name, "close"); // Close all stoppers for the specified area
-                stepOk &= ZoningSendCommand(dws.Zoning, zoningCommand); // Send "Permit" command
-                stepOk &= ZoningConfirmStatus(dws.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                if (area is Aisle || area is Deck)
+                {
+                    stepOk &= UpdateInput(area.OperationBox.RequestBtn, true); // Press request button
+                    WaitForPlc(RequestWaitTime);
+                    stepOk &= UpdateInput(area.OperationBox.RequestBtn, false); // Release request button after specified time
+                    ListBox_Log.Items.Add(area.Name + " Request button pressed.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                    stepOk &= ZoningConfirmStatus(area.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                    stepOk &= StopperActuationRoutine(area.Name, "close"); // Close all stoppers for the specified area
+                    stepOk &= ZoningSendCommand(area.Zoning, zoningCommand); // Send "Permit" command
+                    WaitForPlc(RequestWaitTime);
+                    stepOk &= ZoningConfirmStatus(area.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                    ListBox_Log.Items.Add(area.Name + " Permit status.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+                // DWS is a special case. HMI input is required.
+                if (area is DynamicWorkStation) 
+                {
+                    MessageBox.Show(DWSRequestButtonPrompt, "User input required", 
+                        MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation); // Prompt the user to press the request button
+                    // Assume the user pressed the button and Requesting status is active
+                    stepOk &= ZoningConfirmStatus(area.Zoning, Utils.ZoningStatusBytes["Requesting"]);
+                    stepOk &= StopperActuationRoutine(area.Name, "close"); // Close all stoppers for the specified area
+                    stepOk &= ZoningSendCommand(area.Zoning, zoningCommand); // Send "Permit" command
+                    WaitForPlc(RequestWaitTime);
+                    stepOk &= ZoningConfirmStatus(area.Zoning, Utils.ZoningStatusBytes["Permit"]);
+                    ListBox_Log.Items.Add(area.Name + " Permit status.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
                 return stepOk;
             }
             catch (Exception ex)
@@ -567,7 +555,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <param name="areaName">Name of the area related to stoppers to be actuated</param>
         /// <param name="action">"close" or "open"</param>
         /// <returns></returns>
-        private bool StopperActuateRoutine(string areaName, string action)
+        private bool StopperActuationRoutine(string areaName, string action)
         {
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             try
@@ -579,16 +567,17 @@ namespace PLCSIM_Adv_CoSimulation
                     if (stopper.Name.Contains(areaName))
                     {
                         // Call the corresponding function depending on the "action" parameter
-                        if (action == "close")
+                        if (action.ToLower() == "close")
                         {
-                            stepOk = stepOk & StopperClose(stopper);
+                            stepOk &= StopperClose(stopper);
                         }
-                        else if (action == "open")
+                        else if (action.ToLower() == "open")
                         {
-                            stepOk = stepOk & StopperOpen(stopper);
+                            stepOk &= StopperOpen(stopper);
                         }
                         else
                         {
+                            MessageBox.Show(FormatException + $"{stopper.Name}, {action}");
                             // TODO - add code here.
                         }
                     }
@@ -598,7 +587,7 @@ namespace PLCSIM_Adv_CoSimulation
             catch (Exception ex)
             {
                 // TODO - delete message box
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(StopperActuationException + " " + ex.Message);
                 return false;
             }
         }
@@ -607,7 +596,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// Close a stopper.
         /// </summary>
         /// <param name="stopper">Stopper to be closed</param>
-        /// <returns></returns>
+        /// <returns>True if succesful.</returns>
         private bool StopperClose(Stopper stopper)
         {
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
@@ -617,18 +606,34 @@ namespace PLCSIM_Adv_CoSimulation
                 if (ReadOutput(stopper.IsClosedStatusToCell, true))
                 {
                     stepOk = true;
+                    ListBox_Log.Items.Add(stopper.Name + " is already closed.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 // Check if the stopper is open.
                 else if (ReadOutput(stopper.IsOpenStatusToCell, true))
                 {
                     stepOk &= UpdateInput(stopper.CloseCommandFromCell, true); // Send close command
-                    // TODO - need to wait here.
-                    // TODO - Add stopper actuation logic.
-                    // If using an auto stopper simulation, as soon as the output is turned on, the sensor logic is taken care of. 
+                    WaitForPlc(InstructionWaitTime);
+                    if(ReadOutput(stopper.PlcCloseOut, true)) // Check if the close output is on
+                    {
+                        stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off close command
+                        stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn off open sensor
+                        WaitForPlc(StopperMovingTime); // No harm in waiting... right?
+                    }
+                    else
+                    {
+                        stepOk &= false;
+                    }
+                    stepOk &= UpdateInput(stopper.IsClosedSensor, true); // turn on closed sensor
+                    WaitForPlc(InstructionWaitTime);
                     stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
+                    WaitForPlc(InstructionWaitTime);
+                    ListBox_Log.Items.Add(stopper.Name + " is now closed.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
-                else
+                else // the status of the stopper is not being sent to the Modbus register
                 {
+                    MessageBox.Show(stopper.Name + " " + StopperPositionUnknownToCell);
                     stepOk = false;
                 }
                 return stepOk;
@@ -636,7 +641,7 @@ namespace PLCSIM_Adv_CoSimulation
             catch (Exception ex)
             {
                 // TODO - delete message box
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(stopper.Name + " " + StopperCloseException + " " + ex.Message);
                 return false;
             }
         }
@@ -645,7 +650,7 @@ namespace PLCSIM_Adv_CoSimulation
         ///  Open a stopper.
         /// </summary>
         /// <param name="stopper">Stopper to be open</param>
-        /// <returns></returns>
+        /// <returns>True if succesful.</returns>
         private bool StopperOpen(Stopper stopper)
         {
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
@@ -655,18 +660,34 @@ namespace PLCSIM_Adv_CoSimulation
                 if (ReadOutput(stopper.IsOpenStatusToCell, true))
                 {
                     stepOk = true;
+                    ListBox_Log.Items.Add(stopper.Name + " is already open.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 // Check if the stopper is closed.
                 else if (ReadOutput(stopper.IsClosedStatusToCell, true))
                 {
                     stepOk &= UpdateInput(stopper.OpenCommandFromCell, true); // Send open command
-                    // TODO - need to wait here.
-                    // TODO - Add stopper actuation logic.
-                    // If using an auto stopper simulation, as soon as the output is turned on, the sensor logic is taken care of. 
-                    stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
+                    WaitForPlc(InstructionWaitTime);
+                    if (ReadOutput(stopper.PlcOpenOut, true)) // Check if the open output is on
+                    {
+                        stepOk &= UpdateInput(stopper.OpenCommandFromCell, false); // turn off close command
+                        stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn off open sensor
+                        WaitForPlc(StopperMovingTime); // No harm in waiting... right?
+                    }
+                    else
+                    {
+                        stepOk &= false;
+                    }
+                    stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn on open sensor
+                    WaitForPlc(InstructionWaitTime);
+                    stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true); // Read the open status signal
+                    WaitForPlc(InstructionWaitTime);
+                    ListBox_Log.Items.Add(stopper.Name + " is now open.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
-                else
+                else // the status of the stopper is not being sent to the Modbus register
                 {
+                    MessageBox.Show(stopper.Name + " " + StopperPositionUnknownToCell);
                     stepOk = false;
                 }
                 return stepOk;
@@ -674,22 +695,11 @@ namespace PLCSIM_Adv_CoSimulation
             catch (Exception ex)
             {
                 // TODO - delete message box
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(stopper.Name + " " + StopperOpenException + " " + ex.Message);
                 return false;
             }
         }
 
-        /// <summary>
-        /// Manually update the sensor input values of a given stopper.
-        /// </summary>
-        /// <param name="stopper"></param>
-        /// <param name=""></param>
-        /// <returns></returns>
-        private bool StopperUpdateSensor(Stopper stopper, string sensor)
-        {
-            // TODO - add code. Might not need this method.
-            return true;
-        }
         #endregion // Stoppers
 
         #region Evacuation rails
@@ -843,7 +853,7 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (action == "Press") { parsedAction = false; }
                 else 
                 {
-                    MessageBox.Show(FORMAT_EXCEPTION + "Only 'Press' and 'Release' are accepted.");
+                    MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
                     return false;
                 }
                 if (parsedArea is Aisle)
@@ -863,18 +873,18 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
-                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
                     return false;
                 }
             }
             catch(FormatException ex)
             {
-                MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(FormatException + " " + ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(UnhandledException + " " + ex.Message);
                 return false;
             }
         }
@@ -899,7 +909,7 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (action == "Press") { parsedAction = true; }
                 else
                 {
-                    MessageBox.Show(FORMAT_EXCEPTION + "Only 'Press' and 'Release' are accepted.");
+                    MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
                     return false;
                 }
                 if (parsedArea is Aisle)
@@ -915,18 +925,18 @@ namespace PLCSIM_Adv_CoSimulation
                 // No reset btn on DWS
                 else
                 {
-                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
                     return false;
                 }
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(FormatException + " " + ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(UnhandledException + " " + ex.Message);
                 return false;
             }
         }
@@ -951,7 +961,7 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (action == "Press") { parsedAction = true; }
                 else
                 {
-                    MessageBox.Show(FORMAT_EXCEPTION + "Only 'Press' and 'Release' are accepted.");
+                    MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
                     return false;
                 }
                 if (parsedArea is Aisle)
@@ -967,18 +977,18 @@ namespace PLCSIM_Adv_CoSimulation
                 // No reset btn on DWS
                 else
                 {
-                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + parsedArea.GetType().ToString());
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
                     return false;
                 }
             }
             catch (FormatException ex)
             {
-                MessageBox.Show(FORMAT_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(FormatException + " " + ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(UNHANDLED_EXCEPTION + " " + ex.Message);
+                MessageBox.Show(UnhandledException + " " + ex.Message);
                 return false;
             }
         }
@@ -1028,14 +1038,14 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
-                    MessageBox.Show(AREA_NOT_RECOGNIZED + " " + area);
+                    MessageBox.Show(AreaNotRecognized + " " + area);
                     return null;
                 }
             }
             catch (Exception ex)
             {
                 // TODO - delete after debugging
-                MessageBox.Show(STRING_TO_AREA_CONVERSION + " " + ex.Message);
+                MessageBox.Show(StringToAreaConversion + " " + ex.Message);
                 return null;
             }
         }
@@ -1133,7 +1143,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = CellConfirmPlcMode(instructionSplit[1]);
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
                             // code block
                             break;
                     }
@@ -1149,7 +1159,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = DwsPanelResetRelease();
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
                             // code block
                             break;
                     }
@@ -1172,7 +1182,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = ZoningRequestRoutine(instructionSplit[1]);
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
                             break;
                     }
                 }
@@ -1190,7 +1200,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = RequestBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
                             break;
                     }
                 }
@@ -1213,7 +1223,7 @@ namespace PLCSIM_Adv_CoSimulation
                             executionIsSuccessful = false;
                             break;
                         default:
-                            ListBox_Log.Items.Add("'" + instruction + "' " + UNRECOGNIZED_INSTRUCTION);
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
                             // code block
                             break;
                     }
@@ -1225,12 +1235,8 @@ namespace PLCSIM_Adv_CoSimulation
                 ListBox_Log.Items.Add(executionMessage);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 results[i] = executionMessage;
-                // Initialize stopwatch
-                WaitForPlc = Stopwatch.StartNew();
-                while (WaitForPlc.ElapsedMilliseconds < InstructionWaitTime)
-                {
-                    // Wait for the plc to do its thing.
-                }
+                // Wait after each instruction has been procesed.
+                WaitForPlc(InstructionWaitTime);
             }
             // Return a string with the results of the test run.
             return results;
