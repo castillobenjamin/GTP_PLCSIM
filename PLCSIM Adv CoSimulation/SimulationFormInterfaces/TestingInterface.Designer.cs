@@ -46,7 +46,7 @@
             this.ListBox_Log.ItemHeight = 12;
             this.ListBox_Log.Location = new System.Drawing.Point(251, 27);
             this.ListBox_Log.Name = "ListBox_Log";
-            this.ListBox_Log.Size = new System.Drawing.Size(463, 172);
+            this.ListBox_Log.Size = new System.Drawing.Size(373, 580);
             this.ListBox_Log.TabIndex = 0;
             // 
             // groupBox1
@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(726, 214);
+            this.ClientSize = new System.Drawing.Size(640, 629);
             this.Controls.Add(this.Label_Log);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ListBox_Log);

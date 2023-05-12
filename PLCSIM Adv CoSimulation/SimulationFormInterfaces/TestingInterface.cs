@@ -32,8 +32,9 @@ namespace PLCSIM_Adv_CoSimulation
         // Stop watch
         private Stopwatch stopWatch; // Used to wait after the execution of every instruction.
         private readonly int InstructionWaitTime = 250;
-        private readonly int RequestWaitTime = 2000; // Zoning request wait time.
-        private readonly int StopperMovingTime = 500; //
+        private readonly int RequestWaitTime = 3000; // Zoning request wait time.
+        private readonly int StopperMovingTime = 1500; //
+        private readonly int StopperWaitTime = 500;
         // Counter to simulate the CELL pulse.
         private byte HeartBeatCounter = 0;
         // Output file name
@@ -459,10 +460,13 @@ namespace PLCSIM_Adv_CoSimulation
         private bool ZoningRequestRoutine(dynamic area)
         {
             // TODO - add logs!!!!!!!!
+            // TODO - add Miyano compatibility. This only works for Alpen currently.
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
             try
             {
+                ListBox_Log.Items.Add(area.Name + " Zoning request routine started.");
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 if (area is Aisle || area is Deck)
                 {
                     stepOk &= UpdateInput(area.OperationBox.RequestBtn, true); // Press request button
@@ -560,12 +564,17 @@ namespace PLCSIM_Adv_CoSimulation
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             try
             {
+                ListBox_Log.Items.Add($"{areaName} Stopper actuation routine started.");
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 // Loop through stoppers
                 Stoppers.ForEach(stopper =>
                 {
                     // Check if the name of the current stopper includes the name of the current area.
-                    if (stopper.Name.Contains(areaName))
+                    // TODO - aisle1 also calls aisle 10! Fix.
+                    if (stopper.Name.ToLower().Contains(areaName.ToLower()))
                     {
+                        ListBox_Log.Items.Add($"Actuating {stopper.Name}");
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         // Call the corresponding function depending on the "action" parameter
                         if (action.ToLower() == "close")
                         {
@@ -578,7 +587,6 @@ namespace PLCSIM_Adv_CoSimulation
                         else
                         {
                             MessageBox.Show(FormatException + $"{stopper.Name}, {action}");
-                            // TODO - add code here.
                         }
                     }
                 });
@@ -600,6 +608,7 @@ namespace PLCSIM_Adv_CoSimulation
         private bool StopperClose(Stopper stopper)
         {
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            string stepMessage;
             try
             {
                 // If the stopper is already closed, return true.
@@ -612,24 +621,38 @@ namespace PLCSIM_Adv_CoSimulation
                 // Check if the stopper is open.
                 else if (ReadOutput(stopper.IsOpenStatusToCell, true))
                 {
+                    WaitForPlc(StopperWaitTime);
                     stepOk &= UpdateInput(stopper.CloseCommandFromCell, true); // Send close command
-                    WaitForPlc(InstructionWaitTime);
-                    if(ReadOutput(stopper.PlcCloseOut, true)) // Check if the close output is on
+                    stepMessage = stepOk ? " Close command sent." : " Fail to send close command.";
+                    ListBox_Log.Items.Add(stopper.Name + stepMessage);
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                    WaitForPlc(StopperWaitTime);
+                    MessageBox.Show("Wait for PLC to turn on output.");
+                    if (ReadOutput(stopper.PlcCloseOut, true)) // Check if the close output is on
                     {
+                        ListBox_Log.Items.Add(stopper.Name + " Close output on.");
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off close command
-                        stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn off open sensor
+                        stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn off open sensor (inverted logic for Alpen)
                         WaitForPlc(StopperMovingTime); // No harm in waiting... right?
+                        stepOk &= UpdateInput(stopper.IsClosedSensor, false); // turn on closed sensor (inverted logic for Alpen)
+                        WaitForPlc(StopperWaitTime);
+                        stepOk &= ReadOutput(stopper.PlcCloseOut, false);
+                        WaitForPlc(StopperWaitTime);
+                        // TODO - remove messagebox
+                        MessageBox.Show("Wait for PLC to send closed signal.");
+                        stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
+                        stepMessage = stepOk ? " is now closed." : " is not closed yet.";
+                        ListBox_Log.Items.Add(stopper.Name + stepMessage);
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                        WaitForPlc(StopperWaitTime);
                     }
                     else
                     {
+                        ListBox_Log.Items.Add(stopper.Name + " Close output did not turn on.");
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         stepOk &= false;
                     }
-                    stepOk &= UpdateInput(stopper.IsClosedSensor, true); // turn on closed sensor
-                    WaitForPlc(InstructionWaitTime);
-                    stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
-                    WaitForPlc(InstructionWaitTime);
-                    ListBox_Log.Items.Add(stopper.Name + " is now closed.");
-                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 else // the status of the stopper is not being sent to the Modbus register
                 {
@@ -653,6 +676,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <returns>True if succesful.</returns>
         private bool StopperOpen(Stopper stopper)
         {
+            // TODO - update logic according to stopper close method updates.
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             try
             {
@@ -1104,6 +1128,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // TODO - Add a case for every possible instruction
             // TODO - log action and results of each iteration.
+            // TODO - add pause parameter and prompt a message box.
             // Use else-if for each instruction category.
             // Use a switch-case for individual instructions in each category.
             bool executionIsSuccessful;
@@ -1212,6 +1237,11 @@ namespace PLCSIM_Adv_CoSimulation
                 {
                     // Do nothing here.
                     // Use this instruction in case extra time is needed (Requesting).
+                    executionIsSuccessful = true;
+                }
+                else if (instruction.Contains("Pause"))
+                {
+                    MessageBox.Show("Test is paused. Press 'OK' to continue.", "Pause", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     executionIsSuccessful = true;
                 }
                 else
