@@ -39,7 +39,8 @@ namespace PLCSIM_Adv_CoSimulation
         // Output file name
         private string OutputFileName;
         // Constants
-        private readonly uint MAX_INSTRUCTION_PARAMS = 3;
+        private readonly uint MaxInstructionParams = 3;
+        private readonly int MaxReadOutputTries = 10;
         // Error messages
         private readonly string AreaNotRecognized = "Could not recognize the specified area.";
         private readonly string UnhandledException = "An unhandled exception has occured.";
@@ -117,7 +118,7 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Timers and Stopwatches
 
-        #region DateTime
+        #region FileName
         /// <summary>
         /// Set the output file name.
         /// </summary>
@@ -127,7 +128,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <returns>String fileName</returns>
         private string SetFileName(string programVersion, string testName, bool testPassed)
         {
-            DateTime currDT = DateTime.Now;
+            string currDT = DateTime.Now.ToString("yyyy-MM-ddTHH'mm'ss");
             if (programVersion == string.Empty)
             {
                 programVersion = "NoVersion";
@@ -140,7 +141,7 @@ namespace PLCSIM_Adv_CoSimulation
                 + (testPassed ? "Passed" : "Failed");
             return  fileName;
         }
-        #endregion // DateTime
+        #endregion // FileName
 
         #region Simulation
         // TODO - add a method for every input.
@@ -419,7 +420,7 @@ namespace PLCSIM_Adv_CoSimulation
             bool readSuccess;
             try
             {
-                readSuccess = ReadOutput(areaZoning.ZoningStatus, expectedStatus);
+                readSuccess = ReadOutput(areaZoning.ZoningStatus, expectedStatus, MaxReadOutputTries, InstructionWaitTime);
                 return readSuccess;
             }
             catch (Exception ex)
@@ -635,40 +636,45 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 // If the stopper is already closed, return true.
-                if (ReadOutput(stopper.IsClosedStatusToCell, true))
+                if (ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
                     stepOk = true;
                     ListBox_Log.Items.Add(stopper.Name + " is already closed.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 // Check if the stopper is open.
-                else if (ReadOutput(stopper.IsOpenStatusToCell, true))
+                else if (ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
-                    WaitForPlc(StopperWaitTime);
+                    // TODO - remove wait
+                    //WaitForPlc(StopperWaitTime);
                     stepOk &= UpdateInput(stopper.CloseCommandFromCell, true); // Send close command
                     stepMessage = stepOk ? " Close command sent." : " Fail to send close command.";
                     ListBox_Log.Items.Add(stopper.Name + stepMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                    WaitForPlc(StopperWaitTime);
-                    MessageBox.Show("Wait for PLC to turn on output.");
-                    if (ReadOutput(stopper.PlcCloseOut, true)) // Check if the close output is on
+                    // TODO - remove wait and messagebox
+                    //WaitForPlc(StopperWaitTime);
+                    //MessageBox.Show("Wait for PLC to turn on output.");
+                    if (ReadOutput(stopper.PlcCloseOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the close output is on
                     {
                         ListBox_Log.Items.Add(stopper.Name + " Close output on.");
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off close command
                         stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn off open sensor (inverted logic for Alpen)
-                        WaitForPlc(StopperMovingTime); // No harm in waiting... right?
+                        // TODO - remove this wait time?
+                        // WaitForPlc(StopperMovingTime); // No harm in waiting... right?
                         stepOk &= UpdateInput(stopper.IsClosedSensor, false); // turn on closed sensor (inverted logic for Alpen)
-                        WaitForPlc(StopperWaitTime);
-                        stepOk &= ReadOutput(stopper.PlcCloseOut, false);
-                        WaitForPlc(StopperWaitTime);
+                        // TODO - remove wait and messagebox
+                        //WaitForPlc(StopperWaitTime);
+                        stepOk &= ReadOutput(stopper.PlcCloseOut, false, MaxReadOutputTries, InstructionWaitTime);
+                        //WaitForPlc(StopperWaitTime);
                         // TODO - remove messagebox
-                        MessageBox.Show("Wait for PLC to send closed signal.");
-                        stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true); // Read the closed status signal
+                        //MessageBox.Show("Wait for PLC to send closed signal.");
+                        stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the closed status signal
                         stepMessage = stepOk ? " is now closed." : " is not closed yet.";
                         ListBox_Log.Items.Add(stopper.Name + stepMessage);
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                        WaitForPlc(StopperWaitTime);
+                        // TODO - remove wait and messagebox
+                        //WaitForPlc(StopperWaitTime);
                     }
                     else
                     {
@@ -704,18 +710,18 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 // If the stopper is already open, return true.
-                if (ReadOutput(stopper.IsOpenStatusToCell, true))
+                if (ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
                     stepOk = true;
                     ListBox_Log.Items.Add(stopper.Name + " is already open.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 // Check if the stopper is closed.
-                else if (ReadOutput(stopper.IsClosedStatusToCell, true))
+                else if (ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
                     stepOk &= UpdateInput(stopper.OpenCommandFromCell, true); // Send open command
                     WaitForPlc(InstructionWaitTime);
-                    if (ReadOutput(stopper.PlcOpenOut, true)) // Check if the open output is on
+                    if (ReadOutput(stopper.PlcOpenOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the open output is on
                     {
                         stepOk &= UpdateInput(stopper.OpenCommandFromCell, false); // turn off close command
                         stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn off open sensor
@@ -727,7 +733,7 @@ namespace PLCSIM_Adv_CoSimulation
                     }
                     stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn on open sensor
                     WaitForPlc(InstructionWaitTime);
-                    stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true); // Read the open status signal
+                    stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the open status signal
                     WaitForPlc(InstructionWaitTime);
                     ListBox_Log.Items.Add(stopper.Name + " is now open.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
@@ -822,15 +828,23 @@ namespace PLCSIM_Adv_CoSimulation
         #region Read output
         /// <summary>
         /// Checks the output signal value.
+        /// If the output value is not equal to expectedValue after trying nOfTries, returns false.
         /// </summary>
         /// <param name="output"></param>
+        /// <param name="expectedValue"></param>
+        /// <param name="nOfTries">Maximum number of tries to read the output value</param>
+        /// <param name="waitTime">Time to wait between read attempts</param>
         /// <returns>True if the output had the expected value. False if the value is different or the method fails.</returns>
-        private bool ReadOutput(PlcOutput output, bool expectedValue)
+        private bool ReadOutput(PlcOutput output, bool expectedValue, int nOfTries, int waitTime)
         {
             try
             {
-                if (output.Value == expectedValue) return true;
-                else return false;
+                for(int i = 0; i < nOfTries; i++)
+                {
+                    if (output.Value == expectedValue) return true;
+                    WaitForPlc(waitTime); // wait for PLC to update
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -839,15 +853,23 @@ namespace PLCSIM_Adv_CoSimulation
         }
         /// <summary>
         /// Checks the value of a single bit in a register.
+        /// If the output value is not equal to expectedValue after trying nOfTries, returns false.
         /// </summary>
-        /// <param name="register"></param>
-        /// <returns>True if the bit had the expected value. False if the value is different or the method fails.</returns>
-        private bool ReadOutput(RegisterFromPlc register, bool expectedValue)
+        /// <param name="output"></param>
+        /// <param name="expectedValue"></param>
+        /// <param name="nOfTries">Maximum number of tries to read the output value</param>
+        /// <param name="waitTime">Time to wait between read attempts</param>
+        /// <returns>True if the output had the expected value. False if the value is different or the method fails.</returns>
+        private bool ReadOutput(RegisterFromPlc register, bool expectedValue, int nOfTries, int waitTime)
         {
             try
             {
-                if (Utils.ReadRegisterBit(register) == expectedValue) return true;
-                else return false;
+                for (int i = 0; i < nOfTries; i++)
+                {
+                    if (Utils.ReadRegisterBit(register) == expectedValue) return true;
+                    WaitForPlc(waitTime); // wait for PLC to update
+                }
+                return false;
             }
             catch (Exception)
             {
@@ -856,17 +878,24 @@ namespace PLCSIM_Adv_CoSimulation
         }
         /// <summary>
         /// Checks the value of a byte in a register.
+        /// If the output value is not equal to expectedValue after trying nOfTries, returns false.
         /// </summary>
-        /// <param name="register"></param>
+        /// <param name="output"></param>
         /// <param name="expectedValue"></param>
-        /// <returns>True if the byte had the expected value. False if the value is different or the method fails.</returns>
-        private bool ReadOutput(RegisterFromPlc register, byte expectedValue)
+        /// <param name="nOfTries">Maximum number of tries to read the output value</param>
+        /// <param name="waitTime">Time to wait between read attempts</param>
+        /// <returns>True if the output had the expected value. False if the value is different or the method fails.</returns>
+        private bool ReadOutput(RegisterFromPlc register, byte expectedValue, int nOfTries, int waitTime)
         {
             try
             {
-                if (Utils.GetLowerByte(register.Value) == expectedValue) return true;
-                else return false;
-            }
+                for (int i = 0; i < nOfTries; i++)
+                {
+                    if (Utils.GetLowerByte(register.Value) == expectedValue) return true;
+                    WaitForPlc(waitTime); // wait for PLC to update
+                }
+                return false;
+        }
             catch
             {
                 return false;
@@ -1116,11 +1145,18 @@ namespace PLCSIM_Adv_CoSimulation
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
                 (testResults, testPassed) = ExecuteTestInstructions(instructions);
-                ListBox_Log.Items.Add(testResults);
                 // TODO - output test results to a file.
                 OutputFileName = SetFileName(
                     TextBox_ProgramVersion.Text, TextBox_TestName.Text, testPassed);
                 outputOk = Utils.ConvertList2File(testResults, OutputFileName);
+                if (outputOk)
+                {
+                    MessageBox.Show("Test results saved in '" + OutputFileName + "'");
+                }
+                else 
+                {
+                    MessageBox.Show("Unable to save test results.");
+                }
             }
             catch (ArgumentException ex)
             {
@@ -1163,7 +1199,7 @@ namespace PLCSIM_Adv_CoSimulation
             string[] results = new string[instructions.Length];
             string instruction;
             //Zoning intructions
-            string[] instructionSplit = new string[MAX_INSTRUCTION_PARAMS];
+            string[] instructionSplit = new string[MaxInstructionParams];
             for(int i=0; i<instructions.Length; i++)
             {
                 instruction = instructions[i];

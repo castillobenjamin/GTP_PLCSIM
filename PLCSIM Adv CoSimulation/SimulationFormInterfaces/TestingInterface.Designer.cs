@@ -30,6 +30,8 @@
         {
             this.ListBox_Log = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TextBox_TestName = new System.Windows.Forms.TextBox();
+            this.labelTestName = new System.Windows.Forms.Label();
             this.Btn_StartTest = new System.Windows.Forms.Button();
             this.TextBox_ProgramVersion = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,8 +39,6 @@
             this.TextBox_TestFilePath = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.Label_Log = new System.Windows.Forms.Label();
-            this.TextBox_TestName = new System.Windows.Forms.TextBox();
-            this.labelTestName = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +66,25 @@
             this.groupBox1.Size = new System.Drawing.Size(233, 276);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Test Data";
+            this.groupBox1.Text = "Test metadata";
+            // 
+            // TextBox_TestName
+            // 
+            this.TextBox_TestName.Location = new System.Drawing.Point(5, 68);
+            this.TextBox_TestName.Margin = new System.Windows.Forms.Padding(2);
+            this.TextBox_TestName.Name = "TextBox_TestName";
+            this.TextBox_TestName.Size = new System.Drawing.Size(151, 19);
+            this.TextBox_TestName.TabIndex = 23;
+            // 
+            // labelTestName
+            // 
+            this.labelTestName.AutoSize = true;
+            this.labelTestName.Location = new System.Drawing.Point(5, 54);
+            this.labelTestName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTestName.Name = "labelTestName";
+            this.labelTestName.Size = new System.Drawing.Size(59, 12);
+            this.labelTestName.TabIndex = 24;
+            this.labelTestName.Text = "Test name";
             // 
             // Btn_StartTest
             // 
@@ -132,24 +150,6 @@
             this.Label_Log.Size = new System.Drawing.Size(23, 12);
             this.Label_Log.TabIndex = 23;
             this.Label_Log.Text = "Log";
-            // 
-            // TextBox_TestName
-            // 
-            this.TextBox_TestName.Location = new System.Drawing.Point(5, 68);
-            this.TextBox_TestName.Margin = new System.Windows.Forms.Padding(2);
-            this.TextBox_TestName.Name = "TextBox_TestName";
-            this.TextBox_TestName.Size = new System.Drawing.Size(151, 19);
-            this.TextBox_TestName.TabIndex = 23;
-            // 
-            // labelTestName
-            // 
-            this.labelTestName.AutoSize = true;
-            this.labelTestName.Location = new System.Drawing.Point(5, 54);
-            this.labelTestName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelTestName.Name = "labelTestName";
-            this.labelTestName.Size = new System.Drawing.Size(59, 12);
-            this.labelTestName.TabIndex = 24;
-            this.labelTestName.Text = "Test name";
             // 
             // TestingInterface
             // 
