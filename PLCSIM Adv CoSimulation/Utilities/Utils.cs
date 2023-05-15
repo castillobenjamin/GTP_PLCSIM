@@ -223,8 +223,9 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
                 File.WriteAllLines(path, lines);
                 return true;
             }
-            catch 
+            catch (Exception ex)
             { 
+                MessageBox.Show(ex.Message);
                 return false; 
             } 
         }
