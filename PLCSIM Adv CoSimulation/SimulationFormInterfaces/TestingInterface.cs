@@ -385,7 +385,6 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 parsedStatus = ZoningStatusBytes[expectedStatus];
                 parsedArea = ConvertStringToArea(area);
-                // TODO - need to make sure this conditions work
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
@@ -535,6 +534,173 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Zoning
 
+        #region Zone Estop
+
+        /// <summary>
+        /// Send the "Estop processing completed" signal to the relevant area.
+        /// </summary>
+        /// <param name="area"></param>
+        /// <param name="value">"true" or "false"</param>
+        /// <returns>True if successful.</returns>
+        private bool EstopSendCompletedSignal(string area, string value)
+        {
+            // Local variables
+            dynamic parsedArea;
+            bool parsedValue;
+            try
+            {
+                // Get index from area string
+                parsedArea = ConvertStringToArea(area);
+                parsedValue = bool.Parse(value); // Try to parse string to bool
+                if (parsedArea is Aisle || parsedArea is Deck || parsedArea is DynamicWorkStation)
+                {
+                    return EstopSendCompletedSignal(parsedArea.EmergencyStopZone, parsedValue);
+                }
+                else
+                {
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UnhandledException + " " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Sends the input value to the corresponding EmergencyStop instance.
+        /// </summary>
+        /// <param name="eStop"></param>
+        /// <param name="value"></param>
+        /// <returns>True if successful.</returns>
+        private bool EstopSendCompletedSignal(EmergencyStop eStop, bool value)
+        {
+            bool updateSuccess;
+            try
+            {
+                updateSuccess = UpdateInput(eStop.CellIsCompleteFlag, value);
+                // Log
+                return updateSuccess;
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Confirm the Estop request of the given area.
+        /// </summary>
+        /// <param name="area"></param>
+        /// <param name="value"></param>
+        /// <returns>True if successful.</returns>
+        private bool EstopConfirmRequest(string area, string value)
+        {
+            // Local variables
+            bool parsedValue;
+            dynamic parsedArea;
+            try
+            {
+                parsedValue = bool.Parse(value);
+                parsedArea = ConvertStringToArea(area);
+                if (parsedArea is Aisle || parsedArea is Deck || parsedArea is DynamicWorkStation)
+                {
+                    return EstopConfirmRequest(parsedArea.EmergencyStopZone, parsedValue);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex) 
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// COnfirm Estop request of the given EmergencyStop instance.
+        /// </summary>
+        /// <param name="eStop"></param>
+        /// <param name="value"></param>
+        /// <returns>True if successful.</returns>
+        private bool EstopConfirmRequest(EmergencyStop eStop, bool value)
+        {
+            bool updateSuccess;
+            try
+            {
+                updateSuccess = ReadOutput(eStop.PlcStopRequest, value, MaxReadOutputTries, InstructionWaitTime);
+                // Log
+                return updateSuccess;
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Confirm the Estop status of the given area.
+        /// </summary>
+        /// <param name="area"></param>
+        /// <param name="value"></param>
+        /// <returns>True if successful.</returns>
+        private bool EstopConfirmStatus(string area, string value)
+        {
+            // Local variables
+            bool parsedValue;
+            dynamic parsedArea;
+            try
+            {
+                parsedValue = bool.Parse(value);
+                parsedArea = ConvertStringToArea(area);
+                if (parsedArea is Aisle || parsedArea is Deck || parsedArea is DynamicWorkStation)
+                {
+                    return EstopConfirmStatus(parsedArea.EmergencyStopZone, parsedValue);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                // TODO - delete message box
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Confirm the Estop status of the given EmergencyStop instance.
+        /// </summary>
+        /// <param name="eStop"></param>
+        /// <param name="value"></param>
+        /// <returns>True if successful.</returns>
+        private bool EstopConfirmStatus(EmergencyStop eStop, bool value)
+        {
+            bool updateSuccess;
+            try
+            {
+                updateSuccess = ReadOutput(eStop.PlcIsStopStatus, value, MaxReadOutputTries, InstructionWaitTime);
+                // Log
+                return updateSuccess;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
+        #endregion // Zone Estop
+
         #region Panels
 
         private bool DwsPanelResetPress()
@@ -629,6 +795,49 @@ namespace PLCSIM_Adv_CoSimulation
         }
 
         /// <summary>
+        /// Open or close specified stopper.
+        /// </summary>
+        /// <param name="stopperName">The stopper name as specified in XML configuration file.</param>
+        /// <param name="action">"open" or "close"</param>
+        /// <returns></returns>
+        private bool ActuateStopper(string stopperName, string action)
+        {
+            bool stepOk = true;
+            try
+            {
+                // Loop through stoppers
+                Stoppers.ForEach(stopper =>
+                {
+                    // Check if the name of the current stopper is equal to the input string.
+                    if (stopper.Name.ToLower() == stopperName.ToLower())
+                    {
+                        ListBox_Log.Items.Add($"Actuating {stopper.Name}");
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                        // Call the corresponding function depending on the "action" parameter
+                        if (action.ToLower() == "close")
+                        {
+                            stepOk &= StopperClose(stopper);
+                        }
+                        else if (action.ToLower() == "open")
+                        {
+                            stepOk &= StopperOpen(stopper);
+                        }
+                        else
+                        {
+                            MessageBox.Show(FormatException + $"{stopper.Name}, {action}");
+                        }
+                    }
+                });
+                return stepOk;
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(StopperActuationException + " " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Close a stopper.
         /// </summary>
         /// <param name="stopper">Stopper to be closed</param>
@@ -657,23 +866,23 @@ namespace PLCSIM_Adv_CoSimulation
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                     // TODO - remove wait and messagebox
                     //WaitForPlc(StopperWaitTime);
-                    //MessageBox.Show("Wait for PLC to turn on output.");
+                    MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcCloseOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the close output is on
                     {
                         ListBox_Log.Items.Add(stopper.Name + " Close output on.");
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                        stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off close command
                         stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn off open sensor (inverted logic for Alpen)
                         // TODO - remove this wait time?
-                        // WaitForPlc(StopperMovingTime); // No harm in waiting... right?
+                        WaitForPlc(StopperMovingTime); // No harm in waiting... right?
                         stepOk &= UpdateInput(stopper.IsClosedSensor, false); // turn on closed sensor (inverted logic for Alpen)
                         // TODO - remove wait and messagebox
                         //WaitForPlc(StopperWaitTime);
-                        stepOk &= ReadOutput(stopper.PlcCloseOut, false, MaxReadOutputTries, InstructionWaitTime);
+                        stepOk &= ReadOutput(stopper.PlcCloseOut, false, MaxReadOutputTries, InstructionWaitTime); // Check close output is off
                         //WaitForPlc(StopperWaitTime);
                         // TODO - remove messagebox
                         //MessageBox.Show("Wait for PLC to send closed signal.");
                         stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the closed status signal
+                        stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off close command
                         stepMessage = stepOk ? " is now closed." : " is not closed yet.";
                         ListBox_Log.Items.Add(stopper.Name + stepMessage);
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
@@ -711,6 +920,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // TODO - update logic according to stopper close method updates.
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
+            string stepMessage;
             try
             {
                 // If the stopper is already open, return true.
@@ -723,24 +933,43 @@ namespace PLCSIM_Adv_CoSimulation
                 // Check if the stopper is closed.
                 else if (ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
+                    // TODO - remove wait
+                    //WaitForPlc(StopperWaitTime);
                     stepOk &= UpdateInput(stopper.OpenCommandFromCell, true); // Send open command
-                    WaitForPlc(InstructionWaitTime);
+                    stepMessage = stepOk ? " Open command sent." : " Fail to send open command.";
+                    ListBox_Log.Items.Add(stopper.Name + stepMessage);
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                    // TODO - remove wait and messagebox
+                    //WaitForPlc(StopperWaitTime);
+                    MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcOpenOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the open output is on
                     {
-                        stepOk &= UpdateInput(stopper.OpenCommandFromCell, false); // turn off close command
-                        stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn off open sensor
+                        ListBox_Log.Items.Add(stopper.Name + " Open output on.");
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                        stepOk &= UpdateInput(stopper.IsClosedSensor, true); // turn off closed sensor (inverted logic for Alpen)
+                        // TODO - remove this wait time?
                         WaitForPlc(StopperMovingTime); // No harm in waiting... right?
+                        stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn on open sensor (inverted logic for Alpen)
+                        // TODO - remove wait and messagebox
+                        //WaitForPlc(StopperWaitTime);
+                        stepOk &= ReadOutput(stopper.PlcOpenOut, false, MaxReadOutputTries, InstructionWaitTime); // Check open output is off
+                        //WaitForPlc(StopperWaitTime);
+                        // TODO - remove messagebox
+                        //MessageBox.Show("Wait for PLC to send closed signal.");
+                        stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the open status signal
+                        stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off open command
+                        stepMessage = stepOk ? " is now open." : " is not open yet.";
+                        ListBox_Log.Items.Add(stopper.Name + stepMessage);
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                        // TODO - remove wait and messagebox
+                        //WaitForPlc(StopperWaitTime);
                     }
                     else
                     {
+                        ListBox_Log.Items.Add(stopper.Name + " Close output did not turn on.");
+                        ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         stepOk &= false;
                     }
-                    stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn on open sensor
-                    WaitForPlc(InstructionWaitTime);
-                    stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the open status signal
-                    WaitForPlc(InstructionWaitTime);
-                    ListBox_Log.Items.Add(stopper.Name + " is now open.");
-                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 else // the status of the stopper is not being sent to the Modbus register
                 {
@@ -752,7 +981,7 @@ namespace PLCSIM_Adv_CoSimulation
             catch (Exception ex)
             {
                 // TODO - delete message box
-                MessageBox.Show(stopper.Name + " " + StopperOpenException + " " + ex.Message);
+                MessageBox.Show(stopper.Name + " " + StopperCloseException + " " + ex.Message);
                 return false;
             }
         }
@@ -1295,9 +1524,39 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                     }
                 }
+                else if (instructionSplit[0].Contains("Estop")) // NOTE - This else if has to be after the "Btn" else if
+                {
+                    switch(instructionSplit[0])
+                    {
+                        case "EstopSendCompletedSignal":
+                            EstopSendCompletedSignal(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "EstopConfirmRequest":
+                            EstopConfirmRequest(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "EstopConfirmStatus":
+                            EstopConfirmStatus(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
+                            break;
+                    }
+                }
                 else if (instruction.Contains("Stopper"))
                 {
-                    // TODO - add code
+                    switch(instructionSplit[0])
+                    {
+                        case "StopperActuationRoutine":
+                            instructionPassed = StopperActuationRoutine(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "ActuateStopper":
+                            instructionPassed = ActuateStopper(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
+                            // code block
+                            break;
+                    }
                 }
                 else if (instruction.Contains("Wait"))
                 {
@@ -1307,7 +1566,7 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else if (instruction.Contains("Pause"))
                 {
-                    MessageBox.Show("Test is paused. Press 'OK' to continue.", "Pause", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Test paused. Press 'OK' to continue.", "Pause", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     instructionPassed = true;
                 }
                 else
