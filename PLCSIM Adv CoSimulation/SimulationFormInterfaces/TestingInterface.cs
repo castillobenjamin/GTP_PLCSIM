@@ -129,7 +129,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <returns>String fileName</returns>
         private string SetFileName(string programVersion, string testName, bool testPassed)
         {
-            string currDT = DateTime.Now.ToString("yyyy-MM-ddTHH.mm.ss");
+            string currDT = DateTime.Now.ToString("yyyy-MM-ddTHH'h'mm'm'ss's'");
             if (programVersion == string.Empty)
             {
                 programVersion = "NoVersion";
@@ -1082,7 +1082,7 @@ namespace PLCSIM_Adv_CoSimulation
         private Match FindDigitsInString(String inputString)
         {
             // Use regex to find digits in the input string
-            Regex regex = new Regex(@"\d+");
+            Regex regex = new Regex(@"\d+"); // match a digit one or more times.
             // Check for one match of consecutive digits in inputString
             Match match = regex.Match(inputString);
             return match;
