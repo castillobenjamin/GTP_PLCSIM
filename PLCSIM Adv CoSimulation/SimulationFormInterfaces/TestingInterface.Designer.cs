@@ -37,6 +37,8 @@
             this.TextBox_TestFilePath = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.Label_Log = new System.Windows.Forms.Label();
+            this.TextBox_TestName = new System.Windows.Forms.TextBox();
+            this.labelTestName = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +53,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.TextBox_TestName);
+            this.groupBox1.Controls.Add(this.labelTestName);
             this.groupBox1.Controls.Add(this.Btn_StartTest);
             this.groupBox1.Controls.Add(this.TextBox_ProgramVersion);
             this.groupBox1.Controls.Add(this.label1);
@@ -59,14 +63,14 @@
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(233, 194);
+            this.groupBox1.Size = new System.Drawing.Size(233, 276);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test Data";
             // 
             // Btn_StartTest
             // 
-            this.Btn_StartTest.Location = new System.Drawing.Point(6, 153);
+            this.Btn_StartTest.Location = new System.Drawing.Point(6, 203);
             this.Btn_StartTest.Name = "Btn_StartTest";
             this.Btn_StartTest.Size = new System.Drawing.Size(88, 35);
             this.Btn_StartTest.TabIndex = 2;
@@ -92,7 +96,7 @@
             // 
             // Btn_BrowseFile
             // 
-            this.Btn_BrowseFile.Location = new System.Drawing.Point(5, 94);
+            this.Btn_BrowseFile.Location = new System.Drawing.Point(5, 144);
             this.Btn_BrowseFile.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_BrowseFile.Name = "Btn_BrowseFile";
             this.Btn_BrowseFile.Size = new System.Drawing.Size(58, 22);
@@ -103,7 +107,7 @@
             // 
             // TextBox_TestFilePath
             // 
-            this.TextBox_TestFilePath.Location = new System.Drawing.Point(5, 71);
+            this.TextBox_TestFilePath.Location = new System.Drawing.Point(5, 121);
             this.TextBox_TestFilePath.Margin = new System.Windows.Forms.Padding(2);
             this.TextBox_TestFilePath.Name = "TextBox_TestFilePath";
             this.TextBox_TestFilePath.Size = new System.Drawing.Size(151, 19);
@@ -112,7 +116,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 57);
+            this.label11.Location = new System.Drawing.Point(5, 107);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(48, 12);
@@ -128,6 +132,24 @@
             this.Label_Log.Size = new System.Drawing.Size(23, 12);
             this.Label_Log.TabIndex = 23;
             this.Label_Log.Text = "Log";
+            // 
+            // TextBox_TestName
+            // 
+            this.TextBox_TestName.Location = new System.Drawing.Point(5, 68);
+            this.TextBox_TestName.Margin = new System.Windows.Forms.Padding(2);
+            this.TextBox_TestName.Name = "TextBox_TestName";
+            this.TextBox_TestName.Size = new System.Drawing.Size(151, 19);
+            this.TextBox_TestName.TabIndex = 23;
+            // 
+            // labelTestName
+            // 
+            this.labelTestName.AutoSize = true;
+            this.labelTestName.Location = new System.Drawing.Point(5, 54);
+            this.labelTestName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTestName.Name = "labelTestName";
+            this.labelTestName.Size = new System.Drawing.Size(59, 12);
+            this.labelTestName.TabIndex = 24;
+            this.labelTestName.Text = "Test name";
             // 
             // TestingInterface
             // 
@@ -157,5 +179,7 @@
         private System.Windows.Forms.TextBox TextBox_TestFilePath;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label Label_Log;
+        private System.Windows.Forms.TextBox TextBox_TestName;
+        private System.Windows.Forms.Label labelTestName;
     }
 }

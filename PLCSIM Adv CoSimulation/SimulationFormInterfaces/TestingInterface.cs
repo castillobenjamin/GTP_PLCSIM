@@ -16,14 +16,13 @@ namespace PLCSIM_Adv_CoSimulation
     public partial class TestingInterface : Form
     {
         #region Fields
-        // Alphabot System shortcuts
+        // Alphabot System shortcut objects
         private readonly CoSimulation CoSimulationInstance;
         private CellCommunication Cell;
         private List<Stopper> Stoppers;
         private List<Aisle> AisleList;
         private List<Deck> DeckList;
         private List<DynamicWorkStation> DwsList;
-
         // Timers
         private Timer HeartBeatTimer = new Timer();
         private Timer OutputTimer = new Timer();
@@ -38,8 +37,7 @@ namespace PLCSIM_Adv_CoSimulation
         // Counter to simulate the CELL pulse.
         private byte HeartBeatCounter = 0;
         // Output file name
-        // TODO - Assign file name dynamically
-        private readonly string fileName = "TestResults_TestName_ProgramVersion_Date_Time";
+        private string OutputFileName;
         // Constants
         private readonly uint MAX_INSTRUCTION_PARAMS = 3;
         // Error messages
@@ -118,6 +116,31 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
         #endregion // Timers and Stopwatches
+
+        #region DateTime
+        /// <summary>
+        /// Set the output file name.
+        /// </summary>
+        /// <param name="programVersion"></param>
+        /// <param name="testName"></param>
+        /// <param name="testPassed"></param>
+        /// <returns>String fileName</returns>
+        private string SetFileName(string programVersion, string testName, bool testPassed)
+        {
+            DateTime currDT = DateTime.Now;
+            if (programVersion == string.Empty)
+            {
+                programVersion = "NoVersion";
+            }
+            if (testName == string.Empty)
+            {
+                testName = "NoTestName";
+            }
+            string fileName = programVersion + "_" + testName + "_" + currDT + "_" 
+                + (testPassed ? "Passed" : "Failed");
+            return  fileName;
+        }
+        #endregion // DateTime
 
         #region Simulation
         // TODO - add a method for every input.
@@ -218,7 +241,7 @@ namespace PLCSIM_Adv_CoSimulation
 
             try
             {
-                // TODO - add code
+                // TODO add code.
                 return true;
             }
             catch(Exception ex) 
@@ -1084,17 +1107,20 @@ namespace PLCSIM_Adv_CoSimulation
             // Local Fields
             string[] instructions;
             string[] testResults;
-            bool OutputOk;
+            bool testPassed;
+            bool outputOk;
             //Read file with test instructions
             try
             {
                 // Get test instructions
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
-                testResults = ExecuteTestInstructions(instructions);
+                (testResults, testPassed) = ExecuteTestInstructions(instructions);
                 ListBox_Log.Items.Add(testResults);
                 // TODO - output test results to a file.
-                OutputOk = Utils.ConvertList2File(testResults, fileName);
+                OutputFileName = SetFileName(
+                    TextBox_ProgramVersion.Text, TextBox_TestName.Text, testPassed);
+                outputOk = Utils.ConvertList2File(testResults, OutputFileName);
             }
             catch (ArgumentException ex)
             {
@@ -1123,15 +1149,16 @@ namespace PLCSIM_Adv_CoSimulation
         /// Runs the instructions specified on the Test file.
         /// </summary>
         /// <param name="instructions">String array </param>
-        /// <returns>string array with the execution results</returns>
-        private string[] ExecuteTestInstructions(string[] instructions)
+        /// <returns>Tuple (string array with the execution results, overall Passed/Failed boolean)</returns>
+        private (string[], bool) ExecuteTestInstructions(string[] instructions)
         {
             // TODO - Add a case for every possible instruction
             // TODO - log action and results of each iteration.
             // TODO - add pause parameter and prompt a message box.
             // Use else-if for each instruction category.
             // Use a switch-case for individual instructions in each category.
-            bool executionIsSuccessful;
+            bool testPassed = true; // Check if test execution is successful
+            bool instructionPassed; // check if each instruction execution is successful
             string executionMessage;
             string[] results = new string[instructions.Length];
             string instruction;
@@ -1141,31 +1168,31 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 instruction = instructions[i];
                 instructionSplit = instruction.Split(' ');
-                executionIsSuccessful = false;
+                instructionPassed = false;
                 if (instruction.Contains("Cell"))
                 {
                     switch (instructionSplit[0])
                     {
                         case "CellTurnOn":
-                            executionIsSuccessful = CellTurnOn();
+                            instructionPassed = CellTurnOn();
                             break;
                         case "CellStart":
-                            executionIsSuccessful = CellStart();
+                            instructionPassed = CellStart();
                             break;
                         case "CellTurnOff":
-                            executionIsSuccessful = CellTurnOff();
+                            instructionPassed = CellTurnOff();
                             break;
                         case "CellStop":
-                            executionIsSuccessful = CellStop();
+                            instructionPassed = CellStop();
                             break;
                         case "CellConfirmPlcErrorStatus":
-                            executionIsSuccessful = CellConfirmPlcErrorStatus(instructionSplit[1]);
+                            instructionPassed = CellConfirmPlcErrorStatus(instructionSplit[1]);
                             break;
                         case "CellConfirmPlcWarningStatus":
-                            executionIsSuccessful = CellConfirmPlcWarningStatus(instructionSplit[1]);
+                            instructionPassed = CellConfirmPlcWarningStatus(instructionSplit[1]);
                             break;
                         case "CellConfirmPlcMode":
-                            executionIsSuccessful = CellConfirmPlcMode(instructionSplit[1]);
+                            instructionPassed = CellConfirmPlcMode(instructionSplit[1]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1178,10 +1205,10 @@ namespace PLCSIM_Adv_CoSimulation
                     switch (instruction)
                     {
                         case "DwsPanelResetPress":
-                            executionIsSuccessful = DwsPanelResetPress();
+                            instructionPassed = DwsPanelResetPress();
                             break;
                         case "DwsPanelResetRelease":
-                            executionIsSuccessful = DwsPanelResetRelease();
+                            instructionPassed = DwsPanelResetRelease();
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1198,13 +1225,13 @@ namespace PLCSIM_Adv_CoSimulation
                     switch (instructionSplit[0])
                     {
                         case "ZoningSendCommand":
-                            executionIsSuccessful = ZoningSendCommand(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = ZoningSendCommand(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "ZoningConfirmStatus":
-                            executionIsSuccessful = ZoningConfirmStatus(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = ZoningConfirmStatus(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "ZoningRequestRoutine":
-                            executionIsSuccessful = ZoningRequestRoutine(instructionSplit[1]);
+                            instructionPassed = ZoningRequestRoutine(instructionSplit[1]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1216,13 +1243,13 @@ namespace PLCSIM_Adv_CoSimulation
                     switch(instructionSplit[0])
                     {
                         case "EstopBtnOperation":
-                            executionIsSuccessful= EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed= EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "ResetBtnOperation":
-                            executionIsSuccessful = ResetBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = ResetBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "RequestBtnOperation":
-                            executionIsSuccessful = RequestBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = RequestBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1237,12 +1264,12 @@ namespace PLCSIM_Adv_CoSimulation
                 {
                     // Do nothing here.
                     // Use this instruction in case extra time is needed (Requesting).
-                    executionIsSuccessful = true;
+                    instructionPassed = true;
                 }
                 else if (instruction.Contains("Pause"))
                 {
                     MessageBox.Show("Test is paused. Press 'OK' to continue.", "Pause", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    executionIsSuccessful = true;
+                    instructionPassed = true;
                 }
                 else
                 {
@@ -1250,7 +1277,7 @@ namespace PLCSIM_Adv_CoSimulation
                     {
                         // TODO - delete case. Currently here for testing purposes.
                         case "DummyInstruction":
-                            executionIsSuccessful = false;
+                            instructionPassed = false;
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1259,9 +1286,10 @@ namespace PLCSIM_Adv_CoSimulation
                     }
                 }
                 // Log execution results
+                testPassed &= instructionPassed;
                 executionMessage = instruction 
                     + " - Execution " 
-                    + (executionIsSuccessful ? "complete." : "failed.");
+                    + (instructionPassed ? "complete." : "failed.");
                 ListBox_Log.Items.Add(executionMessage);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 results[i] = executionMessage;
@@ -1269,7 +1297,7 @@ namespace PLCSIM_Adv_CoSimulation
                 WaitForPlc(InstructionWaitTime);
             }
             // Return a string with the results of the test run.
-            return results;
+            return (results, testPassed);
         }
 
         #endregion // Test execution
