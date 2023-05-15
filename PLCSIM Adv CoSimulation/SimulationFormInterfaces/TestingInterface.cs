@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -24,10 +25,9 @@ namespace PLCSIM_Adv_CoSimulation
         private List<Deck> DeckList;
         private List<DynamicWorkStation> DwsList;
         // Timers
-        private Timer HeartBeatTimer = new Timer();
-        private Timer OutputTimer = new Timer();
+        private System.Threading.Timer HeartBeatTimer;
         // Interval used for all timers
-        readonly private int TimerInterval = 200;
+        readonly private int TimerInterval = 500;
         // Stop watch
         private Stopwatch stopWatch; // Used to wait after the execution of every instruction.
         private readonly int InstructionWaitTime = 250;
@@ -59,11 +59,6 @@ namespace PLCSIM_Adv_CoSimulation
         {
             InitializeComponent();
             CoSimulationInstance = coSimulationInstance;
-            // Initialize timers
-            HeartBeatTimer.Tick += new EventHandler(HeartBeatEventProcessor);
-            HeartBeatTimer.Interval = TimerInterval;
-            OutputTimer.Tick += new EventHandler(OutputEventProcessor);
-            OutputTimer.Interval = TimerInterval;
             // Initialize instance shortcut variables
             Cell = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance;
             Stoppers = CoSimulationInstance.AlphaBotSystem.Stoppers;
@@ -81,27 +76,33 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         /// <param name="myObject"></param>
         /// <param name="myEventArgs"></param>
-        private void HeartBeatEventProcessor(Object myObject, EventArgs myEventArgs)
+        class HeartBeatUpdater
         {
-            HeartBeatTimer.Stop();
-            // Restarts the timer.
-            HeartBeatTimer.Enabled = true;
-            // Simulate CELL pulse
-            HeartBeatCounter = Utils.CountByteUp(HeartBeatCounter);
-            Cell.IsCellConnectedPulse.Value = HeartBeatCounter;
-        }
+            private byte invokeCount;
+            private byte maxCount;
+            private CellCommunication cell; 
 
-        /// <summary>
-        /// Timer used to update plc output values.
-        /// </summary>
-        /// <param name="myObject"></param>
-        /// <param name="myEventArgs"></param>
-        private void OutputEventProcessor(Object myObject, EventArgs myEventArgs)
-        {
-            OutputTimer.Stop();
-            OutputTimer.Enabled = true;
-            // TODO - create method
-            // ReadPlcOutputs();
+            public HeartBeatUpdater(byte count, CellCommunication cell)
+            {
+                invokeCount = 0;
+                maxCount = count;
+                this.cell = cell;
+            }
+
+            // This method is called by the timer delegate.
+            public void UpdateHeartBeat(Object stateInfo)
+            {
+                AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+                // Simulate CELL pulse
+                invokeCount++;
+                cell.IsCellConnectedPulse.Value = invokeCount;
+                if (invokeCount == maxCount)
+                {
+                    // Reset the counter and signal the waiting thread.
+                    invokeCount = 0;
+                    autoEvent.Set();
+                }
+            }
         }
 
         /// <summary>
@@ -128,7 +129,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <returns>String fileName</returns>
         private string SetFileName(string programVersion, string testName, bool testPassed)
         {
-            string currDT = DateTime.Now.ToString("yyyy-MM-ddTHH'mm'ss");
+            string currDT = DateTime.Now.ToString("yyyy-MM-ddTHH.mm.ss");
             if (programVersion == string.Empty)
             {
                 programVersion = "NoVersion";
@@ -154,7 +155,10 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                HeartBeatTimer.Start();
+                // Initialize timers
+                var autoEvent = new AutoResetEvent(false);
+                var heartBeat = new HeartBeatUpdater(byte.MaxValue, Cell);
+                HeartBeatTimer = new System.Threading.Timer(heartBeat.UpdateHeartBeat, autoEvent, TimerInterval, TimerInterval);
                 return true;
             }
             catch (Exception ex)
@@ -172,7 +176,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                HeartBeatTimer.Stop();
+                HeartBeatTimer.Dispose();
                 return UpdateInput(
                     Cell.IsCellConnectedPulse, 
                     0);
@@ -764,7 +768,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Fire shutter
 
         #region Common methods
-        // TODO - add delay inside the common methods to wait for the PLC to take care of its business.
         #region Update input
         /// <summary>
         /// Updates the input signal value.
