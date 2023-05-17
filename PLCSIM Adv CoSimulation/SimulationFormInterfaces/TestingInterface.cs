@@ -880,6 +880,7 @@ namespace PLCSIM_Adv_CoSimulation
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                     // TODO - remove wait and messagebox
                     WaitForPlc(StopperWaitTime);
+                    WaitForPlc(StopperWaitTime);
                     // MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcCloseOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the close output is on
                     {
