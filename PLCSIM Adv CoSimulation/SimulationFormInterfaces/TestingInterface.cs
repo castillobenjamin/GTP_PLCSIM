@@ -879,8 +879,8 @@ namespace PLCSIM_Adv_CoSimulation
                     ListBox_Log.Items.Add(stopper.Name + stepMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                     // TODO - remove wait and messagebox
-                    //WaitForPlc(StopperWaitTime);
-                    MessageBox.Show("Wait for PLC to turn on output.");
+                    WaitForPlc(StopperWaitTime);
+                    // MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcCloseOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the close output is on
                     {
                         ListBox_Log.Items.Add(stopper.Name + " Close output on.");
@@ -954,8 +954,8 @@ namespace PLCSIM_Adv_CoSimulation
                     ListBox_Log.Items.Add(stopper.Name + stepMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                     // TODO - remove wait and messagebox
-                    //WaitForPlc(StopperWaitTime);
-                    MessageBox.Show("Wait for PLC to turn on output.");
+                    WaitForPlc(StopperWaitTime);
+                    // MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcOpenOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the open output is on
                     {
                         ListBox_Log.Items.Add(stopper.Name + " Open output on.");
@@ -971,7 +971,7 @@ namespace PLCSIM_Adv_CoSimulation
                         // TODO - remove messagebox
                         //MessageBox.Show("Wait for PLC to send closed signal.");
                         stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the open status signal
-                        stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off open command
+                        stepOk &= UpdateInput(stopper.OpenCommandFromCell, false); // turn off open command
                         stepMessage = stepOk ? " is now open." : " is not open yet.";
                         ListBox_Log.Items.Add(stopper.Name + stepMessage);
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
