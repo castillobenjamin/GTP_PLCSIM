@@ -52,6 +52,11 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly string StopperOpenException = "An exception occured while trying to open a stopper.";
         private readonly string StopperPositionUnknownToCell = "The position of the stopper is unknown.";
         private readonly string DWSRequestButtonPrompt = "Press the Request button on the HMI for specified DWS.";
+        private readonly string TestPassedMessage = "All tests passed! Hooray!";
+        private readonly string TestFailedMessage = "Test failed :( ";
+        private readonly string SaveToFileSuccessMessage = "Test results saved in '";
+        private readonly string SafeToFileFailedMessage = "Unable to save test results.";
+        private readonly string TestFileNotSetMessage = " Please choose a test file.";
         #endregion // Fields
 
         #region Initialization
@@ -581,7 +586,6 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 updateSuccess = UpdateInput(eStop.CellIsCompleteFlag, value);
-                // Log
                 return updateSuccess;
             }
             catch (Exception ex)
@@ -636,7 +640,6 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 updateSuccess = ReadOutput(eStop.PlcStopRequest, value, MaxReadOutputTries, InstructionWaitTime);
-                // Log
                 return updateSuccess;
             }
             catch(Exception ex) 
@@ -690,7 +693,6 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 updateSuccess = ReadOutput(eStop.PlcIsStopStatus, value, MaxReadOutputTries, InstructionWaitTime);
-                // Log
                 return updateSuccess;
             }
             catch (Exception ex)
@@ -732,6 +734,18 @@ namespace PLCSIM_Adv_CoSimulation
                 return false;
             }
         }
+
+        #region Signal tower
+        /// <summary>
+        /// Read the signal tower outputs
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="onOrOff">"On" or "Off"</param>
+        private void ReadSignalTower(string color, string onOrOff)
+        {
+            // TODO - add code
+        }
+        #endregion // Signal tower
         #endregion // Panels
 
         #region Aisles
@@ -981,7 +995,7 @@ namespace PLCSIM_Adv_CoSimulation
             catch (Exception ex)
             {
                 // TODO - delete message box
-                MessageBox.Show(stopper.Name + " " + StopperCloseException + " " + ex.Message);
+                MessageBox.Show(stopper.Name + " " + StopperOpenException + " " + ex.Message);
                 return false;
             }
         }
@@ -1058,6 +1072,8 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Update input
 
         #region Read output
+        // TODO - Make these methods asynchronous!
+        // TODO - Use multiple threads?
         /// <summary>
         /// Checks the output signal value.
         /// If the output value is not equal to expectedValue after trying nOfTries, returns false.
@@ -1377,22 +1393,32 @@ namespace PLCSIM_Adv_CoSimulation
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
                 (testResults, testPassed) = ExecuteTestInstructions(instructions);
+                if (testPassed) 
+                {
+                    ListBox_Log.Items.Add(TestPassedMessage);
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+                else
+                {
+                    ListBox_Log.Items.Add(TestFailedMessage);
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
                 // TODO - output test results to a file.
                 OutputFileName = SetFileName(
                     TextBox_ProgramVersion.Text, TextBox_TestName.Text, testPassed);
                 outputOk = Utils.ConvertList2File(testResults, OutputFileName);
                 if (outputOk)
                 {
-                    MessageBox.Show("Test results saved in '" + OutputFileName + "'");
+                    MessageBox.Show(SaveToFileSuccessMessage + OutputFileName + "'");
                 }
                 else 
                 {
-                    MessageBox.Show("Unable to save test results.");
+                    MessageBox.Show(SafeToFileFailedMessage);
                 }
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(ex.Message + " Please choose a test file.");
+                MessageBox.Show(ex.Message + TestFileNotSetMessage);
             }
             catch (Exception ex)
             {
@@ -1511,7 +1537,7 @@ namespace PLCSIM_Adv_CoSimulation
                     switch(instructionSplit[0])
                     {
                         case "EstopBtnOperation":
-                            instructionPassed= EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = EstopBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "ResetBtnOperation":
                             instructionPassed = ResetBtnOperation(instructionSplit[1], instructionSplit[2]);
@@ -1524,18 +1550,18 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                     }
                 }
-                else if (instructionSplit[0].Contains("Estop")) // NOTE - This else if has to be after the "Btn" else if
+                else if (instruction.Contains("Estop")) // NOTE - This else if has to be after the "Btn" else if
                 {
                     switch(instructionSplit[0])
                     {
                         case "EstopSendCompletedSignal":
-                            EstopSendCompletedSignal(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = EstopSendCompletedSignal(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "EstopConfirmRequest":
-                            EstopConfirmRequest(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = EstopConfirmRequest(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "EstopConfirmStatus":
-                            EstopConfirmStatus(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = EstopConfirmStatus(instructionSplit[1], instructionSplit[2]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1571,6 +1597,8 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
+                    // TODO - delete messagebox (used for debugging).
+                    MessageBox.Show("Inside else, this instruction slipped out of all the ifs!" + instructionSplit[0]);
                     switch (instruction)
                     {
                         // TODO - delete case. Currently here for testing purposes.
