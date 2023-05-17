@@ -105,8 +105,8 @@ namespace PLCSIM_Adv_CoSimulation.Utilities
         /// The input register is updated with the input value.
         /// </summary>
         /// <param name="register">Modbus register address of the signal to update</param>
-        /// <param name="isTrue">Boolean control associated with the signal to update</param>
-        /// <returns></returns>
+        /// <param name="value">Boolean control associated with the signal to update</param>
+        /// <returns>Returns the updated register</returns>
         internal static ushort UpdateRegister(RegisterToPlc register, bool value)
         {
             // Save current values
