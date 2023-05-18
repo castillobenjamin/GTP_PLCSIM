@@ -70,6 +70,8 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly string SaveToFileSuccessMessage = "Test results saved in '";
         private readonly string SafeToFileFailedMessage = "Unable to save test results.";
         private readonly string TestFileNotSetMessage = " Please choose a test file.";
+        private readonly string DoorOperationExceptionMessage = "Only 'Open', 'Unlock', 'Lock' and 'Close' are accepted.";
+        private readonly string BtnOperationExceptionMessage = "Only 'Press' and 'Release' are accepted.";
         #endregion // Fields
 
         #region Initialization
@@ -1187,11 +1189,11 @@ namespace PLCSIM_Adv_CoSimulation
                  * NOTE:
                  * When the Estop is pressed, the PLC input is false.
                  */
-                if (action == "Release") { parsedAction = true; }
-                else if (action == "Press") { parsedAction = false; }
+                if (action.ToLower() == "release") { parsedAction = true; }
+                else if (action.ToLower() == "press") { parsedAction = false; }
                 else
                 {
-                    MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
+                    MessageBox.Show(FormatException + BtnOperationExceptionMessage);
                     return false;
                 }
                 if (parsedArea is Aisle)
@@ -1243,11 +1245,11 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 parsedArea = ConvertStringToArea(area);
-                if (action == "Release") { parsedAction = false; }
-                else if (action == "Press") { parsedAction = true; }
+                if (action.ToLower() == "release") { parsedAction = false; }
+                else if (action.ToLower() == "press") { parsedAction = true; }
                 else
                 {
-                    MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
+                    MessageBox.Show(FormatException + BtnOperationExceptionMessage);
                     return false;
                 }
                 if (parsedArea is Aisle)
@@ -1295,11 +1297,11 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 parsedArea = ConvertStringToArea(area);
-                if (action == "Release") { parsedAction = false; }
-                else if (action == "Press") { parsedAction = true; }
+                if (action.ToLower() == "release") { parsedAction = false; }
+                else if (action.ToLower() == "press") { parsedAction = true; }
                 else
                 {
-                    MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
+                    MessageBox.Show(FormatException + BtnOperationExceptionMessage);
                     return false;
                 }
                 if (parsedArea is Aisle)
@@ -1331,6 +1333,112 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
         #endregion // Buttons
+
+        #region SafetyDoor
+        /// <summary>
+        /// Open/Close the safety door of the specified area.
+        /// </summary>
+        /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
+        /// <param name="action">"Open" and "Close"</param>
+        /// <returns>True if successful.</returns>
+        private bool DoorOperation(string area, string action)
+        {
+            // Local variables
+            object parsedArea;
+            bool parsedAction;
+            Aisle aisle;
+            Deck deck;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                if (action.ToLower() == "open") { parsedAction = false; }
+                else if (action.ToLower() == "close") { parsedAction = true; }
+                else
+                {
+                    MessageBox.Show(FormatException + DoorOperationExceptionMessage);
+                    return false;
+                }
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return UpdateInput(aisle.Door.IsDoorClosedSensor, parsedAction);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return UpdateInput(deck.Door.IsDoorClosedSensor, parsedAction);
+                }
+                // No reset btn on DWS
+                else
+                {
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(FormatException + " " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UnhandledException + " " + ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Lock/Unlock the safety door of the specified area.
+        /// </summary>
+        /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
+        /// <param name="action">"Lock" and "Unlock"</param>
+        /// <returns>True if successful.</returns>
+        private bool DoorKeyOperation(string area, string action)
+        {
+            // Local variables
+            object parsedArea;
+            bool parsedAction;
+            Aisle aisle;
+            Deck deck;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                if (action.ToLower() == "unlock") { parsedAction = false; }
+                else if (action.ToLower() == "lock") { parsedAction = true; }
+                else
+                {
+                    MessageBox.Show(FormatException + DoorOperationExceptionMessage);
+                    return false;
+                }
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    return UpdateInput(aisle.Door.IsDoorLockedKeySwitch, parsedAction);
+                }
+                else if (parsedArea is Deck)
+                {
+                    deck = (Deck)parsedArea;
+                    return UpdateInput(deck.Door.IsDoorLockedKeySwitch, parsedAction);
+                }
+                // No reset btn on DWS
+                else
+                {
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(FormatException + " " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UnhandledException + " " + ex.Message);
+                return false;
+            }
+        }
+        #endregion // SafetyDoor
 
         #region RegEx
         /// <summary>
@@ -1556,6 +1664,21 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                         case "RequestBtnOperation":
                             instructionPassed = RequestBtnOperation(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        default:
+                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
+                            break;
+                    }
+                }
+                else if (instruction.Contains("Door"))
+                {
+                    switch(instructionSplit[0])
+                    {
+                        case "DoorOperation":
+                            DoorOperation(instructionSplit[1], instructionSplit[2]);
+                            break;
+                        case "DoorKeyOperation":
+                            DoorKeyOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
