@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static PLCSIM_Adv_CoSimulation.Utilities.Utils;
 using static System.Windows.Forms.LinkLabel;
+using Panel = PLCSIM_Adv_CoSimulation.Models.Configuration.Panel;
 
 namespace PLCSIM_Adv_CoSimulation
 {
@@ -24,6 +25,7 @@ namespace PLCSIM_Adv_CoSimulation
         private List<Aisle> AisleList;
         private List<Deck> DeckList;
         private List<DynamicWorkStation> DwsList;
+        private Panel DwsPanel;
         // Structures
         /// <summary>
         /// Containts a string array with each instruction's execution result.
@@ -73,6 +75,7 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly string DoorOperationExceptionMessage = "Only 'Open', 'Unlock', 'Lock' and 'Close' are accepted.";
         private readonly string BtnOperationExceptionMessage = "Only 'Press' and 'Release' are accepted.";
         private readonly string ContactorOperationExceptionMessage = "Only 'On', 'Off', 'North' and 'South' area accepted.";
+        private readonly string SignalTowerExceptionMessage = "Only 'Green', 'Red', 'Yellow', 'White', 'Blue'm 'On' and 'Off' are accepted.";
         #endregion // Fields
 
         #region Initialization
@@ -86,6 +89,7 @@ namespace PLCSIM_Adv_CoSimulation
             AisleList = CoSimulationInstance.AlphaBotSystem.Aisles;
             DeckList = CoSimulationInstance.AlphaBotSystem.Decks;
             DwsList = CoSimulationInstance.AlphaBotSystem.DynamicWorkStations;
+            DwsPanel = CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel;
         }
         #endregion // Initialization
 
@@ -726,7 +730,7 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 return UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn,
+                    DwsPanel.ResetBtn,
                     true);
             }
             catch (Exception ex)
@@ -741,7 +745,7 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 return UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn,
+                    DwsPanel.ResetBtn,
                     false);
             }
             catch (Exception ex)
@@ -753,13 +757,45 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Signal tower
         /// <summary>
-        /// Read the signal tower outputs
+        /// Read the outputs to the signal tower.
         /// </summary>
-        /// <param name="color"></param>
-        /// <param name="onOrOff">"On" or "Off"</param>
-        private void ReadSignalTower(string color, string onOrOff)
+        /// <param name="color">Color to be read. "Green", "Red", "Yellow", "White", "Blue"</param>
+        /// <param name="status">Expected status. "On" or "Off"</param>
+        /// <returns></returns>
+        private bool ReadSignalTower(string color, string status)
         {
-            // TODO - add code
+            bool parsedStatus;
+            try
+            {
+                if (status.ToLower() == "off") { parsedStatus = false; }
+                else if (status.ToLower() == "on") { parsedStatus = true; }
+                else
+                {
+                    MessageBox.Show(FormatException + SignalTowerExceptionMessage);
+                    return false;
+                }
+                switch (color.ToLower())
+                {
+                    case "green":
+                        return ReadOutput(DwsPanel.GreenLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                    case "red":
+                        return ReadOutput(DwsPanel.RedLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                    case "yellow":
+                        return ReadOutput(DwsPanel.YellowLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                    case "white":
+                        return ReadOutput(DwsPanel.WhiteLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                    case "blue":
+                        return ReadOutput(DwsPanel.BlueLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                    default:
+                        MessageBox.Show(FormatException + SignalTowerExceptionMessage);
+                        return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
         }
         #endregion // Signal tower
         #endregion // Panels
@@ -1565,7 +1601,7 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Simulation
 
         #region Interface
-        private async void Btn_StartTest_Click(object sender, EventArgs e)
+        private void Btn_StartTest_Click(object sender, EventArgs e)
         {
             // Local Fields
             string[] instructions;
@@ -1579,8 +1615,7 @@ namespace PLCSIM_Adv_CoSimulation
                 // Get test instructions
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
-                var testTask = ExecuteTestInstructions(instructions);
-                testResults = await testTask;
+                testResults = ExecuteTestInstructions(instructions);
                 if (testResults.Passed)
                 {
                     ListBox_Log.Items.Add(TestPassedMessage);
@@ -1632,7 +1667,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         /// <param name="instructions">String array </param>
         /// <returns>Test structure</returns>
-        private async Task<Test> ExecuteTestInstructions(string[] instructions)
+        private Test ExecuteTestInstructions(string[] instructions)
         {
             // TODO - Add a case for every possible instruction
             bool testPassed = true; // Check if test execution is successful
@@ -1693,6 +1728,10 @@ namespace PLCSIM_Adv_CoSimulation
                             // code block
                             break;
                     }
+                }
+                else if (instruction.Contains("SignalTower"))
+                {
+                    instructionPassed = ReadSignalTower(instructionSplit[1], instructionSplit[2]);
                 }
                 // For zoning instructions
                 // Zoning instructinos syntax
