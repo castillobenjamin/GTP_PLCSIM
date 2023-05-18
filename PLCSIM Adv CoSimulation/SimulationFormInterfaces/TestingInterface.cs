@@ -1393,7 +1393,7 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Simulation
 
         #region Interface
-        private void Btn_StartTest_Click(object sender, EventArgs e)
+        private async void Btn_StartTest_Click(object sender, EventArgs e)
         {
             // Local Fields
             string[] instructions;
@@ -1407,7 +1407,8 @@ namespace PLCSIM_Adv_CoSimulation
                 // Get test instructions
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
-                testResults = ExecuteTestInstructions(instructions);
+                var testTask = ExecuteTestInstructions(instructions);
+                testResults = await testTask;
                 if (testResults.Passed)
                 {
                     ListBox_Log.Items.Add(TestPassedMessage);
@@ -1459,7 +1460,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         /// <param name="instructions">String array </param>
         /// <returns>Test structure</returns>
-        private Test ExecuteTestInstructions(string[] instructions)
+        private async Task<Test> ExecuteTestInstructions(string[] instructions)
         {
             // TODO - Add a case for every possible instruction
             bool testPassed = true; // Check if test execution is successful
