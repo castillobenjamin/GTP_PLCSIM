@@ -25,6 +25,10 @@ namespace PLCSIM_Adv_CoSimulation
         private List<Deck> DeckList;
         private List<DynamicWorkStation> DwsList;
         // Structures
+        /// <summary>
+        /// Containts a string array with each instruction's execution result.
+        /// Contains a boolean variable to indicate if the test passed or failed.
+        /// </summary>
         internal struct Test 
         {
             internal string[] Results { get; }
@@ -1454,7 +1458,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// Runs the instructions specified on the Test file.
         /// </summary>
         /// <param name="instructions">String array </param>
-        /// <returns>Tuple (string array with the execution results, overall Passed/Failed boolean)</returns>
+        /// <returns>Test structure</returns>
         private Test ExecuteTestInstructions(string[] instructions)
         {
             // TODO - Add a case for every possible instruction
