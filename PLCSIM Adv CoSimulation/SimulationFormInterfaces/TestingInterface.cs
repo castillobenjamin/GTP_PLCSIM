@@ -52,7 +52,7 @@ namespace PLCSIM_Adv_CoSimulation
         // Output file name
         private string OutputFileName;
         // Constants
-        private readonly uint MaxInstructionParams = 3;
+        private readonly uint MaxInstructionParams = 4;
         private readonly int MaxReadOutputTries = 10;
         // Error messages
         private readonly string AreaNotRecognized = "Could not recognize the specified area.";
@@ -72,6 +72,7 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly string TestFileNotSetMessage = " Please choose a test file.";
         private readonly string DoorOperationExceptionMessage = "Only 'Open', 'Unlock', 'Lock' and 'Close' are accepted.";
         private readonly string BtnOperationExceptionMessage = "Only 'Press' and 'Release' are accepted.";
+        private readonly string ContactorOperationExceptionMessage = "Only 'On', 'Off', 'North' and 'South' area accepted.";
         #endregion // Fields
 
         #region Initialization
@@ -763,18 +764,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Signal tower
         #endregion // Panels
 
-        #region Aisles
-
-        #endregion // Aisles
-
-        #region Decks
-
-        #endregion // Decks
-
-        #region Dynamic Work Stations
-
-        #endregion // Dynamic Work Stations
-
         #region Stoppers
         /// <summary>
         ///  Open or close the stoppers of the specified area.
@@ -1440,6 +1429,83 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // SafetyDoor
 
+        #region Contactor
+        /// <summary>
+        /// Operate contactor.
+        /// </summary>
+        /// <param name="area">Area</param>
+        /// <param name="selection">For aisles, "North" or "South", Ignored for DWS</param>
+        /// <param name="action">"On" or "Off"</param>
+        /// <returns>True if successful.</returns>
+        private bool ContactorOperation(string area, string selection, string action)
+        {
+            // Local variables
+            object parsedArea;
+            bool parsedAction;
+            bool updateOk = true;
+            Aisle aisle;
+            DynamicWorkStation dws;
+            try
+            {
+                parsedArea = ConvertStringToArea(area);
+                if (action.ToLower() == "off") { parsedAction = false; }
+                else if (action.ToLower() == "on") { parsedAction = true; }
+                else
+                {
+                    MessageBox.Show(FormatException + ContactorOperationExceptionMessage);
+                    return false;
+                }
+                if (parsedArea is Aisle)
+                {
+                    aisle = (Aisle)parsedArea;
+                    if (selection.ToLower() == "north")
+                    {
+                        updateOk = UpdateInput(aisle.Contactors[0].ContactorOnOffCommand, parsedAction);
+                        // Need to update feedback too. Inverse of the output
+                        updateOk = UpdateInput(aisle.Contactors[0].ContactorFeedback, !parsedAction);
+                        return updateOk;
+                    }
+                    else if (selection.ToLower() == "south")
+                    {
+                        updateOk = UpdateInput(aisle.Contactors[1].ContactorOnOffCommand, parsedAction);
+                        // Need to update feedback too. Inverse of the output
+                        updateOk = UpdateInput(aisle.Contactors[1].ContactorFeedback, !parsedAction);
+                        return updateOk;
+                    }
+                    else
+                    {
+                        MessageBox.Show(FormatException + ContactorOperationExceptionMessage);
+                        return false;
+                    }
+                }
+                else if (parsedArea is DynamicWorkStation)
+                {
+                    dws = (DynamicWorkStation)parsedArea;
+                    updateOk = UpdateInput(dws.Contactor.ContactorOnOffCommand, parsedAction);
+                    // Need to update feedback too. Inverse of the output
+                    updateOk = UpdateInput(dws.Contactor.ContactorFeedback, !parsedAction);
+                    return updateOk;
+                }
+                // No reset btn on DWS
+                else
+                {
+                    MessageBox.Show(AreaNotRecognized + " " + parsedArea.GetType().ToString());
+                    return false;
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show(FormatException + " " + ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(UnhandledException + " " + ex.Message);
+                return false;
+            }
+        }
+        #endregion // Contactor
+
         #region RegEx
         /// <summary>
         /// Returns only one match of consecutive digits in the input string.
@@ -1495,9 +1561,7 @@ namespace PLCSIM_Adv_CoSimulation
                 return null;
             }
         }
-
         #endregion // Common methods
-
         #endregion // Simulation
 
         #region Interface
@@ -1675,10 +1739,10 @@ namespace PLCSIM_Adv_CoSimulation
                     switch(instructionSplit[0])
                     {
                         case "DoorOperation":
-                            DoorOperation(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = DoorOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "DoorKeyOperation":
-                            DoorKeyOperation(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = DoorKeyOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
@@ -1718,6 +1782,13 @@ namespace PLCSIM_Adv_CoSimulation
                             // code block
                             break;
                     }
+                }
+                // For contactors 
+                // "ContactorOperation Aisle1 South/North On/Off"
+                // "ContactorOperation Dws2 Ignore On/Off"
+                else if (instruction.Contains("Contactor"))
+                {
+                    instructionPassed = ContactorOperation(instructionSplit[1], instructionSplit[2], instructionSplit[3]);
                 }
                 else if (instruction.Contains("Wait"))
                 {
