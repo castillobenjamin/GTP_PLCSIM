@@ -24,6 +24,17 @@ namespace PLCSIM_Adv_CoSimulation
         private List<Aisle> AisleList;
         private List<Deck> DeckList;
         private List<DynamicWorkStation> DwsList;
+        // Structures
+        internal struct Test 
+        {
+            internal string[] Results { get; }
+            internal bool Passed { get; }
+            internal Test(string[] results, bool passed)
+            {
+                Results = results;
+                Passed = passed;
+            }
+        }
         // Timers
         private System.Threading.Timer HeartBeatTimer;
         // Interval used for all timers
@@ -34,8 +45,6 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly int RequestWaitTime = 3000; // Zoning request wait time.
         private readonly int StopperMovingTime = 1500; //
         private readonly int StopperWaitTime = 500;
-        // Counter to simulate the CELL pulse.
-        private byte HeartBeatCounter = 0;
         // Output file name
         private string OutputFileName;
         // Constants
@@ -85,7 +94,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             private byte invokeCount;
             private byte maxCount;
-            private CellCommunication cell; 
+            private CellCommunication cell;
 
             public HeartBeatUpdater(byte count, CellCommunication cell)
             {
@@ -143,9 +152,9 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 testName = "NoTestName";
             }
-            string fileName = programVersion + "_" + testName + "_" + currDT + "_" 
+            string fileName = programVersion + "_" + testName + "_" + currDT + "_"
                 + (testPassed ? "Passed" : "Failed");
-            return  fileName;
+            return fileName;
         }
         #endregion // FileName
 
@@ -183,7 +192,7 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 HeartBeatTimer.Dispose();
                 return UpdateInput(
-                    Cell.IsCellConnectedPulse, 
+                    Cell.IsCellConnectedPulse,
                     0);
             }
             catch (Exception ex)
@@ -204,10 +213,10 @@ namespace PLCSIM_Adv_CoSimulation
                 ushort bitPos =
                     Cell.SystemIsStartingUp.BitPosition;
                 UpdateInput(
-                    Cell.CanSystemStartUp, 
+                    Cell.CanSystemStartUp,
                     0);
                 return UpdateInput(
-                    Cell.SystemIsStartingUp, 
+                    Cell.SystemIsStartingUp,
                     Utils.SingleBitInWordValues[bitPos]);
             }
             catch (Exception ex)
@@ -225,13 +234,13 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                ushort bitPos = 
+                ushort bitPos =
                     Cell.CanSystemStartUp.BitPosition;
                 UpdateInput(
-                    Cell.SystemIsStartingUp, 
+                    Cell.SystemIsStartingUp,
                     0);
                 return UpdateInput(
-                    Cell.CanSystemStartUp, 
+                    Cell.CanSystemStartUp,
                     Utils.SingleBitInWordValues[bitPos]);
             }
             catch (Exception ex)
@@ -254,7 +263,7 @@ namespace PLCSIM_Adv_CoSimulation
                 // TODO add code.
                 return true;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return false;
@@ -292,7 +301,7 @@ namespace PLCSIM_Adv_CoSimulation
                 // TODO - add code
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return false;
@@ -515,9 +524,9 @@ namespace PLCSIM_Adv_CoSimulation
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 // DWS is a special case. HMI input is required.
-                if (area is DynamicWorkStation) 
+                if (area is DynamicWorkStation)
                 {
-                    MessageBox.Show(DWSRequestButtonPrompt, "User input required", 
+                    MessageBox.Show(DWSRequestButtonPrompt, "User input required",
                         MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation); // Prompt the user to press the request button
                     // Assume the user pressed the button and Requesting status is active
                     stepOk &= ZoningConfirmStatus(area.Zoning, Utils.ZoningStatusBytes["Requesting"]);
@@ -620,7 +629,7 @@ namespace PLCSIM_Adv_CoSimulation
                     return false;
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 // TODO - delete message box
                 MessageBox.Show(ex.Message);
@@ -642,7 +651,7 @@ namespace PLCSIM_Adv_CoSimulation
                 updateSuccess = ReadOutput(eStop.PlcStopRequest, value, MaxReadOutputTries, InstructionWaitTime);
                 return updateSuccess;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return false;
@@ -725,7 +734,7 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 return UpdateInput(
-                    CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn, 
+                    CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel.ResetBtn,
                     false);
             }
             catch (Exception ex)
@@ -844,7 +853,7 @@ namespace PLCSIM_Adv_CoSimulation
                 });
                 return stepOk;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(StopperActuationException + " " + ex.Message);
                 return false;
@@ -1064,10 +1073,10 @@ namespace PLCSIM_Adv_CoSimulation
                 register.Value = updateValue;
                 return true;
             }
-            catch (Exception ex) 
-            { 
-                MessageBox.Show(ex.Message); 
-                return false; 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
             }
         }
         #endregion // Update input
@@ -1088,7 +1097,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             try
             {
-                for(int i = 0; i < nOfTries; i++)
+                for (int i = 0; i < nOfTries; i++)
                 {
                     if (output.Value == expectedValue) return true;
                     WaitForPlc(waitTime); // wait for PLC to update
@@ -1144,7 +1153,7 @@ namespace PLCSIM_Adv_CoSimulation
                     WaitForPlc(waitTime); // wait for PLC to update
                 }
                 return false;
-        }
+            }
             catch
             {
                 return false;
@@ -1176,7 +1185,7 @@ namespace PLCSIM_Adv_CoSimulation
                  */
                 if (action == "Release") { parsedAction = true; }
                 else if (action == "Press") { parsedAction = false; }
-                else 
+                else
                 {
                     MessageBox.Show(FormatException + "Only 'Press' and 'Release' are accepted.");
                     return false;
@@ -1202,7 +1211,7 @@ namespace PLCSIM_Adv_CoSimulation
                     return false;
                 }
             }
-            catch(FormatException ex)
+            catch (FormatException ex)
             {
                 MessageBox.Show(FormatException + " " + ex.Message);
                 return false;
@@ -1384,17 +1393,18 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // Local Fields
             string[] instructions;
-            string[] testResults;
-            bool testPassed;
+            //string[] testResults;
+            //bool testPassed;
             bool outputOk;
+            Test testResults;
             //Read file with test instructions
             try
             {
                 // Get test instructions
                 instructions = Utils.ConvertTextFile2List(TextBox_TestFilePath.Text);
                 // Execute test instructions
-                (testResults, testPassed) = ExecuteTestInstructions(instructions);
-                if (testPassed) 
+                testResults = ExecuteTestInstructions(instructions);
+                if (testResults.Passed)
                 {
                     ListBox_Log.Items.Add(TestPassedMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
@@ -1406,13 +1416,13 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 // TODO - output test results to a file.
                 OutputFileName = SetFileName(
-                    TextBox_ProgramVersion.Text, TextBox_TestName.Text, testPassed);
-                outputOk = Utils.ConvertList2File(testResults, OutputFileName);
+                    TextBox_ProgramVersion.Text, TextBox_TestName.Text, testResults.Passed);
+                outputOk = Utils.ConvertList2File(testResults.Results, OutputFileName);
                 if (outputOk)
                 {
                     MessageBox.Show(SaveToFileSuccessMessage + OutputFileName + "'");
                 }
-                else 
+                else
                 {
                     MessageBox.Show(SafeToFileFailedMessage);
                 }
@@ -1445,13 +1455,9 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         /// <param name="instructions">String array </param>
         /// <returns>Tuple (string array with the execution results, overall Passed/Failed boolean)</returns>
-        private (string[], bool) ExecuteTestInstructions(string[] instructions)
+        private Test ExecuteTestInstructions(string[] instructions)
         {
             // TODO - Add a case for every possible instruction
-            // TODO - log action and results of each iteration.
-            // TODO - add pause parameter and prompt a message box.
-            // Use else-if for each instruction category.
-            // Use a switch-case for individual instructions in each category.
             bool testPassed = true; // Check if test execution is successful
             bool instructionPassed; // check if each instruction execution is successful
             string executionMessage;
@@ -1623,8 +1629,9 @@ namespace PLCSIM_Adv_CoSimulation
                 // Wait after each instruction has been procesed.
                 WaitForPlc(InstructionWaitTime);
             }
-            // Return a string with the results of the test run.
-            return (results, testPassed);
+            // Return a "Test" structure with the results
+            Test testResults = new Test(results, testPassed);
+            return testResults;
         }
 
         #endregion // Test execution
