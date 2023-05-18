@@ -391,7 +391,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <param name="area">For example: "aisle1", "deck4", "dws5"</param>
         /// <param name="expectedStatus">See 'Utils/ZoningStatuses'</param>
         /// <returns></returns>
-        private bool ZoningConfirmStatus(string area, string expectedStatus)
+        private async Task<bool> ZoningConfirmStatus(string area, string expectedStatus)
         {
             // Local variables
             byte parsedStatus;
@@ -406,17 +406,20 @@ namespace PLCSIM_Adv_CoSimulation
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
-                    return ZoningConfirmStatus(aisle.Zoning, parsedStatus);
+                    var confirmationTask = await ZoningConfirmStatus(aisle.Zoning, parsedStatus);
+                    return confirmationTask;
                 }
                 else if (parsedArea is Deck)
                 {
                     deck = (Deck)parsedArea;
-                    return ZoningConfirmStatus(deck.Zoning, parsedStatus);
+                    var confirmationTask = await ZoningConfirmStatus(deck.Zoning, parsedStatus);
+                    return confirmationTask;
                 }
                 else if (parsedArea is DynamicWorkStation)
                 {
                     dws = (DynamicWorkStation)parsedArea;
-                    return ZoningConfirmStatus(dws.Zoning, parsedStatus);
+                    var confirmationTask = await ZoningConfirmStatus(dws.Zoning, parsedStatus);
+                    return confirmationTask;
                 }
                 else
                 {
@@ -436,12 +439,13 @@ namespace PLCSIM_Adv_CoSimulation
         /// <param name="areaZoning">the "zoning" instance of an area</param>
         /// <param name="expectedStatus">Accepted status values are defined in 'Utils/ZoningStatuses'</param>
         /// <returns></returns>
-        private bool ZoningConfirmStatus(Zoning areaZoning, byte expectedStatus)
+        private async Task<bool> ZoningConfirmStatus(Zoning areaZoning, byte expectedStatus)
         {
             bool readSuccess;
             try
             {
-                readSuccess = ReadOutput(areaZoning.ZoningStatus, expectedStatus, MaxReadOutputTries, InstructionWaitTime);
+                var readTask = ReadOutput(areaZoning.ZoningStatus, expectedStatus, MaxReadOutputTries, InstructionWaitTime);
+                readSuccess = await readTask;
                 return readSuccess;
             }
             catch (Exception ex)
@@ -1104,7 +1108,7 @@ namespace PLCSIM_Adv_CoSimulation
                 for (int i = 0; i < nOfTries; i++)
                 {
                     if (output.Value == expectedValue) return true;
-                    WaitForPlc(waitTime); // wait for PLC to update
+                    Task.Delay(waitTime);
                 }
                 return false;
             }
@@ -1129,7 +1133,7 @@ namespace PLCSIM_Adv_CoSimulation
                 for (int i = 0; i < nOfTries; i++)
                 {
                     if (Utils.ReadRegisterBit(register) == expectedValue) return true;
-                    WaitForPlc(waitTime); // wait for PLC to update
+                    Task.Delay(waitTime);
                 }
                 return false;
             }
@@ -1147,14 +1151,14 @@ namespace PLCSIM_Adv_CoSimulation
         /// <param name="nOfTries">Maximum number of tries to read the output value</param>
         /// <param name="waitTime">Time to wait between read attempts</param>
         /// <returns>True if the output had the expected value. False if the value is different or the method fails.</returns>
-        private bool ReadOutput(RegisterFromPlc register, byte expectedValue, int nOfTries, int waitTime)
+        private async Task<bool> ReadOutput(RegisterFromPlc register, byte expectedValue, int nOfTries, int waitTime)
         {
             try
             {
                 for (int i = 0; i < nOfTries; i++)
                 {
                     if (Utils.GetLowerByte(register.Value) == expectedValue) return true;
-                    WaitForPlc(waitTime); // wait for PLC to update
+                    Task.Delay(waitTime);
                 }
                 return false;
             }
@@ -1534,7 +1538,8 @@ namespace PLCSIM_Adv_CoSimulation
                             instructionPassed = ZoningSendCommand(instructionSplit[1], instructionSplit[2]);
                             break;
                         case "ZoningConfirmStatus":
-                            instructionPassed = ZoningConfirmStatus(instructionSplit[1], instructionSplit[2]);
+                            var confirmationTask = await ZoningConfirmStatus(instructionSplit[1], instructionSplit[2]);
+                            instructionPassed = confirmationTask;
                             break;
                         case "ZoningRequestRoutine":
                             instructionPassed = ZoningRequestRoutine(instructionSplit[1]);
