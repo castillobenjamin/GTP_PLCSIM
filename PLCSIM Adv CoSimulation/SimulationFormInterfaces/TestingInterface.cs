@@ -1809,8 +1809,8 @@ namespace PLCSIM_Adv_CoSimulation
                 // Log execution results
                 testPassed &= instructionPassed;
                 executionMessage = instruction 
-                    + " - Execution " 
-                    + (instructionPassed ? "complete." : "failed.");
+                    + " - " 
+                    + (instructionPassed ? "Passed" : "Failed");
                 ListBox_Log.Items.Add(executionMessage);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 results[i] = executionMessage;
