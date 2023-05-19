@@ -170,7 +170,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // FileName
 
         #region Simulation
-        // TODO - add a method for every input.
         #region CELL
         /// <summary>
         /// Turn on CELL
@@ -265,14 +264,16 @@ namespace PLCSIM_Adv_CoSimulation
         /// Confirm the error status of the PLC
         /// </summary>
         /// <param name="errorIsExpected">"True" if Error status is expected. Else "False"</param>
-        /// <returns></returns>
+        /// <returns>True if successful</returns>
         private bool CellConfirmPlcErrorStatus(string errorIsExpected)
         {
-
+            bool readSuccess;
+            bool errorOn;
             try
             {
-                // TODO add code.
-                return true;
+                errorOn = bool.Parse(errorIsExpected);
+                readSuccess = ReadOutput(Cell.PlcHasError, errorOn, MaxReadOutputTries, InstructionWaitTime);
+                return readSuccess;
             }
             catch (Exception ex)
             {
@@ -285,13 +286,16 @@ namespace PLCSIM_Adv_CoSimulation
         /// Confirm the warning status of the PLC
         /// </summary>
         /// <param name="warningIsExpected">"True" if Warning status is expected. Else "False"</param>
-        /// <returns></returns>
+        /// <returns>True if successful</returns>
         private bool CellConfirmPlcWarningStatus(string warningIsExpected)
         {
+            bool readSuccess;
+            bool warningOn;
             try
             {
-                // TODO - add code
-                return true;
+                warningOn = bool.Parse(warningIsExpected);
+                readSuccess = ReadOutput(Cell.IsPlcWarningMode, warningOn, MaxReadOutputTries, InstructionWaitTime);
+                return readSuccess;
             }
             catch (Exception ex)
             {
@@ -304,13 +308,16 @@ namespace PLCSIM_Adv_CoSimulation
         /// Confirm the mode of the PLC
         /// </summary>
         /// <param name="expectedMode">"Manual" or "Auto".</param>
-        /// <returns></returns>
+        /// <returns>True if successful</returns>
         private bool CellConfirmPlcMode(string expectedMode)
         {
+            bool readSuccess;
+            bool mode;
             try
             {
-                // TODO - add code
-                return true;
+                mode = bool.Parse(expectedMode);
+                readSuccess = ReadOutput(Cell.IsPlcAutoMode, mode, MaxReadOutputTries, InstructionWaitTime);
+                return readSuccess;
             }
             catch (Exception ex)
             {
@@ -386,7 +393,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -453,7 +459,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -474,7 +479,6 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 parsedArea = ConvertStringToArea(area);
-                // TODO - need to make sure this conditions work
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
@@ -483,13 +487,11 @@ namespace PLCSIM_Adv_CoSimulation
                 else if (parsedArea is Deck)
                 {
                     deck = (Deck)parsedArea;
-                    // TODO - update method call
                     return ZoningRequestRoutine(deck);
                 }
                 else if (parsedArea is DynamicWorkStation)
                 {
                     dws = (DynamicWorkStation)parsedArea;
-                    // TODO - update method call
                     return ZoningRequestRoutine(dws);
                 }
                 else
@@ -511,7 +513,6 @@ namespace PLCSIM_Adv_CoSimulation
         /// <returns>True if routine is executed successfully.</returns>
         private bool ZoningRequestRoutine(dynamic area)
         {
-            // TODO - add logs!!!!!!!!
             // TODO - add Miyano compatibility. This only works for Alpen currently.
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             byte zoningCommand = (byte)Utils.CellCommandValues.Permit;
@@ -552,7 +553,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -560,7 +560,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Zoning
 
         #region Zone Estop
-
         /// <summary>
         /// Send the "Estop processing completed" signal to the relevant area.
         /// </summary>
@@ -610,7 +609,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -642,7 +640,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -695,7 +692,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(ex.Message);
                 return false;
             }
@@ -842,12 +838,10 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(StopperActuationException + " " + ex.Message);
                 return false;
             }
         }
-
         /// <summary>
         /// Open or close specified stopper.
         /// </summary>
@@ -912,37 +906,25 @@ namespace PLCSIM_Adv_CoSimulation
                 // Check if the stopper is open.
                 else if (ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
-                    // TODO - remove wait
-                    //WaitForPlc(StopperWaitTime);
                     stepOk &= UpdateInput(stopper.CloseCommandFromCell, true); // Send close command
                     stepMessage = stepOk ? " Close command sent." : " Fail to send close command.";
                     ListBox_Log.Items.Add(stopper.Name + stepMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                    // TODO - remove wait and messagebox
                     WaitForPlc(StopperWaitTime);
                     WaitForPlc(StopperWaitTime);
-                    // MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcCloseOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the close output is on
                     {
                         ListBox_Log.Items.Add(stopper.Name + " Close output on.");
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         stepOk &= UpdateInput(stopper.IsOpenSensor, true); // turn off open sensor (inverted logic for Alpen)
-                        // TODO - remove this wait time?
                         WaitForPlc(StopperMovingTime); // No harm in waiting... right?
                         stepOk &= UpdateInput(stopper.IsClosedSensor, false); // turn on closed sensor (inverted logic for Alpen)
-                        // TODO - remove wait and messagebox
-                        //WaitForPlc(StopperWaitTime);
                         stepOk &= ReadOutput(stopper.PlcCloseOut, false, MaxReadOutputTries, InstructionWaitTime); // Check close output is off
-                        //WaitForPlc(StopperWaitTime);
-                        // TODO - remove messagebox
-                        //MessageBox.Show("Wait for PLC to send closed signal.");
                         stepOk &= ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the closed status signal
                         stepOk &= UpdateInput(stopper.CloseCommandFromCell, false); // turn off close command
                         stepMessage = stepOk ? " is now closed." : " is not closed yet.";
                         ListBox_Log.Items.Add(stopper.Name + stepMessage);
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                        // TODO - remove wait and messagebox
-                        //WaitForPlc(StopperWaitTime);
                     }
                     else
                     {
@@ -960,7 +942,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(stopper.Name + " " + StopperCloseException + " " + ex.Message);
                 return false;
             }
@@ -973,7 +954,6 @@ namespace PLCSIM_Adv_CoSimulation
         /// <returns>True if succesful.</returns>
         private bool StopperOpen(Stopper stopper)
         {
-            // TODO - update logic according to stopper close method updates.
             bool stepOk = true; // Checks every step of the routine. If one steps fails, false.
             string stepMessage;
             try
@@ -988,36 +968,24 @@ namespace PLCSIM_Adv_CoSimulation
                 // Check if the stopper is closed.
                 else if (ReadOutput(stopper.IsClosedStatusToCell, true, MaxReadOutputTries, InstructionWaitTime))
                 {
-                    // TODO - remove wait
-                    //WaitForPlc(StopperWaitTime);
                     stepOk &= UpdateInput(stopper.OpenCommandFromCell, true); // Send open command
                     stepMessage = stepOk ? " Open command sent." : " Fail to send open command.";
                     ListBox_Log.Items.Add(stopper.Name + stepMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                    // TODO - remove wait and messagebox
                     WaitForPlc(StopperWaitTime);
-                    // MessageBox.Show("Wait for PLC to turn on output.");
                     if (ReadOutput(stopper.PlcOpenOut, true, MaxReadOutputTries, InstructionWaitTime)) // Check if the open output is on
                     {
                         ListBox_Log.Items.Add(stopper.Name + " Open output on.");
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                         stepOk &= UpdateInput(stopper.IsClosedSensor, true); // turn off closed sensor (inverted logic for Alpen)
-                        // TODO - remove this wait time?
                         WaitForPlc(StopperMovingTime); // No harm in waiting... right?
                         stepOk &= UpdateInput(stopper.IsOpenSensor, false); // turn on open sensor (inverted logic for Alpen)
-                        // TODO - remove wait and messagebox
-                        //WaitForPlc(StopperWaitTime);
                         stepOk &= ReadOutput(stopper.PlcOpenOut, false, MaxReadOutputTries, InstructionWaitTime); // Check open output is off
-                        //WaitForPlc(StopperWaitTime);
-                        // TODO - remove messagebox
-                        //MessageBox.Show("Wait for PLC to send closed signal.");
                         stepOk &= ReadOutput(stopper.IsOpenStatusToCell, true, MaxReadOutputTries, InstructionWaitTime); // Read the open status signal
                         stepOk &= UpdateInput(stopper.OpenCommandFromCell, false); // turn off open command
                         stepMessage = stepOk ? " is now open." : " is not open yet.";
                         ListBox_Log.Items.Add(stopper.Name + stepMessage);
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                        // TODO - remove wait and messagebox
-                        //WaitForPlc(StopperWaitTime);
                     }
                     else
                     {
@@ -1035,7 +1003,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete message box
                 MessageBox.Show(stopper.Name + " " + StopperOpenException + " " + ex.Message);
                 return false;
             }
@@ -1113,8 +1080,6 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Update input
 
         #region Read output
-        // TODO - Make these methods asynchronous!
-        // TODO - Use multiple threads?
         /// <summary>
         /// Checks the output signal value.
         /// If the output value is not equal to expectedValue after trying nOfTries, returns false.
@@ -1210,10 +1175,7 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 parsedArea = ConvertStringToArea(area);
-                /*
-                 * NOTE:
-                 * When the Estop is pressed, the PLC input is false.
-                 */
+                 // When the Estop is pressed, the PLC input is false.
                 if (action.ToLower() == "release") { parsedAction = true; }
                 else if (action.ToLower() == "press") { parsedAction = false; }
                 else
@@ -1592,7 +1554,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
             catch (Exception ex)
             {
-                // TODO - delete after debugging
                 MessageBox.Show(StringToAreaConversion + " " + ex.Message);
                 return null;
             }
@@ -1626,7 +1587,7 @@ namespace PLCSIM_Adv_CoSimulation
                     ListBox_Log.Items.Add(TestFailedMessage);
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
-                // TODO - output test results to a file.
+                // Output test results to a file.
                 OutputFileName = SetFileName(
                     TextBox_ProgramVersion.Text, TextBox_TestName.Text, testResults.Passed);
                 outputOk = Utils.ConvertList2File(testResults.Results, OutputFileName);
@@ -1788,7 +1749,7 @@ namespace PLCSIM_Adv_CoSimulation
                             break;
                     }
                 }
-                else if (instruction.Contains("Estop")) // NOTE - This else if has to be after the "Btn" else if
+                else if (instruction.Contains("Estop")) // This else if has to be after the "Btn" else if
                 {
                     switch(instructionSplit[0])
                     {
@@ -1842,19 +1803,8 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 else
                 {
-                    // TODO - delete messagebox (used for debugging).
-                    MessageBox.Show("Inside else, this instruction slipped out of all the ifs!" + instructionSplit[0]);
-                    switch (instruction)
-                    {
-                        // TODO - delete case. Currently here for testing purposes.
-                        case "DummyInstruction":
-                            instructionPassed = false;
-                            break;
-                        default:
-                            ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
-                            // code block
-                            break;
-                    }
+                    instructionPassed = false;
+                    ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);
                 }
                 // Log execution results
                 testPassed &= instructionPassed;
