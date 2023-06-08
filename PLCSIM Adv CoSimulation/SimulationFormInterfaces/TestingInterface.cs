@@ -31,7 +31,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// Containts a string array with each instruction's execution result.
         /// Contains a boolean variable to indicate if the test passed or failed.
         /// </summary>
-        internal struct Test 
+        internal struct Test
         {
             internal string[] Results { get; }
             internal bool Passed { get; }
@@ -814,8 +814,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Stoppers.ForEach(stopper =>
                 {
                     // Check if the name of the current stopper includes the name of the current area.
-                    // TODO - aisle1 also calls aisle 10! Fix.
-                    if (stopper.Name.ToLower().Contains(areaName.ToLower()))
+                    // TODO - aisle1 also calls aisle 10! Updates done. Need to test on Simulation.
+                    // Check if the stopper's label contains the area name with a space at the end or if it ends with the area name
+                    // This solution only works with the label of the stopper.
+                    if (stopper.Name.ToLower().Contains(areaName.ToLower() + "_") || stopper.Name.ToLower().EndsWith(areaName.ToLower()))
                     {
                         ListBox_Log.Items.Add($"Actuating {stopper.Name}");
                         ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
