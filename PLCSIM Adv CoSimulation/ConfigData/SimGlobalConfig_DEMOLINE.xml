@@ -1016,6 +1016,69 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
+		<Stopper Name="NEW_STOPPER_AISLE3_DECK1" Label="Stopper Aisle3 DECK1">
+			<PlcOpenOut>
+				<Tag>DQ_StopperOpen_DECK1_AISLE3</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut>
+				<Tag>DQ_StopperClose_DECK1_AISLE3</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcCloseOut>
+			<IsOpenSensor>
+				<Tag>DI_StopperOpen_DECK1_AISLE3</Tag>
+				<Address />
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor>
+				<Tag>DI_StopperOpen_DECK1_AISLE3</Tag>
+				<Address />
+				<Value>true</Value>
+			</IsClosedSensor>
+			<InvAlarm>
+				<Tag>DI_StopperAlarm_DECK1_AISLE3</Tag>
+				<Address />
+				<Value>true</Value>
+			</InvAlarm>
+			<OpenCommandFromCell>
+				<Tag>NoTag</Tag>
+				<Address>314</Address>
+				<BitPosition>8</BitPosition>
+				<Value>0</Value>
+			</OpenCommandFromCell>
+			<CloseCommandFromCell>
+				<Tag>NoTag</Tag>
+				<Address>314</Address>
+				<BitPosition>9</BitPosition>
+				<Value>0</Value>
+			</CloseCommandFromCell>
+			<IsOpenStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>8</BitPosition>
+				<Value>0</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>9</BitPosition>
+				<Value>0</Value>
+			</IsClosedStatusToCell>
+			<ErrorSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>10</BitPosition>
+				<Value>0</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address>134</Address>
+				<BitPosition>11</BitPosition>
+				<Value>0</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
 	</Stoppers>
 	<IsStopperSensorInverted>false</IsStopperSensorInverted>
 </AlphaBotSystem>
