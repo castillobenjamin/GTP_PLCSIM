@@ -1033,7 +1033,7 @@
 				<Value>false</Value>
 			</IsOpenSensor>
 			<IsClosedSensor>
-				<Tag>DI_StopperOpen_DECK1_AISLE3</Tag>
+				<Tag>DI_StopperClosed_DECK1_AISLE3</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
