@@ -1016,7 +1016,7 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper Name="NEW_STOPPER_AISLE3_DECK1" Label="Stopper Aisle3 DECK1">
+		<Stopper Name="NEW_STOPPER_AISLE3_DECK1" Label="NEW Stopper Aisle3 DECK1">
 			<PlcOpenOut>
 				<Tag>DQ_StopperOpen_DECK1_AISLE3</Tag>
 				<Address />
