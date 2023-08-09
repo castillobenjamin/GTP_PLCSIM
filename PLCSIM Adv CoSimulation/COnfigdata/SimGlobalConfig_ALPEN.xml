@@ -175,6 +175,11 @@
 			<Address></Address>
 			<Value>true</Value>
 		</BotHP>
+		<MaintLamp>
+			<Tag>MaintenanceLamp_AISLE8</Tag>
+			<Address></Address>
+			<Value>false</Value>
+		</MaintLamp>
 		<BotHPtoCell>
 			<Tag>noTag</Tag>
 			<Address>197</Address>

@@ -233,6 +233,7 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
+            this.Label_MaintLamp_EvacMaintArea = new System.Windows.Forms.Label();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -2457,6 +2458,7 @@
             // 
             // GroupBox_Door_EvacAndMaintArea
             // 
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.Label_MaintLamp_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorLock_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox48);
@@ -2915,6 +2917,16 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
+            // Label_MaintLamp_EvacMaintArea
+            // 
+            this.Label_MaintLamp_EvacMaintArea.AutoSize = true;
+            this.Label_MaintLamp_EvacMaintArea.Location = new System.Drawing.Point(92, 71);
+            this.Label_MaintLamp_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_MaintLamp_EvacMaintArea.Name = "Label_MaintLamp_EvacMaintArea";
+            this.Label_MaintLamp_EvacMaintArea.Size = new System.Drawing.Size(23, 12);
+            this.Label_MaintLamp_EvacMaintArea.TabIndex = 31;
+            this.Label_MaintLamp_EvacMaintArea.Text = "---";
+            // 
             // CoSimInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3027,6 +3039,7 @@
             this.GroupBox_EstopMaintArea.ResumeLayout(false);
             this.GroupBox_EstopMaintArea.PerformLayout();
             this.GroupBox_Door_EvacAndMaintArea.ResumeLayout(false);
+            this.GroupBox_Door_EvacAndMaintArea.PerformLayout();
             this.groupBox_DoorReady_EvacMaintArea.ResumeLayout(false);
             this.groupBox_DoorReady_EvacMaintArea.PerformLayout();
             this.groupBox_DoorLock_EvacMaintArea.ResumeLayout(false);
@@ -3252,5 +3265,6 @@
         private System.Windows.Forms.Button Btn_Request_Maint;
         private System.Windows.Forms.CheckBox CheckBox_BOT_HP;
         private System.Windows.Forms.Label Label_BotHPtoCell;
+        private System.Windows.Forms.Label Label_MaintLamp_EvacMaintArea;
     }
 }

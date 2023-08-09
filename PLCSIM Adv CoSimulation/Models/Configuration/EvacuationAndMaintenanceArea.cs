@@ -19,6 +19,7 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         #region Properties
         public OperationBox OperationBox { get; set; }
         public PlcInput BotHP { get; set; } // BOT sensor
+        public PlcOutput MaintLamp { get; set; } // Maintenance status indicator lamp
         public RegisterFromPlc BotHPtoCell { get; set; } // BOT HP register to CELL
         public Door Door { get; set; }
         public Contactor Contactor { get; set; }

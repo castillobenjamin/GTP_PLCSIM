@@ -2618,6 +2618,31 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Emergency stop
 
+        #region Maintenance lamp
+        private void Update_Label_MaintLamp_EvacMaintArea()
+        {
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
+            {
+                string ledStatus;
+                // Read Plc output
+                if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.MaintLamp.Value == true)
+                {
+                    Label_MaintLamp_EvacMaintArea.ForeColor = activeLabelColor;
+                    Label_MaintLamp_EvacMaintArea.Font = activeLabelFont;
+                    ledStatus = "ON";
+                }
+                else
+                {
+                    Label_MaintLamp_EvacMaintArea.ForeColor = inactiveLabelColor;
+                    Label_MaintLamp_EvacMaintArea.Font = inactiveLabelFont;
+                    ledStatus = "OFF";
+                }
+                //Update label
+                Label_MaintLamp_EvacMaintArea.Text = "led " + ledStatus;
+            }
+        }
+        #endregion // Maintenance lamp
+
         #endregion // Output
 
         #endregion // Evacuation and Maintenance area
