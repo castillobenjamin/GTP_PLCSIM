@@ -2482,6 +2482,7 @@ namespace PLCSIM_Adv_CoSimulation
             Update_Label_BotHPtoCell();
             Update_Label_PlcStopRequest_Maint();
             Update_Label_PlcIsStopStatus_Maint();
+            Update_Label_MaintLamp_EvacMaintArea();
         }
 
         #region OpBox
