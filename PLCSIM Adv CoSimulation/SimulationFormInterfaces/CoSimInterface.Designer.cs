@@ -197,6 +197,7 @@
             this.Label_PlcStopRequest_Maint = new System.Windows.Forms.Label();
             this.CheckBox_EstopBtn_EvacMaintArea = new System.Windows.Forms.CheckBox();
             this.GroupBox_Door_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
+            this.Label_MaintLamp_EvacMaintArea = new System.Windows.Forms.Label();
             this.groupBox_DoorReady_EvacMaintArea = new System.Windows.Forms.GroupBox();
             this.RadioButton_DoorReady_MaintArea = new System.Windows.Forms.RadioButton();
             this.RadioButton_DoorNotReady_MaintArea = new System.Windows.Forms.RadioButton();
@@ -233,7 +234,7 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
-            this.Label_MaintLamp_EvacMaintArea = new System.Windows.Forms.Label();
+            this.MaintLampLabel = new System.Windows.Forms.Label();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -2458,6 +2459,7 @@
             // 
             // GroupBox_Door_EvacAndMaintArea
             // 
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.MaintLampLabel);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.Label_MaintLamp_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorLock_EvacMaintArea);
@@ -2470,6 +2472,16 @@
             this.GroupBox_Door_EvacAndMaintArea.TabIndex = 31;
             this.GroupBox_Door_EvacAndMaintArea.TabStop = false;
             this.GroupBox_Door_EvacAndMaintArea.Text = "扉";
+            // 
+            // Label_MaintLamp_EvacMaintArea
+            // 
+            this.Label_MaintLamp_EvacMaintArea.AutoSize = true;
+            this.Label_MaintLamp_EvacMaintArea.Location = new System.Drawing.Point(92, 83);
+            this.Label_MaintLamp_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Label_MaintLamp_EvacMaintArea.Name = "Label_MaintLamp_EvacMaintArea";
+            this.Label_MaintLamp_EvacMaintArea.Size = new System.Drawing.Size(23, 12);
+            this.Label_MaintLamp_EvacMaintArea.TabIndex = 31;
+            this.Label_MaintLamp_EvacMaintArea.Text = "---";
             // 
             // groupBox_DoorReady_EvacMaintArea
             // 
@@ -2917,15 +2929,15 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
-            // Label_MaintLamp_EvacMaintArea
+            // MaintLampLabel
             // 
-            this.Label_MaintLamp_EvacMaintArea.AutoSize = true;
-            this.Label_MaintLamp_EvacMaintArea.Location = new System.Drawing.Point(92, 71);
-            this.Label_MaintLamp_EvacMaintArea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_MaintLamp_EvacMaintArea.Name = "Label_MaintLamp_EvacMaintArea";
-            this.Label_MaintLamp_EvacMaintArea.Size = new System.Drawing.Size(23, 12);
-            this.Label_MaintLamp_EvacMaintArea.TabIndex = 31;
-            this.Label_MaintLamp_EvacMaintArea.Text = "---";
+            this.MaintLampLabel.AutoSize = true;
+            this.MaintLampLabel.Location = new System.Drawing.Point(92, 65);
+            this.MaintLampLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.MaintLampLabel.Name = "MaintLampLabel";
+            this.MaintLampLabel.Size = new System.Drawing.Size(60, 12);
+            this.MaintLampLabel.TabIndex = 32;
+            this.MaintLampLabel.Text = "MaintLamp";
             // 
             // CoSimInterface
             // 
@@ -3266,5 +3278,6 @@
         private System.Windows.Forms.CheckBox CheckBox_BOT_HP;
         private System.Windows.Forms.Label Label_BotHPtoCell;
         private System.Windows.Forms.Label Label_MaintLamp_EvacMaintArea;
+        private System.Windows.Forms.Label MaintLampLabel;
     }
 }
