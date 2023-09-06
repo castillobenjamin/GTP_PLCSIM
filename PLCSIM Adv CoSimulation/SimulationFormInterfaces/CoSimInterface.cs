@@ -116,7 +116,7 @@ namespace PLCSIM_Adv_CoSimulation
             ComboBox_Stoppers.SelectedIndex = 0;
             // Shutters
             // Shutters are an option
-            if(CoSimulationInstance.AlphaBotSystem.FirePreventionShuttersSpecified)
+            if (CoSimulationInstance.AlphaBotSystem.FirePreventionShuttersSpecified)
             {
                 CoSimulationInstance.AlphaBotSystem.FirePreventionShutters.ForEach(x =>
                 {
@@ -151,13 +151,13 @@ namespace PLCSIM_Adv_CoSimulation
         }
         private void InitializeEvacMaintArea()
         {
-            RadioButton_DoorClosed_EvacMaintArea.Checked = 
+            RadioButton_DoorClosed_EvacMaintArea.Checked =
                 CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorOpen_EvacMaintArea.Checked = 
+            RadioButton_DoorOpen_EvacMaintArea.Checked =
                 !CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorLocked_EvacMaintArea.Checked = 
+            RadioButton_DoorLocked_EvacMaintArea.Checked =
                 CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorLockedKeySwitch.Value;
-            RadioButton_DoorUnlocked_EvacMaintArea.Checked = 
+            RadioButton_DoorUnlocked_EvacMaintArea.Checked =
                 !CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorLockedKeySwitch.Value;
             if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInputSpecified)
             {
@@ -220,7 +220,7 @@ namespace PLCSIM_Adv_CoSimulation
                 CheckBox_DWSCovers.Hide();
             }
             // Hide E-stop Section on Maint area
-            if(!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
+            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
             {
                 GroupBox_EstopMaintArea.Hide();
             }
@@ -741,6 +741,7 @@ namespace PLCSIM_Adv_CoSimulation
             Update_Label_Scaffold_AisleSouth();
             Update_Label_ContactorPlcOut_AisleNorth();
             Update_Label_ContactorPlcOut_AisleSouth();
+            UpdateAllAisleContactorOutputs();
         }
         private void Update_Label_OpBoxLed_Aisle()
         {
@@ -802,7 +803,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             // Read PLC input
             string status;
-            if(currentAisle.Scaffolds[0].Value)
+            if (currentAisle.Scaffolds[0].Value)
             {
                 status = "ON";
                 Label_Scaffold_AisleNorth.ForeColor = activeLabelColor;
@@ -867,7 +868,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             string status;
             // Read PLC output
-            if (currentAisle.Contactors[1].ContactorOutput.Value == true) 
+            if (currentAisle.Contactors[1].ContactorOutput.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_AisleSouth.ForeColor = activeLabelColor;
@@ -885,6 +886,17 @@ namespace PLCSIM_Adv_CoSimulation
             }
             //Update labels
             Label_ContactorPlcOut_AisleSouth.Text = "Ctor " + status;
+        }
+
+        /// <summary>
+        /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
+        /// Added to accept HMI commands during simultaion.
+        /// </summary>
+        private void UpdateAllAisleContactorOutputs()
+        {
+            // Simply read all contactors and assign the inverse of the output value to the feedback value.
+            CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+                aisle.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
         }
         #endregion // Contactors
 
@@ -1538,6 +1550,7 @@ namespace PLCSIM_Adv_CoSimulation
             Update_Label_ContactorPlcOut_DWS();
             Update_Label_PlcStopRequest_DWS();
             Update_Label_PlcIsStopStatus_DWS();
+            UpdateAllDWSContactorOutputs();
         }
 
         private void Update_TextBox_ZoningStatus_DWS()
@@ -1597,6 +1610,17 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_PlcIsStopStatus_DWS.ForeColor = inactiveLabelColor;
                 Label_PlcIsStopStatus_DWS.Font = inactiveLabelFont;
             }
+        }
+
+        /// <summary>
+        /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
+        /// Added to accept HMI commands during simultaion.
+        /// </summary>
+        private void UpdateAllDWSContactorOutputs()
+        {
+            // Simply read all contactors and assign the inverse of the output value to the feedback value.
+            CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
+                dws.Contactor.ContactorFeedback.Value = ! dws.Contactor.ContactorOutput.Value);
         }
         #endregion // Output
         #endregion // DWS
@@ -1982,6 +2006,7 @@ namespace PLCSIM_Adv_CoSimulation
             Update_Label_PlcCloseOut_Stopper();
             Update_Label_IsOpenSensor_Stopper();
             Update_Label_IsClosedSensor_Stopper();
+            Update_AllStoppersIO();
         }
 
         private void Update_Label_IsOpenSensor_Stopper()
@@ -2048,6 +2073,40 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_TimeOverSignalToCell_Stopper()
         {
             UpdateSignalLabel(currentStopper.TimeOverSignalToCell, Label_TimeOverSignalToCell_Stopper, true);
+        }
+
+        /// <summary>
+        /// Updates the stoppers' sensors according to the output.
+        /// I.e. Instantly close/open the stopper when the corresponding output is active.
+        /// </summary>
+        private void Update_AllStoppersIO()
+        {
+            CoSimulationInstance.AlphaBotSystem.Stoppers.ForEach(stopper =>
+                {
+                    // Only works on manual mode
+                    if (!CheckBox_AutoStopper.Checked)
+                    {
+                        // if the close command is on
+                        if (stopper.PlcCloseOut.Value 
+                            & ((!CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & stopper.IsOpenSensor.Value & !stopper.IsClosedSensor.Value)
+                                || (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & !stopper.IsOpenSensor.Value & stopper.IsClosedSensor.Value)))
+                        {
+                            // turn off open sensor and turn on closed sensor.
+                            stopper.IsOpenSensor.Value = false;
+                            stopper.IsClosedSensor.Value = true;
+                        }
+
+                        // if the open command is on
+                        if (stopper.PlcOpenOut.Value 
+                            & ((!CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & !stopper.IsOpenSensor.Value & stopper.IsClosedSensor.Value)
+                                || (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & stopper.IsOpenSensor.Value & !stopper.IsClosedSensor.Value)))
+                        {
+                            // turn off closed sensor and turn on open sensor.
+                            stopper.IsClosedSensor.Value = false;
+                            stopper.IsOpenSensor.Value = true;
+                        }
+                    }
+                });
         }
 
         #region Stopper operation simulation
