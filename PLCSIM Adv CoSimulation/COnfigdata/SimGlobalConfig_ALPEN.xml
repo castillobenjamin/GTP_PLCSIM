@@ -176,7 +176,7 @@
 			<Value>true</Value>
 		</BotHP>
 		<MaintLamp>
-			<Tag>MaintenanceLamp_AISLE8</Tag>
+			<Tag>ZONE_LED_AISLE8</Tag>
 			<Address></Address>
 			<Value>false</Value>
 		</MaintLamp>
