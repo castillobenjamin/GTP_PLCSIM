@@ -2088,22 +2088,36 @@ namespace PLCSIM_Adv_CoSimulation
                     {
                         // if the close command is on
                         if (stopper.PlcCloseOut.Value 
-                            & ((!CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & stopper.IsOpenSensor.Value & !stopper.IsClosedSensor.Value)
-                                || (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & !stopper.IsOpenSensor.Value & stopper.IsClosedSensor.Value)))
+                            & !CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted 
+                            & stopper.IsOpenSensor.Value & !stopper.IsClosedSensor.Value)
                         {
                             // turn off open sensor and turn on closed sensor.
                             stopper.IsOpenSensor.Value = false;
                             stopper.IsClosedSensor.Value = true;
+                        } 
+                        else if (stopper.PlcCloseOut.Value 
+                            & CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted 
+                            & !stopper.IsOpenSensor.Value & stopper.IsClosedSensor.Value)
+                        {
+                            stopper.IsOpenSensor.Value = true;
+                            stopper.IsClosedSensor.Value = false;
                         }
 
                         // if the open command is on
                         if (stopper.PlcOpenOut.Value 
-                            & ((!CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & !stopper.IsOpenSensor.Value & stopper.IsClosedSensor.Value)
-                                || (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted & stopper.IsOpenSensor.Value & !stopper.IsClosedSensor.Value)))
+                            & !CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted 
+                            & !stopper.IsOpenSensor.Value & stopper.IsClosedSensor.Value)
                         {
                             // turn off closed sensor and turn on open sensor.
                             stopper.IsClosedSensor.Value = false;
                             stopper.IsOpenSensor.Value = true;
+                        }
+                        else if (stopper.PlcOpenOut.Value
+                            & CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted 
+                            & stopper.IsOpenSensor.Value & !stopper.IsClosedSensor.Value)
+                        {
+                            stopper.IsClosedSensor.Value = true;
+                            stopper.IsOpenSensor.Value = false;
                         }
                     }
                 });
