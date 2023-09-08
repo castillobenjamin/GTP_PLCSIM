@@ -39,6 +39,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.Label_CELLcomm_PlcStatus = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.CheckBox_FBAuto_Aisle = new System.Windows.Forms.CheckBox();
             this.CheckBox_AllAisles = new System.Windows.Forms.CheckBox();
             this.GroupBox_Door_Aisle = new System.Windows.Forms.GroupBox();
             this.groupBox_DoorReady_Aisle = new System.Windows.Forms.GroupBox();
@@ -197,6 +198,7 @@
             this.Label_PlcStopRequest_Maint = new System.Windows.Forms.Label();
             this.CheckBox_EstopBtn_EvacMaintArea = new System.Windows.Forms.CheckBox();
             this.GroupBox_Door_EvacAndMaintArea = new System.Windows.Forms.GroupBox();
+            this.MaintLampLabel = new System.Windows.Forms.Label();
             this.Label_MaintLamp_EvacMaintArea = new System.Windows.Forms.Label();
             this.groupBox_DoorReady_EvacMaintArea = new System.Windows.Forms.GroupBox();
             this.RadioButton_DoorReady_MaintArea = new System.Windows.Forms.RadioButton();
@@ -234,7 +236,7 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
-            this.MaintLampLabel = new System.Windows.Forms.Label();
+            this.CheckBox_FBAuto_DWS = new System.Windows.Forms.CheckBox();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -402,6 +404,7 @@
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox3.Controls.Add(this.CheckBox_FBAuto_Aisle);
             this.groupBox3.Controls.Add(this.CheckBox_AllAisles);
             this.groupBox3.Controls.Add(this.GroupBox_Door_Aisle);
             this.groupBox3.Controls.Add(this.groupBox14);
@@ -419,6 +422,20 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AISLE";
+            // 
+            // CheckBox_FBAuto_Aisle
+            // 
+            this.CheckBox_FBAuto_Aisle.AutoSize = true;
+            this.CheckBox_FBAuto_Aisle.Checked = true;
+            this.CheckBox_FBAuto_Aisle.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_FBAuto_Aisle.Font = new System.Drawing.Font("MS UI Gothic", 7F);
+            this.CheckBox_FBAuto_Aisle.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckBox_FBAuto_Aisle.Location = new System.Drawing.Point(187, 440);
+            this.CheckBox_FBAuto_Aisle.Name = "CheckBox_FBAuto_Aisle";
+            this.CheckBox_FBAuto_Aisle.Size = new System.Drawing.Size(43, 24);
+            this.CheckBox_FBAuto_Aisle.TabIndex = 38;
+            this.CheckBox_FBAuto_Aisle.Text = "FB\r\nauto";
+            this.CheckBox_FBAuto_Aisle.UseVisualStyleBackColor = true;
             // 
             // CheckBox_AllAisles
             // 
@@ -1810,6 +1827,7 @@
             // 
             // groupBox26
             // 
+            this.groupBox26.Controls.Add(this.CheckBox_FBAuto_DWS);
             this.groupBox26.Controls.Add(this.CheckBox_AllDWS);
             this.groupBox26.Controls.Add(this.CheckBox_DWSCovers);
             this.groupBox26.Controls.Add(this.CheckBox_EstopBtn_DWS);
@@ -1842,7 +1860,7 @@
             // CheckBox_DWSCovers
             // 
             this.CheckBox_DWSCovers.AutoSize = true;
-            this.CheckBox_DWSCovers.Location = new System.Drawing.Point(5, 240);
+            this.CheckBox_DWSCovers.Location = new System.Drawing.Point(0, 244);
             this.CheckBox_DWSCovers.Name = "CheckBox_DWSCovers";
             this.CheckBox_DWSCovers.Size = new System.Drawing.Size(60, 16);
             this.CheckBox_DWSCovers.TabIndex = 36;
@@ -2473,6 +2491,16 @@
             this.GroupBox_Door_EvacAndMaintArea.TabStop = false;
             this.GroupBox_Door_EvacAndMaintArea.Text = "扉";
             // 
+            // MaintLampLabel
+            // 
+            this.MaintLampLabel.AutoSize = true;
+            this.MaintLampLabel.Location = new System.Drawing.Point(92, 65);
+            this.MaintLampLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.MaintLampLabel.Name = "MaintLampLabel";
+            this.MaintLampLabel.Size = new System.Drawing.Size(60, 12);
+            this.MaintLampLabel.TabIndex = 32;
+            this.MaintLampLabel.Text = "MaintLamp";
+            // 
             // Label_MaintLamp_EvacMaintArea
             // 
             this.Label_MaintLamp_EvacMaintArea.AutoSize = true;
@@ -2929,15 +2957,19 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
-            // MaintLampLabel
+            // CheckBox_FBAuto_DWS
             // 
-            this.MaintLampLabel.AutoSize = true;
-            this.MaintLampLabel.Location = new System.Drawing.Point(92, 65);
-            this.MaintLampLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.MaintLampLabel.Name = "MaintLampLabel";
-            this.MaintLampLabel.Size = new System.Drawing.Size(60, 12);
-            this.MaintLampLabel.TabIndex = 32;
-            this.MaintLampLabel.Text = "MaintLamp";
+            this.CheckBox_FBAuto_DWS.AutoSize = true;
+            this.CheckBox_FBAuto_DWS.Checked = true;
+            this.CheckBox_FBAuto_DWS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_FBAuto_DWS.Font = new System.Drawing.Font("MS UI Gothic", 7F);
+            this.CheckBox_FBAuto_DWS.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckBox_FBAuto_DWS.Location = new System.Drawing.Point(71, 240);
+            this.CheckBox_FBAuto_DWS.Name = "CheckBox_FBAuto_DWS";
+            this.CheckBox_FBAuto_DWS.Size = new System.Drawing.Size(43, 24);
+            this.CheckBox_FBAuto_DWS.TabIndex = 39;
+            this.CheckBox_FBAuto_DWS.Text = "FB\r\nauto";
+            this.CheckBox_FBAuto_DWS.UseVisualStyleBackColor = true;
             // 
             // CoSimInterface
             // 
@@ -3279,5 +3311,7 @@
         private System.Windows.Forms.Label Label_BotHPtoCell;
         private System.Windows.Forms.Label Label_MaintLamp_EvacMaintArea;
         private System.Windows.Forms.Label MaintLampLabel;
+        private System.Windows.Forms.CheckBox CheckBox_FBAuto_Aisle;
+        private System.Windows.Forms.CheckBox CheckBox_FBAuto_DWS;
     }
 }

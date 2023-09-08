@@ -851,7 +851,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorPlcOut_AisleNorth.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_AisleNorth.Font = activeLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_AisleNorth.Checked = false;
+                if (CheckBox_FBAuto_Aisle.Checked)
+                {
+                    CheckBox_ContactorPlcIn_AisleNorth.Checked = false;
+                }
             }
             else
             {
@@ -859,7 +862,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorPlcOut_AisleNorth.ForeColor = inactiveLabelColor;
                 Label_ContactorPlcOut_AisleNorth.Font = inactiveLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_AisleNorth.Checked = true;
+                if (CheckBox_FBAuto_Aisle.Checked)
+                {
+                    CheckBox_ContactorPlcIn_AisleNorth.Checked = true;
+                }
             }
             //Update labels
             Label_ContactorPlcOut_AisleNorth.Text = "Ctor " + status;
@@ -874,7 +880,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorPlcOut_AisleSouth.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_AisleSouth.Font = activeLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_AisleSouth.Checked = false;
+                if (CheckBox_FBAuto_Aisle.Checked)
+                {
+                    CheckBox_ContactorPlcIn_AisleSouth.Checked = false;
+                }
             }
             else
             {
@@ -882,7 +891,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorPlcOut_AisleSouth.ForeColor = inactiveLabelColor;
                 Label_ContactorPlcOut_AisleSouth.Font = inactiveLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_AisleSouth.Checked = true;
+                if (CheckBox_FBAuto_Aisle.Checked)
+                {
+                    CheckBox_ContactorPlcIn_AisleSouth.Checked = true;
+                }
             }
             //Update labels
             Label_ContactorPlcOut_AisleSouth.Text = "Ctor " + status;
@@ -1568,7 +1580,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorPlcOut_DWS.ForeColor = activeLabelColor;
                 Label_ContactorPlcOut_DWS.Font = activeLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_DWS.Checked = false;
+                if (CheckBox_FBAuto_DWS.Checked)
+                {
+                    CheckBox_ContactorPlcIn_DWS.Checked = false;
+                }
             }
             else
             {
@@ -1576,7 +1591,10 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorPlcOut_DWS.ForeColor = inactiveLabelColor;
                 Label_ContactorPlcOut_DWS.Font = inactiveLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_DWS.Checked = true;
+                if (CheckBox_FBAuto_DWS.Checked)
+                {
+                    CheckBox_ContactorPlcIn_DWS.Checked = true;
+                }
             }
             //Update labels
             Label_ContactorPlcOut_DWS.Text = "Ctor " + status;
