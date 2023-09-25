@@ -907,8 +907,11 @@ namespace PLCSIM_Adv_CoSimulation
         private void UpdateAllAisleContactorOutputs()
         {
             // Simply read all contactors and assign the inverse of the output value to the feedback value.
-            CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+            if (CheckBox_FBAuto_Aisle.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
                 aisle.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
+            }
         }
         #endregion // Contactors
 
@@ -1637,8 +1640,11 @@ namespace PLCSIM_Adv_CoSimulation
         private void UpdateAllDWSContactorOutputs()
         {
             // Simply read all contactors and assign the inverse of the output value to the feedback value.
-            CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
-                dws.Contactor.ContactorFeedback.Value = ! dws.Contactor.ContactorOutput.Value);
+            if (CheckBox_FBAuto_DWS.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
+                dws.Contactor.ContactorFeedback.Value = !dws.Contactor.ContactorOutput.Value);
+            }
         }
         #endregion // Output
         #endregion // DWS
