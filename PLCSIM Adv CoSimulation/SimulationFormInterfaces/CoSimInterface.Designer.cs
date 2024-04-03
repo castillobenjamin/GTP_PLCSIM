@@ -147,6 +147,7 @@
             this.CheckBox_Scaffold_EvacMaintArea = new System.Windows.Forms.CheckBox();
             this.Label_Scaffold_EvacMaintArea = new System.Windows.Forms.Label();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.CheckBox_FBAuto_DWS = new System.Windows.Forms.CheckBox();
             this.CheckBox_AllDWS = new System.Windows.Forms.CheckBox();
             this.CheckBox_DWSCovers = new System.Windows.Forms.CheckBox();
             this.CheckBox_EstopBtn_DWS = new System.Windows.Forms.CheckBox();
@@ -236,7 +237,8 @@
             this.EstopBtnToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             this.CheckBox_CylinderPressure = new System.Windows.Forms.CheckBox();
-            this.CheckBox_FBAuto_DWS = new System.Windows.Forms.CheckBox();
+            this.CheckBox_CondensationSensor = new System.Windows.Forms.CheckBox();
+            this.CondensationSensorLabel = new System.Windows.Forms.Label();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1844,6 +1846,20 @@
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "DWS";
             // 
+            // CheckBox_FBAuto_DWS
+            // 
+            this.CheckBox_FBAuto_DWS.AutoSize = true;
+            this.CheckBox_FBAuto_DWS.Checked = true;
+            this.CheckBox_FBAuto_DWS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CheckBox_FBAuto_DWS.Font = new System.Drawing.Font("MS UI Gothic", 7F);
+            this.CheckBox_FBAuto_DWS.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckBox_FBAuto_DWS.Location = new System.Drawing.Point(71, 240);
+            this.CheckBox_FBAuto_DWS.Name = "CheckBox_FBAuto_DWS";
+            this.CheckBox_FBAuto_DWS.Size = new System.Drawing.Size(43, 24);
+            this.CheckBox_FBAuto_DWS.TabIndex = 39;
+            this.CheckBox_FBAuto_DWS.Text = "FB\r\nauto";
+            this.CheckBox_FBAuto_DWS.UseVisualStyleBackColor = true;
+            // 
             // CheckBox_AllDWS
             // 
             this.CheckBox_AllDWS.AutoSize = true;
@@ -2477,6 +2493,8 @@
             // 
             // GroupBox_Door_EvacAndMaintArea
             // 
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.CondensationSensorLabel);
+            this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.CheckBox_CondensationSensor);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.MaintLampLabel);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.Label_MaintLamp_EvacMaintArea);
             this.GroupBox_Door_EvacAndMaintArea.Controls.Add(this.groupBox_DoorReady_EvacMaintArea);
@@ -2957,19 +2975,31 @@
             this.CheckBox_CylinderPressure.UseVisualStyleBackColor = true;
             this.CheckBox_CylinderPressure.CheckedChanged += new System.EventHandler(this.CheckBox_CylinderPressure_CheckedChanged);
             // 
-            // CheckBox_FBAuto_DWS
+            // CheckBox_CondensationSensor
             // 
-            this.CheckBox_FBAuto_DWS.AutoSize = true;
-            this.CheckBox_FBAuto_DWS.Checked = true;
-            this.CheckBox_FBAuto_DWS.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBox_FBAuto_DWS.Font = new System.Drawing.Font("MS UI Gothic", 7F);
-            this.CheckBox_FBAuto_DWS.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.CheckBox_FBAuto_DWS.Location = new System.Drawing.Point(71, 240);
-            this.CheckBox_FBAuto_DWS.Name = "CheckBox_FBAuto_DWS";
-            this.CheckBox_FBAuto_DWS.Size = new System.Drawing.Size(43, 24);
-            this.CheckBox_FBAuto_DWS.TabIndex = 39;
-            this.CheckBox_FBAuto_DWS.Text = "FB\r\nauto";
-            this.CheckBox_FBAuto_DWS.UseVisualStyleBackColor = true;
+            this.CheckBox_CondensationSensor.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_CondensationSensor.AutoSize = true;
+            this.CheckBox_CondensationSensor.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CondensationSensor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_CondensationSensor.Location = new System.Drawing.Point(129, 102);
+            this.CheckBox_CondensationSensor.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_CondensationSensor.Name = "CheckBox_CondensationSensor";
+            this.CheckBox_CondensationSensor.Size = new System.Drawing.Size(31, 22);
+            this.CheckBox_CondensationSensor.TabIndex = 11;
+            this.CheckBox_CondensationSensor.Text = "ON";
+            this.CheckBox_CondensationSensor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_CondensationSensor.UseVisualStyleBackColor = true;
+            this.CheckBox_CondensationSensor.CheckedChanged += new System.EventHandler(this.CheckBox_CondensationSensor_CheckedChanged);
+            // 
+            // CondensationSensorLabel
+            // 
+            this.CondensationSensorLabel.AutoSize = true;
+            this.CondensationSensorLabel.Location = new System.Drawing.Point(83, 107);
+            this.CondensationSensorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.CondensationSensorLabel.Name = "CondensationSensorLabel";
+            this.CondensationSensorLabel.Size = new System.Drawing.Size(47, 12);
+            this.CondensationSensorLabel.TabIndex = 33;
+            this.CondensationSensorLabel.Text = "GotWet?";
             // 
             // CoSimInterface
             // 
@@ -3313,5 +3343,7 @@
         private System.Windows.Forms.Label MaintLampLabel;
         private System.Windows.Forms.CheckBox CheckBox_FBAuto_Aisle;
         private System.Windows.Forms.CheckBox CheckBox_FBAuto_DWS;
+        private System.Windows.Forms.CheckBox CheckBox_CondensationSensor;
+        private System.Windows.Forms.Label CondensationSensorLabel;
     }
 }

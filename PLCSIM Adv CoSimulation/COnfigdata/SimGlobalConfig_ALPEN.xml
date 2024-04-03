@@ -216,7 +216,12 @@
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</ContactorOnOffCommand>
-		</Contactor>	
+		</Contactor>
+		<CondensationSensor>
+			<Tag>WET_DETECT_AISLE1</Tag>
+			<Address />
+			<Value>false</Value>
+		</CondensationSensor>
 	</EvacuationAndMaintenanceArea>
 	<Aisles>
 		<Aisle Name="Aisle1" Label="Aisle 1">

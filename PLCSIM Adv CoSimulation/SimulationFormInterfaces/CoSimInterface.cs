@@ -224,6 +224,12 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 GroupBox_EstopMaintArea.Hide();
             }
+            // Hide condensation sensor checkbox and label
+            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.CondensationSensorSpecified)
+            {
+                CheckBox_CondensationSensor.Hide();
+                CondensationSensorLabel.Hide();
+            }
             // Hide IO controls when "CELL Only" option is checked
             if (isCellOnlySim)
             {
@@ -2566,6 +2572,22 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
         #endregion // Emergency stop
+
+        #region Condensation sensor
+        private void CheckBox_CondensationSensor_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.CondensationSensorSpecified)
+            {
+                // Assign value of checkbox to plc input.
+                CoSimulationInstance.AlphaBotSystem.
+                    EvacAndMaintArea.CondensationSensor.Value = CheckBox_CondensationSensor.Checked;
+                // Log action
+                string sensorStatus = CheckBox_CondensationSensor.Checked ? "on" : "off";
+                ListBox_Log.Items.Add("Condensation sensor is " + sensorStatus);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+        #endregion // Condensation sensor
 
         #endregion // Input
 
