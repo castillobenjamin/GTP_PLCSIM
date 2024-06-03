@@ -15,12 +15,16 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         private bool ScaffoldSerializes;
         private bool EstopSerializes;
         private bool CondensationSensorSerializes;
+        private bool MaintLampSerializes;
         #endregion // fields
 
         #region Properties
         public OperationBox OperationBox { get; set; }
         public PlcInput BotHP { get; set; } // BOT sensor
+        [XmlElement(IsNullable = true)]// Emit a value even when null as long as MaintenanceAreaSpecified == true
         public PlcOutput MaintLamp { get; set; } // Maintenance status indicator lamp
+        [XmlIgnore()]
+        public bool MaintLampSpecified { get { return MaintLampSerializes; } set { MaintLampSerializes = value; } }
         public RegisterFromPlc BotHPtoCell { get; set; } // BOT HP register to CELL
         public Door Door { get; set; }
         public Contactor Contactor { get; set; }

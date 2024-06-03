@@ -230,6 +230,12 @@ namespace PLCSIM_Adv_CoSimulation
                 CheckBox_CondensationSensor.Hide();
                 CondensationSensorLabel.Hide();
             }
+            // Hide maintenance lamp labels
+            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.MaintLampSpecified)
+            {
+                MaintLampLabel.Hide();
+                Label_MaintLamp_EvacMaintArea.Hide();
+            }
             // Hide IO controls when "CELL Only" option is checked
             if (isCellOnlySim)
             {
@@ -2741,7 +2747,8 @@ namespace PLCSIM_Adv_CoSimulation
         #region Maintenance lamp
         private void Update_Label_MaintLamp_EvacMaintArea()
         {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
+            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null 
+                && CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.MaintLampSpecified)
             {
                 string ledStatus;
                 // Read Plc output
@@ -2905,7 +2912,8 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         private void CheckBox_EstopBtn_EvacuationArea_MouseHover(object sender, EventArgs e)
         {
-            EstopBtnToolTip.SetToolTip(CheckBox_EstopBtn_EvacMaintArea, "This is the Estop on the Maintenance Area for the Miyano configuration. Escape are for Alpen");
+            EstopBtnToolTip.SetToolTip(CheckBox_EstopBtn_EvacMaintArea, 
+                "Estop. Maintenance Area for Miyano. Escape Area for Alpen");
         }
 
         private void EstopBtnToolTip_Popup(object sender, PopupEventArgs e)
