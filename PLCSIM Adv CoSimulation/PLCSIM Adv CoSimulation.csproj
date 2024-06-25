@@ -119,6 +119,7 @@
     <Compile Include="Utilities\Utils.cs" />
     <EmbeddedResource Include="SimulationFormInterfaces\CoSimInterface.resx">
       <DependentUpon>CoSimInterface.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SimulationFormInterfaces\MainInterface.resx">
       <DependentUpon>MainInterface.cs</DependentUpon>
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConfigData\SimGlobalConfig_ALPEN[OUTDATED].xml" />
+    <Content Include="ConfigData\SimGlobalConfig_DEMOLINE_V2.xml" />
     <Content Include="ConfigData\SimGlobalConfig_DEMOLINE.xml" />
     <Content Include="ConfigData\SimGlobalConfig_MIYANO.xml" />
     <Content Include="ConfigData\SimGlobalConfig_SCHEMA.xml" />
