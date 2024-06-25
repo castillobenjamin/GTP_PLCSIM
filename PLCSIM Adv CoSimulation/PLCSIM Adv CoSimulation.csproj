@@ -150,6 +150,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConfigData\PythonScripts\WriteForMe.py" />
     <Content Include="ConfigData\SimGlobalConfig_ALPEN[OUTDATED].xml" />
     <Content Include="ConfigData\SimGlobalConfig_DEMOLINE_V2.xml" />
     <Content Include="ConfigData\SimGlobalConfig_DEMOLINE.xml" />
