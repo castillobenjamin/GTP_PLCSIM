@@ -1,0 +1,306 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<Tagtable name='ControllerTagsFolder'>
+  <!-- exported by 'Totally Integrated Automation Portal' version 1501.8.401.2   © 2004-2016 Siemens AG - all rights reserved -->
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M0.1'>Clock_5Hz</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M0.3'>Clock_2Hz</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%M0.5'>Clock_1Hz</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor tripped T-DWS 1 picking side' addr='%I13.0'>ELB_TRIP_T-DWS1_pickSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor tripped T-DWS 1 in1 Tower side' addr='%I13.2'>ELB_TRIP_T-DWS1_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor tripped T-DWS 1 in2 Tower side' addr='%I13.3'>ELB_TRIP_T-DWS1_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I13.4'>AS-I1_EARTH_FAULT_B_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I13.5'>AS-I1_EARTH_FAULT_A_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I13.6'>AS-I3_EARTH_FAULT_B_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I13.7'>AS-I3_EARTH_FAULT_A_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='24V On DWS Panel' addr='%I14.2'>DC24V_ON_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Reset button DWS Panel' addr='%I14.6'>RESET_ON_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I14.7'>SPD_ALARM_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Emergency status' addr='%Q6.0'>LIGHT_ON_RED_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Error status. Only contactors?' addr='%Q6.1'>LIGHT_ON_YELLOW_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Normal operation' addr='%Q6.2'>LIGHT_ON_GREEN_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Zoning (permit) status' addr='%Q6.3'>LIGHT_ON_WHITE_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='unknown implementation' addr='%Q6.4'>BUZZER_ON_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='light on reset button' addr='%Q6.5'>LAMP_ON_RESET_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='light on Estop button' addr='%Q6.6'>LAMP_ON_E-STOP_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor fdbk mini DWS 1' addr='%I1202.0'>TROLLEY-MC_ON_FB_T-DWS1_pickSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Estop button DWS panel ch1' addr='%I1202.1'>E-STOP_DWSPanel</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor fdbk T-DWS 1' addr='%I1202.4'>TROLLEY-MC_ON_FB_T-DWS1_towerSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor on mini DWS1 picking side' addr='%Q1208.0'>TROLLEY-MC_ON_T-DWS1_pickSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor on T-DWS1 tower side' addr='%Q1208.2'>TROLLEY-MC_ON_T-DWS1_towerSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='contactor tripped mini DWS 2' addr='%I15.0'>ELB_TRIP_T-DWS2_pickSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor tripped T-DWS 2 in1' addr='%I15.2'>ELB_TRIP_T-DWS2_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor tripped T-DWS 2 in2' addr='%I15.3'>ELB_TRIP_T-DWS2_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I15.4'>AS-I2_EARTH_FAULT_B_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I15.5'>AS-I2_EARTH_FAULT_A_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I15.6'>AS-I5_EARTH_FAULT_B_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='AS-I earth fault DWS Panel' addr='%I15.7'>AS-I5_EARTH_FAULT_A_DWS</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor fdbk mini DWS 2' addr='%I1272.0'>TROLLEY-MC_ON_FB_T-DWS2_pickSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor fdbk T-DWS 2' addr='%I1272.4'>TROLLEY-MC_ON_FB_T-DWS2_towerSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor on mini DWS2' addr='%Q1278.0'>TROLLEY-MC_ON_T-DWS2_pickSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor on T-DWS2' addr='%Q1278.2'>TROLLEY-MC_ON_T-DWS2_towerSide</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1215.4'>KEYSW_REQ_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1216.2'>KEYSW_READY_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='起動釦 T-DWS 1' addr='%I1215.6'>RUN_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='リセット釦 T-DWS 1' addr='%I1215.7'>RESET_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='zoning led' addr='%Q1213.2'>OP-BOX_LED_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='unlock door' addr='%Q1213.3'>DOOR_UNLOCK_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor On indicator T-DWS 1' addr='%Q1214.0'>LIGHT_TROLLEY_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1218.2'>KEYSW_REQ_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1218.6'>KEYSW_READY_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='起動釦 T-DWS 2' addr='%I1215.0'>RUN_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='リセット釦 T-DWS 2' addr='%I1215.1'>RESET_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='zoning led T-DWS 2' addr='%Q1213.0'>OP-BOX_LED_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='unlock door T-DWS 2' addr='%Q1213.1'>DOOR_UNLOCK_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Contactor On indicator T-DWS 2' addr='%Q1214.2'>LIGHT_TROLLEY_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1285.2'>KEYSW_REQ_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1285.6'>KEYSW_READY_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK3 Stopper Open Sensor' addr='%I6331.0'>ELC_DI_OPEN_T-DWS1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK3 Stopper Closed Sensor' addr='%I6331.1'>ELC_DI_CLOSED_T-DWS1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK3 Stopper Alarm in' addr='%I6331.2'>ELC_DI_ALM_T-DWS1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK3 Stopper Open Q' addr='%Q6331.0'>ELC_DQ_OPEN_T-DWS1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK3 Stopper Close Q' addr='%Q6331.1'>ELC_DQ_CLOSE_T-DWS1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK3 Stopper Reset Alarm Q' addr='%Q6331.2'>ELC_DQ_RES_T-DWS1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Estop button T-DWS1' addr='%I1245.1'>E-STOP_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Door closed T-DWS1' addr='%I1245.2'>DOOR_CLOSED_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Estop button T-DWS2' addr='%I1245.7'>E-STOP_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Door closed T-DWS2' addr='%I1246.0'>DOOR_CLOSED_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1286.0'>RUN_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1286.1'>RESET_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1283.0'>OP-BOX_LED_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1283.1'>DOOR_UNLOCK_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1287.6'>KEYSW_REQ_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1288.2'>KEYSW_READY_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1286.6'>RUN_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1286.7'>RESET_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1283.2'>OP-BOX_LED_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1283.3'>DOOR_UNLOCK_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1289.6'>KEYSW_REQ_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1290.2'>KEYSW_READY_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1290.4'>RUN_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1290.5'>RESET_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1284.0'>OP-BOX_LED_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1284.1'>DOOR_UNLOCK_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1292.2'>KEYSW_REQ_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input.' addr='%I1292.6'>KEYSW_READY_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1290.6'>RUN_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1290.7'>RESET_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1284.2'>OP-BOX_LED_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q1284.3'>DOOR_UNLOCK_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK3 Stopper Open Sensor' addr='%I6332.0'>ELC_DI_OPEN_T-DWS2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK3 Stopper Closed Sensor' addr='%I6332.1'>ELC_DI_CLOSED_T-DWS2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK3 Stopper Alarm in' addr='%I6332.2'>ELC_DI_ALM_T-DWS2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK3 Stopper Open Q' addr='%Q6332.0'>ELC_DQ_OPEN_T-DWS2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK3 Stopper Close Q' addr='%Q6332.1'>ELC_DQ_CLOSE_T-DWS2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK3 Stopper Reset Alarm Q' addr='%Q6332.2'>ELC_DQ_RES_T-DWS2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK4 Stopper Open Sensor' addr='%I6332.4'>ELC_DI_OPEN_T-DWS1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK4 Stopper Closed Sensor' addr='%I6332.5'>ELC_DI_CLOSED_T-DWS1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK4 Stopper Alarm in' addr='%I6332.6'>ELC_DI_ALM_T-DWS1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK4 Stopper Open Q' addr='%Q6332.4'>ELC_DQ_OPEN_T-DWS1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK4 Stopper Close Q' addr='%Q6332.5'>ELC_DQ_CLOSE_T-DWS1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1 DECK4 Stopper Reset Alarm Q' addr='%Q6332.6'>ELC_DQ_RES_T-DWS1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK4 Stopper Open Sensor' addr='%I6333.0'>ELC_DI_OPEN_T-DWS2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK4 Stopper Closed Sensor' addr='%I6333.1'>ELC_DI_CLOSED_T-DWS2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK4 Stopper Alarm in' addr='%I6333.2'>ELC_DI_ALM_T-DWS2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK4 Stopper Open Q' addr='%Q6333.0'>ELC_DQ_OPEN_T-DWS2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK4 Stopper Close Q' addr='%Q6333.1'>ELC_DQ_CLOSE_T-DWS2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2 DECK4 Stopper Reset Alarm Q' addr='%Q6333.2'>ELC_DQ_RES_T-DWS2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS1' addr='%I6379.0'>BOARD_DETECT_T-DWS1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='T-DWS2' addr='%I6379.1'>BOARD_DETECT_T-DWS2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1315.1'>E-STOP_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1315.2'>DOOR_CLOSED_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1315.6'>E-STOP_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1315.7'>DOOR_CLOSED_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1316.3'>E-STOP_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1316.4'>DOOR_CLOSED_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1317.0'>E-STOP_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1317.1'>DOOR_CLOSED_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.0'>ELB_TRIP_SOUTH-AISLE1_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.1'>ELB_TRIP_SOUTH-AISLE1_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.2'>ELB_TRIP_SOUTH-AISLE2_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.3'>ELB_TRIP_SOUTH-AISLE2_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.4'>AS-I1_EARTH_FAULT_B_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.5'>AS-I1_EARTH_FAULT_A_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.6'>AS-I3_EARTH_FAULT_B_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I17.7'>AS-I3_EARTH_FAULT_A_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I18.2'>DC24V_ON_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q15.0'>LIGHT_ON_RED_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q15.1'>LIGHT_ON_YELLOW_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q15.2'>LIGHT_ON_GREEN_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q15.3'>LIGHT_ON_WHITE_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q15.4'>BUZZER_ON_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I562.0'>TROLLEY-MC_ON_FB_SOUTH_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I562.4'>TROLLEY-MC_ON_FB_SOUTH_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q568.0'>TROLLEY-MC_ON_SOUTH_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q568.2'>TROLLEY-MC_ON_SOUTH_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Deck side' addr='%I19.0'>ELB_TRIP_SOUTH-AISLE3_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Rack side' addr='%I19.1'>ELB_TRIP_SOUTH-AISLE3_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I19.4'>AS-I2_EARTH_FAULT_B_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I19.5'>AS-I2_EARTH_FAULT_A_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I632.0'>TROLLEY-MC_ON_FB_SOUTH_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q638.0'>TROLLEY-MC_ON_SOUTH_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I21.2'>ELB_TRIP_S-AISLE1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I21.3'>ELB_TRIP_S-AISLE1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I21.4'>AS-I4_EARTH_FAULT_B_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I21.5'>AS-I4_EARTH_FAULT_A_SOUTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='small aisle ' addr='%I702.4'>TROLLEY-MC_ON_FB_S-AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='small aisle' addr='%Q708.2'>TROLLEY-MC_ON_S-AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3191.0'>ELC_DI_OPEN_S-AISLE1_DECK1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3191.1'>ELC_DI_CLOSED_S-AISLE1_DECK1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3191.2'>ELC_DI_ALM_S-Aisle1_DECK1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3191.0'>ELC_DQ_OPEN_S-Aisle1_DECK1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3191.1'>ELC_DQ_CLOSE_S-Aisle1_DECK1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3191.2'>ELC_DQ_RES_S-Aisle1_DECK1_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3192.0'>ELC_DI_OPEN_S-Aisle1_DECK1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3192.1'>ELC_DI_CLOSED_S-Aisle1_DECK1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3192.2'>ELC_DI_ALM_S-Aisle1_DECK1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3192.0'>ELC_DQ_OPEN_S-Aisle1_DECK1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3192.1'>ELC_DQ_CLOSE_S-Aisle1_DECK1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3192.2'>ELC_DQ_RES_S-Aisle1_DECK1_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3192.4'>ELC_DI_OPEN_S-Aisle1_DECK2_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3192.5'>ELC_DI_CLOSED_S-Aisle1_DECK2_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3192.6'>ELC_DI_ALM_S-Aisle1_DECK2_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3192.4'>ELC_DQ_OPEN_S-Aisle1_DECK2_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3192.5'>ELC_DQ_CLOSE_S-Aisle1_DECK2_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3192.6'>ELC_DQ_RES_S-Aisle1_DECK2_WEST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3193.0'>ELC_DI_OPEN_S-Aisle1_DECK2_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3193.1'>ELC_DI_CLOSED_S-Aisle1_DECK2_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3193.2'>ELC_DI_ALM_S-Aisle1_DECK2_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3193.0'>ELC_DQ_OPEN_S-Aisle1_DECK2_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3193.1'>ELC_DQ_CLOSE_S-Aisle1_DECK2_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q3193.2'>ELC_DQ_RES_S-Aisle1_DECK2_EAST</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3223.5'>E-STOP_S-Aisle1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input' addr='%I3194.6'>KEYSW_REQ_S-Aisle1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Key switch is not a safety input' addr='%I3195.2'>KEYSW_READY_S-Aisle1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3195.4'>RUN_S-Aisle1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6427.0'>ELC_DI_OPEN_AISLE1_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6427.1'>ELC_DI_CLOSED_AISLE1_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6427.2'>ELC_DI_ALM_AISLE1_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6427.0'>ELC_DQ_OPEN_AISLE1_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6427.1'>ELC_DQ_CLOSE_AISLE1_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6427.2'>ELC_DQ_RES_AISLE1_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6428.0'>ELC_DI_OPEN_AISLE2_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6428.1'>ELC_DI_CLOSED_AISLE2_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6428.2'>ELC_DI_ALM_AISLE2_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6428.0'>ELC_DQ_OPEN_AISLE2_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6428.1'>ELC_DQ_CLOSE_AISLE2_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6428.2'>ELC_DQ_RES_AISLE2_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6428.4'>ELC_DI_OPEN_AISLE3_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6428.5'>ELC_DI_CLOSED_AISLE3_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6428.6'>ELC_DI_ALM_AISLE3_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6428.4'>ELC_DQ_OPEN_AISLE3_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6428.5'>ELC_DQ_CLOSE_AISLE3_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6428.6'>ELC_DQ_RES_AISLE3_DECK1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6429.0'>ELC_DI_OPEN_AISLE1_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6429.1'>ELC_DI_CLOSED_AISLE1_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6429.2'>ELC_DI_ALM_AISLE1_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6429.0'>ELC_DQ_OPEN_AISLE1_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6429.1'>ELC_DQ_CLOSE_AISLE1_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6429.2'>ELC_DQ_RES_AISLE1_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6429.4'>ELC_DI_OPEN_AISLE2_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6429.5'>ELC_DI_CLOSED_AISLE2_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6429.6'>ELC_DI_ALM_AISLE2_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6429.4'>ELC_DQ_OPEN_AISLE2_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6429.5'>ELC_DQ_CLOSE_AISLE2_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6429.6'>ELC_DQ_RES_AISLE2_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6430.0'>ELC_DI_OPEN_AISLE3_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6430.1'>ELC_DI_CLOSED_AISLE3_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6430.2'>ELC_DI_ALM_AISLE3_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6430.0'>ELC_DQ_OPEN_AISLE3_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6430.1'>ELC_DQ_CLOSE_AISLE3_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6430.2'>ELC_DQ_RES_AISLE3_DECK2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6430.4'>ELC_DI_OPEN_AISLE1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6430.5'>ELC_DI_CLOSED_AISLE1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6430.6'>ELC_DI_ALM_AISLE1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6430.4'>ELC_DQ_OPEN_AISLE1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6430.5'>ELC_DQ_CLOSE_AISLE1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6430.6'>ELC_DQ_RES_AISLE1_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6431.0'>ELC_DI_OPEN_AISLE2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6431.1'>ELC_DI_CLOSED_AISLE2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6431.2'>ELC_DI_ALM_AISLE2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6431.0'>ELC_DQ_OPEN_AISLE2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6431.1'>ELC_DQ_CLOSE_AISLE2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6431.2'>ELC_DQ_RES_AISLE2_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6431.4'>ELC_DI_OPEN_AISLE3_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6431.5'>ELC_DI_CLOSED_AISLE3_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6431.6'>ELC_DI_ALM_AISLE3_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6431.4'>ELC_DQ_OPEN_AISLE3_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6431.5'>ELC_DQ_CLOSE_AISLE3_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6431.6'>ELC_DQ_RES_AISLE3_DECK3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6432.0'>ELC_DI_OPEN_AISLE1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6432.1'>ELC_DI_CLOSED_AISLE1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6432.2'>ELC_DI_ALM_AISLE1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6432.0'>ELC_DQ_OPEN_AISLE1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6432.1'>ELC_DQ_CLOSE_AISLE1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6432.2'>ELC_DQ_RES_AISLE1_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6432.4'>ELC_DI_OPEN_AISLE2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6432.5'>ELC_DI_CLOSED_AISLE2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6432.6'>ELC_DI_ALM_AISLE2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6432.4'>ELC_DQ_OPEN_AISLE2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6432.5'>ELC_DQ_CLOSE_AISLE2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6432.6'>ELC_DQ_RES_AISLE2_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6433.0'>ELC_DI_OPEN_AISLE3_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6433.1'>ELC_DI_CLOSED_AISLE3_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6433.2'>ELC_DI_ALM_AISLE3_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6433.0'>ELC_DQ_OPEN_AISLE3_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6433.1'>ELC_DQ_CLOSE_AISLE3_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q6433.2'>ELC_DQ_RES_AISLE3_DECK4</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6475.0'>BOARD_DETECT_SOUTH_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6475.1'>BOARD_DETECT_SOUTH_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I6475.2'>BOARD_DETECT_SOUTH_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='deck side' addr='%I0.0'>ELB_TRIP_NORTH-AISLE1_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='rack side' addr='%I0.1'>ELB_TRIP_NORTH-AISLE1_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='deck side' addr='%I0.2'>ELB_TRIP_NORTH-AISLE2_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='rack side' addr='%I0.3'>ELB_TRIP_NORTH-AISLE2_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I0.4'>AS-I1_EARTH_FAULT_B_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I0.5'>AS-I1_EARTH_FAULT_A_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I0.6'>AS-I4_EARTH_FAULT_B_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I0.7'>AS-I4_EARTH_FAULT_A_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I1.2'>DC24V_ON_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.0'>LIGHT_ON_RED_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.1'>LIGHT_ON_YELLOW_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.2'>LIGHT_ON_GREEN_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.3'>LIGHT_ON_WHITE_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q0.4'>BUZZER_ON_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I2.0'>TROLLEY-MC_ON_FB_NORTH_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I2.4'>TROLLEY-MC_ON_FB_NORTH_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q8.0'>TROLLEY-MC_ON_NORTH_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q8.2'>TROLLEY-MC_ON_NORTH_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I23.0'>ELB_TRIP_NORTH-AISLE3_TROLLEY1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I23.1'>ELB_TRIP_NORTH-AISLE3_TROLLEY2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I23.4'>AS-I2_EARTH_FAULT_B_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I23.5'>AS-I2_EARTH_FAULT_A_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I72.0'>TROLLEY-MC_ON_FB_NORTH_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q78.0'>TROLLEY-MC_ON_NORTH_AISLE3_Q1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I29.4'>RUN_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q27.0'>OP-BOX_LED_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I29.5'>RESET_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q27.1'>DOOR_UNLOCK_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q27.2'>LIGHT_TROLLEY_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I32.0'>RUN_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I32.1'>RESET_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q28.0'>OP-BOX_LED_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q28.1'>DOOR_UNLOCK_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q28.2'>LIGHT_TROLLEY_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I34.4'>RUN_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I34.5'>RESET_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q28.4'>OP-BOX_LED_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q28.5'>DOOR_UNLOCK_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%Q28.6'>LIGHT_TROLLEY_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I84.2'>BOARD_DETECT_NORTH_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I84.0'>BOARD_DETECT_NORTH_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I84.1'>BOARD_DETECT_NORTH_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Reset button (North)' addr='%I154.0'>RESET_ON_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Stop buzzer button (North)' addr='%I154.1'>BZ_STOP_NORTH</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I201.1'>E-STOP_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I201.2'>DOOR_CLOSED_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I201.7'>E-STOP_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I202.0'>DOOR_CLOSED_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I202.5'>E-STOP_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I202.6'>DOOR_CLOSED_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='' addr='%I3195.5'>RESET_S-Aisle1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Not a safety input' addr='%I28.6'>KEYSW_REQ_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Not a safety input' addr='%I29.2'>KEYSW_READY_AISLE1</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Not a safety input' addr='%I31.2'>KEYSW_REQ_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Not a safety input' addr='%I31.6'>KEYSW_READY_AISLE2</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Not a safety input' addr='%I33.6'>KEYSW_REQ_AISLE3</Tag>
+  <Tag type='Bool' hmiVisible='True' hmiWriteable='True' hmiAccessible='True' retain='False' remark='Not a safety input' addr='%I34.2'>KEYSW_READY_AISLE3</Tag>
+</Tagtable>
