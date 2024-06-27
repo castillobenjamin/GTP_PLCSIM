@@ -1,50 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<AlphaBotSystem name="Demo Line v2">
-	<!--The Modbus address here is the one shown on the register map minus 1.-->
+<AlphaBotSystem Name="Demo Line v2">
+	<!--The Modbus address used here is the one shown on the register map minus 1.-->
 	<CellCommunication>
-		<IsPlcAutoMode type="output">
+		<IsPlcAutoMode Type="output">
 			<Tag>NoTag</Tag>
 			<Address>1</Address>
 			<BitPosition>0</BitPosition>
 			<Value>0</Value>
 		</IsPlcAutoMode>
-		<IsPlcWarningMode type="output">
+		<IsPlcWarningMode Type="output">
 			<Tag>NoTag</Tag>
 			<Address>1</Address>
 			<BitPosition>1</BitPosition>
 			<Value>0</Value>
 		</IsPlcWarningMode>
-		<IsFireAlarm type="output">
+		<IsFireAlarm Type="output">
 			<Tag>NoTag</Tag>
 			<Address>1</Address>
 			<BitPosition>2</BitPosition>
 			<Value>0</Value>
 		</IsFireAlarm>
-		<IsCellConnectedPulse type="input">
+		<IsCellConnectedPulse Type="input">
 			<Tag>NoTag</Tag>
 			<Address>285</Address>
 			<BitPosition>0</BitPosition>
 			<Value>0</Value>
 		</IsCellConnectedPulse>
-		<ResetFromCell type="input">
+		<ResetFromCell Type="input">
 			<Tag>NoTag</Tag>
 			<Address>286</Address>
 			<BitPosition>0</BitPosition>
 			<Value>0</Value>
 		</ResetFromCell>
-		<CanSystemStartUp type="input">
+		<CanSystemStartUp Type="input">
 			<Tag>NoTag</Tag>
 			<Address>287</Address>
 			<BitPosition>0</BitPosition>
 			<Value>0</Value>
 		</CanSystemStartUp>
-		<SystemIsStartingUp type="input">
+		<SystemIsStartingUp Type="input">
 			<Tag>NoTag</Tag>
 			<Address>287</Address>
 			<BitPosition>1</BitPosition>
 			<Value>0</Value>
 		</SystemIsStartingUp>
-		<BotEvacuationComplete type="input">
+		<BotEvacuationComplete Type="input">
 			<Tag>NoTag</Tag>
 			<Address>288</Address>
 			<BitPosition>0</BitPosition>
@@ -53,422 +53,427 @@
 	</CellCommunication>
 	<Panels>
 		<DwsPanel>
-			<EmergencyBtn type="input">
+			<EmergencyBtn Type="input">
 				<Tag>E-STOP_DWSPanel</Tag>
 				<Address />
 				<Value>true</Value>
 			</EmergencyBtn>
-			<ResetBtn type="input">
+			<ResetBtn Type="input">
 				<Tag>RESET_ON_DWS</Tag>
 				<Address />
 				<Value>false</Value>
 			</ResetBtn>
-			<ResetLamp type="output">
+			<ResetLamp Type="output">
 				<Tag>LAMP_ON_RESET_DWS</Tag>
 				<Address />
 				<Value>false</Value>
 			</ResetLamp>
-			<EstopBtnLamp type="output">
+			<EstopBtnLamp Type="output">
 				<Tag>LAMP_ON_E-STOP_DWS</Tag>
 				<Address />
 				<Value>false</Value>
 			</EstopBtnLamp>
 			<EarthFaults>
-				<EarthFaultA type="input">
+				<!--Each input is marked as either inputA (normally open) or inputB (normally closed)-->
+				<EarthFault Type="inputA">
 					<Tag>AS-I1_EARTH_FAULT_A_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I2_EARTH_FAULT_A_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I3_EARTH_FAULT_A_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I5_EARTH_FAULT_A_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I1_EARTH_FAULT_B_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I2_EARTH_FAULT_B_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I3_EARTH_FAULT_B_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I5_EARTH_FAULT_B_DWS</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
+				</EarthFault>
 			</EarthFaults>
-			<VoltageOn type="input">
+			<VoltageOn Type="input">
 				<Tag>DC24V_ON_DWS</Tag>
 				<Address />
 				<Value>false</Value>
 			</VoltageOn>
-			<SpikeAlarm type="input">
+			<SpikeAlarm Type="input">
 				<Tag>SPD_ALARM_DWS</Tag>
 				<Address />
 				<Value>false</Value>
 			</SpikeAlarm>
-			<Buzzer type="output">
-				<Tag>BUZZER_ON_DWS</Tag>
-				<Address />
-				<Value>false</Value>
-			</Buzzer>
-			<RedLed type="output">
-				<Tag>LIGHT_ON_RED_DWS</Tag>
-				<Address />
-				<Value>false</Value>
-			</RedLed>
-			<YellowLed type="output">
-				<Tag>LIGHT_ON_YELLOW_DWS</Tag>
-				<Address />
-				<Value>false</Value>
-			</YellowLed>
-			<GreenLed type="output">
-				<Tag>LIGHT_ON_GREEN_DWS</Tag>
-				<Address />
-				<Value>false</Value>
-			</GreenLed>
-			<WhiteLed type="output">
-				<Tag>LIGHT_ON_WHITE_DWS</Tag>
-				<Address />
-				<Value>false</Value>
-			</WhiteLed>
-			<ToCell>
-				<EstopBtn>
-					<Tag>NoTag</Tag>
-					<Address>87</Address>
-					<BitPosition>0</BitPosition>
-					<Value>0</Value>
-				</EstopBtn>
-			</ToCell>
+			<SignalTower>
+				<Buzzer Type="output">
+					<Tag>BUZZER_ON_DWS</Tag>
+					<Address />
+					<Value>false</Value>
+				</Buzzer>
+				<RedLed Type="output">
+					<Tag>LIGHT_ON_RED_DWS</Tag>
+					<Address />
+					<Value>false</Value>
+				</RedLed>
+				<YellowLed Type="output">
+					<Tag>LIGHT_ON_YELLOW_DWS</Tag>
+					<Address />
+					<Value>false</Value>
+				</YellowLed>
+				<GreenLed Type="output">
+					<Tag>LIGHT_ON_GREEN_DWS</Tag>
+					<Address />
+					<Value>false</Value>
+				</GreenLed>
+				<WhiteLed Type="output">
+					<Tag>LIGHT_ON_WHITE_DWS</Tag>
+					<Address />
+					<Value>false</Value>
+				</WhiteLed>
+			</SignalTower>
 		</DwsPanel>
 		<SouthPanel>
-			<EmergencyBtn type="input">
+			<EmergencyBtn Type="input">
 				<Tag>(E-STOP_CH1_SOUTH)</Tag>
 				<Address />
 				<Value>true</Value>
 			</EmergencyBtn>
-			<ResetBtn type="input">
+			<ResetBtn Type="input">
 				<Tag>(RESET_ON_SOUTH)</Tag>
 				<Address />
 				<Value>false</Value>
 			</ResetBtn>
-			<ResetLamp type="output">
+			<ResetLamp Type="output">
 				<Tag>(LAMP_ON_RESET_SOUTH)</Tag>
 				<Address />
 				<Value>false</Value>
 			</ResetLamp>
-			<EstopBtnLamp type="output">
+			<EstopBtnLamp Type="output">
 				<Tag>(LAMP_ON_E-STOP_SOUTH)</Tag>
 				<Address />
 				<Value>false</Value>
 			</EstopBtnLamp>
 			<EarthFaults>
-				<EarthFaultA type="input">
+				<!--Each input is marked as either inputA (normally open) or inputB (normally closed)-->
+				<EarthFault Type="inputA">
 					<Tag>AS-I1_EARTH_FAULT_A_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I2_EARTH_FAULT_A_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I3_EARTH_FAULT_A_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I4_EARTH_FAULT_A_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I1_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I2_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I3_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I4_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
+				</EarthFault>
 			</EarthFaults>
-			<VoltageOn type="input">
+			<VoltageOn Type="input">
 				<Tag>DC24V_ON_SOUTH</Tag>
 				<Address />
 				<Value>false</Value>
 			</VoltageOn>
-			<SpikeAlarm type="input">
+			<SpikeAlarm Type="input">
 				<Tag>(SPD_ALARM_SOUTH)</Tag>
 				<Address />
 				<Value>false</Value>
 			</SpikeAlarm>
-			<FireAlarm type="input">
+			<FireAlarm Type="input">
 				<Tag>(FIRE_ALARM)</Tag>
 				<Address />
 				<Value>false</Value>
 			</FireAlarm>
-			<CondensationSensor type="input">
+			<CondensationSensor Type="input">
 				<Tag>(WET_DETECT_AISLE#)</Tag>
 				<Address />
 				<Value>false</Value>
 			</CondensationSensor>
-			<Shutter type="input">
+			<Shutter Type="input">
 				<Tag>(SHUTTER_OPEN_DECK1-4_A1-A3)</Tag>
 				<Address />
 				<Value>false</Value>
 			</Shutter>
-			<Buzzer type="output">
-				<Tag>BUZZER_ON_SOUTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</Buzzer>
-			<RedLed type="output">
-				<Tag>LIGHT_ON_RED_SOUTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</RedLed>
-			<YellowLed type="output">
-				<Tag>LIGHT_ON_YELLOW_SOUTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</YellowLed>
-			<GreenLed type="output">
-				<Tag>LIGHT_ON_GREEN_SOUTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</GreenLed>
-			<WhiteLed type="output">
-				<Tag>LIGHT_ON_WHITE_SOUTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</WhiteLed>
-			<ToCell>
-				<EstopBtn>
-					<Tag>NoTag</Tag>
-					<Address>87</Address>
-					<BitPosition>1</BitPosition>
-					<Value>0</Value>
-				</EstopBtn>
-			</ToCell>
+			<SignalTower>
+				<Buzzer Type="output">
+					<Tag>BUZZER_ON_SOUTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</Buzzer>
+				<RedLed Type="output">
+					<Tag>LIGHT_ON_RED_SOUTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</RedLed>
+				<YellowLed Type="output">
+					<Tag>LIGHT_ON_YELLOW_SOUTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</YellowLed>
+				<GreenLed Type="output">
+					<Tag>LIGHT_ON_GREEN_SOUTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</GreenLed>
+				<WhiteLed Type="output">
+					<Tag>LIGHT_ON_WHITE_SOUTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</WhiteLed>
+			</SignalTower>
 		</SouthPanel>
 		<NorthPanel>
-			<EmergencyBtn type="input">
+			<EmergencyBtn Type="input">
 				<Tag>(E-STOP_CH1_NORTH)</Tag>
 				<Address />
 				<Value>true</Value>
 			</EmergencyBtn>
-			<ResetBtn type="input">
+			<ResetBtn Type="input">
 				<Tag>RESET_ON_NORTH</Tag>
 				<Address />
 				<Value>false</Value>
 			</ResetBtn>
-			<ResetLamp type="output">
+			<ResetLamp Type="output">
 				<Tag>RESET_LED_NORTH</Tag>
 				<Address />
 				<Value>false</Value>
 			</ResetLamp>
-			<EstopBtnLamp type="output">
+			<EstopBtnLamp Type="output">
 				<Tag>(LAMP_ON_E-STOP_NORTH)</Tag>
 				<Address />
 				<Value>false</Value>
 			</EstopBtnLamp>
 			<EarthFaults>
-				<EarthFaultA type="input">
+				<!--Each input is marked as either inputA (normally open) or inputB (normally closed)-->
+				<EarthFault Type="inputA">
 					<Tag>AS-I1_EARTH_FAULT_A_NORTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I2_EARTH_FAULT_A_NORTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultA type="input">
+				</EarthFault>
+				<EarthFault Type="inputA">
 					<Tag>AS-I4_EARTH_FAULT_A_NORTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultA>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I1_EARTH_FAULT_B_NORTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I2_EARTH_FAULT_B_NORTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
-				<EarthFaultB type="input">
+				</EarthFault>
+				<EarthFault Type="inputB">
 					<Tag>AS-I4_EARTH_FAULT_B_NORTH</Tag>
 					<Address />
 					<Value>false</Value>
-				</EarthFaultB>
+				</EarthFault>
 			</EarthFaults>
-			<VoltageOn type="input">
+			<VoltageOn Type="input">
 				<Tag>DC24V_ON_NORTH</Tag>
 				<Address />
 				<Value>false</Value>
 			</VoltageOn>
-			<SpikeAlarm type="input">
+			<SpikeAlarm Type="input">
 				<Tag>(SPD_ALARM_NORTH)</Tag>
 				<Address />
 				<Value>false</Value>
 			</SpikeAlarm>
-			<BuzzerReset type="output">
+			<BuzzerReset Type="output">
 				<Tag>BZ_STOP_NORTH</Tag>
 				<Address />
 				<Value>false</Value>
 			</BuzzerReset>
-			<Buzzer type="output">
-				<Tag>BUZZER_ON_NORTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</Buzzer>
-			<RedLed type="output">
-				<Tag>LIGHT_ON_RED_NORTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</RedLed>
-			<YellowLed type="output">
-				<Tag>LIGHT_ON_YELLOW_NORTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</YellowLed>
-			<GreenLed type="output">
-				<Tag>LIGHT_ON_GREEN_NORTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</GreenLed>
-			<WhiteLed type="output">
-				<Tag>LIGHT_ON_WHITE_NORTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</WhiteLed>
-			<ToCell>
-				<EstopBtn>
-					<Tag>NoTag</Tag>
-					<Address>87</Address>
-					<BitPosition>2</BitPosition>
-					<Value>0</Value>
-				</EstopBtn>
-			</ToCell>
+			<SignalTower>
+				<Buzzer Type="output">
+					<Tag>BUZZER_ON_NORTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</Buzzer>
+				<RedLed Type="output">
+					<Tag>LIGHT_ON_RED_NORTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</RedLed>
+				<YellowLed Type="output">
+					<Tag>LIGHT_ON_YELLOW_NORTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</YellowLed>
+				<GreenLed Type="output">
+					<Tag>LIGHT_ON_GREEN_NORTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</GreenLed>
+				<WhiteLed Type="output">
+					<Tag>LIGHT_ON_WHITE_NORTH</Tag>
+					<Address />
+					<Value>false</Value>
+				</WhiteLed>
+			</SignalTower>
 		</NorthPanel>
 	</Panels>
 	<MaintenanceArea>
-		<BotPresent>
+		<BotPresent Type="input">
 			<Tag></Tag>
 			<Address></Address>
 			<Value>true</Value>
 		</BotPresent>
-		<MaintLamp>
+		<MaintLamp Type="output">
 			<Tag></Tag>
 			<Address></Address>
 			<Value>false</Value>
 		</MaintLamp>
-		<BotHPtoCell>
+		<BotHPtoCell Type="input">
 			<!--TODO: Update address-->
-			<Tag>noTag</Tag>
-			<Address>197</Address>
-			<BitPosition>12</BitPosition>
+			<Tag></Tag>
+			<Address></Address>
+			<BitPosition></BitPosition>
 			<Value>1</Value>
 		</BotHPtoCell>
-		<Door>
-			<IsDoorLocked type="input">
+		<MaintenanceStopper>
+			<PlcOpenOut Type="output">
 				<Tag></Tag>
 				<Address />
 				<Value>false</Value>
-			</IsDoorLocked>
-			<unlockDoor type="output">
+			</PlcOpenOut>
+			<PlcCloseOut Type="output">
 				<Tag></Tag>
 				<Address />
 				<Value>false</Value>
-			</unlockDoor>
-		</Door>
+			</PlcCloseOut>
+			<PlcResetAlarmOut Type="output">
+				<Tag></Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcResetAlarmOut>
+			<IsOpenSensor Type="input">
+				<Tag></Tag>
+				<Address />
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor Type="input">
+				<Tag></Tag>
+				<Address />
+				<Value>true</Value>
+			</IsClosedSensor>
+			<Alarm Type="input">
+				<Tag></Tag>
+				<Address />
+				<Value>true</Value>
+			</Alarm>
+		</MaintenanceStopper>
 	</MaintenanceArea>
 	<Aisles>
-		<Aisle name="Aisle1" Label="Aisle 1">
+		<Aisle Name="Aisle1" Label="Aisle 1">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</unlockDoor>
 			</Door>
 			<Contactors>
-				<Contactor name="ctor north aisle1">
-					<ContactorOutput name="ContactorNorthOut_Aisle1">
+				<Contactor Name="ctor north aisle1">
+					<ContactorOutput Name="ContactorNorthOut_Aisle1"  Type="output">
 						<Tag>TROLLEY-MC_ON_NORTH_AISLE1</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorNorthIn_Aisle1">
+					<ContactorFeedback Name="ContactorNorthIn_Aisle1" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_NORTH_AISLE1</Tag>
 						<Address />
 						<Value>true</Value>
@@ -480,25 +485,25 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolley1">
+						<Tripped Name="trolley1" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE1_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="trolley2">
+						<Tripped Name="trolley2" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE1_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
-				<Contactor name="ctor south aisle1">
-					<ContactorOutput name="ContactorSouthOut_Aisle1">
+				<Contactor Name="ctor south aisle1">
+					<ContactorOutput Name="ContactorSouthOut_Aisle1" Type="output">
 						<Tag>TROLLEY-MC_ON_SOUTH_AISLE1</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorSouthIn_Aisle1">
+					<ContactorFeedback Name="ContactorSouthIn_Aisle1" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_SOUTH_AISLE1</Tag>
 						<Address />
 						<Value>true</Value>
@@ -510,12 +515,12 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="Trolley1">
+						<Tripped Name="Trolley1" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE1_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="Trolley2">
+						<Tripped Name="Trolley2" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE1_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
@@ -523,18 +528,18 @@
 					</TrippedInputs>
 				</Contactor>
 			</Contactors>
-			<ContactorLamp name="ContactorLamp_Aisle1">
+			<ContactorLamp Name="ContactorLamp_Aisle1" Type="output">
 				<Tag>LIGHT_TROLLEY_AISLE1</Tag>
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
 			<Scaffolds>
-				<Scaffold name="Scaffold_North_Aisle1">
+				<Scaffold Name="Scaffold_North_Aisle1" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
 				</Scaffold>
-				<Scaffold name="Scaffold_South_Aisle1">
+				<Scaffold Name="Scaffold_South_Aisle1" Type="input">
 					<Tag>BOARD_DETECT_SOUTH_AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
@@ -575,59 +580,59 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Aisle>
-		<Aisle name="Aisle2" Label="Aisle 2">
+		<Aisle Name="Aisle2" Label="Aisle 2">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE2</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_AISLE2</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_AISLE2</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_AISLE2</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_AISLE2</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE2</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_AISLE2</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_AISLE2</Tag>
 					<Address />
 					<Value>false</Value>
 				</unlockDoor>
 			</Door>
 			<Contactors>
-				<Contactor name="ctor north aisle2">
-					<ContactorOutput name="ContactorNorthOut_Aisle2">
+				<Contactor Name="ctor north aisle2">
+					<ContactorOutput Name="ContactorNorthOut_Aisle2" Type="output">
 						<Tag>TROLLEY-MC_ON_NORTH_AISLE2</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorNorthIn_Aisle2">
+					<ContactorFeedback Name="ContactorNorthIn_Aisle2" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_NORTH_AISLE2</Tag>
 						<Address />
 						<Value>true</Value>
@@ -639,25 +644,25 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolley1">
+						<Tripped Name="trolley1" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE2_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="trolley2">
+						<Tripped Name="trolley2" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE2_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
-				<Contactor name="ctor south aisle2">
-					<ContactorOutput name="ContactorSouthOut_Aisle2">
+				<Contactor Name="ctor south aisle2">
+					<ContactorOutput Name="ContactorSouthOut_Aisle2" Type="output">
 						<Tag>TROLLEY-MC_ON_SOUTH_AISLE2</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorSouthIn_Aisle2">
+					<ContactorFeedback Name="ContactorSouthIn_Aisle2" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_SOUTH_AISLE2</Tag>
 						<Address />
 						<Value>true</Value>
@@ -669,12 +674,12 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="Trolley1">
+						<Tripped Name="Trolley1" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE2_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="Trolley2">
+						<Tripped Name="Trolley2" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE2_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
@@ -682,18 +687,18 @@
 					</TrippedInputs>
 				</Contactor>
 			</Contactors>
-			<ContactorLamp name="ContactorLamp_Aisle2">
+			<ContactorLamp Name="ContactorLamp_Aisle2" Type="output">
 				<Tag>LIGHT_TROLLEY_AISLE2</Tag>
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
 			<Scaffolds>
-				<Scaffold name="Scaffold_North_Aisle2">
+				<Scaffold Name="Scaffold_North_Aisle2" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE2</Tag>
 					<Address />
 					<Value>true</Value>
 				</Scaffold>
-				<Scaffold name="Scaffold_South_Aisle2">
+				<Scaffold Name="Scaffold_South_Aisle2" Type="input">
 					<Tag>BOARD_DETECT_SOUTH_AISLE2</Tag>
 					<Address />
 					<Value>true</Value>
@@ -734,59 +739,59 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Aisle>
-		<Aisle name="Aisle3" Label="Aisle 3">
+		<Aisle Name="Aisle3" Label="Aisle 3">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE3</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_AISLE3</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_AISLE3</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_AISLE3</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_AISLE3</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE3</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_AISLE3</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_AISLE3</Tag>
 					<Address />
 					<Value>false</Value>
 				</unlockDoor>
 			</Door>
 			<Contactors>
-				<Contactor name="ctor north aisle3">
-					<ContactorOutput name="ContactorNorthOut_Aisle3">
+				<Contactor Name="ctor north aisle3">
+					<ContactorOutput Name="ContactorNorthOut_Aisle3" Type="output">
 						<Tag>TROLLEY-MC_ON_NORTH_AISLE3</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorNorthIn_Aisle3">
+					<ContactorFeedback Name="ContactorNorthIn_Aisle3" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_NORTH_AISLE3</Tag>
 						<Address />
 						<Value>true</Value>
@@ -798,25 +803,25 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolley1">
+						<Tripped Name="trolley1" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE3_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="trolley2">
+						<Tripped Name="trolley2" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE3_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
-				<Contactor name="ctor south aisle3">
-					<ContactorOutput name="ContactorSouthOut_Aisle3">
+				<Contactor Name="ctor south aisle3">
+					<ContactorOutput Name="ContactorSouthOut_Aisle3" Type="output">
 						<Tag>TROLLEY-MC_ON_SOUTH_AISLE3</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorSouthIn_Aisle3">
+					<ContactorFeedback Name="ContactorSouthIn_Aisle3" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_SOUTH_AISLE3</Tag>
 						<Address />
 						<Value>true</Value>
@@ -828,12 +833,12 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="Trolley1">
+						<Tripped Name="Trolley1" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE3_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="Trolley2">
+						<Tripped Name="Trolley2" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE3_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
@@ -841,18 +846,18 @@
 					</TrippedInputs>
 				</Contactor>
 			</Contactors>
-			<ContactorLamp name="ContactorLamp_Aisle3">
+			<ContactorLamp Name="ContactorLamp_Aisle3" Type="output">
 				<Tag>LIGHT_TROLLEY_AISLE3</Tag>
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
 			<Scaffolds>
-				<Scaffold name="Scaffold_North_Aisle3">
+				<Scaffold Name="Scaffold_North_Aisle3" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE3</Tag>
 					<Address />
 					<Value>true</Value>
 				</Scaffold>
-				<Scaffold name="Scaffold_South_Aisle3">
+				<Scaffold Name="Scaffold_South_Aisle3" Type="input">
 					<Tag>BOARD_DETECT_SOUTH_AISLE3</Tag>
 					<Address />
 					<Value>true</Value>
@@ -895,46 +900,46 @@
 		</Aisle>
 	</Aisles>
 	<Decks>
-		<Deck name="Deck1" Label="Deck 1">
+		<Deck Name="Deck1" Label="Deck 1">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_DECK1</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_DECK1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_DECK1</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_DECK1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_DECK1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK1</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_DECK1</Tag>
 					<Address />
 					<Value>false</Value>
@@ -975,46 +980,46 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Deck>
-		<Deck name="Deck2" Label="Deck 2">
+		<Deck Name="Deck2" Label="Deck 2">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_DECK2</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_DECK2</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_DECK2</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_DECK2</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_DECK2</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK2</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK2</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_DECK2</Tag>
 					<Address />
 					<Value>false</Value>
@@ -1055,46 +1060,46 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Deck>
-		<Deck name="Deck3" Label="Deck 3">
+		<Deck Name="Deck3" Label="Deck 3">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_DECK3</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_DECK3</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_DECK3</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_DECK3</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_DECK3</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK3</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK3</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_DECK3</Tag>
 					<Address />
 					<Value>false</Value>
@@ -1135,46 +1140,46 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Deck>
-		<Deck name="Deck4" Label="Deck 4">
+		<Deck Name="Deck4" Label="Deck 4">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_DECK4</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_DECK4</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_DECK4</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_DECK4</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_DECK4</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK4</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK4</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_DECK4</Tag>
 					<Address />
 					<Value>false</Value>
@@ -1217,59 +1222,59 @@
 		</Deck>
 	</Decks>
 	<TowerDynamicWorkStations>
-		<TowerDynamicWorkStation name="T-DWS1" Label="T-DWS 1">
+		<TowerDynamicWorkStation Name="T-DWS1" Label="T-DWS 1">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_T-DWS1</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_T-DWS1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_T-DWS1</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_T-DWS1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_T-DWS1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_T-DWS1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_T-DWS1</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_T-DWS1</Tag>
 					<Address />
 					<Value>false</Value>
 				</unlockDoor>
 			</Door>
 			<Contactors>
-				<Contactor name="ctor T-DWS1 pick side">
-					<ContactorOutput name="ContactorPickSideOut_T-DWS1">
+				<Contactor Name="ctor T-DWS1 pick side">
+					<ContactorOutput Name="ContactorPickSideOut_T-DWS1" Type="output">
 						<Tag>TROLLEY-MC_ON_T-DWS1_pickSide</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorPickSideIn_T-DWS1">
+					<ContactorFeedback Name="ContactorPickSideIn_T-DWS1" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_T-DWS1_pickSide</Tag>
 						<Address />
 						<Value>true</Value>
@@ -1281,20 +1286,20 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolleyPickSide trip">
+						<Tripped Name="trolleyPickSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS1_pickSide</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
-				<Contactor name="ctor T-DWS1 tower side">
-					<ContactorOutput name="ContactorTowerSideOut_T-DWS1">
+				<Contactor Name="ctor T-DWS1 tower side">
+					<ContactorOutput Name="ContactorTowerSideOut_T-DWS1" Type="output">
 						<Tag>TROLLEY-MC_ON_T-DWS1_towerSide</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorTowerSideIn_T-DWS1">
+					<ContactorFeedback Name="ContactorTowerSideIn_T-DWS1" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_T-DWS1_towerSide</Tag>
 						<Address />
 						<Value>true</Value>
@@ -1306,12 +1311,12 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolley1 TowerSide trip">
+						<Tripped Name="trolley1 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS1_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="trolley2 TowerSide trip">
+						<Tripped Name="trolley2 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS1_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
@@ -1319,13 +1324,13 @@
 					</TrippedInputs>
 				</Contactor>
 			</Contactors>
-			<ContactorLamp name="ContactorLamp_T-DWS1">
+			<ContactorLamp Name="ContactorLamp_T-DWS1" Type="output">
 				<Tag>LIGHT_TROLLEY_T-DWS1</Tag>
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
 			<Scaffolds>
-				<Scaffold name="Scaffold_T-DWS1">
+				<Scaffold Name="Scaffold_T-DWS1" Type="input">
 					<Tag>BOARD_DETECT_T-DWS1</Tag>
 					<Address />
 					<Value>true</Value>
@@ -1366,59 +1371,59 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</TowerDynamicWorkStation>
-		<TowerDynamicWorkStation name="T-DWS2" Label="T-DWS 2">
+		<TowerDynamicWorkStation Name="T-DWS2" Label="T-DWS 2">
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_T-DWS2</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_T-DWS2</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_T-DWS2</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_T-DWS2</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_T-DWS2</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_T-DWS2</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
-				<IsDoorLocked type="input">
+				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_T-DWS2</Tag>
 					<Address />
 					<Value>true</Value>
 				</IsDoorLocked>
-				<unlockDoor type="output">
+				<unlockDoor Type="output">
 					<Tag>DOOR_UNLOCK_T-DWS2</Tag>
 					<Address />
 					<Value>false</Value>
 				</unlockDoor>
 			</Door>
 			<Contactors>
-				<Contactor name="ctor T-DWS2 pick side">
-					<ContactorOutput name="ContactorPickSideOut_T-DWS2">
+				<Contactor Name="ctor T-DWS2 pick side">
+					<ContactorOutput Name="ContactorPickSideOut_T-DWS2" Type="output">
 						<Tag>TROLLEY-MC_ON_T-DWS2_pickSide</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorPickSideIn_T-DWS2">
+					<ContactorFeedback Name="ContactorPickSideIn_T-DWS2" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_T-DWS2_pickSide</Tag>
 						<Address />
 						<Value>true</Value>
@@ -1430,20 +1435,20 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolleyPickSide trip">
+						<Tripped Name="trolleyPickSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS2_pickSide</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
-				<Contactor name="ctor T-DWS2 tower side">
-					<ContactorOutput name="ContactorTowerSideOut_T-DWS2">
+				<Contactor Name="ctor T-DWS2 tower side">
+					<ContactorOutput Name="ContactorTowerSideOut_T-DWS2" Type="output">
 						<Tag>TROLLEY-MC_ON_T-DWS2_towerSide</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorTowerSideIn_T-DWS2">
+					<ContactorFeedback Name="ContactorTowerSideIn_T-DWS2" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_T-DWS2_towerSide</Tag>
 						<Address />
 						<Value>true</Value>
@@ -1455,12 +1460,12 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolley1 TowerSide trip">
+						<Tripped Name="trolley1 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS2_TROLLEY1</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="trolley2 TowerSide trip">
+						<Tripped Name="trolley2 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS2_TROLLEY2</Tag>
 							<Address />
 							<Value>false</Value>
@@ -1468,13 +1473,13 @@
 					</TrippedInputs>
 				</Contactor>
 			</Contactors>
-			<ContactorLamp name="ContactorLamp_T-DWS2">
+			<ContactorLamp Name="ContactorLamp_T-DWS2" Type="output">
 				<Tag>LIGHT_TROLLEY_T-DWS2</Tag>
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
 			<Scaffolds>
-				<Scaffold name="Scaffold_T-DWS2">
+				<Scaffold Name="Scaffold_T-DWS2" Type="input">
 					<Tag>BOARD_DETECT_T-DWS2</Tag>
 					<Address />
 					<Value>true</Value>
@@ -1519,32 +1524,32 @@
 	<SmallAisles>
 		<SmallAisle>
 			<OperationBox>
-				<EmergencyBtn type="input">
+				<EmergencyBtn Type="input">
 					<Tag>E-STOP_S-AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
 				</EmergencyBtn>
-				<ResetBtn type="input">
+				<ResetBtn Type="input">
 					<Tag>RESET_S-AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ResetBtn>
-				<RunBtn type="input">
+				<RunBtn Type="input">
 					<Tag>RUN_S-AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq type="input">
+				<KeySwReq Type="input">
 					<Tag>KEYSW_REQ_S-AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReq>
-				<KeySwReady type="input">
+				<KeySwReady Type="input">
 					<Tag>KEYSW_READY_S-AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
-				<ZoningStatusLed type="output">
+				<ZoningStatusLed Type="output">
 					<!-- TODO: The input for this led is not implemented yet. Update tag -->
 					<Tag>(OP-BOX_LED_S-AISLE1)</Tag>
 					<Address />
@@ -1552,13 +1557,13 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Contactors>
-				<Contactor name="ctor small aisle1">
-					<ContactorOutput name="ContactorOut_SmallAisle1">
+				<Contactor Name="ctor small aisle1">
+					<ContactorOutput Name="ContactorOut_SmallAisle1" Type="output">
 						<Tag>TROLLEY-MC_ON_S-AISLE1</Tag>
 						<Address />
 						<Value>false</Value>
 					</ContactorOutput>
-					<ContactorFeedback name="ContactorIn_SmallAisle1">
+					<ContactorFeedback Name="ContactorIn_SmallAisle1" Type="input">
 						<Tag>TROLLEY-MC_ON_FB_S-AISLE1</Tag>
 						<Address />
 						<Value>true</Value>
@@ -1570,12 +1575,12 @@
 						<Value>0</Value>
 					</ContactorOnOffCommand>
 					<TrippedInputs>
-						<Tripped name="trolley west">
+						<Tripped Name="trolley west" Type="inputB">
 							<Tag>ELB_TRIP_S-AISLE1_WEST</Tag>
 							<Address />
 							<Value>false</Value>
 						</Tripped>
-						<Tripped name="trolley east">
+						<Tripped Name="trolley east" Type="inputB">
 							<Tag>ELB_TRIP_S-AISLE1_EAST</Tag>
 							<Address />
 							<Value>false</Value>
@@ -1620,8 +1625,8 @@
 		</SmallAisle>
 	</SmallAisles>
 	<StaticWorkStations>
-		<StaticWorkStation name="SWS1">
-			<EmergencyBtn name="EmergencyBtn_SWS1">
+		<StaticWorkStation Name="SWS1">
+			<EmergencyBtn Name="EmergencyBtn_SWS1">
 				<Tag></Tag>
 				<Address />
 				<Value>true</Value>
@@ -1630,33 +1635,33 @@
 	</StaticWorkStations>
 	<Stoppers>
 		<!--Tower DWS-->
-		<Stopper name="STOPPER_T-DWS1_DECK3" Label="Stopper T-DWS1 DECK3">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_T-DWS1_DECK3" Label="Stopper T-DWS1 DECK3">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_T-DWS1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_T-DWS1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_T-DWS1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS1_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS1_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
@@ -1698,33 +1703,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_T-DWS1_DECK4" Label="Stopper T-DWS1 DECK4">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_T-DWS1_DECK4" Label="Stopper T-DWS1 DECK4">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_T-DWS1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_T-DWS1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_T-DWS1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS1_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS1_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
@@ -1766,33 +1771,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_T-DWS2_DECK3" Label="Stopper T-DWS2 DECK3">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_T-DWS2_DECK3" Label="Stopper T-DWS2 DECK3">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_T-DWS2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_T-DWS2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_T-DWS2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS2_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS2_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
@@ -1834,33 +1839,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_T-DWS2_DECK4" Label="Stopper T-DWS2 DECK4">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_T-DWS2_DECK4" Label="Stopper T-DWS2 DECK4">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_T-DWS2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_T-DWS2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_T-DWS2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS2_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS2_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
@@ -1903,33 +1908,33 @@
 			</TimeOverSignalToCell>
 		</Stopper>
 		<!--Small Aisle DWS-->
-		<Stopper name="STOPPER_S-AISLE1_DECK1_WEST" Label="Stopper S-Aisle1 Deck1 West">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_S-AISLE1_DECK1_WEST" Label="Stopper S-Aisle1 Deck1 West">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
 				<Value>true</Value>
@@ -1971,33 +1976,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_S-AISLE1_DECK1_EAST" Label="Stopper S-Aisle1 Deck1 East">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_S-AISLE1_DECK1_EAST" Label="Stopper S-Aisle1 Deck1 East">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2039,33 +2044,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_S-AISLE1_DECK2_WEST" Label="Stopper S-Aisle1 Deck2 West">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_S-AISLE1_DECK2_WEST" Label="Stopper S-Aisle1 Deck2 West">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2107,33 +2112,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_S-AISLE1_DECK2_EAST" Label="Stopper S-Aisle1 Deck2 East">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_S-AISLE1_DECK2_EAST" Label="Stopper S-Aisle1 Deck2 East">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2177,33 +2182,33 @@
 		</Stopper>
 		<!--Aisles-->
 		<!--Aisle1-->
-		<Stopper name="STOPPER_AISLE1_DECK1" Label="Stopper Aisle1 Deck1">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE1_DECK1" Label="Stopper Aisle1 Deck1">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE1_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE1_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE1_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK1</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK1</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2245,33 +2250,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE1_DECK2" Label="Stopper Aisle1 Deck2">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE1_DECK2" Label="Stopper Aisle1 Deck2">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE1_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE1_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE1_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK2</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK2</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2313,33 +2318,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE1_DECK3" Label="Stopper Aisle1 Deck3">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE1_DECK3" Label="Stopper Aisle1 Deck3">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2381,33 +2386,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE1_DECK4" Label="Stopper Aisle1 Deck4">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE1_DECK4" Label="Stopper Aisle1 Deck4">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2450,33 +2455,33 @@
 			</TimeOverSignalToCell>
 		</Stopper>
 		<!--Aisle1-->
-		<Stopper name="STOPPER_AISLE2_DECK1" Label="Stopper Aisle2 Deck1">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE2_DECK1" Label="Stopper Aisle2 Deck1">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE2_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE2_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE2_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK1</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK1</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2518,33 +2523,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE2_DECK2" Label="Stopper Aisle2 Deck2">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE2_DECK2" Label="Stopper Aisle2 Deck2">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE2_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE2_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE2_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK2</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK2</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2586,33 +2591,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE2_DECK3" Label="Stopper Aisle2 Deck3">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE2_DECK3" Label="Stopper Aisle2 Deck3">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2654,33 +2659,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE2_DECK4" Label="Stopper Aisle2 Deck4">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE2_DECK4" Label="Stopper Aisle2 Deck4">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2723,33 +2728,33 @@
 			</TimeOverSignalToCell>
 		</Stopper>
 		<!--Aisle1-->
-		<Stopper name="STOPPER_AISLE3_DECK1" Label="Stopper Aisle3 Deck1">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE3_DECK1" Label="Stopper Aisle3 Deck1">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE3_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE3_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE3_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK1</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK1</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK1</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2791,33 +2796,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE3_DECK2" Label="Stopper Aisle3 Deck2">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE3_DECK2" Label="Stopper Aisle3 Deck2">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE3_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE3_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE3_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK2</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK2</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK2</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2859,33 +2864,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE3_DECK3" Label="Stopper Aisle3 Deck3">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE3_DECK3" Label="Stopper Aisle3 Deck3">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE3_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE3_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE3_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK3</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK3</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2927,33 +2932,33 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<Stopper name="STOPPER_AISLE3_DECK4" Label="Stopper Aisle3 Deck4">
-			<PlcOpenOut>
+		<Stopper Name="STOPPER_AISLE3_DECK4" Label="Stopper Aisle3 Deck4">
+			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE3_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
-			<PlcCloseOut>
+			<PlcCloseOut Type="output">
 				<Tag>ELC_DQ_CLOSE_AISLE3_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
-			<PlcResetAlarmOut>
+			<PlcResetAlarmOut Type="output">
 				<Tag>ELC_DQ_RES_AISLE3_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
-			<IsOpenSensor>
+			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK4</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsOpenSensor>
-			<IsClosedSensor>
+			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsClosedSensor>
-			<Alarm>
+			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK4</Tag>
 				<Address />
 				<Value>true</Value>
@@ -2997,3900 +3002,3900 @@
 		</Stopper>
 	</Stoppers>
 	<Bots>
-		<Bot name="Bot1">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot1">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot2">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot2">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot3">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot3">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot4">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot4">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>16</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot5">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot5">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot6">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot6">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot7">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot7">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot8">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot8">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>17</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot9">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot9">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot10">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot10">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot11">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot11">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot12">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot12">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>18</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot13">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot13">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot14">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot14">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot15">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot15">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot16">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot16">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>19</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot17">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot17">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot18">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot18">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot19">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot19">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot20">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot20">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>20</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot21">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot21">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot22">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot22">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot23">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot23">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot24">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot24">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>21</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot25">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot25">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot26">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot26">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot27">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot27">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot28">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot28">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>22</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot29">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot29">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot30">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot30">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot31">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot31">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot32">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot32">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>23</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot33">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot33">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot34">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot34">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot35">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot35">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot36">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot36">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>24</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot37">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot37">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot38">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot38">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot39">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot39">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot40">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot40">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>25</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot41">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot41">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot42">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot42">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot43">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot43">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot44">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot44">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>26</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot45">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot45">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot46">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot46">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot47">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot47">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot48">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot48">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>27</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot49">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot49">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot50">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot50">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot51">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot51">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot52">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot52">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>28</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot53">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot53">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot54">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot54">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot55">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot55">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot56">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot56">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>29</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot57">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot57">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot58">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot58">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot59">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot59">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot60">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot60">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>30</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot61">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot61">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot62">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot62">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot63">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot63">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot64">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot64">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>31</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot65">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot65">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot66">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot66">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot67">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot67">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot68">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot68">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>32</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot69">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot69">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot70">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot70">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot71">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot71">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot72">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot72">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>33</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot73">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot73">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot74">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot74">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot75">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot75">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot76">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot76">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>34</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot77">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot77">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot78">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot78">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot79">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot79">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot80">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot80">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>35</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot81">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot81">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot82">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot82">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot83">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot83">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot84">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot84">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>36</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot85">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot85">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot86">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot86">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot87">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot87">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot88">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot88">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>37</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot89">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot89">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot90">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot90">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot91">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot91">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot92">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot92">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>38</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot93">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot93">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot94">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot94">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot95">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot95">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot96">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot96">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>39</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot97">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot97">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot98">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot98">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot99">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot99">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot100">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot100">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>40</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot101">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot101">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot102">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot102">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot103">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot103">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot104">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot104">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>41</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot105">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot105">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot106">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot106">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot107">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot107">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot108">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot108">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>42</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot109">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot109">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot110">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot110">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot111">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot111">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot112">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot112">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>43</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot113">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot113">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot114">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot114">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot115">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot115">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot116">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot116">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>44</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot117">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot117">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot118">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot118">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot119">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot119">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot120">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot120">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>45</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot121">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot121">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot122">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot122">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot123">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot123">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot124">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot124">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>46</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot125">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot125">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot126">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot126">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot127">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot127">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot128">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot128">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>47</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot129">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot129">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot130">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot130">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot131">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot131">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot132">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot132">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>48</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot133">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot133">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot134">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot134">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot135">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot135">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot136">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot136">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>49</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot137">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot137">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot138">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot138">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot139">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot139">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot140">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot140">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>50</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot141">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot141">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot142">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot142">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot143">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot143">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot144">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot144">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>51</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot145">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot145">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot146">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot146">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot147">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot147">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>10</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>11</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>8</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>9</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot148">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot148">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>14</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>15</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>12</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>52</Address>
 				<BitPosition>13</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot149">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot149">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>2</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>3</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>0</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ResetCmdFromCell>
 		</Bot>
-		<Bot name="Bot150">
-			<IsCommFaultToCell type="output">
+		<Bot Name="Bot150">
+			<IsCommFaultToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsCommFaultToCell>
-			<EstopStatusToCell type="output">
+			<EstopStatusToCell Type="output">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>7</BitPosition>
 				<Value>0</Value>
 			</EstopStatusToCell>
-			<EstopCmdFromCell type="input">
+			<EstopCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>4</BitPosition>
 				<Value>0</Value>
 			</EstopCmdFromCell>
-			<ResetCmdFromCell type="input">
+			<ResetCmdFromCell Type="input">
 				<Tag>NoTag</Tag>
 				<Address>53</Address>
 				<BitPosition>5</BitPosition>
