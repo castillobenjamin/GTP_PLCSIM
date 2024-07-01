@@ -375,11 +375,6 @@
 			<Address></Address>
 			<Value>true</Value>
 		</BotPresent>
-		<MaintLamp Type="output">
-			<Tag></Tag>
-			<Address></Address>
-			<Value>false</Value>
-		</MaintLamp>
 		<BotHPtoCell Type="input">
 			<!--TODO: Update address-->
 			<Tag></Tag>
@@ -387,42 +382,53 @@
 			<BitPosition></BitPosition>
 			<Value>1</Value>
 		</BotHPtoCell>
-		<MaintenanceStopper>
-			<PlcOpenOut Type="output">
-				<Tag></Tag>
-				<Address />
-				<Value>false</Value>
-			</PlcOpenOut>
-			<PlcCloseOut Type="output">
-				<Tag></Tag>
-				<Address />
-				<Value>false</Value>
-			</PlcCloseOut>
-			<PlcResetAlarmOut Type="output">
-				<Tag></Tag>
-				<Address />
-				<Value>false</Value>
-			</PlcResetAlarmOut>
-			<IsOpenSensor Type="input">
-				<Tag></Tag>
-				<Address />
-				<Value>false</Value>
-			</IsOpenSensor>
-			<IsClosedSensor Type="input">
-				<Tag></Tag>
-				<Address />
-				<Value>true</Value>
-			</IsClosedSensor>
-			<Alarm Type="input">
-				<Tag></Tag>
-				<Address />
-				<Value>true</Value>
-			</Alarm>
-		</MaintenanceStopper>
+		<StopperOpenBtn Type="input">
+			<Tag></Tag>
+			<Address></Address>
+			<Value>true</Value>
+		</StopperOpenBtn>
+		<StopperCloseBtn Type="input">
+			<Tag></Tag>
+			<Address></Address>
+			<Value>true</Value>
+		</StopperCloseBtn>
+		<!--TODO. Move stopper to stopper array-->
+		<Contactor>
+			<Contactor Name="Maintenance Area Contactor">
+				<ContactorOutput Type="output">
+					<Tag></Tag>
+					<Address />
+					<Value>false</Value>
+				</ContactorOutput>
+				<ContactorFeedback Type="input">
+					<Tag></Tag>
+					<Address />
+					<Value>true</Value>
+				</ContactorFeedback>
+				<ContactorOnOffCommand>
+					<Tag>NoTag</Tag>
+					<Address>258</Address>
+					<BitPosition>0</BitPosition>
+					<Value>0</Value>
+				</ContactorOnOffCommand>
+				<TrippedInputs>
+					<Tripped Name="trolley1" Type="inputB">
+						<Tag></Tag>
+						<Address />
+						<Value>false</Value>
+					</Tripped>
+					<Tripped Name="trolley2" Type="inputB">
+						<Tag></Tag>
+						<Address />
+						<Value>false</Value>
+					</Tripped>
+				</TrippedInputs>
+			</Contactor>
+		</Contactor>
 	</MaintenanceArea>
 	<Aisles>
 		<Aisle Name="Aisle1" Label="Aisle 1">
-			<OperationBox>
+			<OperationBox Type="hasMaintArea">
 				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE1</Tag>
 					<Address />
@@ -448,6 +454,11 @@
 					<Address />
 					<Value>false</Value>
 				</KeySwReady>
+				<KeySwMaint Type="input">
+					<Tag>NoTag</Tag>
+					<Address />
+					<Value>false</Value>
+				</KeySwMaint>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE1</Tag>
 					<Address />
@@ -533,18 +544,18 @@
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
-			<Scaffolds>
-				<Scaffold Name="Scaffold_North_Aisle1" Type="input">
+			<SafetyBoards>
+				<SafetyBoard Name="SafetyBoard_North_Aisle1" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-				<Scaffold Name="Scaffold_South_Aisle1" Type="input">
+				</SafetyBoard>
+				<SafetyBoard Name="SafetyBoard_South_Aisle1" Type="input">
 					<Tag>BOARD_DETECT_SOUTH_AISLE1</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-			</Scaffolds>
+				</SafetyBoard>
+			</SafetyBoards>
 			<Zoning>
 				<CellCommand>
 					<Tag>NoTag</Tag>
@@ -692,18 +703,18 @@
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
-			<Scaffolds>
-				<Scaffold Name="Scaffold_North_Aisle2" Type="input">
+			<SafetyBoards>
+				<SafetyBoard Name="SafetyBoard_North_Aisle2" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE2</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-				<Scaffold Name="Scaffold_South_Aisle2" Type="input">
+				</SafetyBoard>
+				<SafetyBoard Name="SafetyBoard_South_Aisle2" Type="input">
 					<Tag>BOARD_DETECT_SOUTH_AISLE2</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-			</Scaffolds>
+				</SafetyBoard>
+			</SafetyBoards>
 			<Zoning>
 				<CellCommand>
 					<Tag>NoTag</Tag>
@@ -851,18 +862,18 @@
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
-			<Scaffolds>
-				<Scaffold Name="Scaffold_North_Aisle3" Type="input">
+			<SafetyBoards>
+				<SafetyBoard Name="SafetyBoard_North_Aisle3" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE3</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-				<Scaffold Name="Scaffold_South_Aisle3" Type="input">
+				</SafetyBoard>
+				<SafetyBoard Name="SafetyBoard_South_Aisle3" Type="input">
 					<Tag>BOARD_DETECT_SOUTH_AISLE3</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-			</Scaffolds>
+				</SafetyBoard>
+			</SafetyBoards>
 			<Zoning>
 				<CellCommand>
 					<Tag>NoTag</Tag>
@@ -1329,13 +1340,13 @@
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
-			<Scaffolds>
-				<Scaffold Name="Scaffold_T-DWS1" Type="input">
+			<SafetyBoards>
+				<SafetyBoard Name="SafetyBoard_T-DWS1" Type="input">
 					<Tag>BOARD_DETECT_T-DWS1</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-			</Scaffolds>
+				</SafetyBoard>
+			</SafetyBoards>
 			<Zoning>
 				<CellCommand>
 					<Tag>NoTag</Tag>
@@ -1478,13 +1489,13 @@
 				<Address />
 				<Value>false</Value>
 			</ContactorLamp>
-			<Scaffolds>
-				<Scaffold Name="Scaffold_T-DWS2" Type="input">
+			<SafetyBoards>
+				<SafetyBoard Name="SafetyBoard_T-DWS2" Type="input">
 					<Tag>BOARD_DETECT_T-DWS2</Tag>
 					<Address />
 					<Value>true</Value>
-				</Scaffold>
-			</Scaffolds>
+				</SafetyBoard>
+			</SafetyBoards>
 			<Zoning>
 				<CellCommand>
 					<Tag>NoTag</Tag>
