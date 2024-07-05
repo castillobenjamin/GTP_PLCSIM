@@ -67,6 +67,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Configuration\Bot.cs" />
+    <Compile Include="Models\Configuration\KeySwitch.cs" />
+    <Compile Include="Models\Configuration\SignalTower.cs" />
+    <Compile Include="Models\Configuration\SmallAisle.cs" />
+    <Compile Include="Models\Configuration\TowerDynamicWorkStation.cs" />
+    <Compile Include="Models\Configuration\Zone.cs" />
+    <Compile Include="Models\Configuration\ZoneWithDoor.cs" />
     <Compile Include="SimulationFormInterfaces\CoSimInterface.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,7 +93,7 @@
     <Compile Include="Models\Configuration\Contactor.cs" />
     <Compile Include="Models\Configuration\Door.cs" />
     <Compile Include="Models\Configuration\EmergencyStop.cs" />
-    <Compile Include="Models\Configuration\EvacuationAndMaintenanceArea.cs" />
+    <Compile Include="Models\Configuration\MaintenanceArea.cs" />
     <Compile Include="Models\Configuration\OperationBox.cs" />
     <Compile Include="Models\Configuration\Panel.cs" />
     <Compile Include="Models\Configuration\PanelSection.cs" />
@@ -132,6 +139,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SimulationFormInterfaces\TestingInterface.resx">
       <DependentUpon>TestingInterface.cs</DependentUpon>
@@ -161,6 +169,8 @@
     <Content Include="ConfigData\SimGlobalConfig_SCHEMA_v2.1.xml" />
     <Content Include="ConfigData\SimGlobalConfig_SCHEMA_v2.xml" />
     <Content Include="ConfigData\TestXML.xml" />
+    <None Include="Resources\estopbtn1.png" />
+    <None Include="Resources\estopbtn.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="References\" />
