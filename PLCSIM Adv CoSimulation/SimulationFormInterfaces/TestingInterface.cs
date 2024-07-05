@@ -24,7 +24,9 @@ namespace PLCSIM_Adv_CoSimulation
         private List<Stopper> Stoppers;
         private List<Aisle> AisleList;
         private List<Deck> DeckList;
-        private List<DynamicWorkStation> DwsList;
+        //private List<DynamicWorkStation> DwsList;
+        private List<TowerDynamicWorkStation> TowerDwsList;
+        private List<SmallAisle> SmallAisleList;
         private Panel DwsPanel;
         // Structures
         /// <summary>
@@ -88,7 +90,8 @@ namespace PLCSIM_Adv_CoSimulation
             Stoppers = CoSimulationInstance.AlphaBotSystem.Stoppers;
             AisleList = CoSimulationInstance.AlphaBotSystem.Aisles;
             DeckList = CoSimulationInstance.AlphaBotSystem.Decks;
-            DwsList = CoSimulationInstance.AlphaBotSystem.DynamicWorkStations;
+            TowerDwsList = CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations;
+            SmallAisleList = CoSimulationInstance.AlphaBotSystem.SmallAisles;
             DwsPanel = CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel;
         }
         #endregion // Initialization
@@ -773,15 +776,15 @@ namespace PLCSIM_Adv_CoSimulation
                 switch (color.ToLower())
                 {
                     case "green":
-                        return ReadOutput(DwsPanel.GreenLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                        return ReadOutput(DwsPanel.SignalTower.GreenLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
                     case "red":
-                        return ReadOutput(DwsPanel.RedLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                        return ReadOutput(DwsPanel.SignalTower.RedLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
                     case "yellow":
-                        return ReadOutput(DwsPanel.YellowLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                        return ReadOutput(DwsPanel.SignalTower.YellowLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
                     case "white":
-                        return ReadOutput(DwsPanel.WhiteLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
-                    case "blue":
-                        return ReadOutput(DwsPanel.BlueLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                        return ReadOutput(DwsPanel.SignalTower.WhiteLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
+                    //case "blue":
+                        //return ReadOutput(DwsPanel.BlueLed, parsedStatus, MaxReadOutputTries, InstructionWaitTime);
                     default:
                         MessageBox.Show(FormatException + SignalTowerExceptionMessage);
                         return false;
@@ -1276,7 +1279,7 @@ namespace PLCSIM_Adv_CoSimulation
         /// <param name="area">String of format "Zone#". E.g.: "Aisle2", "Deck4", etc.</param>
         /// <param name="action">"Press" and "Release"</param>
         /// <returns>True if routine is executed successfully.</returns>
-        private bool RequestBtnOperation(string area, string action)
+        private bool RunBtnOperation(string area, string action)
         {
             // Local variables
             object parsedArea;
@@ -1296,12 +1299,12 @@ namespace PLCSIM_Adv_CoSimulation
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
-                    return UpdateInput(aisle.OperationBox.RequestBtn, parsedAction);
+                    return UpdateInput(aisle.OperationBox.RunBtn, parsedAction);
                 }
                 else if (parsedArea is Deck)
                 {
                     deck = (Deck)parsedArea;
-                    return UpdateInput(deck.OperationBox.RequestBtn, parsedAction);
+                    return UpdateInput(deck.OperationBox.RunBtn, parsedAction);
                 }
                 // No reset btn on DWS
                 else
@@ -1324,6 +1327,7 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Buttons
 
         #region SafetyDoor
+        //TODO update method
         /// <summary>
         /// Open/Close the safety door of the specified area.
         /// </summary>
@@ -1349,13 +1353,15 @@ namespace PLCSIM_Adv_CoSimulation
                 }
                 if (parsedArea is Aisle)
                 {
+                    // TODO update method call parameters
                     aisle = (Aisle)parsedArea;
-                    return UpdateInput(aisle.Door.IsDoorClosedSensor, parsedAction);
+                    return UpdateInput(aisle.Door.IsDoorLocked, parsedAction);
                 }
                 else if (parsedArea is Deck)
                 {
+                    // TODO update method call parameters
                     deck = (Deck)parsedArea;
-                    return UpdateInput(deck.Door.IsDoorClosedSensor, parsedAction);
+                    return UpdateInput(deck.Door.IsDoorLocked, parsedAction);
                 }
                 // No reset btn on DWS
                 else
@@ -1376,6 +1382,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
+        //TODO update method
         /// <summary>
         /// Lock/Unlock the safety door of the specified area.
         /// </summary>
@@ -1402,12 +1409,12 @@ namespace PLCSIM_Adv_CoSimulation
                 if (parsedArea is Aisle)
                 {
                     aisle = (Aisle)parsedArea;
-                    return UpdateInput(aisle.Door.IsDoorLockedKeySwitch, parsedAction);
+                    return UpdateInput(aisle.Door.IsDoorLocked, parsedAction);
                 }
                 else if (parsedArea is Deck)
                 {
                     deck = (Deck)parsedArea;
-                    return UpdateInput(deck.Door.IsDoorLockedKeySwitch, parsedAction);
+                    return UpdateInput(deck.Door.IsDoorLocked, parsedAction);
                 }
                 // No reset btn on DWS
                 else
@@ -1544,9 +1551,13 @@ namespace PLCSIM_Adv_CoSimulation
                 {
                     return DeckList[index];
                 }
-                else if (area.ToLower().Contains("dws"))
+                else if (area.ToLower().Contains("tdws"))
                 {
-                    return DwsList[index];
+                    return TowerDwsList[index];
+                }
+                else if (area.ToLower().Contains("smallaisle"))
+                {
+                    return SmallAisleList[index];
                 }
                 else
                 {
@@ -1728,8 +1739,8 @@ namespace PLCSIM_Adv_CoSimulation
                         case "ResetBtnOperation":
                             instructionPassed = ResetBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
-                        case "RequestBtnOperation":
-                            instructionPassed = RequestBtnOperation(instructionSplit[1], instructionSplit[2]);
+                        case "RunBtnOperation":
+                            instructionPassed = RunBtnOperation(instructionSplit[1], instructionSplit[2]);
                             break;
                         default:
                             ListBox_Log.Items.Add("'" + instruction + "' " + UnrecognizedInstruction);

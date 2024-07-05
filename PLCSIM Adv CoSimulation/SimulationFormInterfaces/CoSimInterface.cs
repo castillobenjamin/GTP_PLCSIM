@@ -1,17 +1,32 @@
-﻿using Microsoft.Win32;
-using PLCSIM_Adv_CoSimulation.Models;
+﻿using PLCSIM_Adv_CoSimulation.Models;
 using PLCSIM_Adv_CoSimulation.Models.Configuration;
 using PLCSIM_Adv_CoSimulation.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+//TODOLIST
+//TODO - use the [XmlElement(ElementName = "fields")] pattern.
+//This way the name of the xml attribute and the class properties does not have to match.
+//TODO - refactor all the "UpdateLabel" methods. Use a common method and use parameters.
+//TODO - try to separate the control methods from the input logic? In case the interface changes?
+//TODO - refactor the zoning update inputs
+//TODO - use refs and whatnot instead of passing copies of parameters.
+//TODO - Think of a way to merge the RadioButton_[XXX]_CheckedChanged methods.
+
+/* 
+ ** Changes and remarks concerning updates for Demoline v2
+
+ * Door input.
+ * The Open/Close radio buttons are not the direct input of the PLC.
+ * The PLC input signals when the "door is locked". 
+ * It is true only when the physical door is closed and the digital lock is active 
+ * (i.e. the PLC "unlock door" output is false)
+ * The radio buttons are meant to signal the physical door being open/closed.
+ 
+ */
 
 namespace PLCSIM_Adv_CoSimulation
 {
@@ -21,7 +36,9 @@ namespace PLCSIM_Adv_CoSimulation
         private readonly CoSimulation CoSimulationInstance;
         private Aisle currentAisle;
         private Deck currentDeck;
-        private DynamicWorkStation currentDws;
+        //private DynamicWorkStation currentDws;
+        private TowerDynamicWorkStation currentTowerDws;
+        private SmallAisle currentSmallAisle;
         private Stopper currentStopper;
         private FirePreventionShutter currentShutter;
         // flag for "CELL only" simulation
@@ -53,10 +70,14 @@ namespace PLCSIM_Adv_CoSimulation
         private int shutterActuationWaitTime = 1500;
 
         //Label config
-        readonly Font activeLabelFont = new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Bold);
-        readonly Font inactiveLabelFont = new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Strikeout);
-        readonly Font errorLabelFont = new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Underline);
-        readonly Font emergencyLabelFont = new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Bold);
+        readonly Font activeLabelFont = 
+            new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Bold);
+        readonly Font inactiveLabelFont = 
+            new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Strikeout);
+        readonly Font errorLabelFont = 
+            new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Underline);
+        readonly Font emergencyLabelFont = 
+            new Font(Label.DefaultFont.FontFamily, (float)9, FontStyle.Bold);
         readonly Color activeLabelColor = Color.Green;
         readonly Color inactiveLabelColor = Color.Gray;
         readonly Color errorLabelColor = Color.Red;
@@ -96,145 +117,80 @@ namespace PLCSIM_Adv_CoSimulation
             });
             // Set displayed item
             ComboBox_Aisles.SelectedIndex = 0;
+            
             // Decks
             CoSimulationInstance.AlphaBotSystem.Decks.ForEach(x =>
             {
                 ComboBox_Decks.Items.Add(x.Label);
             });
             ComboBox_Decks.SelectedIndex = 0;
-            // DWS
-            CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(x =>
+            
+            // Tower DWS
+            CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(x =>
             {
-                ComboBox_DWS.Items.Add(x.Label);
+                ComboBox_TowerDWS.Items.Add(x.Label);
             });
-            ComboBox_DWS.SelectedIndex = 0;
+            ComboBox_TowerDWS.SelectedIndex = 0;
+            
+            // Small Aisle
+            CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach((x) =>
+            {
+                ComboBox_SmallAisle.Items.Add(x.Label);
+            });
+            ComboBox_SmallAisle.SelectedIndex = 0;
+            
             // Stoppers
             CoSimulationInstance.AlphaBotSystem.Stoppers.ForEach(x =>
             {
                 ComboBox_Stoppers.Items.Add(x.Label);
             });
             ComboBox_Stoppers.SelectedIndex = 0;
-            // Shutters
-            // Shutters are an option
-            if (CoSimulationInstance.AlphaBotSystem.FirePreventionShuttersSpecified)
+
+            //Bots
+            CoSimulationInstance.AlphaBotSystem.Stoppers.ForEach(x =>
             {
-                CoSimulationInstance.AlphaBotSystem.FirePreventionShutters.ForEach(x =>
-                {
-                    ComboBox_Shutters.Items.Add(x.Label);
-                });
-                ComboBox_Shutters.SelectedIndex = 0;
-            }
+                ComboBox_Stoppers.Items.Add(x.Label);
+            });
         }
         private void InitializeControls()
         {
             // Set text boxes as read only
             TextBox_ZoningStatus_Aisle.ReadOnly = true;
             TextBox_ZoningStatus_Deck.ReadOnly = true;
-            TextBox_ZoningStatus_DWS.ReadOnly = true;
-            // Shutter cylinders check box
-            CheckBox_CylinderPressure.Checked = true;
+            TextBox_ZoningStatus_TDWS.ReadOnly = true;
+            TextBox_ZoningStatus_SmallAisle.ReadOnly = true;
         }
         private void InitializeFields()
         {
             currentAisle = CoSimulationInstance.AlphaBotSystem.Aisles[ComboBox_Aisles.SelectedIndex];
             currentDeck = CoSimulationInstance.AlphaBotSystem.Decks[ComboBox_Decks.SelectedIndex];
-            currentDws = CoSimulationInstance.AlphaBotSystem.DynamicWorkStations[ComboBox_DWS.SelectedIndex];
-            currentStopper = CoSimulationInstance.AlphaBotSystem.Stoppers[ComboBox_Stoppers.SelectedIndex];
-            if (CoSimulationInstance.AlphaBotSystem.FirePreventionShuttersSpecified)
+            currentTowerDws = 
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations[
+                    ComboBox_TowerDWS.SelectedIndex];
+            currentSmallAisle = 
+                CoSimulationInstance.AlphaBotSystem.SmallAisles[
+                    ComboBox_SmallAisle.SelectedIndex];
+            currentStopper = 
+                CoSimulationInstance.AlphaBotSystem.Stoppers[
+                    ComboBox_Stoppers.SelectedIndex];
+            if (CoSimulationInstance.AlphaBotSystem.MaintAreaSpecified)
             {
-                currentShutter = CoSimulationInstance.AlphaBotSystem.FirePreventionShutters[ComboBox_Shutters.SelectedIndex];
-            }
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintAreaSpecified)
-            {
-                InitializeEvacMaintArea();
+                InitializeMaintArea();
             }
         }
-        private void InitializeEvacMaintArea()
+        private void InitializeMaintArea()
         {
-            RadioButton_DoorClosed_EvacMaintArea.Checked =
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorOpen_EvacMaintArea.Checked =
-                !CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorLocked_EvacMaintArea.Checked =
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorLockedKeySwitch.Value;
-            RadioButton_DoorUnlocked_EvacMaintArea.Checked =
-                !CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorLockedKeySwitch.Value;
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInputSpecified)
-            {
-                RadioButton_DoorNotReady_MaintArea.Checked =
-                    !CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInput.Value;
-                RadioButton_DoorReady_MaintArea.Checked =
-                    CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInput.Value;
-            }
+            // TODO: Add new initialization for maintenance area.
         }
         /// <summary>
         /// Hides controls that are not used for the current configuration
         /// </summary>
         private void HideControls(bool isCellOnlySim)
         {
-            // Assume the configuration of all decks in a given system is the same, so we only need to check for one of them
-            if (!currentDeck.ScaffoldSpecified)
-            {
-                GroupBox_Scaffold_Deck.Hide();
-            }
             // Hide evacuation/maintenance area controls
-            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintAreaSpecified)
+            if (!CoSimulationInstance.AlphaBotSystem.MaintAreaSpecified)
             {
-                GroupBox_EvacAndMaintArea.Hide();
-            }
-            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.ScaffoldSpecified)
-            {
-                GroupBox_Scaffold_EvacAndMaintArea.Hide();
-            }
-            // Hide Fire prevention shutter controls
-            if (!CoSimulationInstance.AlphaBotSystem.FirePreventionShuttersSpecified)
-            {
-                Group_FireShutter.Hide();
-            }
-            // Hide Fire alarm
-            if (!CoSimulationInstance.AlphaBotSystem.FireAlarmSpecified)
-            {
-                CheckBox_FireAlarm.Hide();
-            }
-            // Hide Cyl pressure
-            if (!CoSimulationInstance.AlphaBotSystem.ShutterCylindersSpecified)
-            {
-                CheckBox_CylinderPressure.Hide();
-            }
-            // Hide DoorIsReady input
-            if (!currentDeck.Door.IsDoorReadyInputSpecified)
-            {
-                groupBox_DoorReady_Deck.Hide();
-            }
-            if (!currentAisle.Door.IsDoorReadyInputSpecified)
-            {
-                groupBox_DoorReady_Aisle.Hide();
-            }
-            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInputSpecified)
-            {
-                groupBox_DoorReady_EvacMaintArea.Hide();
-            }
-            // Hide covers input
-            if (!currentDws.CoversSpecified)
-            {
-                CheckBox_DWSCovers.Hide();
-            }
-            // Hide E-stop Section on Maint area
-            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
-            {
-                GroupBox_EstopMaintArea.Hide();
-            }
-            // Hide condensation sensor checkbox and label
-            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.CondensationSensorSpecified)
-            {
-                CheckBox_CondensationSensor.Hide();
-                CondensationSensorLabel.Hide();
-            }
-            // Hide maintenance lamp labels
-            if (!CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.MaintLampSpecified)
-            {
-                MaintLampLabel.Hide();
-                Label_MaintLamp_EvacMaintArea.Hide();
+                GroupBox_MaintArea.Hide();
             }
             // Hide IO controls when "CELL Only" option is checked
             if (isCellOnlySim)
@@ -242,36 +198,32 @@ namespace PLCSIM_Adv_CoSimulation
                 // Aisle
                 GroupBox_OpBox_Aisle.Hide();
                 GroupBox_Door_Aisle.Hide();
-                GroupBox_Scaffold_Aisle.Hide();
+                GroupBox_SafetyBoard_Aisle.Hide();
                 Label_ContactorPlcOut_AisleNorth.Hide();
-                Label_ContactorPlcIn_AisleNorth.Hide();
-                CheckBox_ContactorPlcIn_AisleNorth.Hide();
+                Label_ContactorFdbk_AisleNorth.Hide();
+                CheckBox_ContactorFdbk_AisleNorth.Hide();
                 Label_ContactorPlcOut_AisleSouth.Hide();
-                Label_ContactorPlcIn_AisleSouth.Hide();
-                CheckBox_ContactorPlcIn_AisleSouth.Hide();
+                Label_ContactorFdbk_AisleSouth.Hide();
+                CheckBox_ContactorFdbk_AisleSouth.Hide();
                 // Deck
                 GroupBox_OpBox_Deck.Hide();
                 GroupBox_Door_Deck.Hide();
-                GroupBox_Scaffold_Deck.Hide();
-                // DWS
-                CheckBox_EstopBtn_DWS.Hide();
-                CheckBox_DWSCovers.Hide();
-                Label_ContactorPlcOut_DWS.Hide();
-                Label_ContactorPlcIn_DWS.Hide();
-                CheckBox_ContactorPlcIn_DWS.Hide();
+                // Tower DWS
+                GroupBox_OpBox_TDWS.Hide();
+                GroupBox_Door_TDWS.Hide();
+                // TODO add safety boards.
+                // Small Aisle
+                GroupBox_OpBox_SmallAisle.Hide();
+                Label_ContactorPlcOut_SmallAisle.Hide();
+                Label_ContactorFdbk_SmallAisle.Hide();
+                CheckBox_ContactorFdbk_SmallAisle.Hide();
                 // Other areas
                 GroupBox_Panels.Hide();
-                GroupBox_SWS.Hide();
-                GroupBox_Door_EvacAndMaintArea.Hide();
-                GroupBox_Scaffold_EvacAndMaintArea.Hide();
-                GroupBox_Sensor_Shutter.Hide();
-                GroupBox_Q_Shutter.Hide();
                 GroupBox_Sensor_Stopper.Hide();
                 GroupBox_Q_Stopper.Hide();
-                CheckBox_EstopBtn_EvacMaintArea.Hide();
-                Label_ContactorPlcOut_EvacMaintArea.Hide();
-                Label_ContactorPlcIn_EvacMaintArea.Hide();
-                CheckBox_ContactorPlcIn_EvacMaintArea.Hide();
+                Label_ContactorPlcOut_MaintArea.Hide();
+                Label_ContactorFdbk_MaintArea.Hide();
+                CheckBox_ContactorFdbk_MaintArea.Hide();
             }
         }
         #endregion // Initialization
@@ -299,7 +251,8 @@ namespace PLCSIM_Adv_CoSimulation
             if (CheckBox_IsCellConnectedPulse.Checked)
             {
                 HeartBeatCounter = Utils.CountByteUp(HeartBeatCounter);
-                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = HeartBeatCounter;
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsCellConnectedPulse.Value = 
+                    HeartBeatCounter;
             }
         }
         #endregion // Timer
@@ -316,15 +269,19 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 UpdateAisleOutputs();
                 UpdateDeckOutputs();
-                UpdateDwsOutputs();
+                //UpdateDwsOutputs();
+                UpdateTowerDwsOutputs();
+                // TODO add missing small aisle method
+                //UpdateSmallAisleOutputs();
                 UpdateStopperOutputs();
-                UpdateShutterOutputs();
                 UpdateEvacAndMaintAreaOutputs();
                 // Unique controls
                 Update_Label_CELLcomm_PlcStatus();
                 Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
-                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.NorthPanel, Label_LedTower_NorthPanel);
-                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel, Label_LedTower_SouthPanel);
+                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.NorthPanel, 
+                    Label_LedTower_NorthPanel);
+                Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel, 
+                    Label_LedTower_SouthPanel);
                 // Currently unhandled IO
                 UpdateUnhandledIO();
             }
@@ -347,6 +304,8 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_EstopBtn_Aisle.Checked = !currentAisle.OperationBox.EmergencyBtn.Value;
 
             // Zoning
+            // TODO delete the commented code once the new implementation is tested.
+            /* TO BE DELETED
             switch (currentAisle.Zoning.CellCommand.Value)
             {
                 case (byte)Utils.CellCommandValues.None:
@@ -362,29 +321,31 @@ namespace PLCSIM_Adv_CoSimulation
                     RadioButton_Cancel_Aisle.Checked = true;
                     break;
                 default:
-                    Console.WriteLine("Cell command value not recognized Aisle.");
+                    Console.WriteLine("The zoning command for Aisle was not recognized.");
                     break;
             }
+            */
+            updateZoningRadioButtons(currentAisle, ref RadioButton_None_Aisle, 
+                ref RadioButton_Run_Aisle, ref RadioButton_Permit_Aisle, ref RadioButton_Cancel_Aisle);
+
+            // Key switch
+            RadioButton_Req_Aisle.Checked = currentAisle.OperationBox.KeySwitch.Req.Value;
+            RadioButton_Ready_Aisle.Checked = currentAisle.OperationBox.KeySwitch.Ready.Value;
 
             // Door
-            RadioButton_DoorClosed_Aisle.Checked = currentAisle.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorOpen_Aisle.Checked = !currentAisle.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorLocked_Aisle.Checked = currentAisle.Door.IsDoorLockedKeySwitch.Value;
-            RadioButton_DoorUnlocked_Aisle.Checked = !currentAisle.Door.IsDoorLockedKeySwitch.Value;
-            if (currentAisle.Door.IsDoorReadyInputSpecified)
-            {
-                RadioButton_DoorReady_Aisle.Checked = currentAisle.Door.IsDoorReadyInput.Value;
-                RadioButton_DoorNotReady_Aisle.Checked = !currentAisle.Door.IsDoorReadyInput.Value;
-            }
+            // Note: The isDoorClose is not a PLC input,
+            // it is a boolean property used as an intermediary signal.
+            RadioButton_DoorClosed_Aisle.Checked = currentAisle.Door.IsDoorClosed;
+            RadioButton_DoorOpen_Aisle.Checked = !currentAisle.Door.IsDoorClosed;
 
             // Emergency stop
             // bool flag = currentAisle.EmergencyStopZone.CellIsCompleteFlag.Value == (byte)BooleanSignal.True;
             bool flag = Utils.ReadRegisterBit(currentAisle.EmergencyStopZone.CellIsCompleteFlag);
-            CheckBox_CellIsCompleteFlag_Aisle.Checked = flag;
+            CheckBox_ReqCompleteFlag_Aisle.Checked = flag;
 
-            // Scaffolds
-            CheckBox_Scaffold_AisleNorth.Checked = currentAisle.Scaffolds[0].Value;
-            CheckBox_Scaffold_AisleSouth.Checked = currentAisle.Scaffolds[1].Value;
+            // Safety boards
+            CheckBox_SafetyBoard_AisleNorth.Checked = currentAisle.SafetyBoards[0].Value;
+            CheckBox_SafetyBoard_AisleSouth.Checked = currentAisle.SafetyBoards[1].Value;
 
             // Contactors
             // flagOnOff = currentAisle.Contactors[1].ContactorOnOffCommand.Value == (byte)BooleanSignal.True;
@@ -392,8 +353,8 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_ContactorOnOff_AisleNorth.Checked = flagOnOff;
             flagOnOff = Utils.ReadRegisterBit(currentAisle.Contactors[1].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_AisleSouth.Checked = flagOnOff;
-            CheckBox_ContactorPlcIn_AisleNorth.Checked = currentAisle.Contactors[0].ContactorFeedback.Value;
-            CheckBox_ContactorPlcIn_AisleSouth.Checked = currentAisle.Contactors[1].ContactorFeedback.Value;
+            CheckBox_ContactorFdbk_AisleNorth.Checked = currentAisle.Contactors[0].ContactorFeedback.Value;
+            CheckBox_ContactorFdbk_AisleSouth.Checked = currentAisle.Contactors[1].ContactorFeedback.Value;
 
             #endregion // Inputs
 
@@ -450,23 +411,67 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Reset btn
 
-        #region Request btn
-        private void Btn_Request_Aisle_MouseDown(object sender, MouseEventArgs e)
+        #region Run btn
+        private void Btn_Run_Aisle_MouseDown(object sender, MouseEventArgs e)
         {
             ButtonChanged(
-                currentAisle.OperationBox.RequestBtn,
+                currentAisle.OperationBox.RunBtn,
                 true,
-                currentAisle.Label + " Request");
+                currentAisle.Label + " run");
         }
 
-        private void Btn_Request_Aisle_MouseUp(object sender, MouseEventArgs e)
+        private void Btn_Run_Aisle_MouseUp(object sender, MouseEventArgs e)
         {
             ButtonChanged(
-                currentAisle.OperationBox.RequestBtn,
+                currentAisle.OperationBox.RunBtn,
                 false,
-                currentAisle.Label + " Request");
+                currentAisle.Label + " run");
         }
         #endregion // Request btn
+
+        #region Key switch
+        private void RadioButton_Ready_Aisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+                {
+                    aisle.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_Aisle.Checked;
+                });
+                string isReady = RadioButton_Ready_Aisle.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add("All Aisles " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentAisle.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_Aisle.Checked;
+                string isReady = RadioButton_Ready_Aisle.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add(currentAisle.Label + " " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+
+        private void RadioButton_Req_Aisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+                {
+                    aisle.OperationBox.KeySwitch.Req.Value = RadioButton_Req_Aisle.Checked;
+                });
+                string isReq = RadioButton_Req_Aisle.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add("All Aisle Doors are " + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentAisle.OperationBox.KeySwitch.Req.Value = RadioButton_Req_Aisle.Checked;
+                string isReq = RadioButton_Req_Aisle.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add(currentAisle.Label + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+        #endregion // key switch
 
         #endregion // Opbox
 
@@ -564,7 +569,7 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
                 {
-                    aisle.Door.IsDoorClosedSensor.Value = RadioButton_DoorClosed_Aisle.Checked;
+                    aisle.Door.IsDoorClosed = RadioButton_DoorClosed_Aisle.Checked;
                 });
                 string isClosed = RadioButton_DoorClosed_Aisle.Checked ? "Closed" : "Open";
                 ListBox_Log.Items.Add("All Aisle Doors are " + isClosed);
@@ -573,119 +578,83 @@ namespace PLCSIM_Adv_CoSimulation
             else
             {
                 //The door sensor is Normally Closed, ie True when closed.
-                currentAisle.Door.IsDoorClosedSensor.Value = RadioButton_DoorClosed_Aisle.Checked;
+                currentAisle.Door.IsDoorClosed = RadioButton_DoorClosed_Aisle.Checked;
                 string isClosed = RadioButton_DoorClosed_Aisle.Checked ? "Closed" : "Open";
                 ListBox_Log.Items.Add(currentAisle.Label + " Door is " + isClosed);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        private void RadioButton_DoorLocked_Aisle_CheckedChanged(object sender, EventArgs e)
+
+        private void RadioButton_DoorOpen_Aisle_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox_AllAisles.Checked)
-            {
-                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
-                {
-                    aisle.Door.IsDoorLockedKeySwitch.Value = RadioButton_DoorLocked_Aisle.Checked;
-                });
-                string isLocked = RadioButton_DoorLocked_Aisle.Checked ? "Locked" : "Unlocked";
-                ListBox_Log.Items.Add("All Aisle Doors are " + isLocked);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-            else
-            {
-                //The key lock is NC, ie True when locked.
-                currentAisle.Door.IsDoorLockedKeySwitch.Value = RadioButton_DoorLocked_Aisle.Checked;
-                string isLocked = RadioButton_DoorLocked_Aisle.Checked ? "Locked" : "Unlocked";
-                ListBox_Log.Items.Add(currentAisle.Label + " Door is " + isLocked);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-        }
-        private void RadioButton_DoorReady_Aisle_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CheckBox_AllAisles.Checked)
-            {
-                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
-                {
-                    aisle.Door.IsDoorReadyInput.Value = RadioButton_DoorReady_Aisle.Checked;
-                });
-                string isReady = RadioButton_DoorReady_Aisle.Checked ? "Ready" : "Not Ready";
-                ListBox_Log.Items.Add("All Aisle Doors are " + isReady);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-            else
-            {
-                currentAisle.Door.IsDoorReadyInput.Value = RadioButton_DoorReady_Aisle.Checked;
-                string isReady = RadioButton_DoorReady_Aisle.Checked ? "Ready" : "Not Ready";
-                ListBox_Log.Items.Add(currentAisle.Label + " Door is " + isReady);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
+            // Nothing to do here. Assume this radio button only changes when the DoorClosed changes.
         }
         #endregion // Door
 
         #region Emergency stop
-        private void CheckBox_CellIsCompleteFlag_Aisle_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_ReqCompleteFlag_Aisle_CheckedChanged(object sender, EventArgs e)
         {
             // Write byte
             RegisterToPlc currentRegister = currentAisle.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
-                Utils.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Aisle.Checked);
+                Utils.UpdateRegister(currentRegister, CheckBox_ReqCompleteFlag_Aisle.Checked);
             // Log action
-            string isComplete = CheckBox_CellIsCompleteFlag_Aisle.Checked ? "complete" : " incomplete";
+            string isComplete = CheckBox_ReqCompleteFlag_Aisle.Checked ? "complete" : " incomplete";
             ListBox_Log.Items.Add(currentAisle.Label + " Cell flag is marked as " + isComplete);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
         #endregion // Emergency stop
 
-        #region Scaffolds
-        private void CheckBox_Scaffold_AisleNorth_CheckedChanged(object sender, EventArgs e)
+        #region SafetyBoards
+        private void CheckBox_SafetyBoard_AisleNorth_CheckedChanged(object sender, EventArgs e)
         {
-            // The scaffold sensor is True for normal operation
-            // Assume Northern scaffold has index 0 and Southern scaffold has index 1.
+            // The safety board sensor is True for normal operation
+            // Assume Northern safety board has index 0 and Southern safety board has index 1.
             if (CheckBox_AllAisles.Checked)
             {
                 CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
                 {
-                    aisle.Scaffolds[0].Value = CheckBox_Scaffold_AisleNorth.Checked;
+                    aisle.SafetyBoards[0].Value = CheckBox_SafetyBoard_AisleNorth.Checked;
                 });
                 // Log action
-                string isOn = CheckBox_Scaffold_AisleNorth.Checked ? "detected." : "not detected.";
-                ListBox_Log.Items.Add("All North scaffolds " + isOn);
+                string isOn = CheckBox_SafetyBoard_AisleNorth.Checked ? "detected." : "not detected.";
+                ListBox_Log.Items.Add("All North safety boards " + isOn);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
             {
-                currentAisle.Scaffolds[0].Value = CheckBox_Scaffold_AisleNorth.Checked;
+                currentAisle.SafetyBoards[0].Value = CheckBox_SafetyBoard_AisleNorth.Checked;
                 // Log action
-                string isOn = CheckBox_Scaffold_AisleNorth.Checked ? "detected." : "not detected.";
-                ListBox_Log.Items.Add(currentAisle.Label + " North scaffold " + isOn);
+                string isOn = CheckBox_SafetyBoard_AisleNorth.Checked ? "detected." : "not detected.";
+                ListBox_Log.Items.Add(currentAisle.Label + " North safety board " + isOn);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        private void CheckBox_Scaffold_AisleSouth_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_SafetyBoard_AisleSouth_CheckedChanged(object sender, EventArgs e)
         {
-            // The scaffold sensor is True for normal operation
-            // Assume Northern scaffold has index 0 and Southern scaffold has index 1.
+            // The safety board sensor is True for normal operation
+            // Assume Northern safety board has index 0 and Southern safety board has index 1.
             if (CheckBox_AllAisles.Checked)
             {
                 CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
                 {
-                    aisle.Scaffolds[1].Value = CheckBox_Scaffold_AisleSouth.Checked;
+                    aisle.SafetyBoards[1].Value = CheckBox_SafetyBoard_AisleSouth.Checked;
                 });
                 // Log action
-                string isOn = CheckBox_Scaffold_AisleSouth.Checked ? "detected." : "not detected.";
-                ListBox_Log.Items.Add("All South scaffolds " + isOn);
+                string isOn = CheckBox_SafetyBoard_AisleSouth.Checked ? "detected." : "not detected.";
+                ListBox_Log.Items.Add("All South safety boards " + isOn);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
             {
-                currentAisle.Scaffolds[1].Value = CheckBox_Scaffold_AisleSouth.Checked;
+                currentAisle.SafetyBoards[1].Value = CheckBox_SafetyBoard_AisleSouth.Checked;
                 // Log action
-                string isOn = CheckBox_Scaffold_AisleSouth.Checked ? "detected." : "not detected.";
-                ListBox_Log.Items.Add(currentAisle.Label + " South scaffold " + isOn);
+                string isOn = CheckBox_SafetyBoard_AisleSouth.Checked ? "detected." : "not detected.";
+                ListBox_Log.Items.Add(currentAisle.Label + " South safety board " + isOn);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        #endregion // Scaffolds
+        #endregion // safety boards
 
         #region Contactors
         private void CheckBox_ContactorOnOff_AisleNorth_CheckedChanged(object sender, EventArgs e)
@@ -699,6 +668,7 @@ namespace PLCSIM_Adv_CoSimulation
             ListBox_Log.Items.Add(currentAisle.Label + " North contactor " + isOn);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
+
         private void CheckBox_ContactorOnOff_AisleSouth_CheckedChanged(object sender, EventArgs e)
         {
             // Assume Northern contactor has index 0 and Southern contactor has index 1.
@@ -710,32 +680,34 @@ namespace PLCSIM_Adv_CoSimulation
             ListBox_Log.Items.Add(currentAisle.Label + " South contactor " + isOn);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
-        private void CheckBox_ContactorPlcIn_AisleNorth_CheckedChanged(object sender, EventArgs e)
+
+        private void CheckBox_ContactorFdbk_AisleNorth_CheckedChanged(object sender, EventArgs e)
         {
-            currentAisle.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorPlcIn_AisleNorth.Checked;
-            if (CheckBox_ContactorPlcIn_AisleNorth.Checked)
+            currentAisle.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorFdbk_AisleNorth.Checked;
+            if (CheckBox_ContactorFdbk_AisleNorth.Checked)
             {
-                Label_ContactorPlcIn_AisleNorth.ForeColor = activeLabelColor;
-                Label_ContactorPlcIn_AisleNorth.Font = activeLabelFont;
+                Label_ContactorFdbk_AisleNorth.ForeColor = activeLabelColor;
+                Label_ContactorFdbk_AisleNorth.Font = activeLabelFont;
             }
             else
             {
-                Label_ContactorPlcIn_AisleNorth.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcIn_AisleNorth.Font = inactiveLabelFont;
+                Label_ContactorFdbk_AisleNorth.ForeColor = inactiveLabelColor;
+                Label_ContactorFdbk_AisleNorth.Font = inactiveLabelFont;
             }
         }
-        private void CheckBox_ContactorPlcIn_AisleSouth_CheckedChanged(object sender, EventArgs e)
+
+        private void CheckBox_ContactorFdbk_AisleSouth_CheckedChanged(object sender, EventArgs e)
         {
-            currentAisle.Contactors[1].ContactorFeedback.Value = CheckBox_ContactorPlcIn_AisleSouth.Checked;
-            if (CheckBox_ContactorPlcIn_AisleSouth.Checked)
+            currentAisle.Contactors[1].ContactorFeedback.Value = CheckBox_ContactorFdbk_AisleSouth.Checked;
+            if (CheckBox_ContactorFdbk_AisleSouth.Checked)
             {
-                Label_ContactorPlcIn_AisleSouth.ForeColor = activeLabelColor;
-                Label_ContactorPlcIn_AisleSouth.Font = activeLabelFont;
+                Label_ContactorFdbk_AisleSouth.ForeColor = activeLabelColor;
+                Label_ContactorFdbk_AisleSouth.Font = activeLabelFont;
             }
             else
             {
-                Label_ContactorPlcIn_AisleSouth.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcIn_AisleSouth.Font = inactiveLabelFont;
+                Label_ContactorFdbk_AisleSouth.ForeColor = inactiveLabelColor;
+                Label_ContactorFdbk_AisleSouth.Font = inactiveLabelFont;
             }
         }
         #endregion // Contactors
@@ -749,17 +721,23 @@ namespace PLCSIM_Adv_CoSimulation
             Update_TextBox_ZoningStatus_Aisle();
             Update_Label_PlcStopRequest_Aisle();
             Update_Label_PlcIsStopStatus_Aisle();
-            Update_Label_Scaffold_AisleNorth();
-            Update_Label_Scaffold_AisleSouth();
+            Update_Label_SafetyBoard_AisleNorth();
+            Update_Label_SafetyBoard_AisleSouth();
             Update_Label_ContactorPlcOut_AisleNorth();
             Update_Label_ContactorPlcOut_AisleSouth();
+            // TODO - delete unused methods after testing.
+            //Update_Label_DoorIsLocked_Aisle();
+            //Update_Label_UnlockDoor_Aisle();
+            //Use these methods instead of the XX_Aisle() ones;
+            Update_Label_DoorIsLocked(currentAisle, Label_DoorIsLocked_Aisle);
+            Update_Label_UnlockDoor(currentAisle, Label_UnlockDoor_Aisle);
             UpdateAllAisleContactorOutputs();
         }
         private void Update_Label_OpBoxLed_Aisle()
         {
             string ledStatus;
             // Read Plc output
-            if (currentAisle.OperationBox.ZoningStatusLed.Value == true)
+            if (currentAisle.OperationBox.ZoningStatusLed.Value)
             {
                 Label_OpBoxLed_Aisle.ForeColor = activeLabelColor;
                 Label_OpBoxLed_Aisle.Font = activeLabelFont;
@@ -774,6 +752,7 @@ namespace PLCSIM_Adv_CoSimulation
             //Update label
             Label_OpBoxLed_Aisle.Text = "led " + ledStatus;
         }
+
         private void Update_TextBox_ZoningStatus_Aisle()
         {
             byte status = Utils.GetLowerByte(currentAisle.Zoning.ZoningStatus.Value);
@@ -785,72 +764,123 @@ namespace PLCSIM_Adv_CoSimulation
             bool flag = Utils.ReadRegisterBit(currentAisle.EmergencyStopZone.PlcStopRequest);
             if (flag)
             {
-                Label_PlcStopRequest_Aisle.ForeColor = activeLabelColor;
-                Label_PlcStopRequest_Aisle.Font = activeLabelFont;
+                Label_StopRequest_Aisle.ForeColor = activeLabelColor;
+                Label_StopRequest_Aisle.Font = activeLabelFont;
             }
             else
             {
-                Label_PlcStopRequest_Aisle.ForeColor = inactiveLabelColor;
-                Label_PlcStopRequest_Aisle.Font = inactiveLabelFont;
+                Label_StopRequest_Aisle.ForeColor = inactiveLabelColor;
+                Label_StopRequest_Aisle.Font = inactiveLabelFont;
             }
         }
+
         private void Update_Label_PlcIsStopStatus_Aisle()
         {
             // Read Plc output
             bool flag = Utils.ReadRegisterBit(currentAisle.EmergencyStopZone.PlcIsStopStatus);
             if (flag)
             {
-                Label_PlcIsStopStatus_Aisle.ForeColor = activeLabelColor;
-                Label_PlcIsStopStatus_Aisle.Font = activeLabelFont;
+                Label_StopStatus_Aisle.ForeColor = activeLabelColor;
+                Label_StopStatus_Aisle.Font = activeLabelFont;
             }
             else
             {
-                Label_PlcIsStopStatus_Aisle.ForeColor = inactiveLabelColor;
-                Label_PlcIsStopStatus_Aisle.Font = inactiveLabelFont;
+                Label_StopStatus_Aisle.ForeColor = inactiveLabelColor;
+                Label_StopStatus_Aisle.Font = inactiveLabelFont;
             }
         }
 
-        #region Scaffolds
-        private void Update_Label_Scaffold_AisleNorth()
+        #region SafetyBoard
+        private void Update_Label_SafetyBoard_AisleNorth()
         {
             // Read PLC input
             string status;
-            if (currentAisle.Scaffolds[0].Value)
+            if (currentAisle.SafetyBoards[0].Value)
             {
                 status = "ON";
-                Label_Scaffold_AisleNorth.ForeColor = activeLabelColor;
-                Label_Scaffold_AisleNorth.Font = activeLabelFont;
+                Label_SafetyBoard_AisleNorth.ForeColor = activeLabelColor;
+                Label_SafetyBoard_AisleNorth.Font = activeLabelFont;
             }
             else
             {
                 status = "OFF";
-                Label_Scaffold_AisleNorth.ForeColor = inactiveLabelColor;
-                Label_Scaffold_AisleNorth.Font = inactiveLabelFont;
+                Label_SafetyBoard_AisleNorth.ForeColor = inactiveLabelColor;
+                Label_SafetyBoard_AisleNorth.Font = inactiveLabelFont;
             }
             //Update label
-            Label_Scaffold_AisleNorth.Text = "is " + status;
+            Label_SafetyBoard_AisleNorth.Text = "is " + status;
         }
 
-        private void Update_Label_Scaffold_AisleSouth()
+        private void Update_Label_SafetyBoard_AisleSouth()
         {
             // Read PLC input
             string status;
-            if (currentAisle.Scaffolds[1].Value)
+            if (currentAisle.SafetyBoards[1].Value)
             {
                 status = "ON";
-                Label_Scaffold_AisleSouth.ForeColor = activeLabelColor;
-                Label_Scaffold_AisleSouth.Font = activeLabelFont;
+                Label_Safety_AisleSouth.ForeColor = activeLabelColor;
+                Label_Safety_AisleSouth.Font = activeLabelFont;
             }
             else
             {
                 status = "OFF";
-                Label_Scaffold_AisleSouth.ForeColor = inactiveLabelColor;
-                Label_Scaffold_AisleSouth.Font = inactiveLabelFont;
+                Label_Safety_AisleSouth.ForeColor = inactiveLabelColor;
+                Label_Safety_AisleSouth.Font = inactiveLabelFont;
             }
             //Update label
-            Label_Scaffold_AisleSouth.Text = "is " + status;
+            Label_Safety_AisleSouth.Text = "is " + status;
         }
-        #endregion // Scaffolds
+        #endregion // safety boards
+
+        #region Door
+        /// <summary>
+        /// This only updates the interface based on the current PLCinput. 
+        /// Not the other way around.
+        /// This is a PLC input that depends on 2 signals.
+        /// One is the door closed sensor.
+        /// The other is the PLC unlock output.
+        /// </summary>
+        private void Update_Label_DoorIsLocked_Aisle()
+        {
+            string doorStatus;
+            // Read Plc output
+            // The door is locked when the door is closed and the unlock output is false.
+            // TODO - check the behaviour of this if.
+            if (currentAisle.Door.IsDoorClosed & !currentAisle.Door.unlockDoor.Value)
+            {
+                Label_DoorIsLocked_Aisle.ForeColor = activeLabelColor;
+                Label_DoorIsLocked_Aisle.Font = activeLabelFont;
+                doorStatus = "locked";
+            }
+            else
+            {
+                Label_DoorIsLocked_Aisle.ForeColor = emergencyLabelColor;
+                Label_DoorIsLocked_Aisle.Font = emergencyLabelFont;
+                doorStatus = "unlocked";
+            }
+            //Update label
+            Label_DoorIsLocked_Aisle.Text = doorStatus;
+        }
+        private void Update_Label_UnlockDoor_Aisle()
+        {
+            string unlockStatus;
+            //Read output
+            if (currentAisle.Door.unlockDoor.Value)
+            {
+                Label_UnlockDoor_Aisle.ForeColor = activeLabelColor;
+                Label_UnlockDoor_Aisle.Font = activeLabelFont;
+                unlockStatus = "ON";
+            }
+            else
+            {
+                Label_UnlockDoor_Aisle.ForeColor = inactiveLabelColor;
+                Label_UnlockDoor_Aisle.Font = inactiveLabelFont;
+                unlockStatus = "OFF";
+            }
+            //Update label
+            Label_DoorIsLocked_Aisle.Text = "unlock" + unlockStatus;
+        }
+        #endregion // Door
 
         #region Contactors
         private void Update_Label_ContactorPlcOut_AisleNorth()
@@ -865,7 +895,7 @@ namespace PLCSIM_Adv_CoSimulation
                 //Update Feedback control too!
                 if (CheckBox_FBAuto_Aisle.Checked)
                 {
-                    CheckBox_ContactorPlcIn_AisleNorth.Checked = false;
+                    CheckBox_ContactorFdbk_AisleNorth.Checked = false;
                 }
             }
             else
@@ -876,7 +906,7 @@ namespace PLCSIM_Adv_CoSimulation
                 //Update Feedback control too!
                 if (CheckBox_FBAuto_Aisle.Checked)
                 {
-                    CheckBox_ContactorPlcIn_AisleNorth.Checked = true;
+                    CheckBox_ContactorFdbk_AisleNorth.Checked = true;
                 }
             }
             //Update labels
@@ -894,7 +924,7 @@ namespace PLCSIM_Adv_CoSimulation
                 //Update Feedback control too!
                 if (CheckBox_FBAuto_Aisle.Checked)
                 {
-                    CheckBox_ContactorPlcIn_AisleSouth.Checked = false;
+                    CheckBox_ContactorFdbk_AisleSouth.Checked = false;
                 }
             }
             else
@@ -905,7 +935,7 @@ namespace PLCSIM_Adv_CoSimulation
                 //Update Feedback control too!
                 if (CheckBox_FBAuto_Aisle.Checked)
                 {
-                    CheckBox_ContactorPlcIn_AisleSouth.Checked = true;
+                    CheckBox_ContactorFdbk_AisleSouth.Checked = true;
                 }
             }
             //Update labels
@@ -943,45 +973,21 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_EstopBtn_Deck.Checked = !currentDeck.OperationBox.EmergencyBtn.Value;
 
             // Zoning
-            switch (currentDeck.Zoning.CellCommand.Value)
-            {
-                case (byte)Utils.CellCommandValues.None:
-                    RadioButton_None_Deck.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Run:
-                    RadioButton_Run_Deck.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Permit:
-                    RadioButton_Permit_Deck.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Cancel:
-                    RadioButton_Cancel_Deck.Checked = true;
-                    break;
-                default:
-                    Console.WriteLine("Cell command value not recognized Deck.");
-                    break;
-            }
+            updateZoningRadioButtons(currentDeck, ref RadioButton_None_Deck,
+                ref RadioButton_Run_Deck, ref RadioButton_Permit_Deck, ref RadioButton_Cancel_Deck);
+
+
+            // Key switch
+            RadioButton_Req_Deck.Checked = currentDeck.OperationBox.KeySwitch.Req.Value;
+            RadioButton_Ready_Aisle.Checked = currentDeck.OperationBox.KeySwitch.Ready.Value;
 
             // Door
-            RadioButton_DoorClosed_Deck.Checked = currentDeck.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorOpen_Deck.Checked = !currentDeck.Door.IsDoorClosedSensor.Value;
-            RadioButton_DoorLocked_Deck.Checked = currentDeck.Door.IsDoorLockedKeySwitch.Value;
-            RadioButton_DoorUnlocked_Deck.Checked = !currentDeck.Door.IsDoorLockedKeySwitch.Value;
-            if (currentDeck.Door.IsDoorReadyInputSpecified)
-            {
-                RadioButton_DoorReady_Deck.Checked = currentDeck.Door.IsDoorReadyInput.Value;
-                RadioButton_DoorNotReady_Deck.Checked = !currentDeck.Door.IsDoorReadyInput.Value;
-            }
+            RadioButton_DoorClosed_Deck.Checked = currentDeck.Door.IsDoorClosed;
+            RadioButton_DoorOpen_Deck.Checked = !currentDeck.Door.IsDoorClosed;
 
             // Emergency stop
             bool flag = Utils.ReadRegisterBit(currentDeck.EmergencyStopZone.CellIsCompleteFlag);
-            CheckBox_CellIsCompleteFlag_Deck.Checked = flag;
-
-            // Scaffold
-            if (currentDeck.ScaffoldSpecified)
-            {
-                CheckBox_Scaffold_Deck.Checked = currentDeck.Scaffold.Value;
-            }
+            CheckBox_ReqCompleteFlag_Deck.Checked = flag;
 
             #endregion // Inputs
 
@@ -1039,18 +1045,60 @@ namespace PLCSIM_Adv_CoSimulation
         private void Btn_Request_Deck_MouseDown(object sender, MouseEventArgs e)
         {
             ButtonChanged(
-                currentDeck.OperationBox.RequestBtn,
+                currentDeck.OperationBox.RunBtn,
                 true,
-                currentDeck.Label + " Request");
+                currentDeck.Label + " Run");
         }
         private void Btn_Request_Deck_MouseUp(object sender, MouseEventArgs e)
         {
             ButtonChanged(
-                currentDeck.OperationBox.RequestBtn,
+                currentDeck.OperationBox.RunBtn,
                 false,
-                currentDeck.Label + " Request");
+                currentDeck.Label + " Run");
         }
         #endregion // Request btn
+
+        #region Key switch
+        private void RadioButton_Ready_Deck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllDecks.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
+                    deck.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_Deck.Checked);
+                string isReady = RadioButton_Ready_Deck.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add("All Deck Doors are " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentDeck.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_Deck.Checked;
+                string isReady = RadioButton_Ready_Deck.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add(currentDeck.Label + " Door is " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+
+        private void RadioButton_Req_Deck_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllDecks.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
+                {
+                    deck.OperationBox.KeySwitch.Req.Value = RadioButton_Req_Deck.Checked;
+                });
+                string isReq = RadioButton_Req_Deck.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add("All Deck Doors are " + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentDeck.OperationBox.KeySwitch.Req.Value = RadioButton_Req_Deck.Checked;
+                string isReq = RadioButton_Req_Deck.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add(currentDeck.Label + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+        #endregion // Key switch
 
         #endregion // Opbox
 
@@ -1148,7 +1196,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CheckBox_AllDecks.Checked)
             {
                 CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
-                    deck.Door.IsDoorClosedSensor.Value = RadioButton_DoorClosed_Deck.Checked);
+                    deck.Door.IsDoorClosed = RadioButton_DoorClosed_Deck.Checked);
                 // Log
                 string isClosed = RadioButton_DoorClosed_Deck.Checked ? "Closed" : "Open";
                 ListBox_Log.Items.Add("All Deck Doors are " + isClosed);
@@ -1156,7 +1204,8 @@ namespace PLCSIM_Adv_CoSimulation
             }
             else
             {
-                currentDeck.Door.IsDoorClosedSensor.Value = RadioButton_DoorClosed_Deck.Checked;
+                //The door sensor is Normally Closed, ie True when closed.
+                currentDeck.Door.IsDoorClosed = RadioButton_DoorClosed_Deck.Checked;
                 // Log
                 string isClosed = RadioButton_DoorClosed_Deck.Checked ? "Closed" : "Open";
                 ListBox_Log.Items.Add(currentDeck.Label + " Door is " + isClosed);
@@ -1164,85 +1213,21 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
 
-        private void RadioButton_DoorLocked_Deck_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_DoorOpen_Deck_CheckedChanged(object sender, EventArgs e)
         {
-            // The key lock is NC, ie True when locked.
-            if (CheckBox_AllDecks.Checked)
-            {
-                CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
-                    deck.Door.IsDoorLockedKeySwitch.Value = RadioButton_DoorLocked_Deck.Checked);
-                // Log
-                string isLocked = RadioButton_DoorLocked_Deck.Checked ? "Locked" : "Unlocked";
-                ListBox_Log.Items.Add("All Deck Doors are " + isLocked);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-            else
-            {
-                currentDeck.Door.IsDoorLockedKeySwitch.Value = RadioButton_DoorLocked_Deck.Checked;
-                // Log
-                string isLocked = RadioButton_DoorLocked_Deck.Checked ? "Locked" : "Unlocked";
-                ListBox_Log.Items.Add(currentDeck.Label + " Door is " + isLocked);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
+            // Nothing to do here. Assume this radio button only changes when the DoorClosed changes.
         }
 
-        private void RadioButton_DoorReady_Deck_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CheckBox_AllDecks.Checked)
-            {
-                CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
-                    deck.Door.IsDoorReadyInput.Value = RadioButton_DoorReady_Deck.Checked);
-                // Log
-                string isReady = RadioButton_DoorReady_Deck.Checked ? "Ready" : "Not Ready";
-                ListBox_Log.Items.Add("All Deck Doors are " + isReady);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-            else
-            {
-                currentDeck.Door.IsDoorReadyInput.Value = RadioButton_DoorReady_Deck.Checked;
-                string isReady = RadioButton_DoorReady_Deck.Checked ? "Ready" : "Not Ready";
-                ListBox_Log.Items.Add(currentDeck.Label + " Door is " + isReady);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-        }
-        #endregion // Door
+            #endregion // Door
 
-        #region Scaffold
-        private void CheckBox_Scaffold_Deck_CheckedChanged(object sender, EventArgs e)
-        {
-            // The scaffold sensor is True for normal operation
-            // Prevent Null exceptions when Scaffold is not present.
-            if (currentDeck.Scaffold != null)
-            {
-                if (CheckBox_AllDecks.Checked)
-                {
-                    CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
-                        deck.Scaffold.Value = CheckBox_Scaffold_Deck.Checked);
-                    // Log action
-                    string isOn = CheckBox_Scaffold_Deck.Checked ? "detected." : "not detected.";
-                    ListBox_Log.Items.Add("All Deck scaffolds " + isOn);
-                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                }
-                else
-                {
-                    currentDeck.Scaffold.Value = CheckBox_Scaffold_Deck.Checked;
-                    // Log action
-                    string isOn = CheckBox_Scaffold_Deck.Checked ? "detected." : "not detected.";
-                    ListBox_Log.Items.Add(currentDeck.Label + " scaffold " + isOn);
-                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-                }
-            }
-        }
-        #endregion // Scaffold
-
-        #region Emergency stop
-        private void CheckBox_CellIsCompleteFlag_Deck_CheckedChanged(object sender, EventArgs e)
+            #region Emergency stop
+            private void CheckBox_ReqCompleteFlag_Deck_CheckedChanged(object sender, EventArgs e)
         {
             RegisterToPlc currentRegister = currentDeck.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
-                Utils.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Deck.Checked);
+                Utils.UpdateRegister(currentRegister, CheckBox_ReqCompleteFlag_Deck.Checked);
             // Log action
-            string isComplete = CheckBox_CellIsCompleteFlag_Deck.Checked ? "complete" : " incomplete";
+            string isComplete = CheckBox_ReqCompleteFlag_Deck.Checked ? "complete" : " incomplete";
             ListBox_Log.Items.Add(currentDeck.Label + " Cell flag is marked as " + isComplete);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
@@ -1255,9 +1240,10 @@ namespace PLCSIM_Adv_CoSimulation
         {
             Update_Label_OpBoxLed_Deck();
             Update_TextBox_ZoningStatus_Deck();
-            Update_Label_Scaffold_Deck();
             Update_Label_PlcStopRequest_Deck();
             Update_Label_PlcIsStopStatus_Deck();
+            Update_Label_DoorIsLocked(currentDeck, Label_DoorIsLocked_Deck);
+            Update_Label_UnlockDoor(currentDeck, Label_UnlockDoor_Deck);
         }
 
         private void Update_Label_OpBoxLed_Deck()
@@ -1284,45 +1270,19 @@ namespace PLCSIM_Adv_CoSimulation
             byte status = Utils.GetLowerByte(currentDeck.Zoning.ZoningStatus.Value);
             TextBox_ZoningStatus_Deck.Text = Utils.ZoningStatuses[status];
         }
-        private void Update_Label_Scaffold_Deck()
-        {
-            if (currentDeck.Scaffold != null)
-            {
-                // Read PLC input
-                string status;
-                if (currentDeck.Scaffold.Value)
-                {
-                    status = "ON";
-                    Label_Scaffold_Deck.ForeColor = activeLabelColor;
-                    Label_Scaffold_Deck.Font = activeLabelFont;
-                    Label_Scaffold_Deck.ForeColor = activeLabelColor;
-                    Label_Scaffold_Deck.Font = activeLabelFont;
-                }
-                else
-                {
-                    status = "OFF";
-                    Label_Scaffold_Deck.ForeColor = inactiveLabelColor;
-                    Label_Scaffold_Deck.Font = inactiveLabelFont;
-                    Label_Scaffold_Deck.ForeColor = inactiveLabelColor;
-                    Label_Scaffold_Deck.Font = inactiveLabelFont;
-                }
-                //Update label
-                Label_Scaffold_Deck.Text = "is " + status;
-            }
-        }
         private void Update_Label_PlcStopRequest_Deck()
         {
             // Read Plc output
             bool flag = Utils.ReadRegisterBit(currentDeck.EmergencyStopZone.PlcStopRequest);
             if (flag)
             {
-                Label_PlcStopRequest_Deck.ForeColor = activeLabelColor;
-                Label_PlcStopRequest_Deck.Font = activeLabelFont;
+                Label_StopRequest_Deck.ForeColor = activeLabelColor;
+                Label_StopRequest_Deck.Font = activeLabelFont;
             }
             else
             {
-                Label_PlcStopRequest_Deck.ForeColor = inactiveLabelColor;
-                Label_PlcStopRequest_Deck.Font = inactiveLabelFont;
+                Label_StopRequest_Deck.ForeColor = inactiveLabelColor;
+                Label_StopRequest_Deck.Font = inactiveLabelFont;
             }
         }
         private void Update_Label_PlcIsStopStatus_Deck()
@@ -1331,335 +1291,576 @@ namespace PLCSIM_Adv_CoSimulation
             bool flag = Utils.ReadRegisterBit(currentDeck.EmergencyStopZone.PlcIsStopStatus);
             if (flag)
             {
-                Label_PlcIsStopStatus_Deck.ForeColor = activeLabelColor;
-                Label_PlcIsStopStatus_Deck.Font = activeLabelFont;
+                Label_StopStatus_Deck.ForeColor = activeLabelColor;
+                Label_StopStatus_Deck.Font = activeLabelFont;
             }
             else
             {
-                Label_PlcIsStopStatus_Deck.ForeColor = inactiveLabelColor;
-                Label_PlcIsStopStatus_Deck.Font = inactiveLabelFont;
+                Label_StopStatus_Deck.ForeColor = inactiveLabelColor;
+                Label_StopStatus_Deck.Font = inactiveLabelFont;
             }
         }
-
         #endregion // Output
 
         #endregion // Deck
 
-        #region DWS
+        #region Tower DWS
+
         /// <summary>
-        /// Updates the interface with the values of the current DWS.
+        /// Updates the interface with the values of the current Tower DWS.
+        /// Toggle buttons' status is saved.
+        /// Push buttons' status is not saved.
+        /// All else is saved
         /// </summary>
-        private void UpdateDwsInteface()
+        private void UpdateTowerDwsInterface()
         {
             #region Inputs
             // Estop button
             // Checkbox value = NOT(Emergency btn value)
-            CheckBox_EstopBtn_DWS.Checked = !currentDws.EmergencyBtn.Value;
-
-            // Covers
-            // Pick an arbitrary cover to assign to the checkbox (All covers are updated equally)
-            if (currentDws.CoversSpecified)
-            {
-                CheckBox_DWSCovers.Checked = currentDws.Covers[0].Value;
-            }
+            CheckBox_EstopBtn_TDWS.Checked = !currentTowerDws.OperationBox.EmergencyBtn.Value;
 
             // Zoning
-            switch (currentDws.Zoning.CellCommand.Value)
-            {
-                case (byte)Utils.CellCommandValues.None:
-                    RadioButton_None_DWS.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Run:
-                    RadioButton_Run_DWS.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Permit:
-                    RadioButton_Permit_DWS.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Cancel:
-                    RadioButton_Cancel_DWS.Checked = true;
-                    break;
-                default:
-                    Console.WriteLine("Cell command value not recognized DWS.");
-                    break;
-            }
+            updateZoningRadioButtons(currentTowerDws, ref RadioButton_None_TDWS,
+                ref RadioButton_Run_TDWS, ref RadioButton_Permit_TDWS, ref RadioButton_Cancel_TDWS);
+
+            // Key switch
+            RadioButton_Req_TDWS.Checked = currentTowerDws.OperationBox.KeySwitch.Req.Value;
+            RadioButton_Ready_TDWS.Checked = currentTowerDws.OperationBox.KeySwitch.Ready.Value;
+
+            // Door
+            // Note: The isDoorClose is not a PLC input,
+            // it is a boolean property used as an intermediary signal.
+            RadioButton_DoorOpen_TDWS.Checked = currentTowerDws.Door.IsDoorClosed;
+            RadioButton_DoorClosed_TDWS.Checked = !currentTowerDws.Door.IsDoorClosed;
 
             // Emergency stop
-            bool flag = Utils.ReadRegisterBit(currentDws.EmergencyStopZone.CellIsCompleteFlag);
-            CheckBox_CellIsCompleteFlag_DWS.Checked = flag;
+            bool flag = Utils.ReadRegisterBit(currentTowerDws.EmergencyStopZone.CellIsCompleteFlag);
+            CheckBox_ReqCompleteFlag_TDWS.Checked = flag;
 
-            // Contactor
-            bool flagOnOff = Utils.ReadRegisterBit(currentDws.Contactor.ContactorOnOffCommand);
-            CheckBox_ContactorOnOff_DWS.Checked = flagOnOff;
-            CheckBox_ContactorPlcIn_DWS.Checked = currentDws.Contactor.ContactorFeedback.Value;
+            // Safety boards
+            // Only one safety board for each Tower DWS.
+            CheckBox_SafetyBoard_TDWS.Checked = currentTowerDws.SafetyBoards[0].Value;
 
+            // Contactors
+            bool flagOnOff = Utils.ReadRegisterBit(currentTowerDws.Contactors[0].ContactorOnOffCommand);
+            CheckBox_ContactorOnOff_TDWSpick.Checked = flagOnOff;
+            flagOnOff = Utils.ReadRegisterBit(currentTowerDws.Contactors[1].ContactorOnOffCommand);
+            CheckBox_ContactorOnOff_TDWStower.Checked = flagOnOff;
+            CheckBox_ContactorFdbk_TDWSpick.Checked = currentTowerDws.Contactors[0].ContactorFeedback.Value;
+            CheckBox_ContactorFdbk_TDWStower.Checked = currentTowerDws.Contactors[1].ContactorFeedback.Value;
             #endregion // Inputs
 
             #region Outputs
             // Update outputs
-            UpdateDwsOutputs();
+            UpdateTowerDwsOutputs();
             #endregion// Outputs
 
             // Log
-            ListBox_Log.Items.Add("Interface updated. Now displaying " + currentDws.Label + " data.");
+            ListBox_Log.Items.Add("Interface updated. Now displaying " + currentTowerDws.Label + " data.");
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
 
         #region Input
-        private void ComboBox_DWS_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_TowerDWS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Assume the index of the Combo Box is the same as the one of the DWS List.
-            currentDws = CoSimulationInstance.AlphaBotSystem.DynamicWorkStations[ComboBox_DWS.SelectedIndex];
-            // When the selected dws changes, update aisle interface with the new dws data
-            UpdateDwsInteface();
+            // Assume the index of the Combo Box is the same as the one of the Tower DWS list.
+            currentTowerDws = 
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations[ComboBox_TowerDWS.SelectedIndex];
+            // When the selected index changes, update TDWS interface with the corresponding  data
+            UpdateAisleInterface();
         }
-        private void CheckBox_EstopBtn_DWS_CheckedChanged(object sender, EventArgs e)
+
+        private void CheckBox_AllTDWSs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllTDWSs.Checked)
+                CheckBox_AllTDWSs.ForeColor = Color.Red;
+            else
+                CheckBox_AllTDWSs.ForeColor = Color.Black;
+        }
+
+        #region Opbox
+        private void CheckBox_EstopBtn_TDWS_CheckedChanged(object sender, EventArgs e)
         {
             EstopButtonChanged(
-                currentDws.EmergencyBtn,
-                CheckBox_EstopBtn_DWS,
-                currentDws.Label);
+                currentTowerDws.OperationBox.EmergencyBtn,
+                CheckBox_EstopBtn_TDWS,
+                currentTowerDws.Label);
         }
-        private void CheckBox_DWSCovers_CheckedChanged(object sender, EventArgs e)
+
+        #region Reset btn
+        private void Btn_Reset_TDWS_MouseDown(object sender, MouseEventArgs e)
         {
-            if(currentDws.Covers != null)
+            ButtonChanged(
+                currentTowerDws.OperationBox.ResetBtn,
+                true,
+                currentTowerDws.Label + " Reset");
+        }
+
+        private void Btn_Reset_TDWS_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentTowerDws.OperationBox.ResetBtn,
+                false,
+                currentTowerDws.Label + " Reset");
+        }
+        #endregion // Reset btn
+
+        #region Run btn
+        private void Btn_Run_TDWS_MouseDown(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentTowerDws.OperationBox.RunBtn,
+                true,
+                currentTowerDws.Label + " run");
+        }
+
+        private void Btn_Run_TDWS_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentTowerDws.OperationBox.RunBtn,
+                false,
+                currentTowerDws.Label + " run");
+        }
+        #endregion // Request btn
+
+        #region Key switch
+        private void RadioButton_Ready_TDWS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllTDWSs.Checked)
             {
-                currentDws.Covers.ForEach(cover =>
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
                 {
-                    cover.Value = CheckBox_DWSCovers.Checked;
+                    tdws.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_TDWS.Checked;
                 });
-                // Log action
-                string isOn = CheckBox_DWSCovers.Checked ? "ON." : "OFF.";
-                ListBox_Log.Items.Add( " covers are " + isOn);
+                string isReady = RadioButton_Ready_TDWS.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add("All TDWS " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentTowerDws.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_TDWS.Checked;
+                string isReady = RadioButton_Ready_TDWS.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add(currentTowerDws.Label + " " + isReady);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        private void CheckBox_AllDWS_CheckedChanged(object sender, EventArgs e)
+
+        private void RadioButton_Req_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            if (CheckBox_AllDWS.Checked)
-                CheckBox_AllDWS.ForeColor = Color.Red;
+            if (CheckBox_AllTDWSs.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                {
+                    tdws.OperationBox.KeySwitch.Req.Value = RadioButton_Req_TDWS.Checked;
+                });
+                string isReq = RadioButton_Req_TDWS.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add("All TDWS " + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
             else
-                CheckBox_AllDWS.ForeColor = Color.Black;
+            {
+                currentTowerDws.OperationBox.KeySwitch.Req.Value = RadioButton_Req_TDWS.Checked;
+                string isReq = RadioButton_Req_TDWS.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add(currentTowerDws.Label + " " + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
         }
+        #endregion // key switch
+
+        #endregion // Opbox
 
         #region Zoning
-        private void RadioButton_None_DWS_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_None_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioButton_None_DWS.Checked)
+            if (RadioButton_None_TDWS.Checked)
             {
-                if (CheckBox_AllDWS.Checked)
+                if (CheckBox_AllTDWSs.Checked)
                 {
-                    CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
-                        dws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.None);
+                    CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                        tdws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.None);
                     // Log
-                    ListBox_Log.Items.Add("All DWS updated. None is Checked.");
+                    ListBox_Log.Items.Add("All TDWSs updated. None is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 else
                 {
-                    currentDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.None;
+                    currentTowerDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.None;
                     // Log
-                    ListBox_Log.Items.Add(currentDws.Label + " None is Checked.");
+                    ListBox_Log.Items.Add(currentTowerDws.Label + " None is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
             }
         }
-        private void RadioButton_Permit_DWS_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_Permit_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioButton_Permit_DWS.Checked)
+            if (RadioButton_Permit_TDWS.Checked)
             {
-                if (CheckBox_AllDWS.Checked)
+                if (CheckBox_AllTDWSs.Checked)
                 {
-                    CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
-                        dws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Permit);
+                    CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                        tdws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Permit);
                     // Log
-                    ListBox_Log.Items.Add("All DWS updated. Permit is Checked.");
+                    ListBox_Log.Items.Add("All TDWSs updated. Permit is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 else
                 {
-                    currentDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Permit;
+                    currentTowerDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Permit;
                     // Log
-                    ListBox_Log.Items.Add(currentDws.Label + " Permit is Checked.");
+                    ListBox_Log.Items.Add(currentTowerDws.Label + " Permit is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
             }
         }
-        private void RadioButton_Run_DWS_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_Run_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioButton_Run_DWS.Checked)
+            if (RadioButton_Run_TDWS.Checked)
             {
-                if (CheckBox_AllDWS.Checked)
+                if (CheckBox_AllTDWSs.Checked)
                 {
-                    CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
-                        dws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Run);
+                    CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                        tdws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Run);
                     // Log
-                    ListBox_Log.Items.Add("All DWS updated. Run is Checked.");
+                    ListBox_Log.Items.Add("All TDWSs updated. Run is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 else
                 {
-                    currentDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Run;
+                    currentTowerDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Run;
                     // Log
-                    ListBox_Log.Items.Add(currentDws.Label + " Run is Checked.");
+                    ListBox_Log.Items.Add(currentTowerDws.Label + " Run is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
             }
         }
-        private void RadioButton_Cancel_DWS_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_Cancel_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            if (RadioButton_Cancel_DWS.Checked)
+            if (RadioButton_Cancel_TDWS.Checked)
             {
-                if (CheckBox_AllDWS.Checked)
+                if (CheckBox_AllTDWSs.Checked)
                 {
-                    CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
-                        dws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Cancel);
+                    CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                        tdws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Cancel);
                     // Log
-                    ListBox_Log.Items.Add("All DWS updated. Cancel is Checked.");
+                    ListBox_Log.Items.Add("All TDWSs updated. Cancel is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
                 else
                 {
-                    currentDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Cancel;
+                    currentTowerDws.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Cancel;
                     // Log
-                    ListBox_Log.Items.Add(currentDws.Label + " Cancel is Checked.");
+                    ListBox_Log.Items.Add(currentTowerDws.Label + " Cancel is Checked.");
                     ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
                 }
             }
         }
         #endregion // Zoning
 
-        #region Emergency stop
-        private void CheckBox_CellIsCompleteFlag_DWS_CheckedChanged(object sender, EventArgs e)
+        #region Door
+        private void RadioButton_DoorClosed_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            RegisterToPlc currentRegister = currentDws.EmergencyStopZone.CellIsCompleteFlag;
+            if (CheckBox_AllTDWSs.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                {
+                    tdws.Door.IsDoorClosed = RadioButton_DoorOpen_TDWS.Checked;
+                });
+                string isClosed = RadioButton_DoorOpen_TDWS.Checked ? "Closed" : "Open";
+                ListBox_Log.Items.Add("All TDWSs Doors are " + isClosed);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                //The door sensor is Normally Closed, ie True when closed.
+                currentTowerDws.Door.IsDoorClosed = RadioButton_DoorOpen_TDWS.Checked;
+                string isClosed = RadioButton_DoorOpen_TDWS.Checked ? "Closed" : "Open";
+                ListBox_Log.Items.Add(currentTowerDws.Label + " Door is " + isClosed);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+
+        private void RadioButton_DoorOpen_TDWS_CheckedChanged(object sender, EventArgs e)
+        {
+            // Nothing to do here. Assume this radio button only changes when the DoorClosed changes.
+        }
+        #endregion // Door
+
+        #region Emergency stop
+        private void CheckBox_ReqCompleteFlag_TDWS_CheckedChanged(object sender, EventArgs e)
+        {
+            // Write byte
+            RegisterToPlc currentRegister = currentTowerDws.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
-                Utils.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_DWS.Checked);
+                Utils.UpdateRegister(currentRegister, CheckBox_ReqCompleteFlag_TDWS.Checked);
             // Log action
-            string isComplete = CheckBox_CellIsCompleteFlag_DWS.Checked ? "complete" : " incomplete";
-            ListBox_Log.Items.Add(currentDws.Label + " Cell flag is marked as " + isComplete);
+            string isComplete = CheckBox_ReqCompleteFlag_TDWS.Checked ? "complete" : " incomplete";
+            ListBox_Log.Items.Add(currentTowerDws.Label + " Cell flag is marked as " + isComplete);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
         #endregion // Emergency stop
 
-        #region Contactor
-        private void CheckBox_ContactorOnOff_DWS_CheckedChanged(object sender, EventArgs e)
+        #region SafetyBoards
+        private void CheckBox_SafetyBoard_TDWS_CheckedChanged(object sender, EventArgs e)
         {
-            RegisterToPlc currentRegister = currentDws.Contactor.ContactorOnOffCommand;
-            currentRegister.Value =
-                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_DWS.Checked);
-            // Log action
-            string isOn = CheckBox_ContactorOnOff_DWS.Checked ? "ON." : "OFF.";
-            ListBox_Log.Items.Add(currentDws.Label + " contactor " + isOn);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-        private void CheckBox_ContactorPlcIn_DWS_CheckedChanged(object sender, EventArgs e)
-        {
-            currentDws.Contactor.ContactorFeedback.Value = CheckBox_ContactorPlcIn_DWS.Checked;
-            if (CheckBox_ContactorPlcIn_DWS.Checked)
+            // The safety board sensor is True for normal operation
+            // Assume safety board has index 0.
+            if (CheckBox_AllTDWSs.Checked)
             {
-                Label_ContactorPlcIn_DWS.ForeColor = activeLabelColor;
-                Label_ContactorPlcIn_DWS.Font = activeLabelFont;
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                {
+                    tdws.SafetyBoards[0].Value = CheckBox_SafetyBoard_TDWS.Checked;
+                });
+                // Log action
+                string isOn = CheckBox_SafetyBoard_TDWS.Checked ? "detected." : "not detected.";
+                ListBox_Log.Items.Add("All North safety boards " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
             {
-                Label_ContactorPlcIn_DWS.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcIn_DWS.Font = inactiveLabelFont;
+                currentTowerDws.SafetyBoards[0].Value = CheckBox_SafetyBoard_TDWS.Checked;
+                // Log action
+                string isOn = CheckBox_SafetyBoard_TDWS.Checked ? "detected." : "not detected.";
+                ListBox_Log.Items.Add(currentTowerDws.Label + " safety board " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
-        #endregion // Contactor
+        #endregion // safety boards
+
+        #region Contactors
+        private void CheckBox_ContactorOnOff_TDWSpick_CheckedChanged(object sender, EventArgs e)
+        {
+            // Assume Northern contactor has index 0 and Southern contactor has index 1.
+            RegisterToPlc currentRegister = currentTowerDws.Contactors[0].ContactorOnOffCommand;
+            currentRegister.Value =
+                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleNorth.Checked);
+            // Log action
+            string isOn = CheckBox_ContactorOnOff_TDWSpick.Checked ? "ON." : "OFF.";
+            ListBox_Log.Items.Add(currentTowerDws.Label + " North contactor " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void CheckBox_ContactorOnOff_TDWStower_CheckedChanged(object sender, EventArgs e)
+        {
+            // Assume Northern contactor has index 0 and Southern contactor has index 1.
+            RegisterToPlc currentRegister = currentTowerDws.Contactors[1].ContactorOnOffCommand;
+            currentRegister.Value =
+                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleSouth.Checked);
+            // Log action
+            string isOn = CheckBox_ContactorOnOff_TDWStower.Checked ? "ON." : "OFF.";
+            ListBox_Log.Items.Add(currentTowerDws.Label + " South contactor " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void CheckBox_ContactorFdbk_TDWSpick_CheckedChanged(object sender, EventArgs e)
+        {
+            currentTowerDws.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorFdbk_TDWSpick.Checked;
+            if (CheckBox_ContactorFdbk_TDWSpick.Checked)
+            {
+                Label_ContactorPlcOut_TDWSpick.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_TDWSpick.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_ContactorPlcOut_TDWSpick.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_TDWSpick.Font = inactiveLabelFont;
+            }
+        }
+
+        private void CheckBox_ContactorFdbk_TDWStower_CheckedChanged(object sender, EventArgs e)
+        {
+            currentTowerDws.Contactors[1].ContactorFeedback.Value = CheckBox_ContactorFdbk_TDWStower.Checked;
+            if (CheckBox_ContactorFdbk_TDWStower.Checked)
+            {
+                Label_ContactorPlcOut_TDWStower.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_TDWStower.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_ContactorPlcOut_TDWStower.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_TDWStower.Font = inactiveLabelFont;
+            }
+        }
+        #endregion // Contactors
 
         #endregion // Input
 
         #region Output
-        private void UpdateDwsOutputs()
+        private void UpdateTowerDwsOutputs()
         {
-            Update_TextBox_ZoningStatus_DWS();
-            Update_Label_ContactorPlcOut_DWS();
-            Update_Label_PlcStopRequest_DWS();
-            Update_Label_PlcIsStopStatus_DWS();
-            UpdateAllDWSContactorOutputs();
+            Update_Label_OpBoxLed_TowerDws();
+            Update_TextBox_ZoningStatus_TowerDws();
+            Update_Label_PlcStopRequest_TowerDws();
+            Update_Label_PlcIsStopStatus_TowerDws();
+            Update_Label_SafetyBoard_TowerDws();
+            Update_Label_ContactorPlcOut_TowerDwsPick();
+            Update_Label_ContactorPlcOut_TowerDwsTower();
+            Update_Label_DoorIsLocked(currentTowerDws, Label_DoorIsLocked_TDWS);
+            Update_Label_UnlockDoor(currentTowerDws, Label_UnlockDoor_TDWS);
+            UpdateAllTDWSsContactorOutputs();
+        }
+        private void Update_Label_OpBoxLed_TowerDws()
+        {
+            string ledStatus;
+            // Read Plc output
+            if (currentTowerDws.OperationBox.ZoningStatusLed.Value)
+            {
+                Label_OpBoxLed_TDWS.ForeColor = activeLabelColor;
+                Label_OpBoxLed_TDWS.Font = activeLabelFont;
+                ledStatus = "ON";
+            }
+            else
+            {
+                Label_OpBoxLed_TDWS.ForeColor = inactiveLabelColor;
+                Label_OpBoxLed_TDWS.Font = inactiveLabelFont;
+                ledStatus = "OFF";
+            }
+            //Update label
+            Label_OpBoxLed_TDWS.Text = "led " + ledStatus;
         }
 
-        private void Update_TextBox_ZoningStatus_DWS()
+        private void Update_TextBox_ZoningStatus_TowerDws()
         {
-            byte status = Utils.GetLowerByte(currentDws.Zoning.ZoningStatus.Value);
-            TextBox_ZoningStatus_DWS.Text = Utils.ZoningStatuses[status];
+            byte status = Utils.GetLowerByte(currentTowerDws.Zoning.ZoningStatus.Value);
+            TextBox_ZoningStatus_TDWS.Text = Utils.ZoningStatuses[status];
         }
-        private void Update_Label_ContactorPlcOut_DWS()
+
+        private void Update_Label_PlcStopRequest_TowerDws()
+        {
+            // Read Plc output
+            bool flag = Utils.ReadRegisterBit(currentTowerDws.EmergencyStopZone.PlcStopRequest);
+            if (flag)
+            {
+                Label_StopRequest_TDWS.ForeColor = activeLabelColor;
+                Label_StopRequest_TDWS.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_StopRequest_TDWS.ForeColor = inactiveLabelColor;
+                Label_StopRequest_TDWS.Font = inactiveLabelFont;
+            }
+        }
+
+        private void Update_Label_PlcIsStopStatus_TowerDws()
+        {
+            // Read Plc output
+            bool flag = Utils.ReadRegisterBit(currentTowerDws.EmergencyStopZone.PlcIsStopStatus);
+            if (flag)
+            {
+                Label_StopStatus_TDWS.ForeColor = activeLabelColor;
+                Label_StopStatus_TDWS.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_StopStatus_TDWS.ForeColor = inactiveLabelColor;
+                Label_StopStatus_TDWS.Font = inactiveLabelFont;
+            }
+        }
+
+        #region SafetyBoard
+        private void Update_Label_SafetyBoard_TowerDws()
+        {
+            // Read PLC input
+            string status;
+            if (currentTowerDws.SafetyBoards[0].Value)
+            {
+                status = "ON";
+                Label_SafetyBoard_TDWS.ForeColor = activeLabelColor;
+                Label_SafetyBoard_TDWS.Font = activeLabelFont;
+            }
+            else
+            {
+                status = "OFF";
+                Label_SafetyBoard_TDWS.ForeColor = inactiveLabelColor;
+                Label_SafetyBoard_TDWS.Font = inactiveLabelFont;
+            }
+            //Update label
+            Label_SafetyBoard_TDWS.Text = "is " + status;
+        }
+        #endregion // safety boards
+
+        #region Contactors
+        private void Update_Label_ContactorPlcOut_TowerDwsPick()
         {
             string status;
             // Read Plc output
-            if (currentDws.Contactor.ContactorOutput.Value == true)
+            if (currentTowerDws.Contactors[0].ContactorOutput.Value == true)
             {
                 status = "ON";
-                Label_ContactorPlcOut_DWS.ForeColor = activeLabelColor;
-                Label_ContactorPlcOut_DWS.Font = activeLabelFont;
+                Label_ContactorPlcOut_TDWSpick.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_TDWSpick.Font = activeLabelFont;
                 //Update Feedback control too!
-                if (CheckBox_FBAuto_DWS.Checked)
+                if (CheckBox_FBAuto_TDWS.Checked)
                 {
-                    CheckBox_ContactorPlcIn_DWS.Checked = false;
+                    CheckBox_ContactorFdbk_TDWSpick.Checked = false;
                 }
             }
             else
             {
                 status = "OFF";
-                Label_ContactorPlcOut_DWS.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcOut_DWS.Font = inactiveLabelFont;
+                Label_ContactorPlcOut_TDWSpick.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_TDWSpick.Font = inactiveLabelFont;
                 //Update Feedback control too!
-                if (CheckBox_FBAuto_DWS.Checked)
+                if (CheckBox_FBAuto_TDWS.Checked)
                 {
-                    CheckBox_ContactorPlcIn_DWS.Checked = true;
+                    CheckBox_ContactorFdbk_TDWSpick.Checked = true;
                 }
             }
             //Update labels
-            Label_ContactorPlcOut_DWS.Text = "Ctor " + status;
+            Label_ContactorPlcOut_TDWSpick.Text = "Ctor " + status;
         }
-        private void Update_Label_PlcStopRequest_DWS()
+        private void Update_Label_ContactorPlcOut_TowerDwsTower()
         {
-            // Read Plc output
-            bool flag = Utils.ReadRegisterBit(currentDws.EmergencyStopZone.PlcStopRequest);
-            if (flag)
+            string status;
+            // Read PLC output
+            if (currentTowerDws.Contactors[1].ContactorOutput.Value == true)
             {
-                Label_PlcStopRequest_DWS.ForeColor = activeLabelColor;
-                Label_PlcStopRequest_DWS.Font = activeLabelFont;
+                status = "ON";
+                Label_ContactorPlcOut_TDWStower.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_TDWStower.Font = activeLabelFont;
+                //Update Feedback control too!
+                if (CheckBox_FBAuto_TDWS.Checked)
+                {
+                    CheckBox_ContactorFdbk_TDWStower.Checked = false;
+                }
             }
             else
             {
-                Label_PlcStopRequest_DWS.ForeColor = inactiveLabelColor;
-                Label_PlcStopRequest_DWS.Font = inactiveLabelFont;
+                status = "OFF";
+                Label_ContactorPlcOut_TDWStower.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_TDWStower.Font = inactiveLabelFont;
+                //Update Feedback control too!
+                if (CheckBox_FBAuto_TDWS.Checked)
+                {
+                    CheckBox_ContactorFdbk_TDWStower.Checked = true;
+                }
             }
-        }
-        private void Update_Label_PlcIsStopStatus_DWS()
-        {
-            // Read Plc output
-            bool flag = Utils.ReadRegisterBit(currentDws.EmergencyStopZone.PlcIsStopStatus);
-            if (flag)
-            {
-                Label_PlcIsStopStatus_DWS.ForeColor = activeLabelColor;
-                Label_PlcIsStopStatus_DWS.Font = activeLabelFont;
-            }
-            else
-            {
-                Label_PlcIsStopStatus_DWS.ForeColor = inactiveLabelColor;
-                Label_PlcIsStopStatus_DWS.Font = inactiveLabelFont;
-            }
+            //Update labels
+            Label_ContactorPlcOut_TDWStower.Text = "Ctor " + status;
         }
 
         /// <summary>
         /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
         /// Added to accept HMI commands during simultaion.
         /// </summary>
-        private void UpdateAllDWSContactorOutputs()
+        private void UpdateAllTDWSsContactorOutputs()
         {
             // Simply read all contactors and assign the inverse of the output value to the feedback value.
-            if (CheckBox_FBAuto_DWS.Checked)
+            if (CheckBox_FBAuto_TDWS.Checked)
             {
-                CoSimulationInstance.AlphaBotSystem.DynamicWorkStations.ForEach(dws =>
-                dws.Contactor.ContactorFeedback.Value = !dws.Contactor.ContactorOutput.Value);
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                tdws.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
             }
         }
+        #endregion // Contactors
+
         #endregion // Output
-        #endregion // DWS
+
+        #endregion // Tower DWS
+
+        #region Small Aisle
+        //TODO - add all small aisle methods
+
+        #endregion // Small Aisle
 
         #region CELL communication
         #region CELL side
@@ -1835,7 +2036,7 @@ namespace PLCSIM_Adv_CoSimulation
         #region Led Towers
         private void Update_ColorLabel_LedTower(Models.Configuration.Panel panel)
         {
-            if (panel.RedLed.Value)
+            if (panel.SignalTower.RedLed.Value)
             {
                 Label_LedTowerRed_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerRed_DwsPanel.ForeColor = Color.Red;
@@ -1845,7 +2046,9 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerRed_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerRed_DwsPanel.ForeColor = inactiveLabelColor;
             }
-            if (panel.BlueLed.Value)
+            //TODO. Update interface. Delete blue color label. Add buzzer output.
+            /*
+            if (panel.SignalTower.BlueLed.Value)
             {
                 Label_LedTowerBlue_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerBlue_DwsPanel.ForeColor = Color.Blue;
@@ -1855,7 +2058,8 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerBlue_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerBlue_DwsPanel.ForeColor = inactiveLabelColor;
             }
-            if (panel.YellowLed.Value)
+            */
+            if (panel.SignalTower.YellowLed.Value)
             {
                 Label_LedTowerYellow_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerYellow_DwsPanel.ForeColor = Color.Orange;
@@ -1865,7 +2069,7 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerYellow_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerYellow_DwsPanel.ForeColor = inactiveLabelColor;
             }
-            if (panel.GreenLed.Value)
+            if (panel.SignalTower.GreenLed.Value)
             {
                 Label_LedTowerGreen_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerGreen_DwsPanel.ForeColor = Color.Green;
@@ -1875,7 +2079,7 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerGreen_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerGreen_DwsPanel.ForeColor = inactiveLabelColor;
             }
-            if (panel.WhiteLed.Value)
+            if (panel.SignalTower.WhiteLed.Value)
             {
                 Label_LedTowerWhite_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerWhite_DwsPanel.ForeColor = Color.Black;
@@ -1890,23 +2094,19 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_LedTower(Models.Configuration.Panel panel, Label label)
         {
             string ledString = "";
-            if (panel.RedLed.Value)
+            if (panel.SignalTower.RedLed.Value)
             {
                 ledString += "Rd ";
             }
-            if (panel.BlueLed.Value)
-            {
-                ledString += "Bl ";
-            }
-            if (panel.YellowLed.Value)
+            if (panel.SignalTower.YellowLed.Value)
             {
                 ledString += "Yl ";
             }
-            if (panel.GreenLed.Value)
+            if (panel.SignalTower.GreenLed.Value)
             {
                 ledString += "Gn ";
             }
-            if (panel.WhiteLed.Value)
+            if (panel.SignalTower.WhiteLed.Value)
             {
                 ledString += "Wh";
             }
@@ -1931,7 +2131,7 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_CloseCommandFromCell_Stopper.Checked = flag;
 
             // Sensors
-            CheckBox_InvAlarm_Stopper.Checked = currentStopper.InvAlarm.Value;
+            CheckBox_Alarm_Stopper.Checked = currentStopper.InvAlarm.Value;
             // Check if sensor logic is inverted
             if (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted)
             {
@@ -2023,8 +2223,8 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_InvAlarm_Stopper_CheckedChanged(object sender, EventArgs e)
         {
-            currentStopper.InvAlarm.Value = CheckBox_InvAlarm_Stopper.Checked;
-            string sensorStatus = CheckBox_InvAlarm_Stopper.Checked ? "OK." : "Error.";
+            currentStopper.InvAlarm.Value = CheckBox_Alarm_Stopper.Checked;
+            string sensorStatus = CheckBox_Alarm_Stopper.Checked ? "OK." : "Error.";
             ListBox_Log.Items.Add(currentStopper.Label + " Inverter " + sensorStatus);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
@@ -2224,176 +2424,20 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // Stopper
 
+        #region Bots
+        //TODO add bot methods
+        #endregion // Bots
+
         #region FirePreventionShutter
         /// <summary>
         /// Updates the interface with the values of the current Shutter.
         /// </summary>
-        private void UpdateShutterInterface()
-        {
-            #region Inputs
-            // Sensors
-            CheckBox_IsOpenSensor_Shutter.Checked = currentShutter.IsOpenSensor.Value;
-            CheckBox_IsClosedSensor_Shutter.Checked = currentShutter.IsClosedSensor.Value;
-            #endregion // Inputs
-
-            UpdateShutterOutputs();
-        }
-
-        #region inputs
-        private void ComboBox_Shutters_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Assume the index of the Combo Box is the same as the one of the Stoppers List.
-            currentShutter = CoSimulationInstance.AlphaBotSystem.FirePreventionShutters[ComboBox_Shutters.SelectedIndex];
-            // When the selected shutter changes, update shutter interface with the new shutter data
-            UpdateShutterInterface();
-        }
-
-        private void CheckBox_OpenShutterCellCommand_CheckedChanged(object sender, EventArgs e)
-        {
-            // If the open command is active, disable the close command and vice versa.
-            CheckBox_CloseShutterCellCommand.Enabled = !CheckBox_OpenShutterCellCommand.Checked;
-            // Update value
-            // No value to be updated
-            // Log action
-            string btnStatus = CheckBox_OpenShutterCellCommand.Checked ? "pressed." : "released.";
-            ListBox_Log.Items.Add(currentShutter.Label + " Open command " + btnStatus);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void CheckBox_CloseShutterCellCommand_CheckedChanged(object sender, EventArgs e)
-        {
-            // If the close command is active, disable the open command and vice versa.
-            CheckBox_OpenShutterCellCommand.Enabled = !CheckBox_CloseShutterCellCommand.Checked;
-            // Update value
-            // No value to be updated
-            // Log action
-            string btnStatus = CheckBox_CloseShutterCellCommand.Checked ? "pressed." : "released.";
-            ListBox_Log.Items.Add(currentShutter.Label + " Close command " + btnStatus);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void CheckBox_IsOpenSensor_Shutter_CheckedChanged(object sender, EventArgs e)
-        {
-            // If this is checked, diable the other checkbox
-            CheckBox_IsClosedSensor_Shutter.Enabled = !CheckBox_IsOpenSensor_Shutter.Checked;
-            currentShutter.IsOpenSensor.Value = CheckBox_IsOpenSensor_Shutter.Checked;
-            string sensorStatus = CheckBox_IsClosedSensor_Shutter.Checked ? " open." : " closing.";
-            ListBox_Log.Items.Add(currentShutter.Label + sensorStatus);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void CheckBox_IsClosedSensor_Shutter_CheckedChanged(object sender, EventArgs e)
-        {
-            // If this is checked, diable the other checkbox
-            CheckBox_IsOpenSensor_Shutter.Enabled = !CheckBox_IsClosedSensor_Shutter.Checked;
-            currentShutter.IsClosedSensor.Value = CheckBox_IsClosedSensor_Shutter.Checked;
-            string sensorStatus = CheckBox_IsClosedSensor_Shutter.Checked ? " closed." : " opening.";
-            ListBox_Log.Items.Add(currentShutter.Label + sensorStatus);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        #endregion // inputs
-
-        #region outputs
-        private void UpdateShutterOutputs()
-        {
-            if (currentShutter != null)
-            {
-                Update_Label_IsRailUpToCell_Shutter();
-                Update_Label_IsShutterOpenToCell_Shutter();
-                Update_Label_PlcOpenOut_Shutter();
-                Update_Label_PlcCloseOut_Shutter();
-                Update_Label_IsOpenSensor_Shutter();
-                Update_Label_IsClosedSensor_Shutter();
-            }
-        }
-
-        private void Update_Label_IsOpenSensor_Shutter()
-        {
-            // TODO - update
-            //currentShutter.IsOpenSensor.Value = ShutterOpenSensorSignal;
-            UpdateSignalLabel(currentShutter.IsOpenSensor, Label_IsOpenSensor_Shutter);
-        }
-
-        private void Update_Label_IsClosedSensor_Shutter()
-        {
-            // TODO - update
-            //currentShutter.IsClosedSensor.Value = ShutterCloseSensorSignal;
-            UpdateSignalLabel(currentShutter.IsClosedSensor, Label_IsClosedSensor_Shutter);
-        }
-
-        private void Update_Label_IsRailUpToCell_Shutter()
-        {
-            UpdateSignalLabel(currentShutter.IsRailOpenToCell, Label_IsRailUpToCell_Shutter);
-        }
-
-        private void Update_Label_IsShutterOpenToCell_Shutter()
-        {
-            UpdateSignalLabel(currentShutter.IsShutterOpenToCell, Label_IsShutterOpenToCell_Shutter);
-        }
-
-
-        #region Shutter operation simulation
-        // TODO - This section need to be tested.
-        private void Update_Label_PlcOpenOut_Shutter()
-        {
-            // Check if the value of the PLC output has changed from false to true since the last reading
-            // ie Current flag is false and current PLC output is true
-            if (!ShutterOpenOutputIsOn & currentShutter.PlcOpenOut.Value)
-            {
-                ShutterCloseSensorSignal = false;
-                ActuateShutter();
-            }
-            // Save current value for next comparison
-            ShutterOpenOutputIsOn = currentShutter.PlcOpenOut.Value;
-            UpdateSignalLabel(currentShutter.PlcOpenOut, Label_PlcOpenOut_Shutter);
-        }
-
-        private void Update_Label_PlcCloseOut_Shutter()
-        {
-            // Check if the value of the PLC output has changed from false to true since the last reading
-            // ie Current flag is false and current PLC output is true
-            if (!ShutterCloseOutputIsOn & currentShutter.PlcCloseOut.Value)
-            {
-                ShutterOpenSensorSignal = false;
-                ActuateShutter();
-            }
-            // Save current value for next comparison
-            ShutterCloseOutputIsOn = currentShutter.PlcCloseOut.Value;
-            UpdateSignalLabel(currentShutter.PlcCloseOut, Label_PlcCloseOut_Shutter);
-        }
-
-        private void ActuateShutter()
-        {
-            // Initialize timer
-            shutterTimer.Tick += new EventHandler(ShutterTimerProcessor);
-            shutterTimer.Interval = shutterActuationWaitTime;
-            shutterTimer.Start();
-        }
-
-        private void ShutterTimerProcessor(Object myObject, EventArgs myEventArgs)
-        {
-            shutterTimer.Stop();
-            // Activate sensor
-            //Check if the close signal is active
-            if (currentShutter.PlcCloseOut.Value)
-            {
-                ShutterCloseSensorSignal = true;
-            }
-            // Check if the open signal is active
-            else if (currentShutter.PlcOpenOut.Value)
-            {
-                ShutterOpenSensorSignal = true;
-            }
-        }
-
-        #endregion // shutter operation simulation
-
-        #endregion // outputs
 
         #endregion // FirePreventionShutter
 
         #region Fire Alarm
+        // TODO delete if not used.
+        /*
         private void CheckBox_FireAlarm_CheckedChanged(object sender, EventArgs e)
         {
             if (CoSimulationInstance.AlphaBotSystem.FireAlarm != null)
@@ -2405,98 +2449,24 @@ namespace PLCSIM_Adv_CoSimulation
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
+        */
         #endregion // Fire Alarm
 
         #region Shutter cylinders
-        private void CheckBox_CylinderPressure_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CoSimulationInstance.AlphaBotSystem.ShutterCylinders != null)
-            {
-                CoSimulationInstance.AlphaBotSystem.ShutterCylinders.ForEach(cyl =>
-                {
-                    cyl.Value = CheckBox_CylinderPressure.Checked;
-                });
-                // Log action
-                string isOn = CheckBox_CylinderPressure.Checked ? "OK." : "not OK.";
-                ListBox_Log.Items.Add("Cylinder pressure " + isOn);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-        }
+
         #endregion // Shutter Cylinders
 
-        #region Evacuation and Maintenance area
-
+        #region Maintenance area
+        //TODO update Maint area methods
         #region Input
-
-        #region OpBox
-        private void CheckBox_EstopBtn_EvacuationArea_CheckedChanged(object sender, EventArgs e)
-        {
-            EstopButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.EmergencyBtn,
-                CheckBox_EstopBtn_EvacMaintArea,
-                "Evac. Area");
-        }
-
-        #region Reset btn
-        private void Btn_Reset_Maint_MouseDown(object sender, MouseEventArgs e)
-        {
-            ButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ResetBtn,
-                true,
-                "Maint area Reset");
-        }
-        private void Btn_Reset_Maint_MouseUp(object sender, MouseEventArgs e)
-        {
-            ButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ResetBtn,
-                false,
-                "Maint area Reset");
-        }
-        #endregion // Reset btn
-
-        #region Request btn
-        private void Btn_Request_Maint_MouseDown(object sender, MouseEventArgs e)
-        {
-            ButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.RequestBtn,
-                true,
-                "Maint area Request");
-        }
-        private void Btn_Request_Maint_MouseUp(object sender, MouseEventArgs e)
-        {
-            ButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.RequestBtn,
-                false,
-                "Maint area Request");
-        }
-        #endregion // Request btn
-
-        #endregion // Opbox
-
-        #region Scaffold
-        private void CheckBox_Scaffold_MaintArea_CheckedChanged(object sender, EventArgs e)
-        {
-            // The scaffold sensor is True for normal operation
-            // Prevent Null exceptions when Maintenance area is not present.
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null 
-                & CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold != null)
-            {
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold.Value = CheckBox_Scaffold_EvacMaintArea.Checked;
-                // Log action
-                string isOn = CheckBox_Scaffold_EvacMaintArea.Checked ? "detected." : "not detected.";
-                ListBox_Log.Items.Add("Maintenance area scaffold " + isOn);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-        }
-        #endregion // Scaffold
 
         #region Bot HP
         private void CheckBox_BOT_HP_CheckedChanged(object sender, EventArgs e)
         {
             // Prevent Null exceptions when Maintenance area is not present.
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea != null)
             {
-                CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHP.Value = CheckBox_BOT_HP.Checked;
+                CoSimulationInstance.AlphaBotSystem.MaintenanceArea.BotPresent.Value = CheckBox_BOT_HP.Checked;
                 // Log action
                 string isOn = CheckBox_BOT_HP.Checked ? "not present." : "present.";
                 ListBox_Log.Items.Add("BOT in HP " + isOn);
@@ -2504,38 +2474,6 @@ namespace PLCSIM_Adv_CoSimulation
             }
         }
         #endregion // Bot HP
-
-        #region Door
-        private void RadioButton_DoorClosed_EvacuationArea_CheckedChanged(object sender, EventArgs e)
-        {
-            // The door sensor is Normally Closed, ie True when closed.
-            CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorClosedSensor.Value = 
-                RadioButton_DoorClosed_EvacMaintArea.Checked;
-            string isClosed = RadioButton_DoorClosed_EvacMaintArea.Checked ? "Closed" : "Open";
-            ListBox_Log.Items.Add("Evac. area Door is " + isClosed);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void RadioButton_DoorLocked_EvacuationArea_CheckedChanged(object sender, EventArgs e)
-        {
-            // The key lock is NC, ie True when locked.
-            CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorLockedKeySwitch.Value =
-                RadioButton_DoorLocked_EvacMaintArea.Checked;
-            string isLocked = RadioButton_DoorLocked_EvacMaintArea.Checked ? "Locked" : "Unlocked";
-            ListBox_Log.Items.Add("Evac. area Door is " + isLocked);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void RadioButton_DoorReady_MaintArea_CheckedChanged(object sender, EventArgs e)
-        {
-            CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Door.IsDoorReadyInput.Value =
-                RadioButton_DoorReady_MaintArea.Checked;
-            string isLocked = RadioButton_DoorReady_MaintArea.Checked ? "Ready" : "Not Ready";
-            ListBox_Log.Items.Add("Maint. area Door is " + isLocked);
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        #endregion // Door
 
         #region Contactor
         private void CheckBox_ContactorOnOff_EvacMaintArea_CheckedChanged(object sender, EventArgs e)
@@ -2548,52 +2486,20 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorPlcIn_EvacMaintArea_CheckedChanged(object sender, EventArgs e)
         {
-            CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Contactor.ContactorFeedback.Value = 
-                CheckBox_ContactorPlcIn_EvacMaintArea.Checked;
-            if (CheckBox_ContactorPlcIn_EvacMaintArea.Checked)
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.ContactorFeedback.Value = 
+                CheckBox_ContactorFdbk_MaintArea.Checked;
+            if (CheckBox_ContactorFdbk_MaintArea.Checked)
             {
-                Label_ContactorPlcIn_EvacMaintArea.ForeColor = activeLabelColor;
-                Label_ContactorPlcIn_EvacMaintArea.Font = activeLabelFont;
+                Label_ContactorFdbk_MaintArea.ForeColor = activeLabelColor;
+                Label_ContactorFdbk_MaintArea.Font = activeLabelFont;
             }
             else
             {
-                Label_ContactorPlcIn_EvacMaintArea.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcIn_EvacMaintArea.Font = inactiveLabelFont;
+                Label_ContactorFdbk_MaintArea.ForeColor = inactiveLabelColor;
+                Label_ContactorFdbk_MaintArea.Font = inactiveLabelFont;
             }
         }
         #endregion // Contactor
-
-        #region Emergency stop
-        private void CheckBox_CellIsCompleteFlag_Maint_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
-            {
-                RegisterToPlc currentRegister = CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.CellIsCompleteFlag;
-                currentRegister.Value =
-                    Utils.UpdateRegister(currentRegister, CheckBox_CellIsCompleteFlag_Maint.Checked);
-                // Log action
-                string isComplete = CheckBox_CellIsCompleteFlag_Maint.Checked ? "complete" : " incomplete";
-                ListBox_Log.Items.Add("Maint. area Cell flag is marked as " + isComplete);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-        }
-        #endregion // Emergency stop
-
-        #region Condensation sensor
-        private void CheckBox_CondensationSensor_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.CondensationSensorSpecified)
-            {
-                // Assign value of checkbox to plc input.
-                CoSimulationInstance.AlphaBotSystem.
-                    EvacAndMaintArea.CondensationSensor.Value = CheckBox_CondensationSensor.Checked;
-                // Log action
-                string sensorStatus = CheckBox_CondensationSensor.Checked ? "on" : "off";
-                ListBox_Log.Items.Add("Condensation sensor is " + sensorStatus);
-                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-            }
-        }
-        #endregion // Condensation sensor
 
         #endregion // Input
 
@@ -2601,96 +2507,43 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void UpdateEvacAndMaintAreaOutputs()
         {
-            Update_Label_OpBoxLed_Maint();
             Update_Label_ContactorPlcOut_EvacMaintArea();
-            Update_Label_Scaffold_EvacMaintArea();
             Update_Label_BotHPtoCell();
-            Update_Label_PlcStopRequest_Maint();
-            Update_Label_PlcIsStopStatus_Maint();
-            Update_Label_MaintLamp_EvacMaintArea();
         }
-
-        #region OpBox
-        private void Update_Label_OpBoxLed_Maint()
-        {
-            string ledStatus;
-            // Read Plc output
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.OperationBox.ZoningStatusLed.Value == true)
-            {
-                Label_OpBoxLed_Maint.ForeColor = activeLabelColor;
-                Label_OpBoxLed_Maint.Font = activeLabelFont;
-                ledStatus = "ON";
-            }
-            else
-            {
-                Label_OpBoxLed_Maint.ForeColor = inactiveLabelColor;
-                Label_OpBoxLed_Maint.Font = inactiveLabelFont;
-                ledStatus = "OFF";
-            }
-            //Update label
-            Label_OpBoxLed_Maint.Text = ledStatus;
-        }
-        #endregion // OpBox
 
         #region Contactor
         private void Update_Label_ContactorPlcOut_EvacMaintArea()
         {
             string status;
             // Read Plc output
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Contactor.ContactorOutput.Value == true)
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.ContactorOutput.Value == true)
             {
                 status = "ON";
-                Label_ContactorPlcOut_EvacMaintArea.ForeColor = activeLabelColor;
-                Label_ContactorPlcOut_EvacMaintArea.Font = activeLabelFont;
+                Label_ContactorPlcOut_MaintArea.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_MaintArea.Font = activeLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_EvacMaintArea.Checked = false;
+                CheckBox_ContactorFdbk_MaintArea.Checked = false;
             }
             else
             {
                 status = "OFF";
-                Label_ContactorPlcOut_EvacMaintArea.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcOut_EvacMaintArea.Font = inactiveLabelFont;
+                Label_ContactorPlcOut_MaintArea.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_MaintArea.Font = inactiveLabelFont;
                 //Update Feedback control too!
-                CheckBox_ContactorPlcIn_EvacMaintArea.Checked = true;
+                CheckBox_ContactorFdbk_MaintArea.Checked = true;
             }
             //Update labels
-            Label_ContactorPlcOut_EvacMaintArea.Text = "Ctor " + status;
+            Label_ContactorPlcOut_MaintArea.Text = "Ctor " + status;
         }
         #endregion // Contactor
-
-        #region Scaffold
-        private void Update_Label_Scaffold_EvacMaintArea()
-        {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null
-                & CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold != null)
-            {
-                // Read PLC input
-                string status;
-                if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.Scaffold.Value)
-                {
-                    status = "ON";
-                    Label_Scaffold_EvacMaintArea.ForeColor = activeLabelColor;
-                    Label_Scaffold_EvacMaintArea.Font = activeLabelFont;
-                }
-                else
-                {
-                    status = "OFF";
-                    Label_Scaffold_EvacMaintArea.ForeColor = inactiveLabelColor;
-                    Label_Scaffold_EvacMaintArea.Font = inactiveLabelFont;
-                }
-                //Update label
-                Label_Scaffold_EvacMaintArea.Text = "is " + status;
-            }
-        }
-        #endregion // Scaffold
 
         #region Bot HP
         private void Update_Label_BotHPtoCell()
         {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null)
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea != null)
             {
                 // Read Plc output
-                bool flag = Utils.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.BotHPtoCell);
+                bool flag = Utils.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.MaintenanceArea.BotHPtoCell);
                 if (flag)
                 {
                     Label_BotHPtoCell.ForeColor = activeLabelColor;
@@ -2705,103 +2558,100 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Bot HP
 
-        #region Emergency stop
-        private void Update_Label_PlcStopRequest_Maint()
-        {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
-            {
-                // Read Plc output
-                bool flag = Utils.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcStopRequest);
-                if (flag)
-                {
-                    Label_PlcStopRequest_Maint.ForeColor = activeLabelColor;
-                    Label_PlcStopRequest_Maint.Font = activeLabelFont;
-                }
-                else
-                {
-                    Label_PlcStopRequest_Maint.ForeColor = inactiveLabelColor;
-                    Label_PlcStopRequest_Maint.Font = inactiveLabelFont;
-                }
-            }
-        }
-        private void Update_Label_PlcIsStopStatus_Maint()
-        {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZoneSpecified)
-            {
-                // Read Plc output
-                bool flag = Utils.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.EmergencyStopZone.PlcIsStopStatus);
-                if (flag)
-                {
-                    Label_PlcIsStopStatus_Maint.ForeColor = activeLabelColor;
-                    Label_PlcIsStopStatus_Maint.Font = activeLabelFont;
-                }
-                else
-                {
-                    Label_PlcIsStopStatus_Maint.ForeColor = inactiveLabelColor;
-                    Label_PlcIsStopStatus_Maint.Font = inactiveLabelFont;
-                }
-            }
-        }
-        #endregion // Emergency stop
-
-        #region Maintenance lamp
-        private void Update_Label_MaintLamp_EvacMaintArea()
-        {
-            if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea != null 
-                && CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.MaintLampSpecified)
-            {
-                string ledStatus;
-                // Read Plc output
-                if (CoSimulationInstance.AlphaBotSystem.EvacAndMaintArea.MaintLamp.Value == true)
-                {
-                    Label_MaintLamp_EvacMaintArea.ForeColor = activeLabelColor;
-                    Label_MaintLamp_EvacMaintArea.Font = activeLabelFont;
-                    ledStatus = "ON";
-                }
-                else
-                {
-                    Label_MaintLamp_EvacMaintArea.ForeColor = inactiveLabelColor;
-                    Label_MaintLamp_EvacMaintArea.Font = inactiveLabelFont;
-                    ledStatus = "OFF";
-                }
-                //Update label
-                Label_MaintLamp_EvacMaintArea.Text = "led " + ledStatus;
-            }
-        }
-        #endregion // Maintenance lamp
-
         #endregion // Output
 
-        #endregion // Evacuation and Maintenance area
+        #endregion // Maintenance area
 
         #region SWS
-        private void CheckBox_EstopBtn_SWS1_CheckedChanged(object sender, EventArgs e)
-        {
-            EstopButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.StaticWorkStations[0].EmergencyBtn,
-                CheckBox_EstopBtn_SWS1,
-                "SWS 1");
-        }
-
-        private void CheckBox_EstopBtn_SWS2_CheckedChanged(object sender, EventArgs e)
-        {
-            EstopButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.StaticWorkStations[1].EmergencyBtn,
-                CheckBox_EstopBtn_SWS2,
-                "SWS 2");
-        }
-
-        private void CheckBox_EstopBtn_SWS3_CheckedChanged(object sender, EventArgs e)
-        {
-            EstopButtonChanged(
-                CoSimulationInstance.AlphaBotSystem.StaticWorkStations[2].EmergencyBtn,
-                CheckBox_EstopBtn_SWS2,
-                "SWS 3");
-        }
 
         #endregion // SWS
 
         #region Common methods
+
+        // TODO use this method.
+        /// <summary>
+        /// Update the value of the Zoning command radio buttons based on the values of the current zone.
+        /// </summary>
+        /// <param name="zone">The current zone (currentAisle, currentDeck, etc.)</param>
+        /// <param name="none">The radio button object for the None command</param>
+        /// <param name="run">The radio button object for the Run command</param>
+        /// <param name="permit">The radio button object for the Permit command</param>
+        /// <param name="cancel">The radio button object for the Cancel command</param>
+        private void updateZoningRadioButtons(Zone zone, ref RadioButton none,
+            ref RadioButton run, ref RadioButton permit, ref RadioButton cancel)
+        {
+            // Zoning
+            switch (zone.Zoning.CellCommand.Value)
+            {
+                case (byte)Utils.CellCommandValues.None:
+                    none.Checked = true;
+                    break;
+                case (byte)Utils.CellCommandValues.Run:
+                    run.Checked = true;
+                    break;
+                case (byte)Utils.CellCommandValues.Permit:
+                    permit.Checked = true;
+                    break;
+                case (byte)Utils.CellCommandValues.Cancel:
+                    cancel.Checked = true;
+                    break;
+                default:
+                    Console.WriteLine("The zoning command for " + zone.Label + " was not recognized.");
+                    break;
+            }
+        }
+
+        #region door
+        /// <summary>
+        /// This only updates the interface based on the current PLCinput. 
+        /// Not the other way around.
+        /// This is a PLC input that depends on 2 signals.
+        /// One is the door closed sensor.
+        /// The other is the PLC unlock output.
+        /// </summary>
+        private void Update_Label_DoorIsLocked(ZoneWithDoor zone, Label label)
+        {
+            string doorStatus;
+            // Read Plc output
+            // The door is locked when the door is closed and the unlock output is false.
+            // TODO - check the behaviour of this if.
+            if (zone.Door.IsDoorClosed & !zone.Door.unlockDoor.Value)
+            {
+                label.ForeColor = activeLabelColor;
+                label.Font = activeLabelFont;
+                doorStatus = "locked";
+            }
+            else
+            {
+                label.ForeColor = emergencyLabelColor;
+                label.Font = emergencyLabelFont;
+                doorStatus = "unlocked";
+            }
+            //Update label
+            label.Text = doorStatus;
+        }
+
+        private void Update_Label_UnlockDoor(ZoneWithDoor zone, Label label)
+        {
+            string unlockStatus;
+            //Read output
+            if (zone.Door.unlockDoor.Value)
+            {
+                label.ForeColor = activeLabelColor;
+                label.Font = activeLabelFont;
+                unlockStatus = "ON";
+            }
+            else
+            {
+                label.ForeColor = inactiveLabelColor;
+                label.Font = inactiveLabelFont;
+                unlockStatus = "OFF";
+            }
+            //Update label
+            label.Text = "unlock" + unlockStatus;
+        }
+        #endregion // Door
+
         /// <summary>
         /// Handles Estop button (checkbox) changes
         /// </summary>
@@ -2907,30 +2757,12 @@ namespace PLCSIM_Adv_CoSimulation
 
         #endregion // Stopper and Shutter Common methods
 
-        /// <summary>
-        /// Sets the text for the tool tip
-        /// </summary>
-        private void CheckBox_EstopBtn_EvacuationArea_MouseHover(object sender, EventArgs e)
-        {
-            EstopBtnToolTip.SetToolTip(CheckBox_EstopBtn_EvacMaintArea, 
-                "Estop. Maintenance Area for Miyano. Escape Area for Alpen");
-        }
-
-        private void EstopBtnToolTip_Popup(object sender, PopupEventArgs e)
-        {
-            // nothing to do here.
-        }
-
         #endregion // Common methods
 
         #region Unhandled IO
-        // TODO - take care of these inputs in their respective place
         private void UpdateUnhandledIO()
         {
-            MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS1_L", true);
-            MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS1_R", true);
-            MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS2_L", true);
-            MainInterface.PlcInstance.WriteBool("ELB_Trip_DWS2_R", true);
+            // Nothing to do here for now.
         }
         #endregion // Unhandled IO
     }

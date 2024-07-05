@@ -48,7 +48,7 @@ namespace PLCSIM_Adv_CoSimulation
             CellClient = new ModbusCommunication();
             //Fill in Modbus parameters
             // This is the IP and port used for Miyano
-            TextBox_ModbusServerIP.Text = "192.168.59.201";
+            TextBox_ModbusServerIP.Text = "192.168.6.201";
             TextBox_ModbusPort.Text = "3002";
         }
         #endregion //Ctor
