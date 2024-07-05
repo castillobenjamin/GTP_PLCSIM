@@ -6,17 +6,13 @@ using System.Xml.Serialization;
 
 namespace PLCSIM_Adv_CoSimulation.Models.Configuration
 {
-    public class DynamicWorkStation
+    public class DynamicWorkStation : Zone
     {
         #region Fields
         private bool coversSerializes;
         #endregion // Fields
 
         #region Properties
-        [XmlAttribute]
-        public string Name { get; set; }
-        [XmlAttribute]
-        public string Label { get; set; }
         //Estop button
         public PlcInput EmergencyBtn { get; set; }
         //Contactor
@@ -26,11 +22,9 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         [XmlArrayItem("Cover", IsNullable = true)]
         public List<PlcInput> Covers { get; set; }
         [XmlIgnore()]
-        public bool CoversSpecified { get { return coversSerializes; } set { coversSerializes = value; } }
-        //Zoning
-        public Zoning Zoning { get; set; }
-        //Emergency stop
-        public EmergencyStop EmergencyStopZone { get; set; }
+        public bool CoversSpecified { 
+            get { return coversSerializes; } 
+            set { coversSerializes = value; } }
         #endregion
     }
 }

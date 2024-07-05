@@ -6,8 +6,8 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
     {
         #region Properties
         public RegisterToPlc CellIsCompleteFlag { get; set; }
-        public RegisterFromPlc PlcStopRequest { get; set; }
         public RegisterFromPlc PlcIsStopStatus { get; set; }
+        public RegisterFromPlc PlcStopRequest { get; set; }
         #endregion //Properties
     }
 }

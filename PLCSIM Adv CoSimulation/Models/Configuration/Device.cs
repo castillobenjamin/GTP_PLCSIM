@@ -7,6 +7,8 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         #region Properties
         [XmlAttribute]
         public string Name { get; set; }
+        [XmlAttribute]
+        public string Type { get; set; }
         public string Tag { get; set; }
         public string Address { get; set; } // Exact same format as Tia Portal 
         public abstract bool Value { get; set; }
