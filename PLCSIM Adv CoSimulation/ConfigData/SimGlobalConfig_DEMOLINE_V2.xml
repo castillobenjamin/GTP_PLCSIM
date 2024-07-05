@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AlphaBotSystem Name="Demo Line v2">
 	<!--The Modbus address used here is the one shown on the register map minus 1.-->
+	<!--IsDoorClosed is not a PLC input-->
 	<CellCommunication>
 		<IsPlcAutoMode Type="output">
 			<Tag>NoTag</Tag>
@@ -378,10 +379,17 @@
 		<BotHPtoCell Type="input">
 			<!--TODO: Update address-->
 			<Tag></Tag>
-			<Address></Address>
-			<BitPosition></BitPosition>
+			<Address>173</Address>
+			<BitPosition>4</BitPosition>
 			<Value>1</Value>
 		</BotHPtoCell>
+		<!--This is the third notch on the operation box key switch-->
+		<!--TODO Add tag.-->
+		<KeySwMaint Type="input">
+			<Tag>NoTag</Tag>
+			<Address />
+			<Value>false</Value>
+		</KeySwMaint>
 		<StopperOpenBtn Type="input">
 			<Tag></Tag>
 			<Address></Address>
@@ -392,7 +400,63 @@
 			<Address></Address>
 			<Value>true</Value>
 		</StopperCloseBtn>
-		<!--TODO. Move stopper to stopper array-->
+		<Stopper Name="MaintenanceAreaStopperAisle1" Label="Maintenance Area Stopper (Aisle1)">
+			<PlcOpenOut Type="output">
+				<Tag>ELC_DQ_OPEN_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut Type="output">
+				<Tag>ELC_DQ_CLOSE_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcCloseOut>
+			<PlcResetAlarmOut Type="output">
+				<Tag>ELC_DQ_RES_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcResetAlarmOut>
+			<IsOpenSensor Type="input">
+				<Tag>ELC_DI_OPEN_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor Type="input">
+				<Tag>ELC_DI_CLOSED_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>true</Value>
+			</IsClosedSensor>
+			<Alarm Type="input">
+				<Tag>ELC_DI_ALM_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>true</Value>
+			</Alarm>
+			<IsOpenStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>173</Address>
+				<BitPosition>5</BitPosition>
+				<Value>0</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>173</Address>
+				<BitPosition>6</BitPosition>
+				<Value>0</Value>
+			</IsClosedStatusToCell>
+			<!--Error and timeover signal not used for this stopper-->
+			<ErrorSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address></Address>
+				<BitPosition></BitPosition>
+				<Value>0</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address></Address>
+				<BitPosition></BitPosition>
+				<Value>0</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
 		<Contactor>
 			<Contactor Name="Maintenance Area Contactor">
 				<ContactorOutput Type="output">
@@ -427,8 +491,8 @@
 		</Contactor>
 	</MaintenanceArea>
 	<Aisles>
-		<Aisle Name="Aisle1" Label="Aisle 1">
-			<OperationBox Type="hasMaintArea">
+		<Aisle Name="Aisle1" Label="Aisle 1" Type="hasMaintArea">
+			<OperationBox>
 				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE1</Tag>
 					<Address />
@@ -444,21 +508,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_AISLE1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_AISLE1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
-				<KeySwMaint Type="input">
-					<Tag>NoTag</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwMaint>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_AISLE1</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_AISLE1</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE1</Tag>
 					<Address />
@@ -466,6 +527,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_AISLE1</Tag>
 					<Address />
@@ -545,6 +607,7 @@
 				<Value>false</Value>
 			</ContactorLamp>
 			<SafetyBoards>
+				<!--The program assumes there are only 2 boards in order. First north, then south-->
 				<SafetyBoard Name="SafetyBoard_North_Aisle1" Type="input">
 					<Tag>BOARD_DETECT_NORTH_AISLE1</Tag>
 					<Address />
@@ -608,16 +671,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_AISLE2</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_AISLE2</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_AISLE2</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_AISLE2</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE2</Tag>
 					<Address />
@@ -625,6 +690,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_AISLE2</Tag>
 					<Address />
@@ -767,16 +833,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_AISLE3</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_AISLE3</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_AISLE3</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_AISLE3</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_AISLE3</Tag>
 					<Address />
@@ -784,6 +852,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_AISLE3</Tag>
 					<Address />
@@ -928,16 +997,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_DECK1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_DECK1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_DECK1</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_DECK1</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK1</Tag>
 					<Address />
@@ -945,6 +1016,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK1</Tag>
 					<Address />
@@ -1008,16 +1080,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_DECK2</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_DECK2</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_DECK2</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_DECK2</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK2</Tag>
 					<Address />
@@ -1025,6 +1099,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK2</Tag>
 					<Address />
@@ -1088,16 +1163,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_DECK3</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_DECK3</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_DECK3</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_DECK3</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK3</Tag>
 					<Address />
@@ -1105,6 +1182,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK3</Tag>
 					<Address />
@@ -1168,16 +1246,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_DECK4</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_DECK4</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_DECK4</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_DECK4</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_DECK4</Tag>
 					<Address />
@@ -1185,6 +1265,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_DECK4</Tag>
 					<Address />
@@ -1250,16 +1331,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_T-DWS1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_T-DWS1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_T-DWS1</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_T-DWS1</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_T-DWS1</Tag>
 					<Address />
@@ -1267,6 +1350,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_T-DWS1</Tag>
 					<Address />
@@ -1399,16 +1483,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_T-DWS2</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_T-DWS2</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_T-DWS2</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_T-DWS2</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<Tag>OP-BOX_LED_T-DWS2</Tag>
 					<Address />
@@ -1416,6 +1502,7 @@
 				</ZoningStatusLed>
 			</OperationBox>
 			<Door>
+				<IsDoorClosed>true</IsDoorClosed>
 				<IsDoorLocked Type="input">
 					<Tag>DOOR_CLOSED_T-DWS2</Tag>
 					<Address />
@@ -1550,16 +1637,18 @@
 					<Address />
 					<Value>false</Value>
 				</RunBtn>
-				<KeySwReq Type="input">
-					<Tag>KEYSW_REQ_S-AISLE1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReq>
-				<KeySwReady Type="input">
-					<Tag>KEYSW_READY_S-AISLE1</Tag>
-					<Address />
-					<Value>false</Value>
-				</KeySwReady>
+				<KeySwitch>
+					<Req Type="input">
+						<Tag>KEYSW_REQ_S-AISLE1</Tag>
+						<Address />
+						<Value>false</Value>
+					</Req>
+					<Ready Type="input">
+						<Tag>KEYSW_READY_S-AISLE1</Tag>
+						<Address />
+						<Value>true</Value>
+					</Ready>
+				</KeySwitch>
 				<ZoningStatusLed Type="output">
 					<!-- TODO: The input for this led is not implemented yet. Update tag -->
 					<Tag>(OP-BOX_LED_S-AISLE1)</Tag>
