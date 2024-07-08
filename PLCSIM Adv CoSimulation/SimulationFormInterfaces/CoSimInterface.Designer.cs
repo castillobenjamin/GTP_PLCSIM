@@ -236,10 +236,10 @@
             this.RadioButton_Ready_SmallAisle = new System.Windows.Forms.RadioButton();
             this.RadioButton_Req_SmallAisle = new System.Windows.Forms.RadioButton();
             this.Label_OpBoxLed_SmallAisle = new System.Windows.Forms.Label();
-            this.CheckBox_Estop_SmallAisle = new System.Windows.Forms.CheckBox();
+            this.CheckBox_EstopBtn_SmallAisle = new System.Windows.Forms.CheckBox();
             this.Btn_Reset_SmallAisle = new System.Windows.Forms.Button();
             this.Btn_Run_SmallAisle = new System.Windows.Forms.Button();
-            this.CheckBox_AllSAisles = new System.Windows.Forms.CheckBox();
+            this.CheckBox_AllSmallAisles = new System.Windows.Forms.CheckBox();
             this.ComboBox_SmallAisle = new System.Windows.Forms.ComboBox();
             this.GroupBox_Zoning_SmallAisle = new System.Windows.Forms.GroupBox();
             this.TextBox_ZoningStatus_SmallAisle = new System.Windows.Forms.TextBox();
@@ -2795,7 +2795,7 @@
             this.groupBox23.Controls.Add(this.GroupBox_Estop_SmallAisle);
             this.groupBox23.Controls.Add(this.GroupBox_Ctor_SmallAisle);
             this.groupBox23.Controls.Add(this.GroupBox_OpBox_SmallAisle);
-            this.groupBox23.Controls.Add(this.CheckBox_AllSAisles);
+            this.groupBox23.Controls.Add(this.CheckBox_AllSmallAisles);
             this.groupBox23.Controls.Add(this.ComboBox_SmallAisle);
             this.groupBox23.Controls.Add(this.GroupBox_Zoning_SmallAisle);
             this.groupBox23.Location = new System.Drawing.Point(1031, 12);
@@ -2957,7 +2957,7 @@
             // 
             this.GroupBox_OpBox_SmallAisle.Controls.Add(this.GroupBox_KeySwitch_SmallAisle);
             this.GroupBox_OpBox_SmallAisle.Controls.Add(this.Label_OpBoxLed_SmallAisle);
-            this.GroupBox_OpBox_SmallAisle.Controls.Add(this.CheckBox_Estop_SmallAisle);
+            this.GroupBox_OpBox_SmallAisle.Controls.Add(this.CheckBox_EstopBtn_SmallAisle);
             this.GroupBox_OpBox_SmallAisle.Controls.Add(this.Btn_Reset_SmallAisle);
             this.GroupBox_OpBox_SmallAisle.Controls.Add(this.Btn_Run_SmallAisle);
             this.GroupBox_OpBox_SmallAisle.Location = new System.Drawing.Point(4, 41);
@@ -2993,6 +2993,7 @@
             this.RadioButton_Ready_SmallAisle.TabStop = true;
             this.RadioButton_Ready_SmallAisle.Text = "Ready";
             this.RadioButton_Ready_SmallAisle.UseVisualStyleBackColor = true;
+            this.RadioButton_Ready_SmallAisle.CheckedChanged += new System.EventHandler(this.RadioButton_Ready_SmallAisle_CheckedChanged);
             // 
             // RadioButton_Req_SmallAisle
             // 
@@ -3005,6 +3006,7 @@
             this.RadioButton_Req_SmallAisle.TabStop = true;
             this.RadioButton_Req_SmallAisle.Text = "Req";
             this.RadioButton_Req_SmallAisle.UseVisualStyleBackColor = true;
+            this.RadioButton_Req_SmallAisle.CheckedChanged += new System.EventHandler(this.RadioButton_Req_SmallAisle_CheckedChanged);
             // 
             // Label_OpBoxLed_SmallAisle
             // 
@@ -3016,20 +3018,21 @@
             this.Label_OpBoxLed_SmallAisle.TabIndex = 5;
             this.Label_OpBoxLed_SmallAisle.Text = "---";
             // 
-            // CheckBox_Estop_SmallAisle
+            // CheckBox_EstopBtn_SmallAisle
             // 
-            this.CheckBox_Estop_SmallAisle.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_Estop_SmallAisle.AutoSize = true;
-            this.CheckBox_Estop_SmallAisle.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_Estop_SmallAisle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_Estop_SmallAisle.Location = new System.Drawing.Point(4, 17);
-            this.CheckBox_Estop_SmallAisle.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_Estop_SmallAisle.Name = "CheckBox_Estop_SmallAisle";
-            this.CheckBox_Estop_SmallAisle.Size = new System.Drawing.Size(44, 22);
-            this.CheckBox_Estop_SmallAisle.TabIndex = 5;
-            this.CheckBox_Estop_SmallAisle.Text = "Estop";
-            this.CheckBox_Estop_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_Estop_SmallAisle.UseVisualStyleBackColor = true;
+            this.CheckBox_EstopBtn_SmallAisle.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_EstopBtn_SmallAisle.AutoSize = true;
+            this.CheckBox_EstopBtn_SmallAisle.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_EstopBtn_SmallAisle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_EstopBtn_SmallAisle.Location = new System.Drawing.Point(4, 17);
+            this.CheckBox_EstopBtn_SmallAisle.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_EstopBtn_SmallAisle.Name = "CheckBox_EstopBtn_SmallAisle";
+            this.CheckBox_EstopBtn_SmallAisle.Size = new System.Drawing.Size(44, 22);
+            this.CheckBox_EstopBtn_SmallAisle.TabIndex = 5;
+            this.CheckBox_EstopBtn_SmallAisle.Text = "Estop";
+            this.CheckBox_EstopBtn_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_EstopBtn_SmallAisle.UseVisualStyleBackColor = true;
+            this.CheckBox_EstopBtn_SmallAisle.CheckedChanged += new System.EventHandler(this.CheckBox_EstopBtn_SmallAisle_CheckedChanged);
             // 
             // Btn_Reset_SmallAisle
             // 
@@ -3040,6 +3043,8 @@
             this.Btn_Reset_SmallAisle.TabIndex = 3;
             this.Btn_Reset_SmallAisle.Text = "Reset";
             this.Btn_Reset_SmallAisle.UseVisualStyleBackColor = true;
+            this.Btn_Reset_SmallAisle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_SmallAisle_MouseDown);
+            this.Btn_Reset_SmallAisle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_SmallAisle_MouseUp);
             // 
             // Btn_Run_SmallAisle
             // 
@@ -3050,18 +3055,21 @@
             this.Btn_Run_SmallAisle.TabIndex = 6;
             this.Btn_Run_SmallAisle.Text = "起動";
             this.Btn_Run_SmallAisle.UseVisualStyleBackColor = true;
+            this.Btn_Run_SmallAisle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_Run_SmallAisle_MouseDown);
+            this.Btn_Run_SmallAisle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_Run_SmallAisle_MouseUp);
             // 
-            // CheckBox_AllSAisles
+            // CheckBox_AllSmallAisles
             // 
-            this.CheckBox_AllSAisles.AutoSize = true;
-            this.CheckBox_AllSAisles.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.CheckBox_AllSAisles.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.CheckBox_AllSAisles.Location = new System.Drawing.Point(131, 17);
-            this.CheckBox_AllSAisles.Name = "CheckBox_AllSAisles";
-            this.CheckBox_AllSAisles.Size = new System.Drawing.Size(81, 16);
-            this.CheckBox_AllSAisles.TabIndex = 39;
-            this.CheckBox_AllSAisles.Text = "All TDWS";
-            this.CheckBox_AllSAisles.UseVisualStyleBackColor = true;
+            this.CheckBox_AllSmallAisles.AutoSize = true;
+            this.CheckBox_AllSmallAisles.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.CheckBox_AllSmallAisles.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.CheckBox_AllSmallAisles.Location = new System.Drawing.Point(131, 17);
+            this.CheckBox_AllSmallAisles.Name = "CheckBox_AllSmallAisles";
+            this.CheckBox_AllSmallAisles.Size = new System.Drawing.Size(81, 16);
+            this.CheckBox_AllSmallAisles.TabIndex = 39;
+            this.CheckBox_AllSmallAisles.Text = "All TDWS";
+            this.CheckBox_AllSmallAisles.UseVisualStyleBackColor = true;
+            this.CheckBox_AllSmallAisles.CheckedChanged += new System.EventHandler(this.CheckBox_AllSmallAisles_CheckedChanged);
             // 
             // ComboBox_SmallAisle
             // 
@@ -3071,6 +3079,7 @@
             this.ComboBox_SmallAisle.Name = "ComboBox_SmallAisle";
             this.ComboBox_SmallAisle.Size = new System.Drawing.Size(117, 20);
             this.ComboBox_SmallAisle.TabIndex = 0;
+            this.ComboBox_SmallAisle.SelectedIndexChanged += new System.EventHandler(this.ComboBox_SmallAisle_SelectedIndexChanged);
             // 
             // GroupBox_Zoning_SmallAisle
             // 
@@ -3132,6 +3141,7 @@
             this.RadioButton_Cancel_SmallAisle.TabStop = true;
             this.RadioButton_Cancel_SmallAisle.Text = "Cancel";
             this.RadioButton_Cancel_SmallAisle.UseVisualStyleBackColor = true;
+            this.RadioButton_Cancel_SmallAisle.CheckedChanged += new System.EventHandler(this.RadioButton_Cancel_SmallAisle_CheckedChanged);
             // 
             // RadioButton_Permit_SmallAisle
             // 
@@ -3144,6 +3154,7 @@
             this.RadioButton_Permit_SmallAisle.TabStop = true;
             this.RadioButton_Permit_SmallAisle.Text = "Permit";
             this.RadioButton_Permit_SmallAisle.UseVisualStyleBackColor = true;
+            this.RadioButton_Permit_SmallAisle.CheckedChanged += new System.EventHandler(this.RadioButton_Permit_SmallAisle_CheckedChanged);
             // 
             // RadioButton_Run_SmallAisle
             // 
@@ -3156,6 +3167,7 @@
             this.RadioButton_Run_SmallAisle.TabStop = true;
             this.RadioButton_Run_SmallAisle.Text = "Run";
             this.RadioButton_Run_SmallAisle.UseVisualStyleBackColor = true;
+            this.RadioButton_Run_SmallAisle.CheckedChanged += new System.EventHandler(this.RadioButton_Run_SmallAisle_CheckedChanged);
             // 
             // RadioButton_None_SmallAisle
             // 
@@ -3168,6 +3180,7 @@
             this.RadioButton_None_SmallAisle.TabStop = true;
             this.RadioButton_None_SmallAisle.Text = "None";
             this.RadioButton_None_SmallAisle.UseVisualStyleBackColor = true;
+            this.RadioButton_None_SmallAisle.CheckedChanged += new System.EventHandler(this.RadioButton_None_SmallAisle_CheckedChanged);
             // 
             // GroupBox_BOT
             // 
@@ -3482,7 +3495,7 @@
         private System.Windows.Forms.CheckBox CheckBox_AllTDWSs;
         private System.Windows.Forms.ComboBox ComboBox_TowerDWS;
         private System.Windows.Forms.GroupBox groupBox23;
-        private System.Windows.Forms.CheckBox CheckBox_AllSAisles;
+        private System.Windows.Forms.CheckBox CheckBox_AllSmallAisles;
         private System.Windows.Forms.ComboBox ComboBox_SmallAisle;
         private System.Windows.Forms.RadioButton RadioButton_Maint_Aisle;
         private System.Windows.Forms.Label Label_UnlockDoor_Aisle;
@@ -3565,7 +3578,7 @@
         private System.Windows.Forms.RadioButton RadioButton_Ready_SmallAisle;
         private System.Windows.Forms.RadioButton RadioButton_Req_SmallAisle;
         private System.Windows.Forms.Label Label_OpBoxLed_SmallAisle;
-        private System.Windows.Forms.CheckBox CheckBox_Estop_SmallAisle;
+        private System.Windows.Forms.CheckBox CheckBox_EstopBtn_SmallAisle;
         private System.Windows.Forms.Button Btn_Reset_SmallAisle;
         private System.Windows.Forms.Button Btn_Run_SmallAisle;
         private System.Windows.Forms.CheckBox CheckBox_FBAuto_SmallAisle;

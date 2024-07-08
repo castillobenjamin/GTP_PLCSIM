@@ -271,8 +271,7 @@ namespace PLCSIM_Adv_CoSimulation
                 UpdateDeckOutputs();
                 //UpdateDwsOutputs();
                 UpdateTowerDwsOutputs();
-                // TODO add missing small aisle method
-                //UpdateSmallAisleOutputs();
+                UpdateSmallAisleOutputs();
                 UpdateStopperOutputs();
                 UpdateEvacAndMaintAreaOutputs();
                 // Unique controls
@@ -427,7 +426,7 @@ namespace PLCSIM_Adv_CoSimulation
                 false,
                 currentAisle.Label + " run");
         }
-        #endregion // Request btn
+        #endregion // Run btn
 
         #region Key switch
         private void RadioButton_Ready_Aisle_CheckedChanged(object sender, EventArgs e)
@@ -999,6 +998,7 @@ namespace PLCSIM_Adv_CoSimulation
             ListBox_Log.Items.Add("Interface updated. Now displaying " + currentDeck.Label + " data.");
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
+
         #region Input
         private void ComboBox_Decks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1218,10 +1218,10 @@ namespace PLCSIM_Adv_CoSimulation
             // Nothing to do here. Assume this radio button only changes when the DoorClosed changes.
         }
 
-            #endregion // Door
+        #endregion // Door
 
-            #region Emergency stop
-            private void CheckBox_ReqCompleteFlag_Deck_CheckedChanged(object sender, EventArgs e)
+        #region Emergency stop
+        private void CheckBox_ReqCompleteFlag_Deck_CheckedChanged(object sender, EventArgs e)
         {
             RegisterToPlc currentRegister = currentDeck.EmergencyStopZone.CellIsCompleteFlag;
             currentRegister.Value =
@@ -1367,7 +1367,7 @@ namespace PLCSIM_Adv_CoSimulation
             currentTowerDws = 
                 CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations[ComboBox_TowerDWS.SelectedIndex];
             // When the selected index changes, update TDWS interface with the corresponding  data
-            UpdateAisleInterface();
+            UpdateTowerDwsInterface();
         }
 
         private void CheckBox_AllTDWSs_CheckedChanged(object sender, EventArgs e)
@@ -1421,7 +1421,7 @@ namespace PLCSIM_Adv_CoSimulation
                 false,
                 currentTowerDws.Label + " run");
         }
-        #endregion // Request btn
+        #endregion // Run btn
 
         #region Key switch
         private void RadioButton_Ready_TDWS_CheckedChanged(object sender, EventArgs e)
@@ -1629,25 +1629,25 @@ namespace PLCSIM_Adv_CoSimulation
         #region Contactors
         private void CheckBox_ContactorOnOff_TDWSpick_CheckedChanged(object sender, EventArgs e)
         {
-            // Assume Northern contactor has index 0 and Southern contactor has index 1.
+            // Assume pick side contactor has index 0 and Tower side contactor has index 1.
             RegisterToPlc currentRegister = currentTowerDws.Contactors[0].ContactorOnOffCommand;
             currentRegister.Value =
-                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleNorth.Checked);
+                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_TDWSpick.Checked);
             // Log action
             string isOn = CheckBox_ContactorOnOff_TDWSpick.Checked ? "ON." : "OFF.";
-            ListBox_Log.Items.Add(currentTowerDws.Label + " North contactor " + isOn);
+            ListBox_Log.Items.Add(currentTowerDws.Label + " pick side ctor " + isOn);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
 
         private void CheckBox_ContactorOnOff_TDWStower_CheckedChanged(object sender, EventArgs e)
         {
-            // Assume Northern contactor has index 0 and Southern contactor has index 1.
+            // Assume pick side contactor has index 0 and Tower side contactor has index 1.
             RegisterToPlc currentRegister = currentTowerDws.Contactors[1].ContactorOnOffCommand;
             currentRegister.Value =
-                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_AisleSouth.Checked);
+                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_TDWStower.Checked);
             // Log action
             string isOn = CheckBox_ContactorOnOff_TDWStower.Checked ? "ON." : "OFF.";
-            ListBox_Log.Items.Add(currentTowerDws.Label + " South contactor " + isOn);
+            ListBox_Log.Items.Add(currentTowerDws.Label + " Tower side ctor " + isOn);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
 
@@ -1858,7 +1858,406 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Tower DWS
 
         #region Small Aisle
-        //TODO - add all small aisle methods
+
+        /// <summary>
+        /// Updates the interface with the values of the current Small Aisle .
+        /// Toggle buttons' status is saved.
+        /// Push buttons' status is not saved.
+        /// All else is saved
+        /// </summary>
+        private void UpdateSmallAisleInterface()
+        {
+            #region Inputs
+            // Estop button
+            // Checkbox value = NOT(Emergency btn value)
+            CheckBox_EstopBtn_SmallAisle.Checked = !currentSmallAisle.OperationBox.EmergencyBtn.Value;
+
+            // Zoning
+            updateZoningRadioButtons(currentSmallAisle, ref RadioButton_None_SmallAisle,
+                ref RadioButton_Run_SmallAisle, ref RadioButton_Permit_SmallAisle, ref RadioButton_Cancel_SmallAisle);
+
+            // Key switch
+            RadioButton_Req_SmallAisle.Checked = currentSmallAisle.OperationBox.KeySwitch.Req.Value;
+            RadioButton_Ready_SmallAisle.Checked = currentSmallAisle.OperationBox.KeySwitch.Ready.Value;
+
+            // Emergency stop
+            bool flag = Utils.ReadRegisterBit(currentSmallAisle.EmergencyStopZone.CellIsCompleteFlag);
+            CheckBox_ReqCompleteFlag_SmallAisle.Checked = flag;
+
+            // Contactors
+            bool flagOnOff = Utils.ReadRegisterBit(currentSmallAisle.Contactors[0].ContactorOnOffCommand);
+            CheckBox_ContactorOnOff_SmallAisle.Checked = flagOnOff;
+            CheckBox_ContactorFdbk_SmallAisle.Checked = currentSmallAisle.Contactors[0].ContactorFeedback.Value;
+            #endregion // Inputs
+
+            #region Outputs
+            // Update outputs
+            UpdateSmallAisleOutputs();
+            #endregion// Outputs
+
+            // Log
+            ListBox_Log.Items.Add("Interface updated. Now displaying " + currentSmallAisle.Label + " data.");
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        #region Input
+        private void ComboBox_SmallAisle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Assume the index of the Combo Box is the same as the one of the Tower DWS list.
+            currentSmallAisle =
+                CoSimulationInstance.AlphaBotSystem.SmallAisles[ComboBox_SmallAisle.SelectedIndex];
+            // When the selected index changes, update SmallAisle interface with the corresponding  data
+            UpdateSmallAisleInterface();
+        }
+
+        private void CheckBox_AllSmallAisles_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllSmallAisles.Checked)
+                CheckBox_AllSmallAisles.ForeColor = Color.Red;
+            else
+                CheckBox_AllSmallAisles.ForeColor = Color.Black;
+        }
+
+        #region Opbox
+        private void CheckBox_EstopBtn_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            EstopButtonChanged(
+                currentSmallAisle.OperationBox.EmergencyBtn,
+                CheckBox_EstopBtn_SmallAisle,
+                currentSmallAisle.Label);
+        }
+
+        #region Reset btn
+        private void Btn_Reset_SmallAisle_MouseDown(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentSmallAisle.OperationBox.ResetBtn,
+                true,
+                currentSmallAisle.Label + " Reset");
+        }
+
+        private void Btn_Reset_SmallAisle_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentSmallAisle.OperationBox.ResetBtn,
+                false,
+                currentSmallAisle.Label + " Reset");
+        }
+        #endregion // Reset btn
+
+        #region Run btn
+        private void Btn_Run_SmallAisle_MouseDown(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentSmallAisle.OperationBox.RunBtn,
+                true,
+                currentSmallAisle.Label + " run");
+        }
+
+        private void Btn_Run_SmallAisle_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                currentSmallAisle.OperationBox.RunBtn,
+                false,
+                currentSmallAisle.Label + " run");
+        }
+        #endregion // Run btn
+
+        #region Key switch
+        private void RadioButton_Ready_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllSmallAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                {
+                    saisle.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_SmallAisle.Checked;
+                });
+                string isReady = RadioButton_Ready_SmallAisle.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add("All Small Aisles " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentSmallAisle.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_SmallAisle.Checked;
+                string isReady = RadioButton_Ready_SmallAisle.Checked ? "Ready" : "Not Ready";
+                ListBox_Log.Items.Add(currentSmallAisle.Label + " " + isReady);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+
+        private void RadioButton_Req_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllSmallAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                {
+                    saisle.OperationBox.KeySwitch.Req.Value = RadioButton_Req_SmallAisle.Checked;
+                });
+                string isReq = RadioButton_Req_SmallAisle.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add("All TDWS " + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                currentSmallAisle.OperationBox.KeySwitch.Req.Value = RadioButton_Req_SmallAisle.Checked;
+                string isReq = RadioButton_Req_SmallAisle.Checked ? "Req" : "No Req";
+                ListBox_Log.Items.Add(currentSmallAisle.Label + " " + isReq);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+        #endregion // key switch
+
+        #endregion // Opbox
+
+        #region Zoning
+        private void RadioButton_None_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButton_None_SmallAisle.Checked)
+            {
+                if (CheckBox_AllSmallAisles.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                        saisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.None);
+                    // Log
+                    ListBox_Log.Items.Add("All Small Aisles updated. None is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+                else
+                {
+                    currentSmallAisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.None;
+                    // Log
+                    ListBox_Log.Items.Add(currentSmallAisle.Label + " None is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+            }
+        }
+
+        private void RadioButton_Permit_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButton_Permit_SmallAisle.Checked)
+            {
+                if (CheckBox_AllSmallAisles.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                        saisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Permit);
+                    // Log
+                    ListBox_Log.Items.Add("All Small Aisles updated. Permit is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+                else
+                {
+                    currentSmallAisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Permit;
+                    // Log
+                    ListBox_Log.Items.Add(currentSmallAisle.Label + " Permit is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+            }
+        }
+
+        private void RadioButton_Run_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButton_Run_SmallAisle.Checked)
+            {
+                if (CheckBox_AllSmallAisles.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                        saisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Run);
+                    // Log
+                    ListBox_Log.Items.Add("All Small Aisles updated. Run is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+                else
+                {
+                    currentSmallAisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Run;
+                    // Log
+                    ListBox_Log.Items.Add(currentSmallAisle.Label + " Run is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+            }
+        }
+
+        private void RadioButton_Cancel_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RadioButton_Cancel_SmallAisle.Checked)
+            {
+                if (CheckBox_AllSmallAisles.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                        saisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Cancel);
+                    // Log
+                    ListBox_Log.Items.Add("All Small Aisles updated. Cancel is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+                else
+                {
+                    currentSmallAisle.Zoning.CellCommand.Value = (byte)Utils.CellCommandValues.Cancel;
+                    // Log
+                    ListBox_Log.Items.Add(currentSmallAisle.Label + " Cancel is Checked.");
+                    ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+                }
+            }
+        }
+        #endregion // Zoning
+
+        #region Emergency stop
+        private void CheckBox_ReqCompleteFlag_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            // Write byte
+            RegisterToPlc currentRegister = currentSmallAisle.EmergencyStopZone.CellIsCompleteFlag;
+            currentRegister.Value =
+                Utils.UpdateRegister(currentRegister, CheckBox_ReqCompleteFlag_SmallAisle.Checked);
+            // Log action
+            string isComplete = CheckBox_ReqCompleteFlag_SmallAisle.Checked ? "complete" : " incomplete";
+            ListBox_Log.Items.Add(currentSmallAisle.Label + " Cell flag is marked as " + isComplete);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+        #endregion // Emergency stop
+
+        #region Contactors
+        private void CheckBox_ContactorOnOff_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterToPlc currentRegister = currentSmallAisle.Contactors[0].ContactorOnOffCommand;
+            currentRegister.Value =
+                Utils.UpdateRegister(currentRegister, CheckBox_ContactorOnOff_SmallAisle.Checked);
+            // Log action
+            string isOn = CheckBox_ContactorOnOff_SmallAisle.Checked ? "ON." : "OFF.";
+            ListBox_Log.Items.Add(currentSmallAisle.Label + " " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void CheckBox_ContactorFdbk_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            currentSmallAisle.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorFdbk_SmallAisle.Checked;
+            if (CheckBox_ContactorFdbk_SmallAisle.Checked)
+            {
+                Label_ContactorPlcOut_SmallAisle.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_SmallAisle.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_ContactorPlcOut_SmallAisle.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_SmallAisle.Font = inactiveLabelFont;
+            }
+        }
+        #endregion // Contactors
+
+        #endregion // Input
+
+        #region Output
+        private void UpdateSmallAisleOutputs()
+        {
+            Update_Label_OpBoxLed_SmallAisle();
+            Update_TextBox_ZoningStatus_SmallAisle();
+            Update_Label_PlcStopRequest_SmallAisle();
+            Update_Label_PlcIsStopStatus_SmallAisle();
+            Update_Label_ContactorPlcOut_SmallAisle();
+            UpdateAllSmallAislesContactorOutputs();
+        }
+        private void Update_Label_OpBoxLed_SmallAisle()
+        {
+            string ledStatus;
+            // Read Plc output
+            if (currentSmallAisle.OperationBox.ZoningStatusLed.Value)
+            {
+                Label_OpBoxLed_SmallAisle.ForeColor = activeLabelColor;
+                Label_OpBoxLed_SmallAisle.Font = activeLabelFont;
+                ledStatus = "ON";
+            }
+            else
+            {
+                Label_OpBoxLed_SmallAisle.ForeColor = inactiveLabelColor;
+                Label_OpBoxLed_SmallAisle.Font = inactiveLabelFont;
+                ledStatus = "OFF";
+            }
+            //Update label
+            Label_OpBoxLed_SmallAisle.Text = "led " + ledStatus;
+        }
+
+        private void Update_TextBox_ZoningStatus_SmallAisle()
+        {
+            byte status = Utils.GetLowerByte(currentSmallAisle.Zoning.ZoningStatus.Value);
+            TextBox_ZoningStatus_SmallAisle.Text = Utils.ZoningStatuses[status];
+        }
+
+        private void Update_Label_PlcStopRequest_SmallAisle()
+        {
+            // Read Plc output
+            bool flag = Utils.ReadRegisterBit(currentSmallAisle.EmergencyStopZone.PlcStopRequest);
+            if (flag)
+            {
+                Label_StopRequest_SmallAisle.ForeColor = activeLabelColor;
+                Label_StopRequest_SmallAisle.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_StopRequest_SmallAisle.ForeColor = inactiveLabelColor;
+                Label_StopRequest_SmallAisle.Font = inactiveLabelFont;
+            }
+        }
+
+        private void Update_Label_PlcIsStopStatus_SmallAisle()
+        {
+            // Read Plc output
+            bool flag = Utils.ReadRegisterBit(currentSmallAisle.EmergencyStopZone.PlcIsStopStatus);
+            if (flag)
+            {
+                Label_StopStatus_SmallAisle.ForeColor = activeLabelColor;
+                Label_StopStatus_SmallAisle.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_StopStatus_SmallAisle.ForeColor = inactiveLabelColor;
+                Label_StopStatus_SmallAisle.Font = inactiveLabelFont;
+            }
+        }
+
+        #region Contactors
+        private void Update_Label_ContactorPlcOut_SmallAisle()
+        {
+            string status;
+            // Read Plc output
+            if (currentSmallAisle.Contactors[0].ContactorOutput.Value == true)
+            {
+                status = "ON";
+                Label_ContactorPlcOut_SmallAisle.ForeColor = activeLabelColor;
+                Label_ContactorPlcOut_SmallAisle.Font = activeLabelFont;
+                //Update Feedback control too!
+                if (CheckBox_FBAuto_SmallAisle.Checked)
+                {
+                    CheckBox_ContactorFdbk_SmallAisle.Checked = false;
+                }
+            }
+            else
+            {
+                status = "OFF";
+                Label_ContactorPlcOut_SmallAisle.ForeColor = inactiveLabelColor;
+                Label_ContactorPlcOut_SmallAisle.Font = inactiveLabelFont;
+                //Update Feedback control too!
+                if (CheckBox_FBAuto_SmallAisle.Checked)
+                {
+                    CheckBox_ContactorFdbk_SmallAisle.Checked = true;
+                }
+            }
+            //Update labels
+            Label_ContactorPlcOut_SmallAisle.Text = "Ctor " + status;
+        }
+
+        /// <summary>
+        /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
+        /// Added to accept HMI commands during simultaion.
+        /// </summary>
+        private void UpdateAllSmallAislesContactorOutputs()
+        {
+            // Simply read all contactors and assign the inverse of the output value to the feedback value.
+            if (CheckBox_FBAuto_SmallAisle.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                saisle.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
+            }
+        }
+        #endregion // Contactors
+
+        #endregion // Output
 
         #endregion // Small Aisle
 
