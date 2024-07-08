@@ -367,7 +367,7 @@ namespace PLCSIM_Adv_CoSimulation
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainInterface";
-            this.Text = "AlphaBotSIM - main interface";
+            this.Text = "AlphaBot PLC SIM (GTP 1.5)";
             this.PLCgroup.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -3281,7 +3281,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CoSimInterface";
-            this.Text = "AlphaBotSIM - IO";
+            this.Text = "AlphaBot PLC SIM - IO";
             GroupBox_SafetyBoard_TDWS.ResumeLayout(false);
             GroupBox_SafetyBoard_TDWS.PerformLayout();
             this.groupBoxCELL.ResumeLayout(false);
