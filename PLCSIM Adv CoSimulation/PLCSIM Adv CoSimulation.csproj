@@ -88,7 +88,6 @@
     </Compile>
     <Compile Include="Models\Configuration\Aisle.cs" />
     <Compile Include="Models\Configuration\CellCommunication.cs" />
-    <Compile Include="Models\Configuration\FireAlarm.cs" />
     <Compile Include="Models\Configuration\FirePreventionShutter.cs" />
     <Compile Include="Models\Configuration\Contactor.cs" />
     <Compile Include="Models\Configuration\Door.cs" />

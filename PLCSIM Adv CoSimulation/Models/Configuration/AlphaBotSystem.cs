@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -16,6 +17,7 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         private bool FirePreventionShutterSerializes;
         private bool FireAlarmSerializes;
         private bool ShutterCylindersSerializes;
+        private bool CondensationSensorSerializes;
         #endregion // Fields
 
         #region Properties
@@ -29,7 +31,7 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public PanelSection PanelSection { get; set; }
         
         // Maintenance area
-        // Some components are not present depending on config, conditional deserialization
+        // Some properties are not present depending on config, conditional deserialization
         // Emit a value even when null as long as MaintenanceAreaSpecified == true
         [XmlElement("MaintenanceArea", IsNullable = true)]
         public MaintenanceArea MaintenanceArea { get; set; }
@@ -88,6 +90,7 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public bool FirePreventionShuttersSpecified { 
             get { return FirePreventionShutterSerializes; } 
             set { FirePreventionShutterSerializes = value; } }
+
         // Shutter cylinders
         // Only in Miyano configuration, conditional deserialization
         [XmlArray("ShutterCylinders", IsNullable = true)]
@@ -97,15 +100,29 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public bool ShutterCylindersSpecified { 
             get { return ShutterCylindersSerializes; } 
             set { ShutterCylindersSerializes = value; } }
+
         // Fire alarm
         // Only in Miyano configuration, conditional deserialization
         // Emit a value even when null as long as MaintenanceAreaSpecified == true
         [XmlElement(IsNullable = true)]
-        public FireAlarm FireAlarm { get; set; }
+        public PlcInput FireAlarm { get; set; }
         [XmlIgnore()]
         public bool FireAlarmSpecified { 
             get { return FireAlarmSerializes; } 
             set { FireAlarmSerializes = value; } }
+
+        // Condensation sensor
+        [XmlElement(IsNullable = true)]
+        public PlcInput CondensationSensor { get; set; }
+        [XmlIgnore()]
+        public bool CondensationSensorSpecified {
+            get { return CondensationSensorSerializes; }
+            set { CondensationSensorSerializes = value; } }
+
+        // Buzzer reset button
+        [XmlElement("BuzzerReset")]
+        public PlcInput BuzzerReset { get; set; }
+
         // Boolean value to check stopper sensor logic. Difference in Alpen/Miyano
         public bool IsStopperSensorInverted { get; set; }
         #endregion // Properties

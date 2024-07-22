@@ -275,7 +275,7 @@ namespace PLCSIM_Adv_CoSimulation
             try
             {
                 errorOn = bool.Parse(errorIsExpected);
-                readSuccess = ReadOutput(Cell.PlcHasError, errorOn, MaxReadOutputTries, InstructionWaitTime);
+                readSuccess = ReadOutput(Cell.IsPlcWarningMode, errorOn, MaxReadOutputTries, InstructionWaitTime);
                 return readSuccess;
             }
             catch (Exception ex)

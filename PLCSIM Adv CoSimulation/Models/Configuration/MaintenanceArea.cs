@@ -11,12 +11,6 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
 {
     public class MaintenanceArea
     {
-        #region fields
-        private bool ScaffoldSerializes;
-        private bool EstopSerializes;
-        private bool CondensationSensorSerializes;
-        #endregion // fields
-
         #region Properties
         public PlcInput BotPresent { get; set; } // BOT sensor
         

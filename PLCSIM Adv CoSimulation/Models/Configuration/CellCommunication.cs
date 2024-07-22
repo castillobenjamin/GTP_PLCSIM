@@ -12,11 +12,12 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         #region Properties
         public RegisterToPlc IsCellConnectedPulse { get; set; }
         public RegisterToPlc ResetFromCell { get; set; }
-        public RegisterToPlc SystemIsStartingUp { get; set; }
         public RegisterToPlc CanSystemStartUp { get; set; }
+        public RegisterToPlc SystemIsStartingUp { get; set; }
+        public RegisterToPlc BotEvacuationComplete { get; set; }
         public RegisterFromPlc IsPlcAutoMode { get; set; }
         public RegisterFromPlc IsPlcWarningMode { get; set; }
-        public RegisterFromPlc PlcHasError { get; set; }
+        public RegisterFromPlc IsFireAlarm { get; set; }
         // TODO - need to add 火報用・BOT退避完了 signal
         #endregion
 

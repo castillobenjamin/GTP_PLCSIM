@@ -229,21 +229,6 @@
 				<Address />
 				<Value>false</Value>
 			</SpikeAlarm>
-			<FireAlarm Type="input">
-				<Tag>(FIRE_ALARM)</Tag>
-				<Address />
-				<Value>false</Value>
-			</FireAlarm>
-			<CondensationSensor Type="input">
-				<Tag>(WET_DETECT_AISLE#)</Tag>
-				<Address />
-				<Value>false</Value>
-			</CondensationSensor>
-			<Shutter Type="input">
-				<Tag>(SHUTTER_OPEN_DECK1-4_A1-A3)</Tag>
-				<Address />
-				<Value>false</Value>
-			</Shutter>
 			<SignalTower>
 				<Buzzer Type="output">
 					<Tag>BUZZER_ON_SOUTH</Tag>
@@ -336,11 +321,6 @@
 				<Address />
 				<Value>false</Value>
 			</SpikeAlarm>
-			<BuzzerReset Type="output">
-				<Tag>BZ_STOP_NORTH</Tag>
-				<Address />
-				<Value>false</Value>
-			</BuzzerReset>
 			<SignalTower>
 				<Buzzer Type="output">
 					<Tag>BUZZER_ON_NORTH</Tag>
@@ -400,63 +380,7 @@
 			<Address></Address>
 			<Value>true</Value>
 		</StopperCloseBtn>
-		<Stopper Name="MaintenanceAreaStopperAisle1" Label="Maintenance Area Stopper (Aisle1)">
-			<PlcOpenOut Type="output">
-				<Tag>ELC_DQ_OPEN_MaintAreaAisle1</Tag>
-				<Address />
-				<Value>false</Value>
-			</PlcOpenOut>
-			<PlcCloseOut Type="output">
-				<Tag>ELC_DQ_CLOSE_MaintAreaAisle1</Tag>
-				<Address />
-				<Value>false</Value>
-			</PlcCloseOut>
-			<PlcResetAlarmOut Type="output">
-				<Tag>ELC_DQ_RES_MaintAreaAisle1</Tag>
-				<Address />
-				<Value>false</Value>
-			</PlcResetAlarmOut>
-			<IsOpenSensor Type="input">
-				<Tag>ELC_DI_OPEN_MaintAreaAisle1</Tag>
-				<Address />
-				<Value>false</Value>
-			</IsOpenSensor>
-			<IsClosedSensor Type="input">
-				<Tag>ELC_DI_CLOSED_MaintAreaAisle1</Tag>
-				<Address />
-				<Value>true</Value>
-			</IsClosedSensor>
-			<Alarm Type="input">
-				<Tag>ELC_DI_ALM_MaintAreaAisle1</Tag>
-				<Address />
-				<Value>true</Value>
-			</Alarm>
-			<IsOpenStatusToCell>
-				<Tag>NoTag</Tag>
-				<Address>173</Address>
-				<BitPosition>5</BitPosition>
-				<Value>0</Value>
-			</IsOpenStatusToCell>
-			<IsClosedStatusToCell>
-				<Tag>NoTag</Tag>
-				<Address>173</Address>
-				<BitPosition>6</BitPosition>
-				<Value>0</Value>
-			</IsClosedStatusToCell>
-			<!--Error and timeover signal not used for this stopper-->
-			<ErrorSignalToCell>
-				<Tag>NoTag</Tag>
-				<Address></Address>
-				<BitPosition></BitPosition>
-				<Value>0</Value>
-			</ErrorSignalToCell>
-			<TimeOverSignalToCell>
-				<Tag>NoTag</Tag>
-				<Address></Address>
-				<BitPosition></BitPosition>
-				<Value>0</Value>
-			</TimeOverSignalToCell>
-		</Stopper>
+		<!--The maintenance stopper is defined in the Stoppers section.-->
 		<Contactor>
 			<Contactor Name="Maintenance Area Contactor">
 				<ContactorOutput Type="output">
@@ -2554,7 +2478,7 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<!--Aisle1-->
+		<!--Aisle2-->
 		<Stopper Name="STOPPER_AISLE2_DECK1" Label="Stopper Aisle2 Deck1">
 			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE2_DECK1</Tag>
@@ -2827,7 +2751,7 @@
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
-		<!--Aisle1-->
+		<!--Aisle3-->
 		<Stopper Name="STOPPER_AISLE3_DECK1" Label="Stopper Aisle3 Deck1">
 			<PlcOpenOut Type="output">
 				<Tag>ELC_DQ_OPEN_AISLE3_DECK1</Tag>
@@ -3097,6 +3021,64 @@
 				<Tag>NoTag</Tag>
 				<Address>117</Address>
 				<BitPosition>11</BitPosition>
+				<Value>0</Value>
+			</TimeOverSignalToCell>
+		</Stopper>
+		<!--Aisle1 Maintenance area-->
+		<Stopper Name="MaintenanceAreaStopperAisle1" Label="Maintenance Area Stopper (Aisle1)">
+			<PlcOpenOut Type="output">
+				<Tag>ELC_DQ_OPEN_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcOpenOut>
+			<PlcCloseOut Type="output">
+				<Tag>ELC_DQ_CLOSE_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcCloseOut>
+			<PlcResetAlarmOut Type="output">
+				<Tag>ELC_DQ_RES_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</PlcResetAlarmOut>
+			<IsOpenSensor Type="input">
+				<Tag>ELC_DI_OPEN_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>false</Value>
+			</IsOpenSensor>
+			<IsClosedSensor Type="input">
+				<Tag>ELC_DI_CLOSED_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>true</Value>
+			</IsClosedSensor>
+			<Alarm Type="input">
+				<Tag>ELC_DI_ALM_MaintAreaAisle1</Tag>
+				<Address />
+				<Value>true</Value>
+			</Alarm>
+			<IsOpenStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>173</Address>
+				<BitPosition>5</BitPosition>
+				<Value>0</Value>
+			</IsOpenStatusToCell>
+			<IsClosedStatusToCell>
+				<Tag>NoTag</Tag>
+				<Address>173</Address>
+				<BitPosition>6</BitPosition>
+				<Value>0</Value>
+			</IsClosedStatusToCell>
+			<!--Error and timeover signal not used for this stopper-->
+			<ErrorSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address></Address>
+				<BitPosition></BitPosition>
+				<Value>0</Value>
+			</ErrorSignalToCell>
+			<TimeOverSignalToCell>
+				<Tag>NoTag</Tag>
+				<Address></Address>
+				<BitPosition></BitPosition>
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>
@@ -7003,5 +6985,21 @@
 			</ResetCmdFromCell>
 		</Bot>
 	</Bots>
+	<!--The fire alarm is an input of the South panel.-->
+	<FireAlarm Type="input">
+		<Tag>(FIRE_ALARM)</Tag>
+		<Address />
+		<Value>false</Value>
+	</FireAlarm>
+	<CondensationSensor Type="input">
+		<Tag>(WET_DETECT_AISLE#)</Tag>
+		<Address />
+		<Value>false</Value>
+	</CondensationSensor>
+	<BuzzerReset Type="output">
+		<Tag>BZ_STOP_NORTH</Tag>
+		<Address />
+		<Value>false</Value>
+	</BuzzerReset>
 	<IsStopperSensorInverted>false</IsStopperSensorInverted>
 </AlphaBotSystem>

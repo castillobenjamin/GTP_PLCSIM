@@ -10,11 +10,18 @@ using System.Windows.Forms;
 //TODOLIST
 //TODO - use the [XmlElement(ElementName = "fields")] pattern.
 //This way the name of the xml attribute and the class properties does not have to match.
-//TODO - refactor all the "UpdateLabel" methods. Use a common method and use parameters.
 //TODO - try to separate the control methods from the input logic? In case the interface changes?
-//TODO - refactor the zoning update inputs
 //TODO - use refs and whatnot instead of passing copies of parameters.
 //TODO - Think of a way to merge the RadioButton_[XXX]_CheckedChanged methods.
+//TODO - check that the XML file / Modbus registers / Classes match.
+//TODO - make maintenance area only visible when the Aisle 1 is displayed.
+//       need to somehow connect the operation of the key switch radio buttons. (when maintenance mode is selected, deselect the "Ready" radio button
+//       Also, restrict the operation so it can only be done in the intended order. (request →　ready　→ maintenance)
+//       still need to ucheck the "maint" radio button when one of the other options is selected.
+//TODO - make the maintenance stopper part of the list of all stoppers????
+//TODO - implement missing Panel inputs (button lamps, earth faults, buzzer, voltageOn, spikeAlarm, etc).
+//TODO - add missing cell communication methods.
+//TODO - buzzer and signal tower logic.
 
 /* 
  ** Changes and remarks concerning updates for Demoline v2
@@ -107,6 +114,13 @@ namespace PLCSIM_Adv_CoSimulation
             InitializeControls();
             // Assign local field
             this.isCellOnlySim = isCellOnlySim;
+
+            // Display maintenance area controls
+            DisplayMaintenanceArea();
+
+            //Initialization complete log
+            ListBox_Log.Items.Add("Showing IO interface for " + coSimulationInstance.AlphaBotSystem.Name);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
         public void InitializeComboBoxes()
         {
@@ -273,7 +287,7 @@ namespace PLCSIM_Adv_CoSimulation
                 UpdateTowerDwsOutputs();
                 UpdateSmallAisleOutputs();
                 UpdateStopperOutputs();
-                UpdateEvacAndMaintAreaOutputs();
+                UpdateMaintAreaOutputs();
                 // Unique controls
                 Update_Label_CELLcomm_PlcStatus();
                 Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
@@ -374,6 +388,8 @@ namespace PLCSIM_Adv_CoSimulation
             currentAisle = CoSimulationInstance.AlphaBotSystem.Aisles[ComboBox_Aisles.SelectedIndex];
             // When the selected aisle changes, update aisle interface with the new aisle data
             UpdateAisleInterface();
+            // Display maintenance area when the corresponding aisle is displayed
+            DisplayMaintenanceArea();
         }
 
         private void CheckBox_AllAisles_CheckedChanged(object sender, EventArgs e)
@@ -2316,6 +2332,19 @@ namespace PLCSIM_Adv_CoSimulation
                 (ushort)(RadioButton_SystemIsStartingUp.Checked ? Utils.SingleBitInWordValues[bitPos] : 0);
         }
         #endregion // Radio buttons
+
+        // Bot evacuation complete flag.
+        private void CheckBox_BotEvacComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterToPlc currentRegister = 
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.BotEvacuationComplete;
+            currentRegister.Value =
+                Utils.UpdateRegister(currentRegister, CheckBox_BotEvacComplete.Checked);
+            // Log action
+            string isOn = CheckBox_BotEvacComplete.Checked ? "TRUE." : "FALSE.";
+            ListBox_Log.Items.Add("Bot evacuation flag: " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
         #endregion // CELL side
 
         #region PLC side
@@ -2323,7 +2352,7 @@ namespace PLCSIM_Adv_CoSimulation
         private void Update_Label_CELLcomm_PlcStatus()
         {
             string plcStatus;
-            RegisterFromPlc currentErrorRegister = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.PlcHasError;
+            RegisterFromPlc currentErrorRegister = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsPlcWarningMode;
             RegisterFromPlc currentModeRegister = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsPlcWarningMode;
             RegisterFromPlc currentAutoModeRegister = CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.IsPlcAutoMode;
 
@@ -2875,15 +2904,8 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Bot HP
 
         #region Contactor
-        private void CheckBox_ContactorOnOff_EvacMaintArea_CheckedChanged(object sender, EventArgs e)
-        {
-            // No actual command from Cell for this contactor
-            // Log action
-            ListBox_Log.Items.Add("Command ignored for Evac/Maint area contactor.");
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
 
-        private void CheckBox_ContactorPlcIn_EvacMaintArea_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_ContactorFdbk_MaintArea_CheckedChanged(object sender, EventArgs e)
         {
             CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.ContactorFeedback.Value = 
                 CheckBox_ContactorFdbk_MaintArea.Checked;
@@ -2900,11 +2922,58 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Contactor
 
+        #region Key switch
+        private void RadioButton_Maint_Aisle_CheckedChanged(object sender, EventArgs e)
+        {
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwMaint.Value =
+                RadioButton_Maint_Aisle.Checked;
+            // If the maintenance mode is selected, uncheck the other radio buttons.
+            if (RadioButton_Maint_Aisle.Checked)
+            {
+                RadioButton_Ready_Aisle.Checked = false;
+                RadioButton_Req_Aisle.Checked = false;
+            }
+            string isMaint = RadioButton_Maint_Aisle.Checked ? "Maint" : "not Maint";
+            ListBox_Log.Items.Add(currentAisle.Label + " " + isMaint);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+        #endregion
+
+        #region Stopper control buttons
+        private void Btn_OpenStopper_MouseDown(object sender, MouseEventArgs e)
+        {
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperOpenBtn.Value = true;
+            ListBox_Log.Items.Add("Open stopper btn pressed.");
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void Btn_OpenStopper_MouseUp(object sender, MouseEventArgs e)
+        {
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperOpenBtn.Value = false;
+            ListBox_Log.Items.Add("Open stopper btn released.");
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void Btn_CloseStopper_MouseDown(object sender, MouseEventArgs e)
+        {
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperCloseBtn.Value = true;
+            ListBox_Log.Items.Add("Close stopper btn pressed.");
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void Btn_CloseStopper_MouseUp(object sender, MouseEventArgs e)
+        {
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperCloseBtn.Value = false;
+            ListBox_Log.Items.Add("Close stopper btn released.");
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+        #endregion // Stopper control buttons
+
         #endregion // Input
 
         #region Output
 
-        private void UpdateEvacAndMaintAreaOutputs()
+        private void UpdateMaintAreaOutputs()
         {
             Update_Label_ContactorPlcOut_EvacMaintArea();
             Update_Label_BotHPtoCell();
@@ -2934,6 +3003,8 @@ namespace PLCSIM_Adv_CoSimulation
             //Update labels
             Label_ContactorPlcOut_MaintArea.Text = "Ctor " + status;
         }
+
+
         #endregion // Contactor
 
         #region Bot HP
@@ -2964,6 +3035,34 @@ namespace PLCSIM_Adv_CoSimulation
         #region SWS
 
         #endregion // SWS
+
+        #region Global inputs
+        private void Btn_BuzzerAck_MouseDown(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                CoSimulationInstance.AlphaBotSystem.BuzzerReset,
+                true,
+                "Buzzer reset pressed.");
+        }
+
+        private void Btn_BuzzerAck_MouseUp(object sender, MouseEventArgs e)
+        {
+            ButtonChanged(
+                CoSimulationInstance.AlphaBotSystem.BuzzerReset,
+                false,
+                "Buzzer reset released.");
+        }
+
+        private void CheckBox_FireAlarm_CheckedChanged(object sender, EventArgs e)
+        {
+            CoSimulationInstance.AlphaBotSystem.FireAlarm.Value = CheckBox_FireAlarm.Checked;
+            // Log action
+            string isOn = CheckBox_FireAlarm.Checked ? "ON." : "OFF.";
+            ListBox_Log.Items.Add("Fire alarm " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        #endregion //Global inputs
 
         #region Common methods
 
@@ -3079,6 +3178,13 @@ namespace PLCSIM_Adv_CoSimulation
             string isPressed = value ? "pressed." : "released.";
             ListBox_Log.Items.Add(label + " button " + isPressed);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void DisplayMaintenanceArea()
+        {
+            if (!currentAisle.Type.Contains("hasMaintArea"))
+                GroupBox_MaintArea.Hide();
+            else GroupBox_MaintArea.Show();
         }
 
         #region Stopper and Shutter Common methods

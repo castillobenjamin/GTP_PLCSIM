@@ -34,6 +34,7 @@
             this.Label_SafetyBoard_TDWS = new System.Windows.Forms.Label();
             this.groupBoxCELL = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CheckBox_BotEvacComplete = new System.Windows.Forms.CheckBox();
             this.RadioButton_SystemIsStartingUp = new System.Windows.Forms.RadioButton();
             this.RadioButton_CanSystemStartUp = new System.Windows.Forms.RadioButton();
             this.CheckBox_IsCellConnectedPulse = new System.Windows.Forms.CheckBox();
@@ -149,30 +150,20 @@
             this.Btn_Reset_NorthPanel = new System.Windows.Forms.Button();
             this.Label_LedTower_NorthPanel = new System.Windows.Forms.Label();
             this.groupBox37 = new System.Windows.Forms.GroupBox();
-            this.Btn_Reset_SouthPanel = new System.Windows.Forms.Button();
             this.Label_LedTower_SouthPanel = new System.Windows.Forms.Label();
             this.GroupBox_MaintArea = new System.Windows.Forms.GroupBox();
-            this.CheckBox_Alarm_MaintAreaStopper = new System.Windows.Forms.CheckBox();
-            this.GroupBox_Q_MaintAreaStopper = new System.Windows.Forms.GroupBox();
-            this.Label_PlcOpenOut_MaintAreaStopper = new System.Windows.Forms.Label();
-            this.Label_PlcCloseOut_MaintAreaStopper = new System.Windows.Forms.Label();
-            this.CheckBox_FBAuto_MaintArea = new System.Windows.Forms.CheckBox();
-            this.GroupBox_In_MaintAreaStopper = new System.Windows.Forms.GroupBox();
-            this.CheckBox_IsClosedSensor_MaintAreaStopper = new System.Windows.Forms.CheckBox();
-            this.Label_IsOpenSensor_MaintAreaStopper = new System.Windows.Forms.Label();
-            this.CheckBox_IsOpenSensor_MaintAreaStopper = new System.Windows.Forms.CheckBox();
-            this.Label_IsClosedSensor_MaintAreaStopper = new System.Windows.Forms.Label();
-            this.CheckBox_CloseStopper_MaintArea = new System.Windows.Forms.CheckBox();
-            this.CheckBox_OpenStopper_MaintArea = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.Btn_CloseStopper = new System.Windows.Forms.Button();
+            this.Btn_OpenStopper = new System.Windows.Forms.Button();
+            this.GroupBox_ = new System.Windows.Forms.GroupBox();
             this.GroupBox_Ctor_MaintArea = new System.Windows.Forms.GroupBox();
-            this.CheckBox_ContactorTripped_MaintArea = new System.Windows.Forms.CheckBox();
             this.CheckBox_ContactorFdbk_MaintArea = new System.Windows.Forms.CheckBox();
             this.Label_ContactorFdbk_MaintArea = new System.Windows.Forms.Label();
-            this.CheckBox_ContactorOnOff_MaintArea = new System.Windows.Forms.CheckBox();
             this.Label_ContactorPlcOut_MaintArea = new System.Windows.Forms.Label();
             this.Label_BotHPtoCell = new System.Windows.Forms.Label();
             this.CheckBox_BOT_HP = new System.Windows.Forms.CheckBox();
             this.GroupBox_Panels = new System.Windows.Forms.GroupBox();
+            this.Btn_BuzzerAck = new System.Windows.Forms.Button();
             this.ListBox_Log = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -255,6 +246,7 @@
             this.Label_IsFault_Bot = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.CheckBox_Estop_BOT = new System.Windows.Forms.CheckBox();
+            this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
             GroupBox_SafetyBoard_TDWS = new System.Windows.Forms.GroupBox();
             GroupBox_SafetyBoard_TDWS.SuspendLayout();
             this.groupBoxCELL.SuspendLayout();
@@ -287,8 +279,8 @@
             this.groupBox36.SuspendLayout();
             this.groupBox37.SuspendLayout();
             this.GroupBox_MaintArea.SuspendLayout();
-            this.GroupBox_Q_MaintAreaStopper.SuspendLayout();
-            this.GroupBox_In_MaintAreaStopper.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.GroupBox_.SuspendLayout();
             this.GroupBox_Ctor_MaintArea.SuspendLayout();
             this.GroupBox_Panels.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -359,13 +351,14 @@
             this.groupBoxCELL.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxCELL.Name = "groupBoxCELL";
             this.groupBoxCELL.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxCELL.Size = new System.Drawing.Size(99, 179);
+            this.groupBoxCELL.Size = new System.Drawing.Size(138, 179);
             this.groupBoxCELL.TabIndex = 0;
             this.groupBoxCELL.TabStop = false;
             this.groupBoxCELL.Text = "CELL comm";
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CheckBox_BotEvacComplete);
             this.groupBox1.Controls.Add(this.RadioButton_SystemIsStartingUp);
             this.groupBox1.Controls.Add(this.RadioButton_CanSystemStartUp);
             this.groupBox1.Controls.Add(this.CheckBox_IsCellConnectedPulse);
@@ -375,10 +368,27 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(86, 115);
+            this.groupBox1.Size = new System.Drawing.Size(130, 115);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "CELL";
+            // 
+            // CheckBox_BotEvacComplete
+            // 
+            this.CheckBox_BotEvacComplete.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_BotEvacComplete.AutoSize = true;
+            this.CheckBox_BotEvacComplete.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_BotEvacComplete.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.CheckBox_BotEvacComplete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_BotEvacComplete.Location = new System.Drawing.Point(61, 16);
+            this.CheckBox_BotEvacComplete.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_BotEvacComplete.Name = "CheckBox_BotEvacComplete";
+            this.CheckBox_BotEvacComplete.Size = new System.Drawing.Size(63, 22);
+            this.CheckBox_BotEvacComplete.TabIndex = 3;
+            this.CheckBox_BotEvacComplete.Text = "退避完了";
+            this.CheckBox_BotEvacComplete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_BotEvacComplete.UseVisualStyleBackColor = true;
+            this.CheckBox_BotEvacComplete.CheckedChanged += new System.EventHandler(this.CheckBox_BotEvacComplete_CheckedChanged);
             // 
             // RadioButton_SystemIsStartingUp
             // 
@@ -1109,7 +1119,7 @@
             // RadioButton_Maint_Aisle
             // 
             this.RadioButton_Maint_Aisle.AutoSize = true;
-            this.RadioButton_Maint_Aisle.Location = new System.Drawing.Point(103, 19);
+            this.RadioButton_Maint_Aisle.Location = new System.Drawing.Point(4, 16);
             this.RadioButton_Maint_Aisle.Margin = new System.Windows.Forms.Padding(2);
             this.RadioButton_Maint_Aisle.Name = "RadioButton_Maint_Aisle";
             this.RadioButton_Maint_Aisle.Size = new System.Drawing.Size(51, 16);
@@ -1117,6 +1127,7 @@
             this.RadioButton_Maint_Aisle.TabStop = true;
             this.RadioButton_Maint_Aisle.Text = "Maint";
             this.RadioButton_Maint_Aisle.UseVisualStyleBackColor = true;
+            this.RadioButton_Maint_Aisle.CheckedChanged += new System.EventHandler(this.RadioButton_Maint_Aisle_CheckedChanged);
             // 
             // GroupBox_Stopper
             // 
@@ -1765,7 +1776,7 @@
             // Label_LedTowerYellow_DwsPanel
             // 
             this.Label_LedTowerYellow_DwsPanel.AutoSize = true;
-            this.Label_LedTowerYellow_DwsPanel.Location = new System.Drawing.Point(47, 72);
+            this.Label_LedTowerYellow_DwsPanel.Location = new System.Drawing.Point(29, 72);
             this.Label_LedTowerYellow_DwsPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_LedTowerYellow_DwsPanel.Name = "Label_LedTowerYellow_DwsPanel";
             this.Label_LedTowerYellow_DwsPanel.Size = new System.Drawing.Size(15, 12);
@@ -1775,12 +1786,12 @@
             // Label_LedTowerBlue_DwsPanel
             // 
             this.Label_LedTowerBlue_DwsPanel.AutoSize = true;
-            this.Label_LedTowerBlue_DwsPanel.Location = new System.Drawing.Point(27, 72);
+            this.Label_LedTowerBlue_DwsPanel.Location = new System.Drawing.Point(48, 72);
             this.Label_LedTowerBlue_DwsPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_LedTowerBlue_DwsPanel.Name = "Label_LedTowerBlue_DwsPanel";
-            this.Label_LedTowerBlue_DwsPanel.Size = new System.Drawing.Size(16, 12);
+            this.Label_LedTowerBlue_DwsPanel.Size = new System.Drawing.Size(29, 12);
             this.Label_LedTowerBlue_DwsPanel.TabIndex = 27;
-            this.Label_LedTowerBlue_DwsPanel.Text = "Bl";
+            this.Label_LedTowerBlue_DwsPanel.Text = "Buzz";
             // 
             // CheckBox_EstopBtn_DwsPanel
             // 
@@ -1791,9 +1802,9 @@
             this.CheckBox_EstopBtn_DwsPanel.Location = new System.Drawing.Point(4, 17);
             this.CheckBox_EstopBtn_DwsPanel.Margin = new System.Windows.Forms.Padding(2);
             this.CheckBox_EstopBtn_DwsPanel.Name = "CheckBox_EstopBtn_DwsPanel";
-            this.CheckBox_EstopBtn_DwsPanel.Size = new System.Drawing.Size(75, 22);
+            this.CheckBox_EstopBtn_DwsPanel.Size = new System.Drawing.Size(44, 22);
             this.CheckBox_EstopBtn_DwsPanel.TabIndex = 26;
-            this.CheckBox_EstopBtn_DwsPanel.Text = "非常停止釦";
+            this.CheckBox_EstopBtn_DwsPanel.Text = "Estop";
             this.CheckBox_EstopBtn_DwsPanel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_EstopBtn_DwsPanel.UseVisualStyleBackColor = true;
             this.CheckBox_EstopBtn_DwsPanel.CheckedChanged += new System.EventHandler(this.CheckBox_EstopBtn_DwsPanel_CheckedChanged);
@@ -1835,20 +1846,19 @@
             // 
             // Btn_Reset_NorthPanel
             // 
-            this.Btn_Reset_NorthPanel.Location = new System.Drawing.Point(4, 17);
+            this.Btn_Reset_NorthPanel.Location = new System.Drawing.Point(5, 34);
             this.Btn_Reset_NorthPanel.Margin = new System.Windows.Forms.Padding(2);
             this.Btn_Reset_NorthPanel.Name = "Btn_Reset_NorthPanel";
             this.Btn_Reset_NorthPanel.Size = new System.Drawing.Size(44, 24);
-            this.Btn_Reset_NorthPanel.TabIndex = 25;
+            this.Btn_Reset_NorthPanel.TabIndex = 31;
             this.Btn_Reset_NorthPanel.Text = "Reset";
             this.Btn_Reset_NorthPanel.UseVisualStyleBackColor = true;
             this.Btn_Reset_NorthPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_NorthPanel_MouseDown);
-            this.Btn_Reset_NorthPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_NorthPanel_MouseUp);
             // 
             // Label_LedTower_NorthPanel
             // 
             this.Label_LedTower_NorthPanel.AutoSize = true;
-            this.Label_LedTower_NorthPanel.Location = new System.Drawing.Point(4, 43);
+            this.Label_LedTower_NorthPanel.Location = new System.Drawing.Point(4, 20);
             this.Label_LedTower_NorthPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_LedTower_NorthPanel.Name = "Label_LedTower_NorthPanel";
             this.Label_LedTower_NorthPanel.Size = new System.Drawing.Size(23, 12);
@@ -1857,7 +1867,6 @@
             // 
             // groupBox37
             // 
-            this.groupBox37.Controls.Add(this.Btn_Reset_SouthPanel);
             this.groupBox37.Controls.Add(this.Label_LedTower_SouthPanel);
             this.groupBox37.Location = new System.Drawing.Point(3, 197);
             this.groupBox37.Margin = new System.Windows.Forms.Padding(2);
@@ -1868,22 +1877,10 @@
             this.groupBox37.TabStop = false;
             this.groupBox37.Text = "SOUTH盤";
             // 
-            // Btn_Reset_SouthPanel
-            // 
-            this.Btn_Reset_SouthPanel.Location = new System.Drawing.Point(4, 17);
-            this.Btn_Reset_SouthPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.Btn_Reset_SouthPanel.Name = "Btn_Reset_SouthPanel";
-            this.Btn_Reset_SouthPanel.Size = new System.Drawing.Size(44, 24);
-            this.Btn_Reset_SouthPanel.TabIndex = 25;
-            this.Btn_Reset_SouthPanel.Text = "Reset";
-            this.Btn_Reset_SouthPanel.UseVisualStyleBackColor = true;
-            this.Btn_Reset_SouthPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_SouthPanel_MouseDown);
-            this.Btn_Reset_SouthPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_SouthPanel_MouseUp);
-            // 
             // Label_LedTower_SouthPanel
             // 
             this.Label_LedTower_SouthPanel.AutoSize = true;
-            this.Label_LedTower_SouthPanel.Location = new System.Drawing.Point(4, 43);
+            this.Label_LedTower_SouthPanel.Location = new System.Drawing.Point(4, 20);
             this.Label_LedTower_SouthPanel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_LedTower_SouthPanel.Name = "Label_LedTower_SouthPanel";
             this.Label_LedTower_SouthPanel.Size = new System.Drawing.Size(23, 12);
@@ -1892,13 +1889,8 @@
             // 
             // GroupBox_MaintArea
             // 
-            this.GroupBox_MaintArea.Controls.Add(this.RadioButton_Maint_Aisle);
-            this.GroupBox_MaintArea.Controls.Add(this.CheckBox_Alarm_MaintAreaStopper);
-            this.GroupBox_MaintArea.Controls.Add(this.GroupBox_Q_MaintAreaStopper);
-            this.GroupBox_MaintArea.Controls.Add(this.CheckBox_FBAuto_MaintArea);
-            this.GroupBox_MaintArea.Controls.Add(this.GroupBox_In_MaintAreaStopper);
-            this.GroupBox_MaintArea.Controls.Add(this.CheckBox_CloseStopper_MaintArea);
-            this.GroupBox_MaintArea.Controls.Add(this.CheckBox_OpenStopper_MaintArea);
+            this.GroupBox_MaintArea.Controls.Add(this.groupBox5);
+            this.GroupBox_MaintArea.Controls.Add(this.GroupBox_);
             this.GroupBox_MaintArea.Controls.Add(this.GroupBox_Ctor_MaintArea);
             this.GroupBox_MaintArea.Controls.Add(this.Label_BotHPtoCell);
             this.GroupBox_MaintArea.Controls.Add(this.CheckBox_BOT_HP);
@@ -1906,198 +1898,73 @@
             this.GroupBox_MaintArea.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_MaintArea.Name = "GroupBox_MaintArea";
             this.GroupBox_MaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_MaintArea.Size = new System.Drawing.Size(286, 184);
+            this.GroupBox_MaintArea.Size = new System.Drawing.Size(173, 155);
             this.GroupBox_MaintArea.TabIndex = 26;
             this.GroupBox_MaintArea.TabStop = false;
             this.GroupBox_MaintArea.Text = "メンテナンスエリア";
             // 
-            // CheckBox_Alarm_MaintAreaStopper
+            // groupBox5
             // 
-            this.CheckBox_Alarm_MaintAreaStopper.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_Alarm_MaintAreaStopper.AutoSize = true;
-            this.CheckBox_Alarm_MaintAreaStopper.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_Alarm_MaintAreaStopper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_Alarm_MaintAreaStopper.Location = new System.Drawing.Point(180, 108);
-            this.CheckBox_Alarm_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_Alarm_MaintAreaStopper.Name = "CheckBox_Alarm_MaintAreaStopper";
-            this.CheckBox_Alarm_MaintAreaStopper.Size = new System.Drawing.Size(45, 22);
-            this.CheckBox_Alarm_MaintAreaStopper.TabIndex = 38;
-            this.CheckBox_Alarm_MaintAreaStopper.Text = "Alarm";
-            this.CheckBox_Alarm_MaintAreaStopper.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_Alarm_MaintAreaStopper.UseVisualStyleBackColor = true;
+            this.groupBox5.Controls.Add(this.Btn_CloseStopper);
+            this.groupBox5.Controls.Add(this.Btn_OpenStopper);
+            this.groupBox5.Location = new System.Drawing.Point(90, 65);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Size = new System.Drawing.Size(64, 78);
+            this.groupBox5.TabIndex = 31;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Stopper";
             // 
-            // GroupBox_Q_MaintAreaStopper
+            // Btn_CloseStopper
             // 
-            this.GroupBox_Q_MaintAreaStopper.Controls.Add(this.Label_PlcOpenOut_MaintAreaStopper);
-            this.GroupBox_Q_MaintAreaStopper.Controls.Add(this.Label_PlcCloseOut_MaintAreaStopper);
-            this.GroupBox_Q_MaintAreaStopper.Location = new System.Drawing.Point(182, 43);
-            this.GroupBox_Q_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2);
-            this.GroupBox_Q_MaintAreaStopper.Name = "GroupBox_Q_MaintAreaStopper";
-            this.GroupBox_Q_MaintAreaStopper.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_Q_MaintAreaStopper.Size = new System.Drawing.Size(27, 61);
-            this.GroupBox_Q_MaintAreaStopper.TabIndex = 18;
-            this.GroupBox_Q_MaintAreaStopper.TabStop = false;
-            this.GroupBox_Q_MaintAreaStopper.Text = "Q";
+            this.Btn_CloseStopper.Location = new System.Drawing.Point(4, 44);
+            this.Btn_CloseStopper.Margin = new System.Windows.Forms.Padding(2);
+            this.Btn_CloseStopper.Name = "Btn_CloseStopper";
+            this.Btn_CloseStopper.Size = new System.Drawing.Size(46, 24);
+            this.Btn_CloseStopper.TabIndex = 42;
+            this.Btn_CloseStopper.Text = "閉釦";
+            this.Btn_CloseStopper.UseVisualStyleBackColor = true;
+            this.Btn_CloseStopper.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_CloseStopper_MouseDown);
+            this.Btn_CloseStopper.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_CloseStopper_MouseUp);
             // 
-            // Label_PlcOpenOut_MaintAreaStopper
+            // Btn_OpenStopper
             // 
-            this.Label_PlcOpenOut_MaintAreaStopper.AutoSize = true;
-            this.Label_PlcOpenOut_MaintAreaStopper.Location = new System.Drawing.Point(4, 14);
-            this.Label_PlcOpenOut_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_PlcOpenOut_MaintAreaStopper.Name = "Label_PlcOpenOut_MaintAreaStopper";
-            this.Label_PlcOpenOut_MaintAreaStopper.Size = new System.Drawing.Size(17, 12);
-            this.Label_PlcOpenOut_MaintAreaStopper.TabIndex = 15;
-            this.Label_PlcOpenOut_MaintAreaStopper.Text = "開";
+            this.Btn_OpenStopper.Location = new System.Drawing.Point(4, 16);
+            this.Btn_OpenStopper.Margin = new System.Windows.Forms.Padding(2);
+            this.Btn_OpenStopper.Name = "Btn_OpenStopper";
+            this.Btn_OpenStopper.Size = new System.Drawing.Size(46, 24);
+            this.Btn_OpenStopper.TabIndex = 41;
+            this.Btn_OpenStopper.Text = "開釦";
+            this.Btn_OpenStopper.UseVisualStyleBackColor = true;
+            this.Btn_OpenStopper.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_OpenStopper_MouseDown);
+            this.Btn_OpenStopper.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_OpenStopper_MouseUp);
             // 
-            // Label_PlcCloseOut_MaintAreaStopper
+            // GroupBox_
             // 
-            this.Label_PlcCloseOut_MaintAreaStopper.AutoSize = true;
-            this.Label_PlcCloseOut_MaintAreaStopper.Location = new System.Drawing.Point(4, 39);
-            this.Label_PlcCloseOut_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_PlcCloseOut_MaintAreaStopper.Name = "Label_PlcCloseOut_MaintAreaStopper";
-            this.Label_PlcCloseOut_MaintAreaStopper.Size = new System.Drawing.Size(17, 12);
-            this.Label_PlcCloseOut_MaintAreaStopper.TabIndex = 16;
-            this.Label_PlcCloseOut_MaintAreaStopper.Text = "閉";
-            // 
-            // CheckBox_FBAuto_MaintArea
-            // 
-            this.CheckBox_FBAuto_MaintArea.AutoSize = true;
-            this.CheckBox_FBAuto_MaintArea.Checked = true;
-            this.CheckBox_FBAuto_MaintArea.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBox_FBAuto_MaintArea.Font = new System.Drawing.Font("MS UI Gothic", 7F);
-            this.CheckBox_FBAuto_MaintArea.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.CheckBox_FBAuto_MaintArea.Location = new System.Drawing.Point(5, 146);
-            this.CheckBox_FBAuto_MaintArea.Name = "CheckBox_FBAuto_MaintArea";
-            this.CheckBox_FBAuto_MaintArea.Size = new System.Drawing.Size(43, 24);
-            this.CheckBox_FBAuto_MaintArea.TabIndex = 38;
-            this.CheckBox_FBAuto_MaintArea.Text = "FB\r\nauto";
-            this.CheckBox_FBAuto_MaintArea.UseVisualStyleBackColor = true;
-            // 
-            // GroupBox_In_MaintAreaStopper
-            // 
-            this.GroupBox_In_MaintAreaStopper.Controls.Add(this.CheckBox_IsClosedSensor_MaintAreaStopper);
-            this.GroupBox_In_MaintAreaStopper.Controls.Add(this.Label_IsOpenSensor_MaintAreaStopper);
-            this.GroupBox_In_MaintAreaStopper.Controls.Add(this.CheckBox_IsOpenSensor_MaintAreaStopper);
-            this.GroupBox_In_MaintAreaStopper.Controls.Add(this.Label_IsClosedSensor_MaintAreaStopper);
-            this.GroupBox_In_MaintAreaStopper.Location = new System.Drawing.Point(213, 43);
-            this.GroupBox_In_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2);
-            this.GroupBox_In_MaintAreaStopper.Name = "GroupBox_In_MaintAreaStopper";
-            this.GroupBox_In_MaintAreaStopper.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_In_MaintAreaStopper.Size = new System.Drawing.Size(55, 61);
-            this.GroupBox_In_MaintAreaStopper.TabIndex = 19;
-            this.GroupBox_In_MaintAreaStopper.TabStop = false;
-            this.GroupBox_In_MaintAreaStopper.Text = "Sensors";
-            // 
-            // CheckBox_IsClosedSensor_MaintAreaStopper
-            // 
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.AutoSize = true;
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.Location = new System.Drawing.Point(25, 34);
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.Name = "CheckBox_IsClosedSensor_MaintAreaStopper";
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.Size = new System.Drawing.Size(27, 22);
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.TabIndex = 23;
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.Text = "閉";
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_IsClosedSensor_MaintAreaStopper.UseVisualStyleBackColor = true;
-            // 
-            // Label_IsOpenSensor_MaintAreaStopper
-            // 
-            this.Label_IsOpenSensor_MaintAreaStopper.AutoSize = true;
-            this.Label_IsOpenSensor_MaintAreaStopper.Location = new System.Drawing.Point(4, 14);
-            this.Label_IsOpenSensor_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_IsOpenSensor_MaintAreaStopper.Name = "Label_IsOpenSensor_MaintAreaStopper";
-            this.Label_IsOpenSensor_MaintAreaStopper.Size = new System.Drawing.Size(17, 12);
-            this.Label_IsOpenSensor_MaintAreaStopper.TabIndex = 19;
-            this.Label_IsOpenSensor_MaintAreaStopper.Text = "開";
-            // 
-            // CheckBox_IsOpenSensor_MaintAreaStopper
-            // 
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.AutoSize = true;
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.Location = new System.Drawing.Point(25, 9);
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.Name = "CheckBox_IsOpenSensor_MaintAreaStopper";
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.Size = new System.Drawing.Size(27, 22);
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.TabIndex = 23;
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.Text = "開";
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_IsOpenSensor_MaintAreaStopper.UseVisualStyleBackColor = true;
-            // 
-            // Label_IsClosedSensor_MaintAreaStopper
-            // 
-            this.Label_IsClosedSensor_MaintAreaStopper.AutoSize = true;
-            this.Label_IsClosedSensor_MaintAreaStopper.Location = new System.Drawing.Point(4, 39);
-            this.Label_IsClosedSensor_MaintAreaStopper.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.Label_IsClosedSensor_MaintAreaStopper.Name = "Label_IsClosedSensor_MaintAreaStopper";
-            this.Label_IsClosedSensor_MaintAreaStopper.Size = new System.Drawing.Size(17, 12);
-            this.Label_IsClosedSensor_MaintAreaStopper.TabIndex = 20;
-            this.Label_IsClosedSensor_MaintAreaStopper.Text = "閉";
-            // 
-            // CheckBox_CloseStopper_MaintArea
-            // 
-            this.CheckBox_CloseStopper_MaintArea.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_CloseStopper_MaintArea.AutoSize = true;
-            this.CheckBox_CloseStopper_MaintArea.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_CloseStopper_MaintArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_CloseStopper_MaintArea.Location = new System.Drawing.Point(103, 78);
-            this.CheckBox_CloseStopper_MaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_CloseStopper_MaintArea.Name = "CheckBox_CloseStopper_MaintArea";
-            this.CheckBox_CloseStopper_MaintArea.Size = new System.Drawing.Size(71, 22);
-            this.CheckBox_CloseStopper_MaintArea.TabIndex = 36;
-            this.CheckBox_CloseStopper_MaintArea.Text = "ストッパー閉";
-            this.CheckBox_CloseStopper_MaintArea.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_CloseStopper_MaintArea.UseVisualStyleBackColor = true;
-            // 
-            // CheckBox_OpenStopper_MaintArea
-            // 
-            this.CheckBox_OpenStopper_MaintArea.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_OpenStopper_MaintArea.AutoSize = true;
-            this.CheckBox_OpenStopper_MaintArea.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_OpenStopper_MaintArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_OpenStopper_MaintArea.Location = new System.Drawing.Point(103, 53);
-            this.CheckBox_OpenStopper_MaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_OpenStopper_MaintArea.Name = "CheckBox_OpenStopper_MaintArea";
-            this.CheckBox_OpenStopper_MaintArea.Size = new System.Drawing.Size(71, 22);
-            this.CheckBox_OpenStopper_MaintArea.TabIndex = 37;
-            this.CheckBox_OpenStopper_MaintArea.Text = "ストッパー開";
-            this.CheckBox_OpenStopper_MaintArea.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_OpenStopper_MaintArea.UseVisualStyleBackColor = true;
+            this.GroupBox_.Controls.Add(this.RadioButton_Maint_Aisle);
+            this.GroupBox_.Location = new System.Drawing.Point(90, 16);
+            this.GroupBox_.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_.Name = "GroupBox_";
+            this.GroupBox_.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_.Size = new System.Drawing.Size(64, 45);
+            this.GroupBox_.TabIndex = 30;
+            this.GroupBox_.TabStop = false;
+            this.GroupBox_.Text = "KeySw";
             // 
             // GroupBox_Ctor_MaintArea
             // 
-            this.GroupBox_Ctor_MaintArea.Controls.Add(this.CheckBox_ContactorTripped_MaintArea);
             this.GroupBox_Ctor_MaintArea.Controls.Add(this.CheckBox_ContactorFdbk_MaintArea);
             this.GroupBox_Ctor_MaintArea.Controls.Add(this.Label_ContactorFdbk_MaintArea);
-            this.GroupBox_Ctor_MaintArea.Controls.Add(this.CheckBox_ContactorOnOff_MaintArea);
             this.GroupBox_Ctor_MaintArea.Controls.Add(this.Label_ContactorPlcOut_MaintArea);
             this.GroupBox_Ctor_MaintArea.Location = new System.Drawing.Point(4, 42);
             this.GroupBox_Ctor_MaintArea.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_Ctor_MaintArea.Name = "GroupBox_Ctor_MaintArea";
             this.GroupBox_Ctor_MaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_Ctor_MaintArea.Size = new System.Drawing.Size(82, 100);
+            this.GroupBox_Ctor_MaintArea.Size = new System.Drawing.Size(82, 71);
             this.GroupBox_Ctor_MaintArea.TabIndex = 16;
             this.GroupBox_Ctor_MaintArea.TabStop = false;
             this.GroupBox_Ctor_MaintArea.Text = "コンタクタ";
-            // 
-            // CheckBox_ContactorTripped_MaintArea
-            // 
-            this.CheckBox_ContactorTripped_MaintArea.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_ContactorTripped_MaintArea.AutoSize = true;
-            this.CheckBox_ContactorTripped_MaintArea.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorTripped_MaintArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_ContactorTripped_MaintArea.Location = new System.Drawing.Point(4, 70);
-            this.CheckBox_ContactorTripped_MaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_ContactorTripped_MaintArea.Name = "CheckBox_ContactorTripped_MaintArea";
-            this.CheckBox_ContactorTripped_MaintArea.Size = new System.Drawing.Size(53, 22);
-            this.CheckBox_ContactorTripped_MaintArea.TabIndex = 29;
-            this.CheckBox_ContactorTripped_MaintArea.Text = "Tripped";
-            this.CheckBox_ContactorTripped_MaintArea.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorTripped_MaintArea.UseVisualStyleBackColor = true;
             // 
             // CheckBox_ContactorFdbk_MaintArea
             // 
@@ -2113,6 +1980,7 @@
             this.CheckBox_ContactorFdbk_MaintArea.Text = "FB";
             this.CheckBox_ContactorFdbk_MaintArea.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorFdbk_MaintArea.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorFdbk_MaintArea.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_MaintArea_CheckedChanged);
             // 
             // Label_ContactorFdbk_MaintArea
             // 
@@ -2124,26 +1992,10 @@
             this.Label_ContactorFdbk_MaintArea.TabIndex = 13;
             this.Label_ContactorFdbk_MaintArea.Text = "FB";
             // 
-            // CheckBox_ContactorOnOff_MaintArea
-            // 
-            this.CheckBox_ContactorOnOff_MaintArea.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_ContactorOnOff_MaintArea.AutoSize = true;
-            this.CheckBox_ContactorOnOff_MaintArea.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorOnOff_MaintArea.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.CheckBox_ContactorOnOff_MaintArea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_ContactorOnOff_MaintArea.Location = new System.Drawing.Point(4, 17);
-            this.CheckBox_ContactorOnOff_MaintArea.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_ContactorOnOff_MaintArea.Name = "CheckBox_ContactorOnOff_MaintArea";
-            this.CheckBox_ContactorOnOff_MaintArea.Size = new System.Drawing.Size(31, 22);
-            this.CheckBox_ContactorOnOff_MaintArea.TabIndex = 10;
-            this.CheckBox_ContactorOnOff_MaintArea.Text = "ON";
-            this.CheckBox_ContactorOnOff_MaintArea.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorOnOff_MaintArea.UseVisualStyleBackColor = true;
-            // 
             // Label_ContactorPlcOut_MaintArea
             // 
             this.Label_ContactorPlcOut_MaintArea.AutoSize = true;
-            this.Label_ContactorPlcOut_MaintArea.Location = new System.Drawing.Point(43, 22);
+            this.Label_ContactorPlcOut_MaintArea.Location = new System.Drawing.Point(8, 22);
             this.Label_ContactorPlcOut_MaintArea.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_ContactorPlcOut_MaintArea.Name = "Label_ContactorPlcOut_MaintArea";
             this.Label_ContactorPlcOut_MaintArea.Size = new System.Drawing.Size(23, 12);
@@ -2186,10 +2038,22 @@
             this.GroupBox_Panels.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_Panels.Name = "GroupBox_Panels";
             this.GroupBox_Panels.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_Panels.Size = new System.Drawing.Size(99, 280);
+            this.GroupBox_Panels.Size = new System.Drawing.Size(99, 273);
             this.GroupBox_Panels.TabIndex = 32;
             this.GroupBox_Panels.TabStop = false;
             this.GroupBox_Panels.Text = "PANELS";
+            // 
+            // Btn_BuzzerAck
+            // 
+            this.Btn_BuzzerAck.Location = new System.Drawing.Point(9, 470);
+            this.Btn_BuzzerAck.Margin = new System.Windows.Forms.Padding(2);
+            this.Btn_BuzzerAck.Name = "Btn_BuzzerAck";
+            this.Btn_BuzzerAck.Size = new System.Drawing.Size(77, 24);
+            this.Btn_BuzzerAck.TabIndex = 32;
+            this.Btn_BuzzerAck.Text = "Buzzer Ack";
+            this.Btn_BuzzerAck.UseVisualStyleBackColor = true;
+            this.Btn_BuzzerAck.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_BuzzerAck_MouseDown);
+            this.Btn_BuzzerAck.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_BuzzerAck_MouseUp);
             // 
             // ListBox_Log
             // 
@@ -2805,7 +2669,7 @@
             this.groupBox23.Size = new System.Drawing.Size(272, 485);
             this.groupBox23.TabIndex = 40;
             this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "SmallAIsle";
+            this.groupBox23.Text = "SmallAisle";
             // 
             // CheckBox_FBAuto_SmallAisle
             // 
@@ -3261,12 +3125,30 @@
             this.CheckBox_Estop_BOT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_Estop_BOT.UseVisualStyleBackColor = true;
             // 
+            // CheckBox_FireAlarm
+            // 
+            this.CheckBox_FireAlarm.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_FireAlarm.AutoSize = true;
+            this.CheckBox_FireAlarm.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_FireAlarm.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_FireAlarm.Location = new System.Drawing.Point(9, 498);
+            this.CheckBox_FireAlarm.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_FireAlarm.Name = "CheckBox_FireAlarm";
+            this.CheckBox_FireAlarm.Size = new System.Drawing.Size(69, 22);
+            this.CheckBox_FireAlarm.TabIndex = 31;
+            this.CheckBox_FireAlarm.Text = "Fire Alarm";
+            this.CheckBox_FireAlarm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_FireAlarm.UseVisualStyleBackColor = true;
+            this.CheckBox_FireAlarm.CheckedChanged += new System.EventHandler(this.CheckBox_FireAlarm_CheckedChanged);
+            // 
             // CoSimInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1373, 682);
+            this.Controls.Add(this.Btn_BuzzerAck);
+            this.Controls.Add(this.CheckBox_FireAlarm);
             this.Controls.Add(this.GroupBox_BOT);
             this.Controls.Add(this.groupBox23);
             this.Controls.Add(this.groupBox4);
@@ -3343,10 +3225,9 @@
             this.groupBox37.PerformLayout();
             this.GroupBox_MaintArea.ResumeLayout(false);
             this.GroupBox_MaintArea.PerformLayout();
-            this.GroupBox_Q_MaintAreaStopper.ResumeLayout(false);
-            this.GroupBox_Q_MaintAreaStopper.PerformLayout();
-            this.GroupBox_In_MaintAreaStopper.ResumeLayout(false);
-            this.GroupBox_In_MaintAreaStopper.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.GroupBox_.ResumeLayout(false);
+            this.GroupBox_.PerformLayout();
             this.GroupBox_Ctor_MaintArea.ResumeLayout(false);
             this.GroupBox_Ctor_MaintArea.PerformLayout();
             this.GroupBox_Panels.ResumeLayout(false);
@@ -3461,10 +3342,8 @@
         private System.Windows.Forms.Button Btn_Reset_DwsPanel;
         private System.Windows.Forms.Label Label_LedTowerRed_DwsPanel;
         private System.Windows.Forms.GroupBox groupBox36;
-        private System.Windows.Forms.Button Btn_Reset_NorthPanel;
         private System.Windows.Forms.Label Label_LedTower_NorthPanel;
         private System.Windows.Forms.GroupBox groupBox37;
-        private System.Windows.Forms.Button Btn_Reset_SouthPanel;
         private System.Windows.Forms.Label Label_LedTower_SouthPanel;
         private System.Windows.Forms.GroupBox GroupBox_MaintArea;
         private System.Windows.Forms.GroupBox GroupBox_Door_Aisle;
@@ -3602,23 +3481,17 @@
         private System.Windows.Forms.Label Label_IsFault_Bot;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox CheckBox_Estop_BOT;
-        private System.Windows.Forms.CheckBox CheckBox_CloseStopper_MaintArea;
-        private System.Windows.Forms.CheckBox CheckBox_OpenStopper_MaintArea;
-        private System.Windows.Forms.CheckBox CheckBox_FBAuto_MaintArea;
         private System.Windows.Forms.GroupBox GroupBox_Ctor_MaintArea;
-        private System.Windows.Forms.CheckBox CheckBox_ContactorTripped_MaintArea;
         private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_MaintArea;
         private System.Windows.Forms.Label Label_ContactorFdbk_MaintArea;
-        private System.Windows.Forms.CheckBox CheckBox_ContactorOnOff_MaintArea;
         private System.Windows.Forms.Label Label_ContactorPlcOut_MaintArea;
-        private System.Windows.Forms.GroupBox GroupBox_Q_MaintAreaStopper;
-        private System.Windows.Forms.Label Label_PlcOpenOut_MaintAreaStopper;
-        private System.Windows.Forms.Label Label_PlcCloseOut_MaintAreaStopper;
-        private System.Windows.Forms.GroupBox GroupBox_In_MaintAreaStopper;
-        private System.Windows.Forms.CheckBox CheckBox_IsClosedSensor_MaintAreaStopper;
-        private System.Windows.Forms.Label Label_IsOpenSensor_MaintAreaStopper;
-        private System.Windows.Forms.CheckBox CheckBox_IsOpenSensor_MaintAreaStopper;
-        private System.Windows.Forms.Label Label_IsClosedSensor_MaintAreaStopper;
-        private System.Windows.Forms.CheckBox CheckBox_Alarm_MaintAreaStopper;
+        private System.Windows.Forms.Button Btn_Reset_NorthPanel;
+        private System.Windows.Forms.Button Btn_BuzzerAck;
+        private System.Windows.Forms.CheckBox CheckBox_FireAlarm;
+        private System.Windows.Forms.CheckBox CheckBox_BotEvacComplete;
+        private System.Windows.Forms.GroupBox GroupBox_;
+        private System.Windows.Forms.Button Btn_OpenStopper;
+        private System.Windows.Forms.Button Btn_CloseStopper;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }
