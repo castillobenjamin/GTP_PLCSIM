@@ -18,7 +18,8 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         
         // Input for the third notch of the key switch.
         // Having it here is not ideal, but it is the easiest implementation
-        public PlcInput KeySwMaint { get; set; }   
+        public PlcInput KeySwMaint { get; set; }
+
 
         public PlcInput StopperOpenBtn { get; set; }
 

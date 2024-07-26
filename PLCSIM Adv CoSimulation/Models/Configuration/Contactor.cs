@@ -6,8 +6,10 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
     public class Contactor
     {
         #region Properties
-        public PlcOutput ContactorOutput { get; set; }
-        public PlcInput ContactorFeedback { get; set; }
+        [XmlElement("ContactorOutput")]
+        public PlcOutput Output { get; set; }
+        [XmlElement("ContactorFeedback")]
+        public PlcInput Feedback { get; set; }
         public RegisterToPlc ContactorOnOffCommand { get; set; }
         [XmlArray("TrippedInputs")]
         [XmlArrayItem("Tripped")]

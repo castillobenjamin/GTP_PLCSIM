@@ -485,12 +485,12 @@
 						<Tripped Name="trolley1" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE1_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="trolley2" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE1_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -515,12 +515,12 @@
 						<Tripped Name="Trolley1" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE1_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="Trolley2" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE1_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -578,7 +578,7 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Aisle>
-		<Aisle Name="Aisle2" Label="Aisle 2">
+		<Aisle Name="Aisle2" Label="Aisle 2" Type="regularAisle">
 			<OperationBox>
 				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE2</Tag>
@@ -648,12 +648,12 @@
 						<Tripped Name="trolley1" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE2_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="trolley2" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE2_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -678,12 +678,12 @@
 						<Tripped Name="Trolley1" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE2_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="Trolley2" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE2_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -740,7 +740,7 @@
 				</PlcStopRequest>
 			</EmergencyStopZone>
 		</Aisle>
-		<Aisle Name="Aisle3" Label="Aisle 3">
+		<Aisle Name="Aisle3" Label="Aisle 3" Type="regularAisle">
 			<OperationBox>
 				<EmergencyBtn Type="input">
 					<Tag>E-STOP_AISLE3</Tag>
@@ -810,12 +810,12 @@
 						<Tripped Name="trolley1" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE3_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="trolley2" Type="inputB">
 							<Tag>ELB_TRIP_NORTH-AISLE3_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -840,12 +840,12 @@
 						<Tripped Name="Trolley1" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE3_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="Trolley2" Type="inputB">
 							<Tag>ELB_TRIP_SOUTH-AISLE3_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -1308,7 +1308,7 @@
 						<Tripped Name="trolleyPickSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS1_pickSide</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -1333,12 +1333,12 @@
 						<Tripped Name="trolley1 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS1_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="trolley2 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS1_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -1460,7 +1460,7 @@
 						<Tripped Name="trolleyPickSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS2_pickSide</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -1485,12 +1485,12 @@
 						<Tripped Name="trolley1 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS2_TROLLEY1</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="trolley2 TowerSide trip" Type="inputB">
 							<Tag>ELB_TRIP_T-DWS2_TROLLEY2</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -1602,12 +1602,12 @@
 						<Tripped Name="trolley west" Type="inputB">
 							<Tag>ELB_TRIP_S-AISLE1_WEST</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 						<Tripped Name="trolley east" Type="inputB">
 							<Tag>ELB_TRIP_S-AISLE1_EAST</Tag>
 							<Address />
-							<Value>false</Value>
+							<Value>true</Value>
 						</Tripped>
 					</TrippedInputs>
 				</Contactor>
@@ -1678,12 +1678,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS1_DECK3</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS1_DECK3</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS1_DECK3</Tag>
@@ -1746,12 +1746,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS1_DECK4</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS1_DECK4</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS1_DECK4</Tag>
@@ -1814,12 +1814,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS2_DECK3</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS2_DECK3</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS2_DECK3</Tag>
@@ -1882,12 +1882,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_T-DWS2_DECK4</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_T-DWS2_DECK4</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_T-DWS2_DECK4</Tag>
@@ -1951,12 +1951,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK1_WEST</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK1_WEST</Tag>
@@ -2019,12 +2019,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK1_EAST</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK1_EAST</Tag>
@@ -2087,12 +2087,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK2_WEST</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK2_WEST</Tag>
@@ -2155,12 +2155,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_S-AISLE1_DECK2_EAST</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_S-AISLE1_DECK2_EAST</Tag>
@@ -2225,12 +2225,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK1</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK1</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK1</Tag>
@@ -2293,12 +2293,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK2</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK2</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK2</Tag>
@@ -2361,12 +2361,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK3</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK3</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK3</Tag>
@@ -2429,12 +2429,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE1_DECK4</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE1_DECK4</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE1_DECK4</Tag>
@@ -2498,12 +2498,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK1</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK1</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK1</Tag>
@@ -2566,12 +2566,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK2</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK2</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK2</Tag>
@@ -2634,12 +2634,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK3</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK3</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK3</Tag>
@@ -2702,12 +2702,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE2_DECK4</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE2_DECK4</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE2_DECK4</Tag>
@@ -2771,12 +2771,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK1</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK1</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK1</Tag>
@@ -2839,12 +2839,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK2</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK2</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK2</Tag>
@@ -2907,12 +2907,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK3</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK3</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK3</Tag>
@@ -2975,12 +2975,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_AISLE3_DECK4</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_AISLE3_DECK4</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_AISLE3_DECK4</Tag>
@@ -3044,12 +3044,12 @@
 			<IsOpenSensor Type="input">
 				<Tag>ELC_DI_OPEN_MaintAreaAisle1</Tag>
 				<Address />
-				<Value>false</Value>
+				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
 				<Tag>ELC_DI_CLOSED_MaintAreaAisle1</Tag>
 				<Address />
-				<Value>true</Value>
+				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
 				<Tag>ELC_DI_ALM_MaintAreaAisle1</Tag>
@@ -3068,17 +3068,17 @@
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsClosedStatusToCell>
-			<!--Error and timeover signal not used for this stopper-->
+			<!--Error and timeover signal not used for this stopper. Using arbitrary address-->
 			<ErrorSignalToCell>
 				<Tag>NoTag</Tag>
-				<Address></Address>
-				<BitPosition></BitPosition>
+				<Address>130</Address>
+                <BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</ErrorSignalToCell>
 			<TimeOverSignalToCell>
 				<Tag>NoTag</Tag>
-				<Address></Address>
-				<BitPosition></BitPosition>
+				<Address>130</Address>
+				<BitPosition>1</BitPosition>
 				<Value>0</Value>
 			</TimeOverSignalToCell>
 		</Stopper>

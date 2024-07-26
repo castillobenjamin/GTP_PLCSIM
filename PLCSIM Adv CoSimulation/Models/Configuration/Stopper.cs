@@ -12,9 +12,11 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public string Label { get; set; }
         public PlcOutput PlcOpenOut { get; set; }
 		public PlcOutput PlcCloseOut { get; set; }
-		public PlcInput IsOpenSensor { get; set; }
+        public PlcOutput PlcResetAlarmOut { get; set; }
+
+        public PlcInput IsOpenSensor { get; set; }
 		public PlcInput IsClosedSensor { get; set; }
-        public PlcInput InvAlarm { get; set; }
+        public PlcInput Alarm { get; set; }
         public RegisterToPlc OpenCommandFromCell { get; set; }
         public RegisterToPlc CloseCommandFromCell { get; set; }
         public RegisterFromPlc IsOpenStatusToCell { get; set; }

@@ -287,7 +287,8 @@ namespace PLCSIM_Adv_CoSimulation
                 UpdateTowerDwsOutputs();
                 UpdateSmallAisleOutputs();
                 UpdateStopperOutputs();
-                UpdateMaintAreaOutputs();
+                //TODO - uncomment this line once the maintenance area IO tags are added to the configuration file.
+                //UpdateMaintAreaOutputs();
                 // Unique controls
                 Update_Label_CELLcomm_PlcStatus();
                 Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
@@ -366,8 +367,8 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_ContactorOnOff_AisleNorth.Checked = flagOnOff;
             flagOnOff = Utils.ReadRegisterBit(currentAisle.Contactors[1].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_AisleSouth.Checked = flagOnOff;
-            CheckBox_ContactorFdbk_AisleNorth.Checked = currentAisle.Contactors[0].ContactorFeedback.Value;
-            CheckBox_ContactorFdbk_AisleSouth.Checked = currentAisle.Contactors[1].ContactorFeedback.Value;
+            CheckBox_ContactorFdbk_AisleNorth.Checked = currentAisle.Contactors[0].Feedback.Value;
+            CheckBox_ContactorFdbk_AisleSouth.Checked = currentAisle.Contactors[1].Feedback.Value;
 
             #endregion // Inputs
 
@@ -698,7 +699,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorFdbk_AisleNorth_CheckedChanged(object sender, EventArgs e)
         {
-            currentAisle.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorFdbk_AisleNorth.Checked;
+            currentAisle.Contactors[0].Feedback.Value = CheckBox_ContactorFdbk_AisleNorth.Checked;
             if (CheckBox_ContactorFdbk_AisleNorth.Checked)
             {
                 Label_ContactorFdbk_AisleNorth.ForeColor = activeLabelColor;
@@ -713,7 +714,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorFdbk_AisleSouth_CheckedChanged(object sender, EventArgs e)
         {
-            currentAisle.Contactors[1].ContactorFeedback.Value = CheckBox_ContactorFdbk_AisleSouth.Checked;
+            currentAisle.Contactors[1].Feedback.Value = CheckBox_ContactorFdbk_AisleSouth.Checked;
             if (CheckBox_ContactorFdbk_AisleSouth.Checked)
             {
                 Label_ContactorFdbk_AisleSouth.ForeColor = activeLabelColor;
@@ -902,7 +903,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             string status;
             // Read Plc output
-            if (currentAisle.Contactors[0].ContactorOutput.Value == true)
+            if (currentAisle.Contactors[0].Output.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_AisleNorth.ForeColor = activeLabelColor;
@@ -925,13 +926,13 @@ namespace PLCSIM_Adv_CoSimulation
                 }
             }
             //Update labels
-            Label_ContactorPlcOut_AisleNorth.Text = "Ctor " + status;
+            Label_ContactorPlcOut_AisleNorth.Text = status;
         }
         private void Update_Label_ContactorPlcOut_AisleSouth()
         {
             string status;
             // Read PLC output
-            if (currentAisle.Contactors[1].ContactorOutput.Value == true)
+            if (currentAisle.Contactors[1].Output.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_AisleSouth.ForeColor = activeLabelColor;
@@ -954,7 +955,7 @@ namespace PLCSIM_Adv_CoSimulation
                 }
             }
             //Update labels
-            Label_ContactorPlcOut_AisleSouth.Text = "Ctor " + status;
+            Label_ContactorPlcOut_AisleSouth.Text = status;
         }
 
         /// <summary>
@@ -967,7 +968,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CheckBox_FBAuto_Aisle.Checked)
             {
                 CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
-                aisle.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
+                aisle.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
             }
         }
         #endregion // Contactors
@@ -1362,8 +1363,8 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_ContactorOnOff_TDWSpick.Checked = flagOnOff;
             flagOnOff = Utils.ReadRegisterBit(currentTowerDws.Contactors[1].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_TDWStower.Checked = flagOnOff;
-            CheckBox_ContactorFdbk_TDWSpick.Checked = currentTowerDws.Contactors[0].ContactorFeedback.Value;
-            CheckBox_ContactorFdbk_TDWStower.Checked = currentTowerDws.Contactors[1].ContactorFeedback.Value;
+            CheckBox_ContactorFdbk_TDWSpick.Checked = currentTowerDws.Contactors[0].Feedback.Value;
+            CheckBox_ContactorFdbk_TDWStower.Checked = currentTowerDws.Contactors[1].Feedback.Value;
             #endregion // Inputs
 
             #region Outputs
@@ -1669,7 +1670,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorFdbk_TDWSpick_CheckedChanged(object sender, EventArgs e)
         {
-            currentTowerDws.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorFdbk_TDWSpick.Checked;
+            currentTowerDws.Contactors[0].Feedback.Value = CheckBox_ContactorFdbk_TDWSpick.Checked;
             if (CheckBox_ContactorFdbk_TDWSpick.Checked)
             {
                 Label_ContactorPlcOut_TDWSpick.ForeColor = activeLabelColor;
@@ -1684,7 +1685,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorFdbk_TDWStower_CheckedChanged(object sender, EventArgs e)
         {
-            currentTowerDws.Contactors[1].ContactorFeedback.Value = CheckBox_ContactorFdbk_TDWStower.Checked;
+            currentTowerDws.Contactors[1].Feedback.Value = CheckBox_ContactorFdbk_TDWStower.Checked;
             if (CheckBox_ContactorFdbk_TDWStower.Checked)
             {
                 Label_ContactorPlcOut_TDWStower.ForeColor = activeLabelColor;
@@ -1799,7 +1800,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             string status;
             // Read Plc output
-            if (currentTowerDws.Contactors[0].ContactorOutput.Value == true)
+            if (currentTowerDws.Contactors[0].Output.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_TDWSpick.ForeColor = activeLabelColor;
@@ -1822,13 +1823,13 @@ namespace PLCSIM_Adv_CoSimulation
                 }
             }
             //Update labels
-            Label_ContactorPlcOut_TDWSpick.Text = "Ctor " + status;
+            Label_ContactorPlcOut_TDWSpick.Text = status;
         }
         private void Update_Label_ContactorPlcOut_TowerDwsTower()
         {
             string status;
             // Read PLC output
-            if (currentTowerDws.Contactors[1].ContactorOutput.Value == true)
+            if (currentTowerDws.Contactors[1].Output.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_TDWStower.ForeColor = activeLabelColor;
@@ -1851,7 +1852,7 @@ namespace PLCSIM_Adv_CoSimulation
                 }
             }
             //Update labels
-            Label_ContactorPlcOut_TDWStower.Text = "Ctor " + status;
+            Label_ContactorPlcOut_TDWStower.Text = status;
         }
 
         /// <summary>
@@ -1864,7 +1865,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CheckBox_FBAuto_TDWS.Checked)
             {
                 CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
-                tdws.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
+                tdws.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
             }
         }
         #endregion // Contactors
@@ -1903,7 +1904,7 @@ namespace PLCSIM_Adv_CoSimulation
             // Contactors
             bool flagOnOff = Utils.ReadRegisterBit(currentSmallAisle.Contactors[0].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_SmallAisle.Checked = flagOnOff;
-            CheckBox_ContactorFdbk_SmallAisle.Checked = currentSmallAisle.Contactors[0].ContactorFeedback.Value;
+            CheckBox_ContactorFdbk_SmallAisle.Checked = currentSmallAisle.Contactors[0].Feedback.Value;
             #endregion // Inputs
 
             #region Outputs
@@ -2143,7 +2144,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorFdbk_SmallAisle_CheckedChanged(object sender, EventArgs e)
         {
-            currentSmallAisle.Contactors[0].ContactorFeedback.Value = CheckBox_ContactorFdbk_SmallAisle.Checked;
+            currentSmallAisle.Contactors[0].Feedback.Value = CheckBox_ContactorFdbk_SmallAisle.Checked;
             if (CheckBox_ContactorFdbk_SmallAisle.Checked)
             {
                 Label_ContactorPlcOut_SmallAisle.ForeColor = activeLabelColor;
@@ -2232,7 +2233,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             string status;
             // Read Plc output
-            if (currentSmallAisle.Contactors[0].ContactorOutput.Value == true)
+            if (currentSmallAisle.Contactors[0].Output.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_SmallAisle.ForeColor = activeLabelColor;
@@ -2255,7 +2256,7 @@ namespace PLCSIM_Adv_CoSimulation
                 }
             }
             //Update labels
-            Label_ContactorPlcOut_SmallAisle.Text = "Ctor " + status;
+            Label_ContactorPlcOut_SmallAisle.Text = status;
         }
 
         /// <summary>
@@ -2268,7 +2269,7 @@ namespace PLCSIM_Adv_CoSimulation
             if (CheckBox_FBAuto_SmallAisle.Checked)
             {
                 CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
-                saisle.Contactors.ForEach(contactor => contactor.ContactorFeedback.Value = !contactor.ContactorOutput.Value));
+                saisle.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
             }
         }
         #endregion // Contactors
@@ -2559,7 +2560,7 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_CloseCommandFromCell_Stopper.Checked = flag;
 
             // Sensors
-            CheckBox_Alarm_Stopper.Checked = currentStopper.InvAlarm.Value;
+            CheckBox_Alarm_Stopper.Checked = currentStopper.Alarm.Value;
             // Check if sensor logic is inverted
             if (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted)
             {
@@ -2651,7 +2652,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_InvAlarm_Stopper_CheckedChanged(object sender, EventArgs e)
         {
-            currentStopper.InvAlarm.Value = CheckBox_Alarm_Stopper.Checked;
+            currentStopper.Alarm.Value = CheckBox_Alarm_Stopper.Checked;
             string sensorStatus = CheckBox_Alarm_Stopper.Checked ? "OK." : "Error.";
             ListBox_Log.Items.Add(currentStopper.Label + " Inverter " + sensorStatus);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
@@ -2907,7 +2908,7 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void CheckBox_ContactorFdbk_MaintArea_CheckedChanged(object sender, EventArgs e)
         {
-            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.ContactorFeedback.Value = 
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.Feedback.Value = 
                 CheckBox_ContactorFdbk_MaintArea.Checked;
             if (CheckBox_ContactorFdbk_MaintArea.Checked)
             {
@@ -2923,17 +2924,17 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // Contactor
 
         #region Key switch
-        private void RadioButton_Maint_Aisle_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_MaintArea_Maint_CheckedChanged(object sender, EventArgs e)
         {
             CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwMaint.Value =
-                RadioButton_Maint_Aisle.Checked;
+                RadioButton_MaintArea_Maint.Checked;
             // If the maintenance mode is selected, uncheck the other radio buttons.
-            if (RadioButton_Maint_Aisle.Checked)
+            if (RadioButton_MaintArea_Maint.Checked)
             {
                 RadioButton_Ready_Aisle.Checked = false;
                 RadioButton_Req_Aisle.Checked = false;
             }
-            string isMaint = RadioButton_Maint_Aisle.Checked ? "Maint" : "not Maint";
+            string isMaint = RadioButton_MaintArea_Maint.Checked ? "Maint" : "not Maint";
             ListBox_Log.Items.Add(currentAisle.Label + " " + isMaint);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
@@ -2975,16 +2976,16 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void UpdateMaintAreaOutputs()
         {
-            Update_Label_ContactorPlcOut_EvacMaintArea();
+            Update_Label_ContactorPlcOut_MaintArea();
             Update_Label_BotHPtoCell();
         }
 
         #region Contactor
-        private void Update_Label_ContactorPlcOut_EvacMaintArea()
+        private void Update_Label_ContactorPlcOut_MaintArea()
         {
             string status;
             // Read Plc output
-            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.ContactorOutput.Value == true)
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Contactor.Output.Value == true)
             {
                 status = "ON";
                 Label_ContactorPlcOut_MaintArea.ForeColor = activeLabelColor;
@@ -3001,7 +3002,7 @@ namespace PLCSIM_Adv_CoSimulation
                 CheckBox_ContactorFdbk_MaintArea.Checked = true;
             }
             //Update labels
-            Label_ContactorPlcOut_MaintArea.Text = "Ctor " + status;
+            Label_ContactorPlcOut_MaintArea.Text = status;
         }
 
 
@@ -3109,21 +3110,25 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         private void Update_Label_DoorIsLocked(ZoneWithDoor zone, Label label)
         {
+            // TODO - Shorten the strings.
             string doorStatus;
             // Read Plc output
             // The door is locked when the door is closed and the unlock output is false.
             // TODO - check the behaviour of this if.
             if (zone.Door.IsDoorClosed & !zone.Door.unlockDoor.Value)
             {
+                // Update plc input.
+                zone.Door.IsDoorLocked.Value = true;
                 label.ForeColor = activeLabelColor;
                 label.Font = activeLabelFont;
-                doorStatus = "locked";
+                doorStatus = "施錠";
             }
             else
             {
+                zone.Door.IsDoorLocked.Value = false;
                 label.ForeColor = emergencyLabelColor;
                 label.Font = emergencyLabelFont;
-                doorStatus = "unlocked";
+                doorStatus = "開錠";
             }
             //Update label
             label.Text = doorStatus;
@@ -3270,5 +3275,10 @@ namespace PLCSIM_Adv_CoSimulation
             // Nothing to do here for now.
         }
         #endregion // Unhandled IO
+
+        private void RadioButton_MaintArea_Aisle_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

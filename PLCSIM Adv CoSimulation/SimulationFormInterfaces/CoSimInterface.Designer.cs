@@ -90,7 +90,7 @@
             this.CheckBox_EstopBtn_Aisle = new System.Windows.Forms.CheckBox();
             this.Btn_Reset_Aisle = new System.Windows.Forms.Button();
             this.Btn_Run_Aisle = new System.Windows.Forms.Button();
-            this.RadioButton_Maint_Aisle = new System.Windows.Forms.RadioButton();
+            this.RadioButton_MaintArea_Maint = new System.Windows.Forms.RadioButton();
             this.GroupBox_Stopper = new System.Windows.Forms.GroupBox();
             this.CheckBox_AutoStopper = new System.Windows.Forms.CheckBox();
             this.CheckBox_Alarm_Stopper = new System.Windows.Forms.CheckBox();
@@ -156,6 +156,7 @@
             this.Btn_CloseStopper = new System.Windows.Forms.Button();
             this.Btn_OpenStopper = new System.Windows.Forms.Button();
             this.GroupBox_ = new System.Windows.Forms.GroupBox();
+            this.RadioButton_MaintArea_Aisle = new System.Windows.Forms.RadioButton();
             this.GroupBox_Ctor_MaintArea = new System.Windows.Forms.GroupBox();
             this.CheckBox_ContactorFdbk_MaintArea = new System.Windows.Forms.CheckBox();
             this.Label_ContactorFdbk_MaintArea = new System.Windows.Forms.Label();
@@ -864,7 +865,7 @@
             this.CheckBox_ContactorFdbk_AisleSouth.Text = "FB";
             this.CheckBox_ContactorFdbk_AisleSouth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorFdbk_AisleSouth.UseVisualStyleBackColor = true;
-            this.CheckBox_ContactorFdbk_AisleSouth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_TDWStower_CheckedChanged);
+            this.CheckBox_ContactorFdbk_AisleSouth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_AisleSouth_CheckedChanged);
             // 
             // Label_ContactorFdbk_AisleSouth
             // 
@@ -1116,18 +1117,18 @@
             this.Btn_Run_Aisle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_Run_Aisle_MouseDown);
             this.Btn_Run_Aisle.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_Run_Aisle_MouseUp);
             // 
-            // RadioButton_Maint_Aisle
+            // RadioButton_MaintArea_Maint
             // 
-            this.RadioButton_Maint_Aisle.AutoSize = true;
-            this.RadioButton_Maint_Aisle.Location = new System.Drawing.Point(4, 16);
-            this.RadioButton_Maint_Aisle.Margin = new System.Windows.Forms.Padding(2);
-            this.RadioButton_Maint_Aisle.Name = "RadioButton_Maint_Aisle";
-            this.RadioButton_Maint_Aisle.Size = new System.Drawing.Size(51, 16);
-            this.RadioButton_Maint_Aisle.TabIndex = 6;
-            this.RadioButton_Maint_Aisle.TabStop = true;
-            this.RadioButton_Maint_Aisle.Text = "Maint";
-            this.RadioButton_Maint_Aisle.UseVisualStyleBackColor = true;
-            this.RadioButton_Maint_Aisle.CheckedChanged += new System.EventHandler(this.RadioButton_Maint_Aisle_CheckedChanged);
+            this.RadioButton_MaintArea_Maint.AutoSize = true;
+            this.RadioButton_MaintArea_Maint.Location = new System.Drawing.Point(4, 16);
+            this.RadioButton_MaintArea_Maint.Margin = new System.Windows.Forms.Padding(2);
+            this.RadioButton_MaintArea_Maint.Name = "RadioButton_MaintArea_Maint";
+            this.RadioButton_MaintArea_Maint.Size = new System.Drawing.Size(51, 16);
+            this.RadioButton_MaintArea_Maint.TabIndex = 6;
+            this.RadioButton_MaintArea_Maint.TabStop = true;
+            this.RadioButton_MaintArea_Maint.Text = "Maint";
+            this.RadioButton_MaintArea_Maint.UseVisualStyleBackColor = true;
+            this.RadioButton_MaintArea_Maint.CheckedChanged += new System.EventHandler(this.RadioButton_MaintArea_Maint_CheckedChanged);
             // 
             // GroupBox_Stopper
             // 
@@ -1898,7 +1899,7 @@
             this.GroupBox_MaintArea.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_MaintArea.Name = "GroupBox_MaintArea";
             this.GroupBox_MaintArea.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_MaintArea.Size = new System.Drawing.Size(173, 155);
+            this.GroupBox_MaintArea.Size = new System.Drawing.Size(276, 155);
             this.GroupBox_MaintArea.TabIndex = 26;
             this.GroupBox_MaintArea.TabStop = false;
             this.GroupBox_MaintArea.Text = "メンテナンスエリア";
@@ -1907,7 +1908,7 @@
             // 
             this.groupBox5.Controls.Add(this.Btn_CloseStopper);
             this.groupBox5.Controls.Add(this.Btn_OpenStopper);
-            this.groupBox5.Location = new System.Drawing.Point(90, 65);
+            this.groupBox5.Location = new System.Drawing.Point(158, 16);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
@@ -1942,15 +1943,29 @@
             // 
             // GroupBox_
             // 
-            this.GroupBox_.Controls.Add(this.RadioButton_Maint_Aisle);
+            this.GroupBox_.Controls.Add(this.RadioButton_MaintArea_Aisle);
+            this.GroupBox_.Controls.Add(this.RadioButton_MaintArea_Maint);
             this.GroupBox_.Location = new System.Drawing.Point(90, 16);
             this.GroupBox_.Margin = new System.Windows.Forms.Padding(2);
             this.GroupBox_.Name = "GroupBox_";
             this.GroupBox_.Padding = new System.Windows.Forms.Padding(2);
-            this.GroupBox_.Size = new System.Drawing.Size(64, 45);
+            this.GroupBox_.Size = new System.Drawing.Size(64, 60);
             this.GroupBox_.TabIndex = 30;
             this.GroupBox_.TabStop = false;
             this.GroupBox_.Text = "KeySw";
+            // 
+            // RadioButton_MaintArea_Aisle
+            // 
+            this.RadioButton_MaintArea_Aisle.AutoSize = true;
+            this.RadioButton_MaintArea_Aisle.Location = new System.Drawing.Point(4, 36);
+            this.RadioButton_MaintArea_Aisle.Margin = new System.Windows.Forms.Padding(2);
+            this.RadioButton_MaintArea_Aisle.Name = "RadioButton_MaintArea_Aisle";
+            this.RadioButton_MaintArea_Aisle.Size = new System.Drawing.Size(49, 16);
+            this.RadioButton_MaintArea_Aisle.TabIndex = 7;
+            this.RadioButton_MaintArea_Aisle.TabStop = true;
+            this.RadioButton_MaintArea_Aisle.Text = "Aisle";
+            this.RadioButton_MaintArea_Aisle.UseVisualStyleBackColor = true;
+            this.RadioButton_MaintArea_Aisle.CheckedChanged += new System.EventHandler(this.RadioButton_MaintArea_Aisle_CheckedChanged);
             // 
             // GroupBox_Ctor_MaintArea
             // 
@@ -2416,6 +2431,7 @@
             this.CheckBox_ContactorFdbk_TDWStower.Text = "FB";
             this.CheckBox_ContactorFdbk_TDWStower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorFdbk_TDWStower.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorFdbk_TDWStower.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_TDWStower_CheckedChanged);
             // 
             // Label_ContactorFdbk_TDWStower
             // 
@@ -3376,7 +3392,7 @@
         private System.Windows.Forms.GroupBox groupBox23;
         private System.Windows.Forms.CheckBox CheckBox_AllSmallAisles;
         private System.Windows.Forms.ComboBox ComboBox_SmallAisle;
-        private System.Windows.Forms.RadioButton RadioButton_Maint_Aisle;
+        private System.Windows.Forms.RadioButton RadioButton_MaintArea_Maint;
         private System.Windows.Forms.Label Label_UnlockDoor_Aisle;
         private System.Windows.Forms.Label Label_DoorIsLocked_Aisle;
         private System.Windows.Forms.CheckBox CheckBox_ContactorTripped_AisleNorth;
@@ -3493,5 +3509,6 @@
         private System.Windows.Forms.Button Btn_OpenStopper;
         private System.Windows.Forms.Button Btn_CloseStopper;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton RadioButton_MaintArea_Aisle;
     }
 }

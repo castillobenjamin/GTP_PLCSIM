@@ -1469,14 +1469,14 @@ namespace PLCSIM_Adv_CoSimulation
                     {
                         updateOk = UpdateInput(aisle.Contactors[0].ContactorOnOffCommand, parsedAction);
                         // Need to update feedback too. Inverse of the output
-                        updateOk = UpdateInput(aisle.Contactors[0].ContactorFeedback, !parsedAction);
+                        updateOk = UpdateInput(aisle.Contactors[0].Feedback, !parsedAction);
                         return updateOk;
                     }
                     else if (selection.ToLower() == "south")
                     {
                         updateOk = UpdateInput(aisle.Contactors[1].ContactorOnOffCommand, parsedAction);
                         // Need to update feedback too. Inverse of the output
-                        updateOk = UpdateInput(aisle.Contactors[1].ContactorFeedback, !parsedAction);
+                        updateOk = UpdateInput(aisle.Contactors[1].Feedback, !parsedAction);
                         return updateOk;
                     }
                     else
@@ -1490,7 +1490,7 @@ namespace PLCSIM_Adv_CoSimulation
                     dws = (DynamicWorkStation)parsedArea;
                     updateOk = UpdateInput(dws.Contactor.ContactorOnOffCommand, parsedAction);
                     // Need to update feedback too. Inverse of the output
-                    updateOk = UpdateInput(dws.Contactor.ContactorFeedback, !parsedAction);
+                    updateOk = UpdateInput(dws.Contactor.Feedback, !parsedAction);
                     return updateOk;
                 }
                 // No reset btn on DWS
