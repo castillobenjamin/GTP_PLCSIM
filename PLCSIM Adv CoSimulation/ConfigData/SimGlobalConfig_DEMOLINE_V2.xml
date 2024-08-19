@@ -99,22 +99,22 @@
 				<EarthFault Type="inputB">
 					<Tag>AS-I1_EARTH_FAULT_B_DWS</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I2_EARTH_FAULT_B_DWS</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I3_EARTH_FAULT_B_DWS</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I5_EARTH_FAULT_B_DWS</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 			</EarthFaults>
 			<VoltageOn Type="input">
