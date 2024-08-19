@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -16,15 +17,13 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         
         public RegisterFromPlc BotHPtoCell { get; set; } // BOT HP register to CELL
         
-        // Input for the third notch of the key switch.
-        // Having it here is not ideal, but it is the easiest implementation
-        public PlcInput KeySwMaint { get; set; }
-
-
-        public PlcInput StopperOpenBtn { get; set; }
-
-        public PlcInput StopperCloseBtn { get; set; }
+        // Maintenance area key switch
+        public KeySwitchMaint KeySwitch { get; set; }
         
+        // Maintenance status lamp
+        [XmlElement("StatusLamp")]
+        public PlcOutput Lamp { get; set; }
+
         public Stopper Stopper { get; set; }
 
         public Contactor Contactor { get; set; }

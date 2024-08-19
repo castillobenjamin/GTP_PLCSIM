@@ -201,22 +201,22 @@
 				<EarthFault Type="inputB">
 					<Tag>AS-I1_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I2_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I3_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I4_EARTH_FAULT_B_SOUTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 			</EarthFaults>
 			<VoltageOn Type="input">
@@ -298,17 +298,17 @@
 				<EarthFault Type="inputB">
 					<Tag>AS-I1_EARTH_FAULT_B_NORTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I2_EARTH_FAULT_B_NORTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 				<EarthFault Type="inputB">
 					<Tag>AS-I4_EARTH_FAULT_B_NORTH</Tag>
 					<Address />
-					<Value>false</Value>
+					<Value>true</Value>
 				</EarthFault>
 			</EarthFaults>
 			<VoltageOn Type="input">
@@ -352,7 +352,7 @@
 	</Panels>
 	<MaintenanceArea>
 		<BotPresent Type="input">
-			<Tag></Tag>
+			<Tag>MAINT-HP_MAINT</Tag>
 			<Address></Address>
 			<Value>true</Value>
 		</BotPresent>
@@ -363,23 +363,24 @@
 			<BitPosition>4</BitPosition>
 			<Value>1</Value>
 		</BotHPtoCell>
-		<!--This is the third notch on the operation box key switch-->
-		<!--TODO Add tag.-->
-		<KeySwMaint Type="input">
-			<Tag>NoTag</Tag>
+		<!--This is the key switch for the maintenance area-->
+		<KeySwitch>
+			<AisleMode Type="input">
+				<Tag>MODECHANGE_AISLEMODE_MAINT</Tag>
+				<Address />
+				<Value>true</Value>
+			</AisleMode>
+			<MaintMode Type="input">
+				<Tag>MODECHANGE_MAINTMODE_MAINT</Tag>
+				<Address />
+				<Value>false</Value>
+			</MaintMode>
+		</KeySwitch>
+		<StatusLamp>
+			<Tag>MODECHANGE_LED_MAINT</Tag>
 			<Address />
 			<Value>false</Value>
-		</KeySwMaint>
-		<StopperOpenBtn Type="input">
-			<Tag></Tag>
-			<Address></Address>
-			<Value>true</Value>
-		</StopperOpenBtn>
-		<StopperCloseBtn Type="input">
-			<Tag></Tag>
-			<Address></Address>
-			<Value>true</Value>
-		</StopperCloseBtn>
+		</StatusLamp>
 		<!--The maintenance stopper is defined in the Stoppers section.-->
 		<Contactor>
 			<Contactor Name="Maintenance Area Contactor">
@@ -3027,32 +3028,32 @@
 		<!--Aisle1 Maintenance area-->
 		<Stopper Name="MaintenanceAreaStopperAisle1" Label="Maintenance Area Stopper (Aisle1)">
 			<PlcOpenOut Type="output">
-				<Tag>ELC_DQ_OPEN_MaintAreaAisle1</Tag>
+				<Tag>ELC_DQ_OPEN_MAINT</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcOpenOut>
 			<PlcCloseOut Type="output">
-				<Tag>ELC_DQ_CLOSE_MaintAreaAisle1</Tag>
+				<Tag>ELC_DQ_CLOSE_MAINT</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcCloseOut>
 			<PlcResetAlarmOut Type="output">
-				<Tag>ELC_DQ_RES_MaintAreaAisle1</Tag>
+				<Tag>ELC_DQ_RES_MAINT</Tag>
 				<Address />
 				<Value>false</Value>
 			</PlcResetAlarmOut>
 			<IsOpenSensor Type="input">
-				<Tag>ELC_DI_OPEN_MaintAreaAisle1</Tag>
+				<Tag>ELC_DI_OPEN_MAINT</Tag>
 				<Address />
 				<Value>true</Value>
 			</IsOpenSensor>
 			<IsClosedSensor Type="input">
-				<Tag>ELC_DI_CLOSED_MaintAreaAisle1</Tag>
+				<Tag>ELC_DI_CLOSED_MAINT</Tag>
 				<Address />
 				<Value>false</Value>
 			</IsClosedSensor>
 			<Alarm Type="input">
-				<Tag>ELC_DI_ALM_MaintAreaAisle1</Tag>
+				<Tag>ELC_DI_ALM_MAINT</Tag>
 				<Address />
 				<Value>true</Value>
 			</Alarm>

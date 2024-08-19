@@ -287,8 +287,7 @@ namespace PLCSIM_Adv_CoSimulation
                 UpdateTowerDwsOutputs();
                 UpdateSmallAisleOutputs();
                 UpdateStopperOutputs();
-                //TODO - uncomment this line once the maintenance area IO tags are added to the configuration file.
-                //UpdateMaintAreaOutputs();
+                UpdateMaintAreaOutputs();
                 // Unique controls
                 Update_Label_CELLcomm_PlcStatus();
                 Update_ColorLabel_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.DwsPanel);
@@ -476,7 +475,7 @@ namespace PLCSIM_Adv_CoSimulation
                     aisle.OperationBox.KeySwitch.Req.Value = RadioButton_Req_Aisle.Checked;
                 });
                 string isReq = RadioButton_Req_Aisle.Checked ? "Req" : "No Req";
-                ListBox_Log.Items.Add("All Aisle Doors are " + isReq);
+                ListBox_Log.Items.Add("All Aisles are " + isReq);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
@@ -849,53 +848,11 @@ namespace PLCSIM_Adv_CoSimulation
         #endregion // safety boards
 
         #region Door
-        /// <summary>
-        /// This only updates the interface based on the current PLCinput. 
-        /// Not the other way around.
-        /// This is a PLC input that depends on 2 signals.
-        /// One is the door closed sensor.
-        /// The other is the PLC unlock output.
-        /// </summary>
-        private void Update_Label_DoorIsLocked_Aisle()
-        {
-            string doorStatus;
-            // Read Plc output
-            // The door is locked when the door is closed and the unlock output is false.
-            // TODO - check the behaviour of this if.
-            if (currentAisle.Door.IsDoorClosed & !currentAisle.Door.unlockDoor.Value)
-            {
-                Label_DoorIsLocked_Aisle.ForeColor = activeLabelColor;
-                Label_DoorIsLocked_Aisle.Font = activeLabelFont;
-                doorStatus = "locked";
-            }
-            else
-            {
-                Label_DoorIsLocked_Aisle.ForeColor = emergencyLabelColor;
-                Label_DoorIsLocked_Aisle.Font = emergencyLabelFont;
-                doorStatus = "unlocked";
-            }
-            //Update label
-            Label_DoorIsLocked_Aisle.Text = doorStatus;
-        }
-        private void Update_Label_UnlockDoor_Aisle()
-        {
-            string unlockStatus;
-            //Read output
-            if (currentAisle.Door.unlockDoor.Value)
-            {
-                Label_UnlockDoor_Aisle.ForeColor = activeLabelColor;
-                Label_UnlockDoor_Aisle.Font = activeLabelFont;
-                unlockStatus = "ON";
-            }
-            else
-            {
-                Label_UnlockDoor_Aisle.ForeColor = inactiveLabelColor;
-                Label_UnlockDoor_Aisle.Font = inactiveLabelFont;
-                unlockStatus = "OFF";
-            }
-            //Update label
-            Label_DoorIsLocked_Aisle.Text = "unlock" + unlockStatus;
-        }
+        /*
+        // Using the following methods.
+        Update_Label_DoorIsLocked(currentAisle, Label_DoorIsLocked_Aisle); 
+        Update_Label_UnlockDoor(currentAisle, Label_UnlockDoor_Aisle);
+         */
         #endregion // Door
 
         #region Contactors
@@ -992,7 +949,6 @@ namespace PLCSIM_Adv_CoSimulation
             updateZoningRadioButtons(currentDeck, ref RadioButton_None_Deck,
                 ref RadioButton_Run_Deck, ref RadioButton_Permit_Deck, ref RadioButton_Cancel_Deck);
 
-
             // Key switch
             RadioButton_Req_Deck.Checked = currentDeck.OperationBox.KeySwitch.Req.Value;
             RadioButton_Ready_Aisle.Checked = currentDeck.OperationBox.KeySwitch.Ready.Value;
@@ -1058,22 +1014,22 @@ namespace PLCSIM_Adv_CoSimulation
         }
         #endregion // Reset btn
 
-        #region Request btn
-        private void Btn_Request_Deck_MouseDown(object sender, MouseEventArgs e)
+        #region Run btn
+        private void Btn_Run_Deck_MouseDown(object sender, MouseEventArgs e)
         {
             ButtonChanged(
                 currentDeck.OperationBox.RunBtn,
                 true,
                 currentDeck.Label + " Run");
         }
-        private void Btn_Request_Deck_MouseUp(object sender, MouseEventArgs e)
+        private void Btn_Run_Deck_MouseUp(object sender, MouseEventArgs e)
         {
             ButtonChanged(
                 currentDeck.OperationBox.RunBtn,
                 false,
                 currentDeck.Label + " Run");
         }
-        #endregion // Request btn
+        #endregion // Run btn
 
         #region Key switch
         private void RadioButton_Ready_Deck_CheckedChanged(object sender, EventArgs e)
@@ -1083,14 +1039,14 @@ namespace PLCSIM_Adv_CoSimulation
                 CoSimulationInstance.AlphaBotSystem.Decks.ForEach(deck =>
                     deck.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_Deck.Checked);
                 string isReady = RadioButton_Ready_Deck.Checked ? "Ready" : "Not Ready";
-                ListBox_Log.Items.Add("All Deck Doors are " + isReady);
+                ListBox_Log.Items.Add("All Decks are " + isReady);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
             {
                 currentDeck.OperationBox.KeySwitch.Ready.Value = RadioButton_Ready_Deck.Checked;
                 string isReady = RadioButton_Ready_Deck.Checked ? "Ready" : "Not Ready";
-                ListBox_Log.Items.Add(currentDeck.Label + " Door is " + isReady);
+                ListBox_Log.Items.Add(currentDeck.Label + " " + isReady);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
@@ -1104,7 +1060,7 @@ namespace PLCSIM_Adv_CoSimulation
                     deck.OperationBox.KeySwitch.Req.Value = RadioButton_Req_Deck.Checked;
                 });
                 string isReq = RadioButton_Req_Deck.Checked ? "Req" : "No Req";
-                ListBox_Log.Items.Add("All Deck Doors are " + isReq);
+                ListBox_Log.Items.Add("All Decks are " + isReq);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
@@ -2011,7 +1967,7 @@ namespace PLCSIM_Adv_CoSimulation
                     saisle.OperationBox.KeySwitch.Req.Value = RadioButton_Req_SmallAisle.Checked;
                 });
                 string isReq = RadioButton_Req_SmallAisle.Checked ? "Req" : "No Req";
-                ListBox_Log.Items.Add("All TDWS " + isReq);
+                ListBox_Log.Items.Add("All Small Aisles " + isReq);
                 ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
             else
@@ -2926,49 +2882,25 @@ namespace PLCSIM_Adv_CoSimulation
         #region Key switch
         private void RadioButton_MaintArea_Maint_CheckedChanged(object sender, EventArgs e)
         {
-            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwMaint.Value =
-                RadioButton_MaintArea_Maint.Checked;
-            // If the maintenance mode is selected, uncheck the other radio buttons.
-            if (RadioButton_MaintArea_Maint.Checked)
-            {
-                RadioButton_Ready_Aisle.Checked = false;
-                RadioButton_Req_Aisle.Checked = false;
-            }
-            string isMaint = RadioButton_MaintArea_Maint.Checked ? "Maint" : "not Maint";
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwitch.Maint.Value =
+                RadioButton_MaintArea_MaintMode.Checked;
+
+            string isMaint = RadioButton_MaintArea_MaintMode.Checked ? "Maint" : "not Maint";
             ListBox_Log.Items.Add(currentAisle.Label + " " + isMaint);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
-        #endregion
 
-        #region Stopper control buttons
-        private void Btn_OpenStopper_MouseDown(object sender, MouseEventArgs e)
+        private void RadioButton_MaintArea_Aisle_CheckedChanged(object sender, EventArgs e)
         {
-            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperOpenBtn.Value = true;
-            ListBox_Log.Items.Add("Open stopper btn pressed.");
+            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwitch.Aisle.Value =
+                RadioButton_MaintArea_AisleMode.Checked;
+
+            string isMaint = RadioButton_MaintArea_MaintMode.Checked ? "Aisle" : "not Aisle";
+            ListBox_Log.Items.Add(currentAisle.Label + " " + isMaint);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
 
-        private void Btn_OpenStopper_MouseUp(object sender, MouseEventArgs e)
-        {
-            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperOpenBtn.Value = false;
-            ListBox_Log.Items.Add("Open stopper btn released.");
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void Btn_CloseStopper_MouseDown(object sender, MouseEventArgs e)
-        {
-            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperCloseBtn.Value = true;
-            ListBox_Log.Items.Add("Close stopper btn pressed.");
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void Btn_CloseStopper_MouseUp(object sender, MouseEventArgs e)
-        {
-            CoSimulationInstance.AlphaBotSystem.MaintenanceArea.StopperCloseBtn.Value = false;
-            ListBox_Log.Items.Add("Close stopper btn released.");
-            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-        #endregion // Stopper control buttons
+        #endregion Key switch
 
         #endregion // Input
 
@@ -2976,8 +2908,13 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void UpdateMaintAreaOutputs()
         {
-            Update_Label_ContactorPlcOut_MaintArea();
-            Update_Label_BotHPtoCell();
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea != null)
+            {
+                //TODO uncomment once the tags are added
+                //Update_Label_ContactorPlcOut_MaintArea();
+                Update_Label_BotHPtoCell();
+                Update_Label_MaintenanceStatus();
+            }
         }
 
         #region Contactor
@@ -3004,30 +2941,47 @@ namespace PLCSIM_Adv_CoSimulation
             //Update labels
             Label_ContactorPlcOut_MaintArea.Text = status;
         }
-
-
         #endregion // Contactor
 
         #region Bot HP
         private void Update_Label_BotHPtoCell()
         {
-            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea != null)
+            // Read Plc output
+            bool flag = Utils.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.MaintenanceArea.BotHPtoCell);
+            if (flag)
             {
-                // Read Plc output
-                bool flag = Utils.ReadRegisterBit(CoSimulationInstance.AlphaBotSystem.MaintenanceArea.BotHPtoCell);
-                if (flag)
-                {
-                    Label_BotHPtoCell.ForeColor = activeLabelColor;
-                    Label_BotHPtoCell.Font = activeLabelFont;
-                }
-                else
-                {
-                    Label_BotHPtoCell.ForeColor = inactiveLabelColor;
-                    Label_BotHPtoCell.Font = inactiveLabelFont;
-                }
+                Label_BotHPtoCell.ForeColor = activeLabelColor;
+                Label_BotHPtoCell.Font = activeLabelFont;
+            }
+            else
+            {
+                Label_BotHPtoCell.ForeColor = inactiveLabelColor;
+                Label_BotHPtoCell.Font = inactiveLabelFont;
             }
         }
         #endregion // Bot HP
+
+        #region Status lamp
+        private void Update_Label_MaintenanceStatus()
+        {
+            string status;
+            // Read Plc output
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea.Lamp.Value == true)
+            {
+                status = "ON";
+                Label_MaintenanceStatus.ForeColor = activeLabelColor;
+                Label_MaintenanceStatus.Font = activeLabelFont;
+            }
+            else
+            {
+                status = "OFF";
+                Label_MaintenanceStatus.ForeColor = inactiveLabelColor;
+                Label_MaintenanceStatus.Font = inactiveLabelFont;
+            }
+            //Update labels
+            Label_MaintenanceStatus.Text = status;
+        }
+        #endregion // Status lamp
 
         #endregion // Output
 
@@ -3115,9 +3069,15 @@ namespace PLCSIM_Adv_CoSimulation
             // Read Plc output
             // The door is locked when the door is closed and the unlock output is false.
             // TODO - check the behaviour of this if.
-            if (zone.Door.IsDoorClosed & !zone.Door.unlockDoor.Value)
+            if (zone.Door.unlockDoor.Value)
             {
-                // Update plc input.
+                zone.Door.IsDoorLocked.Value = false;
+                label.ForeColor = emergencyLabelColor;
+                label.Font = emergencyLabelFont;
+                doorStatus = "開錠";
+            }
+            else if (zone.Door.IsDoorClosed & !zone.Door.unlockDoor.Value)
+            {
                 zone.Door.IsDoorLocked.Value = true;
                 label.ForeColor = activeLabelColor;
                 label.Font = activeLabelFont;
@@ -3125,10 +3085,10 @@ namespace PLCSIM_Adv_CoSimulation
             }
             else
             {
-                zone.Door.IsDoorLocked.Value = false;
-                label.ForeColor = emergencyLabelColor;
-                label.Font = emergencyLabelFont;
-                doorStatus = "開錠";
+                zone.Door.IsDoorLocked.Value = true;
+                label.ForeColor = errorLabelColor;
+                label.Font = errorLabelFont;
+                doorStatus = "???";
             }
             //Update label
             label.Text = doorStatus;
@@ -3275,10 +3235,5 @@ namespace PLCSIM_Adv_CoSimulation
             // Nothing to do here for now.
         }
         #endregion // Unhandled IO
-
-        private void RadioButton_MaintArea_Aisle_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Models\Configuration\Bot.cs" />
     <Compile Include="Models\Configuration\KeySwitch.cs" />
+    <Compile Include="Models\Configuration\KeySwitchMaint.cs" />
     <Compile Include="Models\Configuration\SignalTower.cs" />
     <Compile Include="Models\Configuration\SmallAisle.cs" />
     <Compile Include="Models\Configuration\TowerDynamicWorkStation.cs" />
