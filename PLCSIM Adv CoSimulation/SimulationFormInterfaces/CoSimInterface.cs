@@ -161,9 +161,9 @@ namespace PLCSIM_Adv_CoSimulation
             ComboBox_Stoppers.SelectedIndex = 0;
 
             //Bots
-            CoSimulationInstance.AlphaBotSystem.Stoppers.ForEach(x =>
+            CoSimulationInstance.AlphaBotSystem.Bots.ForEach(x =>
             {
-                ComboBox_Stoppers.Items.Add(x.Label);
+                ComboBox_Bots.Items.Add(x.Label);
             });
         }
         private void InitializeControls()
