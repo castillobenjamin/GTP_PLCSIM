@@ -2510,11 +2510,34 @@ namespace PLCSIM_Adv_CoSimulation
         private void UpdateStopperInterface()
         {
             #region Inputs
-            bool flag = Utils.ReadRegisterBit(currentStopper.OpenCommandFromCell);
-            CheckBox_OpenCommandFromCell_Stopper.Checked = flag;
-            flag =  Utils.ReadRegisterBit(currentStopper.CloseCommandFromCell);
-            CheckBox_CloseCommandFromCell_Stopper.Checked = flag;
-
+            // Only check for CELL commands if the current stopper is not the maintenance area stopper.
+            // (The maintenance area stopper has no CELL commands).
+            if (!currentStopper.Label.Contains("Maintenance"))
+            {
+                //Show all CELL related UI controls
+                CheckBox_OpenCommandFromCell_Stopper.Show();
+                CheckBox_CloseCommandFromCell_Stopper.Show();
+                Label_IsOpenStatusToCell_Stopper.Show();
+                Label_IsClosedStatusToCell_Stopper.Show();
+                Label_ErrorSignalToCell_Stopper.Show();
+                Label_TimeOverSignalToCell_Stopper.Show();
+                //Read modbus registers
+                bool flag = Utils.ReadRegisterBit(currentStopper.OpenCommandFromCell);
+                CheckBox_OpenCommandFromCell_Stopper.Checked = flag;
+                flag = Utils.ReadRegisterBit(currentStopper.CloseCommandFromCell);
+                CheckBox_CloseCommandFromCell_Stopper.Checked = flag;
+            }
+            else
+            {
+                // Hide all CELL related UI controls
+                CheckBox_OpenCommandFromCell_Stopper.Hide();
+                CheckBox_CloseCommandFromCell_Stopper.Hide();
+                Label_IsOpenStatusToCell_Stopper.Hide();
+                Label_IsClosedStatusToCell_Stopper.Hide();
+                Label_ErrorSignalToCell_Stopper.Hide();
+                Label_TimeOverSignalToCell_Stopper.Hide();
+            }
+            
             // Sensors
             CheckBox_Alarm_Stopper.Checked = currentStopper.Alarm.Value;
             // Check if sensor logic is inverted
@@ -3085,7 +3108,7 @@ namespace PLCSIM_Adv_CoSimulation
             }
             else
             {
-                zone.Door.IsDoorLocked.Value = true;
+                zone.Door.IsDoorLocked.Value = false;
                 label.ForeColor = errorLabelColor;
                 label.Font = errorLabelFont;
                 doorStatus = "???";

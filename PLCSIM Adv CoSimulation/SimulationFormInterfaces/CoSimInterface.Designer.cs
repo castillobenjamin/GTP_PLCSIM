@@ -2784,6 +2784,7 @@
             this.CheckBox_ContactorFdbk_SmallAisle.Text = "FB";
             this.CheckBox_ContactorFdbk_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorFdbk_SmallAisle.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorFdbk_SmallAisle.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_SmallAisle_CheckedChanged);
             // 
             // Label_ContactorFdbk_SmallAisle
             // 
