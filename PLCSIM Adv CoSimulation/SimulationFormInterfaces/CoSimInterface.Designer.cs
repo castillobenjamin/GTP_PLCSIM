@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.GroupBox GroupBox_SafetyBoard_TDWS;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoSimInterface));
+            this.GroupBox_SafetyBoard_TDWS = new System.Windows.Forms.GroupBox();
             this.CheckBox_SafetyBoard_TDWS = new System.Windows.Forms.CheckBox();
             this.Label_SafetyBoard_TDWS = new System.Windows.Forms.Label();
             this.groupBoxCELL = new System.Windows.Forms.GroupBox();
@@ -247,8 +247,7 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.CheckBox_Estop_BOT = new System.Windows.Forms.CheckBox();
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
-            GroupBox_SafetyBoard_TDWS = new System.Windows.Forms.GroupBox();
-            GroupBox_SafetyBoard_TDWS.SuspendLayout();
+            this.GroupBox_SafetyBoard_TDWS.SuspendLayout();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -306,16 +305,16 @@
             // 
             // GroupBox_SafetyBoard_TDWS
             // 
-            GroupBox_SafetyBoard_TDWS.Controls.Add(this.CheckBox_SafetyBoard_TDWS);
-            GroupBox_SafetyBoard_TDWS.Controls.Add(this.Label_SafetyBoard_TDWS);
-            GroupBox_SafetyBoard_TDWS.Location = new System.Drawing.Point(137, 329);
-            GroupBox_SafetyBoard_TDWS.Margin = new System.Windows.Forms.Padding(2);
-            GroupBox_SafetyBoard_TDWS.Name = "GroupBox_SafetyBoard_TDWS";
-            GroupBox_SafetyBoard_TDWS.Padding = new System.Windows.Forms.Padding(2);
-            GroupBox_SafetyBoard_TDWS.Size = new System.Drawing.Size(129, 46);
-            GroupBox_SafetyBoard_TDWS.TabIndex = 32;
-            GroupBox_SafetyBoard_TDWS.TabStop = false;
-            GroupBox_SafetyBoard_TDWS.Text = "足場板";
+            this.GroupBox_SafetyBoard_TDWS.Controls.Add(this.CheckBox_SafetyBoard_TDWS);
+            this.GroupBox_SafetyBoard_TDWS.Controls.Add(this.Label_SafetyBoard_TDWS);
+            this.GroupBox_SafetyBoard_TDWS.Location = new System.Drawing.Point(137, 329);
+            this.GroupBox_SafetyBoard_TDWS.Margin = new System.Windows.Forms.Padding(2);
+            this.GroupBox_SafetyBoard_TDWS.Name = "GroupBox_SafetyBoard_TDWS";
+            this.GroupBox_SafetyBoard_TDWS.Padding = new System.Windows.Forms.Padding(2);
+            this.GroupBox_SafetyBoard_TDWS.Size = new System.Drawing.Size(129, 46);
+            this.GroupBox_SafetyBoard_TDWS.TabIndex = 32;
+            this.GroupBox_SafetyBoard_TDWS.TabStop = false;
+            this.GroupBox_SafetyBoard_TDWS.Text = "足場板";
             // 
             // CheckBox_SafetyBoard_TDWS
             // 
@@ -1859,6 +1858,7 @@
             this.Btn_Reset_NorthPanel.Text = "Reset";
             this.Btn_Reset_NorthPanel.UseVisualStyleBackColor = true;
             this.Btn_Reset_NorthPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_NorthPanel_MouseDown);
+            this.Btn_Reset_NorthPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Btn_Reset_NorthPanel_MouseUp);
             // 
             // Label_LedTower_NorthPanel
             // 
@@ -1913,7 +1913,7 @@
             this.groupBox5.Controls.Add(this.Label_MaintenanceStatus);
             this.groupBox5.Location = new System.Drawing.Point(159, 21);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(87, 40);
+            this.groupBox5.Size = new System.Drawing.Size(102, 40);
             this.groupBox5.TabIndex = 40;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "切替許可　灯";
@@ -2084,7 +2084,7 @@
             this.groupBox4.Controls.Add(this.ComboBox_TowerDWS);
             this.groupBox4.Controls.Add(this.GroupBox_Estop_TDWS);
             this.groupBox4.Controls.Add(this.GroupBox_OpBox_TDWS);
-            this.groupBox4.Controls.Add(GroupBox_SafetyBoard_TDWS);
+            this.groupBox4.Controls.Add(this.GroupBox_SafetyBoard_TDWS);
             this.groupBox4.Controls.Add(this.GroupBox_Contactors_TDWS);
             this.groupBox4.Controls.Add(this.GroupBox_ZoningTDWS);
             this.groupBox4.Location = new System.Drawing.Point(726, 10);
@@ -3170,8 +3170,8 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CoSimInterface";
             this.Text = "AlphaBot PLC SIM - IO";
-            GroupBox_SafetyBoard_TDWS.ResumeLayout(false);
-            GroupBox_SafetyBoard_TDWS.PerformLayout();
+            this.GroupBox_SafetyBoard_TDWS.ResumeLayout(false);
+            this.GroupBox_SafetyBoard_TDWS.PerformLayout();
             this.groupBoxCELL.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -3500,5 +3500,6 @@
         private System.Windows.Forms.RadioButton RadioButton_MaintArea_AisleMode;
         private System.Windows.Forms.Label Label_MaintenanceStatus;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox GroupBox_SafetyBoard_TDWS;
     }
 }

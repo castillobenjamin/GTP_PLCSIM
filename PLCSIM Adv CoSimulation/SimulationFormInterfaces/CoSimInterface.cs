@@ -8,24 +8,15 @@ using System.Linq;
 using System.Windows.Forms;
 
 //TODOLIST
-//TODO - use the [XmlElement(ElementName = "fields")] pattern.
-//This way the name of the xml attribute and the class properties does not have to match.
 //TODO - try to separate the control methods from the input logic? In case the interface changes?
 //TODO - use refs and whatnot instead of passing copies of parameters.
 //TODO - Think of a way to merge the RadioButton_[XXX]_CheckedChanged methods.
-//TODO - check that the XML file / Modbus registers / Classes match.
-//TODO - make maintenance area only visible when the Aisle 1 is displayed.
-//       need to somehow connect the operation of the key switch radio buttons. (when maintenance mode is selected, deselect the "Ready" radio button
-//       Also, restrict the operation so it can only be done in the intended order. (request →　ready　→ maintenance)
-//       still need to ucheck the "maint" radio button when one of the other options is selected.
-//TODO - make the maintenance stopper part of the list of all stoppers????
 //TODO - implement missing Panel inputs (button lamps, earth faults, buzzer, voltageOn, spikeAlarm, etc).
 //TODO - add missing cell communication methods.
 //TODO - buzzer and signal tower logic.
 
 /* 
  ** Changes and remarks concerning updates for Demoline v2
-
  * Door input.
  * The Open/Close radio buttons are not the direct input of the PLC.
  * The PLC input signals when the "door is locked". 
@@ -165,6 +156,7 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 ComboBox_Bots.Items.Add(x.Label);
             });
+            ComboBox_Bots.SelectedIndex = 0;
         }
         private void InitializeControls()
         {
@@ -187,15 +179,8 @@ namespace PLCSIM_Adv_CoSimulation
             currentStopper = 
                 CoSimulationInstance.AlphaBotSystem.Stoppers[
                     ComboBox_Stoppers.SelectedIndex];
-            if (CoSimulationInstance.AlphaBotSystem.MaintAreaSpecified)
-            {
-                InitializeMaintArea();
-            }
         }
-        private void InitializeMaintArea()
-        {
-            // TODO: Add new initialization for maintenance area.
-        }
+
         /// <summary>
         /// Hides controls that are not used for the current configuration
         /// </summary>
@@ -225,7 +210,7 @@ namespace PLCSIM_Adv_CoSimulation
                 // Tower DWS
                 GroupBox_OpBox_TDWS.Hide();
                 GroupBox_Door_TDWS.Hide();
-                // TODO add safety boards.
+                GroupBox_SafetyBoard_TDWS.Hide();
                 // Small Aisle
                 GroupBox_OpBox_SmallAisle.Hide();
                 Label_ContactorPlcOut_SmallAisle.Hide();
@@ -317,27 +302,6 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_EstopBtn_Aisle.Checked = !currentAisle.OperationBox.EmergencyBtn.Value;
 
             // Zoning
-            // TODO delete the commented code once the new implementation is tested.
-            /* TO BE DELETED
-            switch (currentAisle.Zoning.CellCommand.Value)
-            {
-                case (byte)Utils.CellCommandValues.None:
-                    RadioButton_None_Aisle.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Run:
-                    RadioButton_Run_Aisle.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Permit:
-                    RadioButton_Permit_Aisle.Checked = true;
-                    break;
-                case (byte)Utils.CellCommandValues.Cancel:
-                    RadioButton_Cancel_Aisle.Checked = true;
-                    break;
-                default:
-                    Console.WriteLine("The zoning command for Aisle was not recognized.");
-                    break;
-            }
-            */
             updateZoningRadioButtons(currentAisle, ref RadioButton_None_Aisle, 
                 ref RadioButton_Run_Aisle, ref RadioButton_Permit_Aisle, ref RadioButton_Cancel_Aisle);
 
@@ -740,10 +704,6 @@ namespace PLCSIM_Adv_CoSimulation
             Update_Label_SafetyBoard_AisleSouth();
             Update_Label_ContactorPlcOut_AisleNorth();
             Update_Label_ContactorPlcOut_AisleSouth();
-            // TODO - delete unused methods after testing.
-            //Update_Label_DoorIsLocked_Aisle();
-            //Update_Label_UnlockDoor_Aisle();
-            //Use these methods instead of the XX_Aisle() ones;
             Update_Label_DoorIsLocked(currentAisle, Label_DoorIsLocked_Aisle);
             Update_Label_UnlockDoor(currentAisle, Label_UnlockDoor_Aisle);
             UpdateAllAisleContactorOutputs();
@@ -951,7 +911,7 @@ namespace PLCSIM_Adv_CoSimulation
 
             // Key switch
             RadioButton_Req_Deck.Checked = currentDeck.OperationBox.KeySwitch.Req.Value;
-            RadioButton_Ready_Aisle.Checked = currentDeck.OperationBox.KeySwitch.Ready.Value;
+            RadioButton_Ready_Deck.Checked = currentDeck.OperationBox.KeySwitch.Ready.Value;
 
             // Door
             RadioButton_DoorClosed_Deck.Checked = currentDeck.Door.IsDoorClosed;
@@ -2403,6 +2363,7 @@ namespace PLCSIM_Adv_CoSimulation
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
 
+        // TODO. Add button on user interface
         private void Btn_Reset_SouthPanel_MouseDown(object sender, MouseEventArgs e)
         {
             CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel.ResetBtn.Value = true;
@@ -2655,7 +2616,6 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void Update_Label_IsOpenSensor_Stopper()
         {
-            //TODO - update
             // Check sensor logic
             if (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted)
             {
@@ -2669,7 +2629,6 @@ namespace PLCSIM_Adv_CoSimulation
 
         private void Update_Label_IsClosedSensor_Stopper()
         {
-            //TODO - update
             // Check sensor logic
             if (CoSimulationInstance.AlphaBotSystem.IsStopperSensorInverted)
             {
@@ -3044,7 +3003,6 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Common methods
 
-        // TODO use this method.
         /// <summary>
         /// Update the value of the Zoning command radio buttons based on the values of the current zone.
         /// </summary>
@@ -3087,11 +3045,9 @@ namespace PLCSIM_Adv_CoSimulation
         /// </summary>
         private void Update_Label_DoorIsLocked(ZoneWithDoor zone, Label label)
         {
-            // TODO - Shorten the strings.
             string doorStatus;
             // Read Plc output
             // The door is locked when the door is closed and the unlock output is false.
-            // TODO - check the behaviour of this if.
             if (zone.Door.unlockDoor.Value)
             {
                 zone.Door.IsDoorLocked.Value = false;
