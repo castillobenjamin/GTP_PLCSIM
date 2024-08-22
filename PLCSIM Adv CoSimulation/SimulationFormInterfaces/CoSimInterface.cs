@@ -211,6 +211,12 @@ namespace PLCSIM_Adv_CoSimulation
                 GroupBox_OpBox_TDWS.Hide();
                 GroupBox_Door_TDWS.Hide();
                 GroupBox_SafetyBoard_TDWS.Hide();
+                Label_ContactorPlcOut_TDWSpick.Hide();
+                Label_ContactorFdbk_TDWSpick.Hide();
+                CheckBox_ContactorFdbk_TDWSpick.Hide();
+                Label_ContactorFdbk_TDWStower.Hide();
+                Label_ContactorFdbk_TDWStower.Hide();
+                CheckBox_ContactorFdbk_TDWStower.Hide();
                 // Small Aisle
                 GroupBox_OpBox_SmallAisle.Hide();
                 Label_ContactorPlcOut_SmallAisle.Hide();
@@ -325,7 +331,6 @@ namespace PLCSIM_Adv_CoSimulation
             CheckBox_SafetyBoard_AisleSouth.Checked = currentAisle.SafetyBoards[1].Value;
 
             // Contactors
-            // flagOnOff = currentAisle.Contactors[1].ContactorOnOffCommand.Value == (byte)BooleanSignal.True;
             bool flagOnOff = Utils.ReadRegisterBit(currentAisle.Contactors[0].ContactorOnOffCommand);
             CheckBox_ContactorOnOff_AisleNorth.Checked = flagOnOff;
             flagOnOff = Utils.ReadRegisterBit(currentAisle.Contactors[1].ContactorOnOffCommand);
@@ -877,15 +882,21 @@ namespace PLCSIM_Adv_CoSimulation
 
         /// <summary>
         /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
-        /// Added to accept HMI commands during simultaion.
+        /// Added to accept HMI commands during simulation.
+        /// This is meant to run only on PLC manual operation.
         /// </summary>
         private void UpdateAllAisleContactorOutputs()
         {
-            // Simply read all contactors and assign the inverse of the output value to the feedback value.
-            if (CheckBox_FBAuto_Aisle.Checked)
+            // Check if CELL is not active (To prevent updating values during Auto operation).
+            if(!Utils.ReadRegisterBit(
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp))
             {
-                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
-                aisle.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
+                // Simply read all contactors and assign the inverse of the output value to the feedback value.
+                if (CheckBox_FBAuto_Aisle.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+                    aisle.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
+                }
             }
         }
         #endregion // Contactors
@@ -1589,13 +1600,13 @@ namespace PLCSIM_Adv_CoSimulation
             currentTowerDws.Contactors[0].Feedback.Value = CheckBox_ContactorFdbk_TDWSpick.Checked;
             if (CheckBox_ContactorFdbk_TDWSpick.Checked)
             {
-                Label_ContactorPlcOut_TDWSpick.ForeColor = activeLabelColor;
-                Label_ContactorPlcOut_TDWSpick.Font = activeLabelFont;
+                Label_ContactorFdbk_TDWSpick.ForeColor = activeLabelColor;
+                Label_ContactorFdbk_TDWSpick.Font = activeLabelFont;
             }
             else
             {
-                Label_ContactorPlcOut_TDWSpick.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcOut_TDWSpick.Font = inactiveLabelFont;
+                Label_ContactorFdbk_TDWSpick.ForeColor = inactiveLabelColor;
+                Label_ContactorFdbk_TDWSpick.Font = inactiveLabelFont;
             }
         }
 
@@ -1604,13 +1615,13 @@ namespace PLCSIM_Adv_CoSimulation
             currentTowerDws.Contactors[1].Feedback.Value = CheckBox_ContactorFdbk_TDWStower.Checked;
             if (CheckBox_ContactorFdbk_TDWStower.Checked)
             {
-                Label_ContactorPlcOut_TDWStower.ForeColor = activeLabelColor;
-                Label_ContactorPlcOut_TDWStower.Font = activeLabelFont;
+                Label_ContactorFdbk_TDWStower.ForeColor = activeLabelColor;
+                Label_ContactorFdbk_TDWStower.Font = activeLabelFont;
             }
             else
             {
-                Label_ContactorPlcOut_TDWStower.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcOut_TDWStower.Font = inactiveLabelFont;
+                Label_ContactorFdbk_TDWStower.ForeColor = inactiveLabelColor;
+                Label_ContactorFdbk_TDWStower.Font = inactiveLabelFont;
             }
         }
         #endregion // Contactors
@@ -1773,15 +1784,21 @@ namespace PLCSIM_Adv_CoSimulation
 
         /// <summary>
         /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
-        /// Added to accept HMI commands during simultaion.
+        /// Added to accept HMI commands during simulation.
+        /// Only used during manual operation.
         /// </summary>
         private void UpdateAllTDWSsContactorOutputs()
         {
-            // Simply read all contactors and assign the inverse of the output value to the feedback value.
-            if (CheckBox_FBAuto_TDWS.Checked)
+            // Check if CELL is not active (To prevent updating values during Auto operation).
+            if (!Utils.ReadRegisterBit(
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp))
             {
-                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
-                tdws.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
+                // Simply read all contactors and assign the inverse of the output value to the feedback value.
+                if (CheckBox_FBAuto_TDWS.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                    tdws.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
+                }
             }
         }
         #endregion // Contactors
@@ -2063,13 +2080,13 @@ namespace PLCSIM_Adv_CoSimulation
             currentSmallAisle.Contactors[0].Feedback.Value = CheckBox_ContactorFdbk_SmallAisle.Checked;
             if (CheckBox_ContactorFdbk_SmallAisle.Checked)
             {
-                Label_ContactorPlcOut_SmallAisle.ForeColor = activeLabelColor;
-                Label_ContactorPlcOut_SmallAisle.Font = activeLabelFont;
+                Label_ContactorFdbk_SmallAisle.ForeColor = activeLabelColor;
+                Label_ContactorFdbk_SmallAisle.Font = activeLabelFont;
             }
             else
             {
-                Label_ContactorPlcOut_SmallAisle.ForeColor = inactiveLabelColor;
-                Label_ContactorPlcOut_SmallAisle.Font = inactiveLabelFont;
+                Label_ContactorFdbk_SmallAisle.ForeColor = inactiveLabelColor;
+                Label_ContactorFdbk_SmallAisle.Font = inactiveLabelFont;
             }
         }
         #endregion // Contactors
@@ -2177,15 +2194,21 @@ namespace PLCSIM_Adv_CoSimulation
 
         /// <summary>
         /// Updates the outputs of all contactors, including the ones not being displayed on the interface.
-        /// Added to accept HMI commands during simultaion.
+        /// Added to accept HMI commands during simulation.
+        /// Only meant to be used during manual operation.
         /// </summary>
         private void UpdateAllSmallAislesContactorOutputs()
         {
-            // Simply read all contactors and assign the inverse of the output value to the feedback value.
-            if (CheckBox_FBAuto_SmallAisle.Checked)
+            // Check if CELL is not active (To prevent updating values during Auto operation).
+            if (!Utils.ReadRegisterBit(
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.SystemIsStartingUp))
             {
-                CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
-                saisle.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
+                // Simply read all contactors and assign the inverse of the output value to the feedback value.
+                if (CheckBox_FBAuto_SmallAisle.Checked)
+                {
+                    CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(saisle =>
+                    saisle.Contactors.ForEach(contactor => contactor.Feedback.Value = !contactor.Output.Value));
+                }
             }
         }
         #endregion // Contactors
@@ -2825,6 +2848,22 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Maintenance area
         //TODO update Maint area methods
+
+        private void DisplayMaintenanceArea()
+        {
+            if (!currentAisle.Type.Contains("hasMaintArea"))
+                GroupBox_MaintArea.Hide();
+            else
+            {
+                //First, update the inputs.
+                RadioButton_MaintArea_AisleMode.Checked = 
+                    CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwitch.Aisle.Value;
+                RadioButton_MaintArea_MaintMode.Checked =
+                    CoSimulationInstance.AlphaBotSystem.MaintenanceArea.KeySwitch.Maint.Value;
+                GroupBox_MaintArea.Show();
+            }
+        }
+
         #region Input
 
         #region Bot HP
@@ -3122,13 +3161,6 @@ namespace PLCSIM_Adv_CoSimulation
             string isPressed = value ? "pressed." : "released.";
             ListBox_Log.Items.Add(label + " button " + isPressed);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
-        }
-
-        private void DisplayMaintenanceArea()
-        {
-            if (!currentAisle.Type.Contains("hasMaintArea"))
-                GroupBox_MaintArea.Hide();
-            else GroupBox_MaintArea.Show();
         }
 
         #region Stopper and Shutter Common methods

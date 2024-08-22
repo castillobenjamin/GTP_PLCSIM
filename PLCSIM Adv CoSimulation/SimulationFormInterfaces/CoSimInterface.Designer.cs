@@ -77,7 +77,6 @@
             this.CheckBox_FBAuto_Aisle = new System.Windows.Forms.CheckBox();
             this.GroupBox_Ctor_AisleNorth = new System.Windows.Forms.GroupBox();
             this.CheckBox_ContactorTripped_AisleNorth = new System.Windows.Forms.CheckBox();
-            this.CheckBox_ContactorFdbk_AisleNorth = new System.Windows.Forms.CheckBox();
             this.Label_ContactorFdbk_AisleNorth = new System.Windows.Forms.Label();
             this.CheckBox_ContactorOnOff_AisleNorth = new System.Windows.Forms.CheckBox();
             this.Label_ContactorPlcOut_AisleNorth = new System.Windows.Forms.Label();
@@ -217,8 +216,8 @@
             this.Label_StopStatus_SmallAisle = new System.Windows.Forms.Label();
             this.Label_StopRequest_SmallAisle = new System.Windows.Forms.Label();
             this.GroupBox_Ctor_SmallAisle = new System.Windows.Forms.GroupBox();
-            this.CheckBox_ContactorTripped_SmallAisle = new System.Windows.Forms.CheckBox();
             this.CheckBox_ContactorFdbk_SmallAisle = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ContactorTripped_SmallAisle = new System.Windows.Forms.CheckBox();
             this.Label_ContactorFdbk_SmallAisle = new System.Windows.Forms.Label();
             this.CheckBox_ContactorOnOff_SmallAisle = new System.Windows.Forms.CheckBox();
             this.Label_ContactorPlcOut_SmallAisle = new System.Windows.Forms.Label();
@@ -247,6 +246,7 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.CheckBox_Estop_BOT = new System.Windows.Forms.CheckBox();
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
+            this.CheckBox_ContactorFdbk_AisleNorth = new System.Windows.Forms.CheckBox();
             this.GroupBox_SafetyBoard_TDWS.SuspendLayout();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -918,8 +918,8 @@
             // 
             // GroupBox_Ctor_AisleNorth
             // 
-            this.GroupBox_Ctor_AisleNorth.Controls.Add(this.CheckBox_ContactorTripped_AisleNorth);
             this.GroupBox_Ctor_AisleNorth.Controls.Add(this.CheckBox_ContactorFdbk_AisleNorth);
+            this.GroupBox_Ctor_AisleNorth.Controls.Add(this.CheckBox_ContactorTripped_AisleNorth);
             this.GroupBox_Ctor_AisleNorth.Controls.Add(this.Label_ContactorFdbk_AisleNorth);
             this.GroupBox_Ctor_AisleNorth.Controls.Add(this.CheckBox_ContactorOnOff_AisleNorth);
             this.GroupBox_Ctor_AisleNorth.Controls.Add(this.Label_ContactorPlcOut_AisleNorth);
@@ -946,22 +946,6 @@
             this.CheckBox_ContactorTripped_AisleNorth.Text = "Tripped";
             this.CheckBox_ContactorTripped_AisleNorth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_AisleNorth.UseVisualStyleBackColor = true;
-            // 
-            // CheckBox_ContactorFdbk_AisleNorth
-            // 
-            this.CheckBox_ContactorFdbk_AisleNorth.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_ContactorFdbk_AisleNorth.AutoSize = true;
-            this.CheckBox_ContactorFdbk_AisleNorth.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorFdbk_AisleNorth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_ContactorFdbk_AisleNorth.Location = new System.Drawing.Point(4, 43);
-            this.CheckBox_ContactorFdbk_AisleNorth.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_ContactorFdbk_AisleNorth.Name = "CheckBox_ContactorFdbk_AisleNorth";
-            this.CheckBox_ContactorFdbk_AisleNorth.Size = new System.Drawing.Size(30, 22);
-            this.CheckBox_ContactorFdbk_AisleNorth.TabIndex = 28;
-            this.CheckBox_ContactorFdbk_AisleNorth.Text = "FB";
-            this.CheckBox_ContactorFdbk_AisleNorth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorFdbk_AisleNorth.UseVisualStyleBackColor = true;
-            this.CheckBox_ContactorFdbk_AisleNorth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_AisleNorth_CheckedChanged);
             // 
             // Label_ContactorFdbk_AisleNorth
             // 
@@ -2741,8 +2725,8 @@
             // 
             // GroupBox_Ctor_SmallAisle
             // 
-            this.GroupBox_Ctor_SmallAisle.Controls.Add(this.CheckBox_ContactorTripped_SmallAisle);
             this.GroupBox_Ctor_SmallAisle.Controls.Add(this.CheckBox_ContactorFdbk_SmallAisle);
+            this.GroupBox_Ctor_SmallAisle.Controls.Add(this.CheckBox_ContactorTripped_SmallAisle);
             this.GroupBox_Ctor_SmallAisle.Controls.Add(this.Label_ContactorFdbk_SmallAisle);
             this.GroupBox_Ctor_SmallAisle.Controls.Add(this.CheckBox_ContactorOnOff_SmallAisle);
             this.GroupBox_Ctor_SmallAisle.Controls.Add(this.Label_ContactorPlcOut_SmallAisle);
@@ -2754,6 +2738,22 @@
             this.GroupBox_Ctor_SmallAisle.TabIndex = 16;
             this.GroupBox_Ctor_SmallAisle.TabStop = false;
             this.GroupBox_Ctor_SmallAisle.Text = "コンタクタ";
+            // 
+            // CheckBox_ContactorFdbk_SmallAisle
+            // 
+            this.CheckBox_ContactorFdbk_SmallAisle.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_ContactorFdbk_SmallAisle.AutoSize = true;
+            this.CheckBox_ContactorFdbk_SmallAisle.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorFdbk_SmallAisle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_ContactorFdbk_SmallAisle.Location = new System.Drawing.Point(4, 43);
+            this.CheckBox_ContactorFdbk_SmallAisle.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_ContactorFdbk_SmallAisle.Name = "CheckBox_ContactorFdbk_SmallAisle";
+            this.CheckBox_ContactorFdbk_SmallAisle.Size = new System.Drawing.Size(30, 22);
+            this.CheckBox_ContactorFdbk_SmallAisle.TabIndex = 30;
+            this.CheckBox_ContactorFdbk_SmallAisle.Text = "FB";
+            this.CheckBox_ContactorFdbk_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorFdbk_SmallAisle.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorFdbk_SmallAisle.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_SmallAisle_CheckedChanged);
             // 
             // CheckBox_ContactorTripped_SmallAisle
             // 
@@ -2769,22 +2769,6 @@
             this.CheckBox_ContactorTripped_SmallAisle.Text = "Tripped";
             this.CheckBox_ContactorTripped_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_SmallAisle.UseVisualStyleBackColor = true;
-            // 
-            // CheckBox_ContactorFdbk_SmallAisle
-            // 
-            this.CheckBox_ContactorFdbk_SmallAisle.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_ContactorFdbk_SmallAisle.AutoSize = true;
-            this.CheckBox_ContactorFdbk_SmallAisle.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorFdbk_SmallAisle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_ContactorFdbk_SmallAisle.Location = new System.Drawing.Point(4, 43);
-            this.CheckBox_ContactorFdbk_SmallAisle.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_ContactorFdbk_SmallAisle.Name = "CheckBox_ContactorFdbk_SmallAisle";
-            this.CheckBox_ContactorFdbk_SmallAisle.Size = new System.Drawing.Size(30, 22);
-            this.CheckBox_ContactorFdbk_SmallAisle.TabIndex = 28;
-            this.CheckBox_ContactorFdbk_SmallAisle.Text = "FB";
-            this.CheckBox_ContactorFdbk_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorFdbk_SmallAisle.UseVisualStyleBackColor = true;
-            this.CheckBox_ContactorFdbk_SmallAisle.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_SmallAisle_CheckedChanged);
             // 
             // Label_ContactorFdbk_SmallAisle
             // 
@@ -3147,6 +3131,22 @@
             this.CheckBox_FireAlarm.UseVisualStyleBackColor = true;
             this.CheckBox_FireAlarm.CheckedChanged += new System.EventHandler(this.CheckBox_FireAlarm_CheckedChanged);
             // 
+            // CheckBox_ContactorFdbk_AisleNorth
+            // 
+            this.CheckBox_ContactorFdbk_AisleNorth.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_ContactorFdbk_AisleNorth.AutoSize = true;
+            this.CheckBox_ContactorFdbk_AisleNorth.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorFdbk_AisleNorth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_ContactorFdbk_AisleNorth.Location = new System.Drawing.Point(4, 43);
+            this.CheckBox_ContactorFdbk_AisleNorth.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_ContactorFdbk_AisleNorth.Name = "CheckBox_ContactorFdbk_AisleNorth";
+            this.CheckBox_ContactorFdbk_AisleNorth.Size = new System.Drawing.Size(30, 22);
+            this.CheckBox_ContactorFdbk_AisleNorth.TabIndex = 30;
+            this.CheckBox_ContactorFdbk_AisleNorth.Text = "FB";
+            this.CheckBox_ContactorFdbk_AisleNorth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorFdbk_AisleNorth.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorFdbk_AisleNorth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_AisleNorth_CheckedChanged);
+            // 
             // CoSimInterface
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -3362,7 +3362,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox CheckBox_IsClosedSensor_Stopper;
         private System.Windows.Forms.CheckBox CheckBox_IsOpenSensor_Stopper;
-        private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_AisleNorth;
         private System.Windows.Forms.CheckBox CheckBox_Alarm_Stopper;
         private System.Windows.Forms.Label Label_LedTowerGreen_DwsPanel;
         private System.Windows.Forms.Label Label_LedTowerYellow_DwsPanel;
@@ -3470,7 +3469,6 @@
         private System.Windows.Forms.CheckBox CheckBox_FBAuto_SmallAisle;
         private System.Windows.Forms.GroupBox GroupBox_Ctor_SmallAisle;
         private System.Windows.Forms.CheckBox CheckBox_ContactorTripped_SmallAisle;
-        private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_SmallAisle;
         private System.Windows.Forms.Label Label_ContactorFdbk_SmallAisle;
         private System.Windows.Forms.CheckBox CheckBox_ContactorOnOff_SmallAisle;
         private System.Windows.Forms.Label Label_ContactorPlcOut_SmallAisle;
@@ -3501,5 +3499,7 @@
         private System.Windows.Forms.Label Label_MaintenanceStatus;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox GroupBox_SafetyBoard_TDWS;
+        private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_SmallAisle;
+        private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_AisleNorth;
     }
 }

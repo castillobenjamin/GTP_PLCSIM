@@ -1545,7 +1545,7 @@
 		</TowerDynamicWorkStation>
 	</TowerDynamicWorkStations>
 	<SmallAisles>
-		<SmallAisle>
+		<SmallAisle Name="SmallAisle1" Label="Small Aisle 1">
 			<OperationBox>
 				<EmergencyBtn Type="input">
 					<Tag>E-STOP_S-AISLE1</Tag>
