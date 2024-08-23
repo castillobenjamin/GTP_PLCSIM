@@ -138,7 +138,7 @@ namespace PLCSIM_Adv_CoSimulation
             ComboBox_TowerDWS.SelectedIndex = 0;
             
             // Small Aisle
-            CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach((x) =>
+            CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach((x) =>
             {
                 ComboBox_SmallAisle.Items.Add(x.Label);
             });
