@@ -16,7 +16,9 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public PlcInput BotPresent { get; set; } // BOT sensor
         
         public RegisterFromPlc BotHPtoCell { get; set; } // BOT HP register to CELL
-        
+
+        public RegisterToPlc DisableStopper { get; set; } //Disable maint. stopper signal from CELL
+
         // Maintenance area key switch
         public KeySwitchMaint KeySwitch { get; set; }
         

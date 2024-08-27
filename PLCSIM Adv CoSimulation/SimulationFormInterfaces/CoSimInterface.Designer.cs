@@ -76,6 +76,7 @@
             this.Label_ContactorPlcOut_AisleSouth = new System.Windows.Forms.Label();
             this.CheckBox_FBAuto_Aisle = new System.Windows.Forms.CheckBox();
             this.GroupBox_Ctor_AisleNorth = new System.Windows.Forms.GroupBox();
+            this.CheckBox_ContactorFdbk_AisleNorth = new System.Windows.Forms.CheckBox();
             this.CheckBox_ContactorTripped_AisleNorth = new System.Windows.Forms.CheckBox();
             this.Label_ContactorFdbk_AisleNorth = new System.Windows.Forms.Label();
             this.CheckBox_ContactorOnOff_AisleNorth = new System.Windows.Forms.CheckBox();
@@ -246,7 +247,10 @@
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.CheckBox_Estop_BOT = new System.Windows.Forms.CheckBox();
             this.CheckBox_FireAlarm = new System.Windows.Forms.CheckBox();
-            this.CheckBox_ContactorFdbk_AisleNorth = new System.Windows.Forms.CheckBox();
+            this.CheckBox_SystemRedLight = new System.Windows.Forms.CheckBox();
+            this.CheckBox_SystemYellowLight = new System.Windows.Forms.CheckBox();
+            this.CheckBox_SystemGreenLight = new System.Windows.Forms.CheckBox();
+            this.CheckBox_DisableStopper = new System.Windows.Forms.CheckBox();
             this.GroupBox_SafetyBoard_TDWS.SuspendLayout();
             this.groupBoxCELL.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -357,6 +361,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CheckBox_SystemGreenLight);
+            this.groupBox1.Controls.Add(this.CheckBox_SystemYellowLight);
+            this.groupBox1.Controls.Add(this.CheckBox_SystemRedLight);
             this.groupBox1.Controls.Add(this.CheckBox_BotEvacComplete);
             this.groupBox1.Controls.Add(this.RadioButton_SystemIsStartingUp);
             this.groupBox1.Controls.Add(this.RadioButton_CanSystemStartUp);
@@ -931,6 +938,22 @@
             this.GroupBox_Ctor_AisleNorth.TabIndex = 16;
             this.GroupBox_Ctor_AisleNorth.TabStop = false;
             this.GroupBox_Ctor_AisleNorth.Text = "NORTH";
+            // 
+            // CheckBox_ContactorFdbk_AisleNorth
+            // 
+            this.CheckBox_ContactorFdbk_AisleNorth.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_ContactorFdbk_AisleNorth.AutoSize = true;
+            this.CheckBox_ContactorFdbk_AisleNorth.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorFdbk_AisleNorth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_ContactorFdbk_AisleNorth.Location = new System.Drawing.Point(4, 43);
+            this.CheckBox_ContactorFdbk_AisleNorth.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_ContactorFdbk_AisleNorth.Name = "CheckBox_ContactorFdbk_AisleNorth";
+            this.CheckBox_ContactorFdbk_AisleNorth.Size = new System.Drawing.Size(30, 22);
+            this.CheckBox_ContactorFdbk_AisleNorth.TabIndex = 30;
+            this.CheckBox_ContactorFdbk_AisleNorth.Text = "FB";
+            this.CheckBox_ContactorFdbk_AisleNorth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_ContactorFdbk_AisleNorth.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorFdbk_AisleNorth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_AisleNorth_CheckedChanged);
             // 
             // CheckBox_ContactorTripped_AisleNorth
             // 
@@ -1878,6 +1901,7 @@
             // 
             // GroupBox_MaintArea
             // 
+            this.GroupBox_MaintArea.Controls.Add(this.CheckBox_DisableStopper);
             this.GroupBox_MaintArea.Controls.Add(this.groupBox5);
             this.GroupBox_MaintArea.Controls.Add(this.GroupBox_);
             this.GroupBox_MaintArea.Controls.Add(this.GroupBox_Ctor_MaintArea);
@@ -3131,21 +3155,73 @@
             this.CheckBox_FireAlarm.UseVisualStyleBackColor = true;
             this.CheckBox_FireAlarm.CheckedChanged += new System.EventHandler(this.CheckBox_FireAlarm_CheckedChanged);
             // 
-            // CheckBox_ContactorFdbk_AisleNorth
+            // CheckBox_SystemRedLight
             // 
-            this.CheckBox_ContactorFdbk_AisleNorth.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CheckBox_ContactorFdbk_AisleNorth.AutoSize = true;
-            this.CheckBox_ContactorFdbk_AisleNorth.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorFdbk_AisleNorth.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CheckBox_ContactorFdbk_AisleNorth.Location = new System.Drawing.Point(4, 43);
-            this.CheckBox_ContactorFdbk_AisleNorth.Margin = new System.Windows.Forms.Padding(2);
-            this.CheckBox_ContactorFdbk_AisleNorth.Name = "CheckBox_ContactorFdbk_AisleNorth";
-            this.CheckBox_ContactorFdbk_AisleNorth.Size = new System.Drawing.Size(30, 22);
-            this.CheckBox_ContactorFdbk_AisleNorth.TabIndex = 30;
-            this.CheckBox_ContactorFdbk_AisleNorth.Text = "FB";
-            this.CheckBox_ContactorFdbk_AisleNorth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CheckBox_ContactorFdbk_AisleNorth.UseVisualStyleBackColor = true;
-            this.CheckBox_ContactorFdbk_AisleNorth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorFdbk_AisleNorth_CheckedChanged);
+            this.CheckBox_SystemRedLight.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_SystemRedLight.AutoSize = true;
+            this.CheckBox_SystemRedLight.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_SystemRedLight.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.CheckBox_SystemRedLight.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_SystemRedLight.Location = new System.Drawing.Point(97, 39);
+            this.CheckBox_SystemRedLight.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_SystemRedLight.Name = "CheckBox_SystemRedLight";
+            this.CheckBox_SystemRedLight.Size = new System.Drawing.Size(27, 22);
+            this.CheckBox_SystemRedLight.TabIndex = 4;
+            this.CheckBox_SystemRedLight.Text = "赤";
+            this.CheckBox_SystemRedLight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_SystemRedLight.UseVisualStyleBackColor = true;
+            this.CheckBox_SystemRedLight.CheckedChanged += new System.EventHandler(this.CheckBox_RedLight_CheckedChanged);
+            // 
+            // CheckBox_SystemYellowLight
+            // 
+            this.CheckBox_SystemYellowLight.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_SystemYellowLight.AutoSize = true;
+            this.CheckBox_SystemYellowLight.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_SystemYellowLight.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.CheckBox_SystemYellowLight.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_SystemYellowLight.Location = new System.Drawing.Point(97, 63);
+            this.CheckBox_SystemYellowLight.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_SystemYellowLight.Name = "CheckBox_SystemYellowLight";
+            this.CheckBox_SystemYellowLight.Size = new System.Drawing.Size(27, 22);
+            this.CheckBox_SystemYellowLight.TabIndex = 5;
+            this.CheckBox_SystemYellowLight.Text = "黄";
+            this.CheckBox_SystemYellowLight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_SystemYellowLight.UseVisualStyleBackColor = true;
+            this.CheckBox_SystemYellowLight.CheckedChanged += new System.EventHandler(this.CheckBox_YellowLight_CheckedChanged);
+            // 
+            // CheckBox_SystemGreenLight
+            // 
+            this.CheckBox_SystemGreenLight.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_SystemGreenLight.AutoSize = true;
+            this.CheckBox_SystemGreenLight.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_SystemGreenLight.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.CheckBox_SystemGreenLight.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_SystemGreenLight.Location = new System.Drawing.Point(97, 87);
+            this.CheckBox_SystemGreenLight.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_SystemGreenLight.Name = "CheckBox_SystemGreenLight";
+            this.CheckBox_SystemGreenLight.Size = new System.Drawing.Size(27, 22);
+            this.CheckBox_SystemGreenLight.TabIndex = 6;
+            this.CheckBox_SystemGreenLight.Text = "緑";
+            this.CheckBox_SystemGreenLight.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_SystemGreenLight.UseVisualStyleBackColor = true;
+            this.CheckBox_SystemGreenLight.CheckedChanged += new System.EventHandler(this.CheckBox_GreenLight_CheckedChanged);
+            // 
+            // CheckBox_DisableStopper
+            // 
+            this.CheckBox_DisableStopper.Appearance = System.Windows.Forms.Appearance.Button;
+            this.CheckBox_DisableStopper.AutoSize = true;
+            this.CheckBox_DisableStopper.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_DisableStopper.ForeColor = System.Drawing.Color.CornflowerBlue;
+            this.CheckBox_DisableStopper.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CheckBox_DisableStopper.Location = new System.Drawing.Point(90, 80);
+            this.CheckBox_DisableStopper.Margin = new System.Windows.Forms.Padding(2);
+            this.CheckBox_DisableStopper.Name = "CheckBox_DisableStopper";
+            this.CheckBox_DisableStopper.Size = new System.Drawing.Size(63, 22);
+            this.CheckBox_DisableStopper.TabIndex = 7;
+            this.CheckBox_DisableStopper.Text = "降下不可";
+            this.CheckBox_DisableStopper.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CheckBox_DisableStopper.UseVisualStyleBackColor = true;
+            this.CheckBox_DisableStopper.CheckedChanged += new System.EventHandler(this.CheckBox_StopperDisabled_CheckedChanged);
             // 
             // CoSimInterface
             // 
@@ -3501,5 +3577,9 @@
         private System.Windows.Forms.GroupBox GroupBox_SafetyBoard_TDWS;
         private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_SmallAisle;
         private System.Windows.Forms.CheckBox CheckBox_ContactorFdbk_AisleNorth;
+        private System.Windows.Forms.CheckBox CheckBox_SystemRedLight;
+        private System.Windows.Forms.CheckBox CheckBox_SystemGreenLight;
+        private System.Windows.Forms.CheckBox CheckBox_SystemYellowLight;
+        private System.Windows.Forms.CheckBox CheckBox_DisableStopper;
     }
 }

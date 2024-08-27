@@ -51,6 +51,24 @@
 			<BitPosition>0</BitPosition>
 			<Value>0</Value>
 		</BotEvacuationComplete>
+		<RedLight Type="input">
+			<Tag>NoTag</Tag>
+			<Address>289</Address>
+			<BitPosition>0</BitPosition>
+			<Value>0</Value>
+		</RedLight>
+		<YellowLight Type="input">
+			<Tag>NoTag</Tag>
+			<Address>289</Address>
+			<BitPosition>1</BitPosition>
+			<Value>0</Value>
+		</YellowLight>
+		<GreenLight Type="input">
+			<Tag>NoTag</Tag>
+			<Address>289</Address>
+			<BitPosition>2</BitPosition>
+			<Value>0</Value>
+		</GreenLight>
 	</CellCommunication>
 	<Panels>
 		<DwsPanel>
@@ -356,14 +374,18 @@
 			<Address></Address>
 			<Value>true</Value>
 		</BotPresent>
-		<BotHPtoCell Type="input">
-			<!--TODO: Update address-->
+		<BotHPtoCell Type="output">
 			<Tag></Tag>
-			<Address>173</Address>
+			<Address>177</Address>
 			<BitPosition>4</BitPosition>
 			<Value>1</Value>
 		</BotHPtoCell>
-		<!--This is the key switch for the maintenance area-->
+		<DisableStopper Type="input">
+			<Tag></Tag>
+			<Address>291</Address>
+			<BitPosition>0</BitPosition>
+			<Value>1</Value>
+		</DisableStopper>
 		<KeySwitch>
 			<AisleMode Type="input">
 				<Tag>MODECHANGE_AISLEMODE_MAINT</Tag>
@@ -3059,13 +3081,13 @@
 			</Alarm>
 			<IsOpenStatusToCell>
 				<Tag>NoTag</Tag>
-				<Address>173</Address>
+				<Address>177</Address>
 				<BitPosition>5</BitPosition>
 				<Value>0</Value>
 			</IsOpenStatusToCell>
 			<IsClosedStatusToCell>
 				<Tag>NoTag</Tag>
-				<Address>173</Address>
+				<Address>177</Address>
 				<BitPosition>6</BitPosition>
 				<Value>0</Value>
 			</IsClosedStatusToCell>

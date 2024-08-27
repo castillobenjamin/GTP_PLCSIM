@@ -2285,6 +2285,39 @@ namespace PLCSIM_Adv_CoSimulation
             ListBox_Log.Items.Add("Bot evacuation flag: " + isOn);
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
+
+        private void CheckBox_RedLight_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterToPlc currentRegister =
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.RedLight;
+            currentRegister.Value = Utils.UpdateRegister(currentRegister, CheckBox_SystemRedLight.Checked);
+            // Log action
+            string isOn = CheckBox_SystemRedLight.Checked ? "on." : "off.";
+            ListBox_Log.Items.Add("System red light " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void CheckBox_YellowLight_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterToPlc currentRegister =
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.YellowLight;
+            currentRegister.Value = Utils.UpdateRegister(currentRegister, CheckBox_SystemYellowLight.Checked);
+            // Log action
+            string isOn = CheckBox_SystemYellowLight.Checked ? "on." : "off.";
+            ListBox_Log.Items.Add("System yellow light " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
+
+        private void CheckBox_GreenLight_CheckedChanged(object sender, EventArgs e)
+        {
+            RegisterToPlc currentRegister =
+                CoSimulationInstance.AlphaBotSystem.CellCommunicationInstance.GreenLight;
+            currentRegister.Value = Utils.UpdateRegister(currentRegister, CheckBox_SystemGreenLight.Checked);
+            // Log action
+            string isOn = CheckBox_SystemGreenLight.Checked ? "on." : "off.";
+            ListBox_Log.Items.Add("System green light " + isOn);
+            ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+        }
         #endregion // CELL side
 
         #region PLC side
@@ -2498,11 +2531,9 @@ namespace PLCSIM_Adv_CoSimulation
             // (The maintenance area stopper has no CELL commands).
             if (!currentStopper.Label.Contains("Maintenance"))
             {
-                //Show all CELL related UI controls
+                //Show unused CELL related UI controls
                 CheckBox_OpenCommandFromCell_Stopper.Show();
                 CheckBox_CloseCommandFromCell_Stopper.Show();
-                Label_IsOpenStatusToCell_Stopper.Show();
-                Label_IsClosedStatusToCell_Stopper.Show();
                 Label_ErrorSignalToCell_Stopper.Show();
                 Label_TimeOverSignalToCell_Stopper.Show();
                 //Read modbus registers
@@ -2513,11 +2544,9 @@ namespace PLCSIM_Adv_CoSimulation
             }
             else
             {
-                // Hide all CELL related UI controls
+                // Hide unused CELL related UI controls
                 CheckBox_OpenCommandFromCell_Stopper.Hide();
                 CheckBox_CloseCommandFromCell_Stopper.Hide();
-                Label_IsOpenStatusToCell_Stopper.Hide();
-                Label_IsClosedStatusToCell_Stopper.Hide();
                 Label_ErrorSignalToCell_Stopper.Hide();
                 Label_TimeOverSignalToCell_Stopper.Hide();
             }
@@ -2866,6 +2895,24 @@ namespace PLCSIM_Adv_CoSimulation
 
         #region Input
 
+        #region CELL disable stopper operation
+        private void CheckBox_StopperDisabled_CheckedChanged(object sender, EventArgs e)
+        {
+            // Prevent Null exceptions when Maintenance area is not present.
+            if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea != null)
+            {
+                RegisterToPlc currentRegister;
+                    currentRegister = 
+                        CoSimulationInstance.AlphaBotSystem.MaintenanceArea.DisableStopper;
+                currentRegister.Value = Utils.UpdateRegister(currentRegister, CheckBox_DisableStopper.Checked);
+                // Log action
+                string isOn = CheckBox_DisableStopper.Checked ? "disabled." : "enabled.";
+                ListBox_Log.Items.Add("Maint stopper is " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+        #endregion // CELL disable stopper operation
+
         #region Bot HP
         private void CheckBox_BOT_HP_CheckedChanged(object sender, EventArgs e)
         {
@@ -3089,21 +3136,24 @@ namespace PLCSIM_Adv_CoSimulation
             // The door is locked when the door is closed and the unlock output is false.
             if (zone.Door.unlockDoor.Value)
             {
-                zone.Door.IsDoorLocked.Value = false;
+                if (zone.Door.IsDoorLocked.Value)
+                    zone.Door.IsDoorLocked.Value = false;
                 label.ForeColor = emergencyLabelColor;
                 label.Font = emergencyLabelFont;
                 doorStatus = "開錠";
             }
             else if (zone.Door.IsDoorClosed & !zone.Door.unlockDoor.Value)
             {
-                zone.Door.IsDoorLocked.Value = true;
+                if (!zone.Door.IsDoorLocked.Value)
+                    zone.Door.IsDoorLocked.Value = true;
                 label.ForeColor = activeLabelColor;
                 label.Font = activeLabelFont;
                 doorStatus = "施錠";
             }
             else
             {
-                zone.Door.IsDoorLocked.Value = false;
+                if (zone.Door.IsDoorLocked.Value)
+                    zone.Door.IsDoorLocked.Value = false;
                 label.ForeColor = errorLabelColor;
                 label.Font = errorLabelFont;
                 doorStatus = "???";

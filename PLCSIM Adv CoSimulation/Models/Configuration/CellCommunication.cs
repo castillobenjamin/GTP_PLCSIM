@@ -15,10 +15,11 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
         public RegisterToPlc CanSystemStartUp { get; set; }
         public RegisterToPlc SystemIsStartingUp { get; set; }
         public RegisterToPlc BotEvacuationComplete { get; set; }
+        public RegisterToPlc RedLight { get; set; }
+        public RegisterToPlc YellowLight { get; set; }
+        public RegisterToPlc GreenLight { get; set; }
         public RegisterFromPlc IsPlcAutoMode { get; set; }
         public RegisterFromPlc IsPlcWarningMode { get; set; }
-        public RegisterFromPlc IsFireAlarm { get; set; }
-        // TODO - need to add 火報用・BOT退避完了 signal
         #endregion
 
     }
