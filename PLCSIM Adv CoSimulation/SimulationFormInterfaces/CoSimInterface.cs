@@ -286,6 +286,8 @@ namespace PLCSIM_Adv_CoSimulation
                     Label_LedTower_NorthPanel);
                 Update_Label_LedTower(CoSimulationInstance.AlphaBotSystem.PanelSection.SouthPanel, 
                     Label_LedTower_SouthPanel);
+                // Global outputs
+                UpdateSystemSignalTower();
                 // Currently unhandled IO
                 UpdateUnhandledIO();
             }
@@ -2448,19 +2450,6 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerRed_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerRed_DwsPanel.ForeColor = inactiveLabelColor;
             }
-            //TODO. Update interface. Delete blue color label. Add buzzer output.
-            /*
-            if (panel.SignalTower.BlueLed.Value)
-            {
-                Label_LedTowerBlue_DwsPanel.Font = activeLabelFont;
-                Label_LedTowerBlue_DwsPanel.ForeColor = Color.Blue;
-            }
-            else
-            {
-                Label_LedTowerBlue_DwsPanel.Font = inactiveLabelFont;
-                Label_LedTowerBlue_DwsPanel.ForeColor = inactiveLabelColor;
-            }
-            */
             if (panel.SignalTower.YellowLed.Value)
             {
                 Label_LedTowerYellow_DwsPanel.Font = activeLabelFont;
@@ -2484,6 +2473,11 @@ namespace PLCSIM_Adv_CoSimulation
             if (panel.SignalTower.WhiteLed.Value)
             {
                 Label_LedTowerWhite_DwsPanel.Font = activeLabelFont;
+                Label_LedTowerWhite_DwsPanel.ForeColor = Color.Black;
+            }
+            if (panel.SignalTower.Buzzer.Value)
+            {
+                Label_Buzzer_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerWhite_DwsPanel.ForeColor = Color.Black;
             }
             else
@@ -3085,7 +3079,48 @@ namespace PLCSIM_Adv_CoSimulation
             ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
         }
 
-        #endregion //Global inputs
+        #endregion // Global inputs
+
+        #region Global outputs
+        private void UpdateSystemSignalTower()
+        {
+            // Red light
+            if (CoSimulationInstance.AlphaBotSystem.SystemSignalTower.RedLed.Value)
+            {
+                Label_SystemRedLight.Font = activeLabelFont;
+                Label_SystemRedLight.ForeColor = Color.Red;
+            }
+            else
+            {
+                Label_SystemRedLight.Font = inactiveLabelFont;
+                Label_SystemRedLight.ForeColor = inactiveLabelColor;
+            }
+
+            // Yellow light
+            if (CoSimulationInstance.AlphaBotSystem.SystemSignalTower.YellowLed.Value)
+            {
+                Label_SystemYellowLight.Font = activeLabelFont;
+                Label_SystemYellowLight.ForeColor = Color.Orange;
+            }
+            else
+            {
+                Label_SystemYellowLight.Font = inactiveLabelFont;
+                Label_SystemYellowLight.ForeColor = inactiveLabelColor;
+            }
+
+            // Green light
+            if (CoSimulationInstance.AlphaBotSystem.SystemSignalTower.GreenLed.Value)
+            {
+                Label_SystemGreenLight.Font = activeLabelFont;
+                Label_SystemGreenLight.ForeColor = Color.Green;
+            }
+            else
+            {
+                Label_SystemGreenLight.Font = inactiveLabelFont;
+                Label_SystemGreenLight.ForeColor = inactiveLabelColor;
+            }
+        }
+        #endregion // Global outputs
 
         #region Common methods
 

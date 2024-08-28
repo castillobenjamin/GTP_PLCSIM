@@ -119,6 +119,9 @@ namespace PLCSIM_Adv_CoSimulation.Models.Configuration
             get { return CondensationSensorSerializes; }
             set { CondensationSensorSerializes = value; } }
 
+        // System/CELL signal tower
+        public SignalTower SystemSignalTower { get; set; }
+
         // Buzzer reset button
         [XmlElement("BuzzerReset")]
         public PlcInput BuzzerReset { get; set; }

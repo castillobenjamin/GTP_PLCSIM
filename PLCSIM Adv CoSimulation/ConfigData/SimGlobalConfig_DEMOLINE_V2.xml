@@ -7019,6 +7019,39 @@
 		<Address />
 		<Value>false</Value>
 	</CondensationSensor>
+	<SignalTower>
+		<!--
+		This is the System/CELL status signal tower.
+		Note: This is meant to use the same class as the other signal towers, 
+		but it does not have a white light output!
+		-->
+		<!--Do not use the Buzzer and WhiteLed outputs-->
+		<Buzzer Type="output">
+			<Tag>NoTag</Tag>
+			<Address />
+			<Value>false</Value>
+		</Buzzer>
+		<RedLed Type="output">
+			<Tag>LIGHT_ON_RED_SYSTEM</Tag>
+			<Address />
+			<Value>false</Value>
+		</RedLed>
+		<YellowLed Type="output">
+			<Tag>LIGHT_ON_YELLOW_SYSTEM</Tag>
+			<Address />
+			<Value>false</Value>
+		</YellowLed>
+		<GreenLed Type="output">
+			<Tag>LIGHT_ON_GREEN_SYSTEM</Tag>
+			<Address />
+			<Value>false</Value>
+		</GreenLed>
+		<WhiteLed Type="output">
+			<Tag>NoTag</Tag>
+			<Address />
+			<Value>false</Value>
+		</WhiteLed>
+	</SignalTower>
 	<BuzzerReset Type="output">
 		<Tag>BZ_STOP_NORTH</Tag>
 		<Address />
