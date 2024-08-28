@@ -407,29 +407,24 @@
 		<Contactor>
 			<Contactor Name="Maintenance Area Contactor">
 				<ContactorOutput Type="output">
-					<Tag></Tag>
+					<Tag>TROLLEY-MC_ON_MAINT</Tag>
 					<Address />
 					<Value>false</Value>
 				</ContactorOutput>
 				<ContactorFeedback Type="input">
-					<Tag></Tag>
+					<Tag>TROLLEY-MC_ON_FB_MAINT</Tag>
 					<Address />
 					<Value>true</Value>
 				</ContactorFeedback>
 				<ContactorOnOffCommand>
 					<Tag>NoTag</Tag>
-					<Address>258</Address>
+					<Address>0</Address>
 					<BitPosition>0</BitPosition>
 					<Value>0</Value>
 				</ContactorOnOffCommand>
 				<TrippedInputs>
 					<Tripped Name="trolley1" Type="inputB">
-						<Tag></Tag>
-						<Address />
-						<Value>false</Value>
-					</Tripped>
-					<Tripped Name="trolley2" Type="inputB">
-						<Tag></Tag>
+						<Tag>ELB_TRIP_MAINT_TROLLEY</Tag>
 						<Address />
 						<Value>false</Value>
 					</Tripped>
@@ -1597,8 +1592,7 @@
 					</Ready>
 				</KeySwitch>
 				<ZoningStatusLed Type="output">
-					<!-- TODO: The input for this led is not implemented yet. Update tag -->
-					<Tag>(OP-BOX_LED_S-AISLE1)</Tag>
+					<Tag>OP-BOX_LED_S-AISLE1</Tag>
 					<Address />
 					<Value>false</Value>
 				</ZoningStatusLed>

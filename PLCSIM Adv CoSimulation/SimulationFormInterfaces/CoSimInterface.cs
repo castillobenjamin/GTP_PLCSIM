@@ -12,7 +12,6 @@ using System.Windows.Forms;
 //TODO - use refs and whatnot instead of passing copies of parameters.
 //TODO - Think of a way to merge the RadioButton_[XXX]_CheckedChanged methods.
 //TODO - implement missing Panel inputs (button lamps, earth faults, buzzer, voltageOn, spikeAlarm, etc).
-//TODO - add missing cell communication methods.
 //TODO - buzzer and signal tower logic.
 
 /* 
@@ -2972,8 +2971,7 @@ namespace PLCSIM_Adv_CoSimulation
         {
             if (CoSimulationInstance.AlphaBotSystem.MaintenanceArea != null)
             {
-                //TODO uncomment once the tags are added
-                //Update_Label_ContactorPlcOut_MaintArea();
+                Update_Label_ContactorPlcOut_MaintArea();
                 Update_Label_BotHPtoCell();
                 Update_Label_MaintenanceStatus();
             }
