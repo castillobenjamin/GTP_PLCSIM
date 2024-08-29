@@ -404,32 +404,30 @@
 			<Value>false</Value>
 		</StatusLamp>
 		<!--The maintenance stopper is defined in the Stoppers section.-->
-		<Contactor>
-			<Contactor Name="Maintenance Area Contactor">
-				<ContactorOutput Type="output">
-					<Tag>TROLLEY-MC_ON_MAINT</Tag>
+		<Contactor Name="Maintenance Area Contactor">
+			<ContactorOutput Type="output">
+				<Tag>TROLLEY-MC_ON_MAINT</Tag>
+				<Address />
+				<Value>false</Value>
+			</ContactorOutput>
+			<ContactorFeedback Type="input">
+				<Tag>TROLLEY-MC_ON_FB_MAINT</Tag>
+				<Address />
+				<Value>true</Value>
+			</ContactorFeedback>
+			<ContactorOnOffCommand>
+				<Tag>NoTag</Tag>
+				<Address>0</Address>
+				<BitPosition>0</BitPosition>
+				<Value>0</Value>
+			</ContactorOnOffCommand>
+			<TrippedInputs>
+				<Tripped Name="trolley1" Type="inputB">
+					<Tag>ELB_TRIP_MAINT_TROLLEY</Tag>
 					<Address />
 					<Value>false</Value>
-				</ContactorOutput>
-				<ContactorFeedback Type="input">
-					<Tag>TROLLEY-MC_ON_FB_MAINT</Tag>
-					<Address />
-					<Value>true</Value>
-				</ContactorFeedback>
-				<ContactorOnOffCommand>
-					<Tag>NoTag</Tag>
-					<Address>0</Address>
-					<BitPosition>0</BitPosition>
-					<Value>0</Value>
-				</ContactorOnOffCommand>
-				<TrippedInputs>
-					<Tripped Name="trolley1" Type="inputB">
-						<Tag>ELB_TRIP_MAINT_TROLLEY</Tag>
-						<Address />
-						<Value>false</Value>
-					</Tripped>
-				</TrippedInputs>
-			</Contactor>
+				</Tripped>
+			</TrippedInputs>
 		</Contactor>
 	</MaintenanceArea>
 	<Aisles>
