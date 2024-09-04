@@ -3232,9 +3232,9 @@
             this.Label_SystemRedLight.Location = new System.Drawing.Point(108, 482);
             this.Label_SystemRedLight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_SystemRedLight.Name = "Label_SystemRedLight";
-            this.Label_SystemRedLight.Size = new System.Drawing.Size(23, 12);
+            this.Label_SystemRedLight.Size = new System.Drawing.Size(17, 12);
             this.Label_SystemRedLight.TabIndex = 39;
-            this.Label_SystemRedLight.Text = "---";
+            this.Label_SystemRedLight.Text = "赤";
             // 
             // Label_SystemYellowLight
             // 
@@ -3242,9 +3242,9 @@
             this.Label_SystemYellowLight.Location = new System.Drawing.Point(108, 501);
             this.Label_SystemYellowLight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_SystemYellowLight.Name = "Label_SystemYellowLight";
-            this.Label_SystemYellowLight.Size = new System.Drawing.Size(23, 12);
+            this.Label_SystemYellowLight.Size = new System.Drawing.Size(17, 12);
             this.Label_SystemYellowLight.TabIndex = 41;
-            this.Label_SystemYellowLight.Text = "---";
+            this.Label_SystemYellowLight.Text = "黄";
             // 
             // Label_SystemGreenLight
             // 
@@ -3252,9 +3252,9 @@
             this.Label_SystemGreenLight.Location = new System.Drawing.Point(108, 520);
             this.Label_SystemGreenLight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Label_SystemGreenLight.Name = "Label_SystemGreenLight";
-            this.Label_SystemGreenLight.Size = new System.Drawing.Size(23, 12);
+            this.Label_SystemGreenLight.Size = new System.Drawing.Size(17, 12);
             this.Label_SystemGreenLight.TabIndex = 42;
-            this.Label_SystemGreenLight.Text = "---";
+            this.Label_SystemGreenLight.Text = "緑";
             // 
             // CoSimInterface
             // 
