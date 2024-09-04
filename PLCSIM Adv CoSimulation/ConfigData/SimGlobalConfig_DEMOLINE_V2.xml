@@ -384,7 +384,7 @@
 			<Tag></Tag>
 			<Address>291</Address>
 			<BitPosition>0</BitPosition>
-			<Value>1</Value>
+			<Value>0</Value>
 		</DisableStopper>
 		<KeySwitch>
 			<AisleMode Type="input">
