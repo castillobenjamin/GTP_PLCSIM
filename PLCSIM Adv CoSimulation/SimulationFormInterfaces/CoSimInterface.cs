@@ -2439,6 +2439,7 @@ namespace PLCSIM_Adv_CoSimulation
         #region Led Towers
         private void Update_ColorLabel_LedTower(Models.Configuration.Panel panel)
         {
+            // Red light
             if (panel.SignalTower.RedLed.Value)
             {
                 Label_LedTowerRed_DwsPanel.Font = activeLabelFont;
@@ -2449,6 +2450,7 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerRed_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerRed_DwsPanel.ForeColor = inactiveLabelColor;
             }
+            // Yellow light
             if (panel.SignalTower.YellowLed.Value)
             {
                 Label_LedTowerYellow_DwsPanel.Font = activeLabelFont;
@@ -2459,6 +2461,7 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerYellow_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerYellow_DwsPanel.ForeColor = inactiveLabelColor;
             }
+            // Green light
             if (panel.SignalTower.GreenLed.Value)
             {
                 Label_LedTowerGreen_DwsPanel.Font = activeLabelFont;
@@ -2469,20 +2472,27 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_LedTowerGreen_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerGreen_DwsPanel.ForeColor = inactiveLabelColor;
             }
+            // White light
             if (panel.SignalTower.WhiteLed.Value)
             {
                 Label_LedTowerWhite_DwsPanel.Font = activeLabelFont;
-                Label_LedTowerWhite_DwsPanel.ForeColor = Color.Black;
-            }
-            if (panel.SignalTower.Buzzer.Value)
-            {
-                Label_Buzzer_DwsPanel.Font = activeLabelFont;
                 Label_LedTowerWhite_DwsPanel.ForeColor = Color.Black;
             }
             else
             {
                 Label_LedTowerWhite_DwsPanel.Font = inactiveLabelFont;
                 Label_LedTowerWhite_DwsPanel.ForeColor = inactiveLabelColor;
+            }
+            // Buzzer
+            if (panel.SignalTower.Buzzer.Value)
+            {
+                Label_Buzzer_DwsPanel.Font = activeLabelFont;
+                Label_Buzzer_DwsPanel.ForeColor = Color.Black;
+            }
+            else
+            {
+                Label_Buzzer_DwsPanel.Font = inactiveLabelFont;
+                Label_Buzzer_DwsPanel.ForeColor = inactiveLabelColor;
             }
         }
 
@@ -2504,6 +2514,10 @@ namespace PLCSIM_Adv_CoSimulation
             if (panel.SignalTower.WhiteLed.Value)
             {
                 ledString += "Wh";
+            }
+            if (panel.SignalTower.Buzzer.Value)
+            {
+                ledString += "Bzz";
             }
 
             // Update label
