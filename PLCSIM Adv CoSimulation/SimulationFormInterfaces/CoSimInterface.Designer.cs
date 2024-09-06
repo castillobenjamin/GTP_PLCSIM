@@ -909,6 +909,7 @@
             this.CheckBox_ContactorTripped_AisleSouth.Text = "Tripped";
             this.CheckBox_ContactorTripped_AisleSouth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_AisleSouth.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorTripped_AisleSouth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorTripped_AisleSouth_CheckedChanged);
             // 
             // CheckBox_ContactorFdbk_AisleSouth
             // 
@@ -1023,6 +1024,7 @@
             this.CheckBox_ContactorTripped_AisleNorth.Text = "Tripped";
             this.CheckBox_ContactorTripped_AisleNorth.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_AisleNorth.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorTripped_AisleNorth.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorTripped_AisleNorth_CheckedChanged);
             // 
             // Label_ContactorFdbk_AisleNorth
             // 
@@ -2482,6 +2484,7 @@
             this.CheckBox_ContactorTripped_TDWStower.Text = "Tripped";
             this.CheckBox_ContactorTripped_TDWStower.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_TDWStower.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorTripped_TDWStower.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorTripped_TDWStower_CheckedChanged);
             // 
             // CheckBox_ContactorFdbk_TDWStower
             // 
@@ -2580,6 +2583,7 @@
             this.CheckBox_ContactorTripped_TDWSpick.Text = "Tripped";
             this.CheckBox_ContactorTripped_TDWSpick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_TDWSpick.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorTripped_TDWSpick.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorTripped_TDWSpick_CheckedChanged);
             // 
             // CheckBox_ContactorFdbk_TDWSpick
             // 
@@ -2864,6 +2868,7 @@
             this.CheckBox_ContactorTripped_SmallAisle.Text = "Tripped";
             this.CheckBox_ContactorTripped_SmallAisle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CheckBox_ContactorTripped_SmallAisle.UseVisualStyleBackColor = true;
+            this.CheckBox_ContactorTripped_SmallAisle.CheckedChanged += new System.EventHandler(this.CheckBox_ContactorTripped_SmallAisle_CheckedChanged);
             // 
             // Label_ContactorFdbk_SmallAisle
             // 

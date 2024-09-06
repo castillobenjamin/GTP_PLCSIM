@@ -695,6 +695,68 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorFdbk_AisleSouth.Font = inactiveLabelFont;
             }
         }
+
+        private void CheckBox_ContactorTripped_AisleNorth_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+                {
+                    // North contactor is index 0
+                    aisle.Contactors[0].TrippedInputs.ForEach(input =>
+                    {
+                        input.Value = CheckBox_ContactorTripped_AisleNorth.Checked;
+                    });
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_AisleNorth.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add("All North contactors " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                // North contactor is index 0
+                currentAisle.Contactors[0].TrippedInputs.ForEach(input =>
+                {
+                    input.Value = CheckBox_ContactorTripped_AisleNorth.Checked;
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_AisleNorth.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add(currentAisle.Label + " North contactor " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+
+        private void CheckBox_ContactorTripped_AisleSouth_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.Aisles.ForEach(aisle =>
+                {
+                    // South contactor is index 1
+                    aisle.Contactors[1].TrippedInputs.ForEach(input =>
+                    {
+                        input.Value = CheckBox_ContactorTripped_AisleSouth.Checked;
+                    });
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_AisleSouth.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add("All South contactors " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                // South contactor is index 1
+                currentAisle.Contactors[1].TrippedInputs.ForEach(input =>
+                {
+                    input.Value = CheckBox_ContactorTripped_AisleSouth.Checked;
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_AisleSouth.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add(currentAisle.Label + " South contactor " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
         #endregion // Contactors
 
         #endregion // Input
@@ -1625,6 +1687,68 @@ namespace PLCSIM_Adv_CoSimulation
                 Label_ContactorFdbk_TDWStower.Font = inactiveLabelFont;
             }
         }
+
+        private void CheckBox_ContactorTripped_TDWSpick_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllTDWSs.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                {
+                    // Pick side contactor is index 0
+                    tdws.Contactors[0].TrippedInputs.ForEach(input =>
+                    {
+                        input.Value = CheckBox_ContactorTripped_TDWSpick.Checked;
+                    });
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_TDWSpick.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add("All TDWS pick side contactors " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                // Pick side contactor is index 0
+                currentTowerDws.Contactors[0].TrippedInputs.ForEach(input =>
+                {
+                    input.Value = CheckBox_ContactorTripped_TDWSpick.Checked;
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_TDWSpick.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add(currentTowerDws.Label + " pick side contactor " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
+
+        private void CheckBox_ContactorTripped_TDWStower_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllTDWSs.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.TowerDynamicWorkStations.ForEach(tdws =>
+                {
+                    // Tower side contactor is index 1
+                    tdws.Contactors[1].TrippedInputs.ForEach(input =>
+                    {
+                        input.Value = CheckBox_ContactorTripped_TDWStower.Checked;
+                    });
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_TDWStower.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add("All TDWS tower side contactors " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                // Tower side contactor is index 1
+                currentTowerDws.Contactors[1].TrippedInputs.ForEach(input =>
+                {
+                    input.Value = CheckBox_ContactorTripped_TDWStower.Checked;
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_TDWStower.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add(currentTowerDws.Label + " tower side contactor " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+        }
         #endregion // Contactors
 
         #endregion // Input
@@ -2088,6 +2212,37 @@ namespace PLCSIM_Adv_CoSimulation
             {
                 Label_ContactorFdbk_SmallAisle.ForeColor = inactiveLabelColor;
                 Label_ContactorFdbk_SmallAisle.Font = inactiveLabelFont;
+            }
+        }
+
+        private void CheckBox_ContactorTripped_SmallAisle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBox_AllSmallAisles.Checked)
+            {
+                CoSimulationInstance.AlphaBotSystem.SmallAisles.ForEach(smallAisle =>
+                {
+                    // Small aisle has only one contactor
+                    smallAisle.Contactors[0].TrippedInputs.ForEach(input =>
+                    {
+                        input.Value = CheckBox_ContactorTripped_SmallAisle.Checked;
+                    });
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_SmallAisle.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add("All small aisle contactors " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
+            }
+            else
+            {
+                // Small aisle has only one contactor
+                currentSmallAisle.Contactors[0].TrippedInputs.ForEach(input =>
+                {
+                    input.Value = CheckBox_ContactorTripped_SmallAisle.Checked;
+                });
+                // Log action
+                string isOn = CheckBox_ContactorTripped_SmallAisle.Checked ? "tripped." : "ok.";
+                ListBox_Log.Items.Add(currentSmallAisle.Label + " small aisle contactor " + isOn);
+                ListBox_Log.SetSelected(ListBox_Log.Items.Count - 1, true);
             }
         }
         #endregion // Contactors
